@@ -1,9 +1,6 @@
-[[C# -*- coding: utf-8 -*-
-
-"""
+[C[[C[D"""
 Created on Thu Sep 12 15:18:57 2013
-Net ID yz1897
-@author: yilong
+@author: yz1897
 """
 
 # input function
@@ -11,7 +8,6 @@ def inputdata():
     inputline=raw_input()
     i,j=inputline.split(' ')
     return int(i),int(j)
-
 
 # basic solution:
 def Solution1(n):
@@ -27,12 +23,10 @@ def Solution1(n):
                 n=n*3+1
 
 # controling for basic solution
-print "Testing the basic solution\nPlease input:"
 while True:    
     try:         
         i,j=inputdata()
     except:
-        print 'Error, input again'
-        break
+        continue
     result_list=[Solution1(n) for n in range(min(i,j),max(i,j)+1)]
     print i,j,max(result_list)
