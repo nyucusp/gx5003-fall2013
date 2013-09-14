@@ -27,7 +27,7 @@ maxValue = maxValue - 1 #set maxValue to n-1
 
 #Test each interval for absolute value greater than n-1
 for i in range(len(sys.argv)):
-  if (fabs(int(sys.argv[i]) - int(sys.argv[i+1]) > maxValue):
+  if (fabs(int(sys.argv[i]) - int(sys.argv[i+1]) > maxValue)):
     jollyFlag = False
 
 #Test output from loop
