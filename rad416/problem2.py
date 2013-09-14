@@ -1,32 +1,19 @@
+#A script to test a sequence of integers for being "Jolly Jumpers"
+#Integers are passed in as commandline arguments when the script is invoked
+
 import sys
 import math
 
-# A sequence of n > 0 integers is called a jolly jumper if the absolute values of the differences between successive elements take on all possible values 1 through n - 1. For instance,
-
-# 1 4 2 3
-
-# is a jolly jumper, because the absolute differences are 3, 2, and 1, respectively. The definition implies that any sequence of a single integer is a jolly jumper. Write a program to determine whether each of a number of sequences is a jolly jumper.
-
-# Input
-
-# Each line of input contains an integer n < 3,000 followed by n integers representing the sequence.
-
-# Output
-
-# For each line of input generate a line of output saying ``Jolly'' or ``Not jolly''.
-
-
-
 jollyFlag = True
 
-argv = sys.argv
-del argv[0]
+argv = sys.argv #new list from sys.argv
+del argv[0] #delete script name from head of argv list
 argv = map(int,argv) #convert strings to int
 maxValue = max(argv) - 1 #hold n-1 for test in loop
 
 #Test each interval for absolute value greater than n-1
-for i in range(len(argv) - 1):
-  if (math.fabs(argv[i] - argv[i+1]) > maxValue):
+for i in range(len(argv) - 1): #loop through to n-1 element to test interval n-1 and n
+  if (math.fabs(argv[i] - argv[i+1]) > maxValue): #true if absolute value greater than n-1
     jollyFlag = False
 
 #Test output from loop
