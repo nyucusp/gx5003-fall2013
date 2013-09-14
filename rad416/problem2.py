@@ -9,30 +9,29 @@ import math
 
 # Input
 
-# Each line of input contains an integer n < 3, 000 followed by n integers representing the sequence.
+# Each line of input contains an integer n < 3,000 followed by n integers representing the sequence.
 
 # Output
 
 # For each line of input generate a line of output saying ``Jolly'' or ``Not jolly''.
 
-#generate 1 through n - 1
 
-maxValue = 1
+maxValue = 1 #declare variable to hold maximum value in n integer string
+jollyFlag = True
 
-for i in range(1,len(sys.argv)):
+for i in range(1,len(sys.argv)): #loop through argument array from index 1 to the end
   if (sys.argv[i] > maxValue):
     maxValue = sys.argv[i]
 
+maxValue = maxValue - 1 #set maxValue to n-1 
 
-print maxValue
+#Test each interval for absolute value greater than n-1
+for i in range(len(sys.argv)):
+  if (fabs(int(sys.argv[i]) - int(sys.argv[i+1]) > maxValue):
+    jollyFlag = False
 
-# #Take in integer string
-# for i in range(len(sys.argv)):
-#   if (fabs(int(sys.argv[i]) - int(sys.argv[i+1]) > )
-
-# #calc and test successive absolute differences
-
-
-# print "Jolly"
-
-# print "Not jolly"
+#Test output from loop
+if (jollyFlag == True):
+  print "Jolly"
+else:
+  print "Not jolly"
