@@ -21,7 +21,7 @@ jollyFlag = True
 
 for i in range(1,len(sys.argv)): #loop through argument array from index 1 to the end
   if (sys.argv[i] > maxValue):
-    maxValue = sys.argv[i]
+    maxValue = int(sys.argv[i])
 
 maxValue = maxValue - 1 #set maxValue to n-1 
 
