@@ -11,12 +11,12 @@ def main(argv):
 
     while tracker > begin:
         #if tracker is even, divide by 2
-        if tracker%2 == 0:
-            tracker = tracker/2
-            counter+=1
-        elif tracker%2 == 1:
-            tracker = 3*tracker + 1
-            counter+=1
+        if tracker % 2 == 0:
+            tracker = tracker / 2
+            counter += 1
+        elif tracker % 2 == 1:
+            tracker = 3 * tracker + 1
+            counter += 1
             
     print str(begin) + " " + str(end) + " " + str(counter)
 
