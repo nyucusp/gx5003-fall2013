@@ -34,7 +34,13 @@ def Neighbors(n,m,i):
     return nb
     
     
-def Note_Mine(n,m,mmap):
+def Note_Mine(argv):
+    lines=argv.split("\\n")
+    n=int(lines[0].split(' ')[0])
+    m=int(lines[0].split(' ')[1])
+    mmap=''
+    for i in range(n):
+        mmap+=lines[i+1]
     total=n*m
     
     safe=0#to deside which strategy to use
@@ -67,6 +73,8 @@ def Note_Mine(n,m,mmap):
         print line
         
 if __name__ == "__main__":
-    Note_Mine(int(sys.argv[1]),int(sys.argv[2]),sys.argv[3])
-    #Note_Mine(3,4,"*..*.....*..")
+    Note_Mine(sys.argv[1])
+    #Note_Mine("3 4\\n*..*\\n....\\n.*..")
+    #Note_Mine("5 6\\n*.*..*\\n**.*..\\n.*.**.\\n.****.\\n.****.")
+
     
