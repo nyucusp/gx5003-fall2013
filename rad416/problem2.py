@@ -16,18 +16,17 @@ import math
 # For each line of input generate a line of output saying ``Jolly'' or ``Not jolly''.
 
 
-maxValue = 1 #declare variable to hold maximum value in n integer string
+
 jollyFlag = True
 
-for i in range(1,len(sys.argv)): #loop through argument array from index 1 to the end
-  if (sys.argv[i] > maxValue):
-    maxValue = int(sys.argv[i])
-
-maxValue = maxValue - 1 #set maxValue to n-1 
+argv = sys.argv
+del argv[0]
+argv = map(int,argv) #convert strings to int
+maxValue = max(argv) - 1 #hold n-1 for test in loop
 
 #Test each interval for absolute value greater than n-1
-for i in range(len(sys.argv)):
-  if (math.fabs(int(sys.argv[i]) - int(sys.argv[i+1])) > maxValue):
+for i in range(len(argv) - 1):
+  if (math.fabs(argv[i] - argv[i+1]) > maxValue):
     jollyFlag = False
 
 #Test output from loop
