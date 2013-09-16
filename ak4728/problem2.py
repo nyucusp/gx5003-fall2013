@@ -1,5 +1,6 @@
 n = int(input("Number of integers?"))
-x = [int(input("Numbers?"))]
+x = raw_input("Numbers seperated by space?")
+inp = map(int, x.split())
 for i in range(1,n):
         out.append(math.fabs(inp[i]-inp[i-1]))
 out.sort()
