@@ -1,7 +1,7 @@
 #Alex Chohlas-Wood (acw438). Assignment 1, Problem 1.
 
 import sys
-inputRange = map(int,sys.argv[1:3])
+inputRange = map(int,sys.argv[1:])
 
 longest = 0
 
