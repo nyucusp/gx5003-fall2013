@@ -42,7 +42,7 @@ while k < (rows+2)*(cols+2):
 
 """
 Now we make a count function which takes an input (i,j) and returns the number of
-adjacent mines, or true/false if the entry at position (i,j) is a mine.
+adjacent mines, or a "*" if the entry at position (i,j) is a mine.
 """
 
 def count(i,j):            
