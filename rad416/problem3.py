@@ -1,11 +1,5 @@
 import sys
 
-#generate field
-fieldRows = 3
-fieldCols = 3
-
-field = [[".",".","*"],["*",".","."],["*",".","."]]
-
 def displayfield(field):
   for i in range(len(field[0])):
     for j in range(len(field)):
@@ -39,6 +33,14 @@ def fieldSumCombine(field,mineCount):
       if (field[i][j] == "."):
         field[i][j] = mineCount[i][j]
   return field
+
+lines = sys.argv[1]
+lines_split = lines.split('\\n')
+
+field = []
+
+for i in range(1,len(lines_split)):
+  field.append(list(lines_split[i]))
 
 displayfield(field)
 
