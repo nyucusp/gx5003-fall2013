@@ -21,6 +21,7 @@ while int(raw[index][0])!=0: #runs down "fields" until hits the last 0
         for y in range(numCols):
             output[fieldIndx][x].append(0)
 
+
     #Mining for mines:
     for x in range(numRows):
         for y in range(numCols):
