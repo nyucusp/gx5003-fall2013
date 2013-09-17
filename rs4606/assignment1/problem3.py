@@ -80,11 +80,16 @@ def Print_Field(input_field, field_count):
 
 """
 Now we write the code to actually print all the fields by repeatedly using the
-Print_Field function defined above
+Print_Field function defined above.  If we run into a field which begins with 0 0, we
+don't print it, and we don't print any following field either.
 """
 count = 1
-for i in range(0,len(lines)):
-    if (lines[i])[0] != "*" and (lines[i])[0] != "." and (lines[i])[0] != "0":
-        row_num = int((lines[i])[0])
-        Print_Field(lines[i: i+row_num+1], count)
-        count += 1
+checker = 0
+for i in range(0,len(lines)):        
+        if (lines[i])[0] != "*" and (lines[i])[0] != "." and (lines[i])[0] != "0" and checker != 1:
+            row_num = int((lines[i])[0])
+            Print_Field(lines[i: i+row_num+1], count)
+            count += 1
+        if (lines[i])[0] == "0":
+            checker = 1
+
