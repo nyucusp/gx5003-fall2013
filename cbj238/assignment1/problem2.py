@@ -10,19 +10,25 @@ Solution for problem defined at: http://www.programming-challenges.com/pg.php?pa
 
 import sys
 
+class InputError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
 def parse_input(strIn):
     # Should be a list of integers.
-    if len(strIn) > 0:
-        return [int(x) for x in strIn]
+    if len(strIn) > 1:
+        n = int(strIn[0])
+        if n >= 3000 or n < 1:
+            raise InputError("Bad n")
+
+        if len(strIn[1:]) != n:
+            raise InputError("n not equal to number of input")
+
+        return n, [ int(x) for x in strIn[1:] ]
     else:
-        raise ValueError()
+        raise InputError("Not enough input.")
 
-def inputIsValid(inList):
-    # a is a temp; make sure all items in list are < 3000
-    a = [ x < 3000 for x in inList ]
-    return ( a.count(True) == len(a) )
-
-def isSequenceJollyJumper(seq):
+def isSequenceJollyJumper(n, seq):
     """
     For sequence of n > 0 integers,
     if the abs of the differences between successive elements take on all possible values
@@ -33,25 +39,25 @@ def isSequenceJollyJumper(seq):
     if len(seq) == 1:
         bRet = True
     elif len(seq) > 1:
-        diffs = [ abs(seq[n]-seq[n-1]) for n in range(1, len(seq)) ]
+        diffs = [ abs(seq[m]-seq[m-1]) for m in range(1, n) ]
         bRet = sorted(diffs) == range(1, len(seq))
 
     return bRet
     
 def main(args):
         try:
-            sequence = parse_input(args)
+            n, sequence = parse_input(args)
+            #print n, sequence
 
-            # If the input is in a valid range...
-            if inputIsValid(sequence):
-                result = isSequenceJollyJumper(sequence)
-                if result:
-                    print "Jolly"
-                else:
-                    print "Not jolly"
+            result = isSequenceJollyJumper(n, sequence)
+            
+            if result:
+                print "Jolly"
             else:
-                raise ValueError()
-        except ValueError:
+                print "Not jolly"
+        except InputError as e:
+            print "Input Error: {0}".format(e.msg)
+        except ValueError as e:
             print "Invalid input! Try again..."
 
 if __name__ == "__main__":
