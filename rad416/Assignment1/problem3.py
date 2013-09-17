@@ -31,9 +31,9 @@ def calcMineSum(field, row, col):
   mineSum = 0
   rowMax = len(field)
   colMax = len(field[0])
-  for i in range(row-1,row+2):
-    for j in range(col-1, col+2):
-      if (i < 0 or j < 0 or i >= rowMax or j >= colMax or (i == row and j == col)):
+  for i in range(max(0,row-1),min(rowMax,row+2)):
+    for j in range(max(0,col-1), min(colMax,col+2)):
+      if (i == row and j == col):
         continue
       elif (field[i][j] == "*"):
         mineSum += 1
