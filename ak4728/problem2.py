@@ -1,3 +1,4 @@
+import math
 n = int(input("Number of integers?"))
 x = raw_input("Numbers seperated by space?")
 inp = map(int, x.split())
