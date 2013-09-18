@@ -1,14 +1,14 @@
 #Alex Chohlas-Wood (acw438). Assignment 1, Problem 2.
 
 import sys
-intList = map(int, sys.argv[1:])
-diffLen = len(intList)-1
+intList = map(int, sys.argv[1:]) #store intList as sequence of integers
+diffLen = len(intList)-1 #number of "divisions" between integers
 
-checkList = list()
+checkList = list() #list of successes for each jolly #
 for x in range(diffLen):
     checkList.append(0)
 
-if checkList == []:
+if checkList == []:#to handle exception of single integer sequence
     print "Jolly"
 else:
     for x in range(diffLen):
@@ -19,4 +19,4 @@ else:
             checkList[indexCk] = 1
         else:
             print "Not jolly"
-            break
+            break #as soon as repeat is found, print "not jolly" and quit
