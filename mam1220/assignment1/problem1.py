@@ -3,6 +3,12 @@
 # Assignment 1 - Problem 1
 # September 18th, 2013
 
+####################################
+#
+# sample input:
+#	python problem1.py 300 27
+#
+###################################
 
 import sys 	# lib to get terminal input
 

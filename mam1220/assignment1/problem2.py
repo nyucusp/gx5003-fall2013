@@ -3,6 +3,12 @@
 # Assignment 1 - Problem 2
 # September 18th, 2013
 
+####################################
+#
+# sample input:
+#	python problem2.py 6 1 -3 -6 -4 -3
+#
+###################################
 
 import sys 	# lib to get terminal input
 # print len(sys.argv) # test print
