@@ -1,0 +1,22 @@
+#!/usr/bin/python
+import sys
+
+tempList = []
+
+listArg1 = []
+listArg2 = []
+
+cycleLenArg1 = 0
+cycleLenArg2 = 0
+
+def prob1(n):
+    tempList.append(n)
+    if n==1:
+        return 1
+    elif n%2==0:
+        return prob1(n/2)
+    else:
+        return prob1((3*n)+1)
+
+Arg1 = int(sys.argv[1])
+Arg2 = int(sys.argv[2])
