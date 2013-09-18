@@ -2,8 +2,11 @@ import sys
 
 input = (sys.argv)
 input.pop(0)
-first_parameter = int(input[0].split()[0])
-second_parameter = int(input[0].split()[1])
+
+
+first_parameter = int(input[0])
+second_parameter = int(input[1])
+
 
 """
 The following function takes an integer and gives the length of its cycle, as defined
@@ -30,9 +33,7 @@ as a string.
 
 """
 
-
-for i in range(min(first_parameter, second_parameter), max(first_parameter, second_parameter+1)):
+for i in range(min(first_parameter, second_parameter), max(first_parameter, second_parameter)+1):
     list_of_lengths.append(cycle_length(i))
 
 print str(first_parameter) + " " + str(second_parameter) + " " + str(max(list_of_lengths))
-
