@@ -1,3 +1,16 @@
+"""
+Note that this program accepts input on the command line *with* quotation marks.
+For example, one might type
+$ python problem3.py "2 2\n*.\n..0 0\n3 5\n**.**\n.....\n**..."
+to receive an output of
+Field 1:
+*1
+11
+
+Note that upon seeing a '0 0' in the input, the program stops and doesn't print
+any subsequent fields
+"""
+
 import sys
 
 lines_temp = sys.argv[1]
