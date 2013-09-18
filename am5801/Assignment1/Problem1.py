@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This temporary script file is located here:
-C:\emacs\.spyder2\.temp.py
-"""
-
 # Problem 1
 
 import sys
