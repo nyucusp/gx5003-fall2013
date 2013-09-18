@@ -22,6 +22,8 @@ def main(argv):
 	field = mineDisplay(mineDict, trackerDict)
 	print field
 
+	mineOutput(mineDict)
+
 
 #iterate through each cell and return mineCount
 def createTrackerDict(mineDict):
@@ -55,8 +57,8 @@ def createDict(inputList):
 	return dictionary
 
 def mineCount(mineDict, row, col):
-    rowLength = len(mineDict)
-    columnLength = len(mineDict)
+    rowLength = M
+    columnLength = N
     mineCount = 0
     for i in range(max(1,row-1),min(rowLength,row+2)):
         for j in range(max(0,col-1), min(columnLength,col+2)):
@@ -64,14 +66,25 @@ def mineCount(mineDict, row, col):
                 continue
             elif (mineDict[i,j] == "*"):
                 mineCount += 1
-                return mineCount
+    
+    return mineCount
 
 
 def mineDisplay(mineDict, trackerDict): 
 	for k,v in mineDict.items():
 		if mineDict[k[0],k[1]] != "*":
 			mineDict[k[0],k[1]] = trackerDict[k[0],k[1]]
-	return mineDict
+
+def mineOutput(mineDict):
+	print "Field:", "\n"
+	i = 1
+	while i < (M+1):
+	    j = 0
+	    while j < N:
+	        print mineDict[i,j],
+	        j = j + 1
+	    print "\n"
+	    i = i + 1
 
 
 
