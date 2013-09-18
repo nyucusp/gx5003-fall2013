@@ -1,0 +1,13 @@
+Ender Faruk Morgul
+CTRL+D to save the file
+git add efm279/efm279.txt
+git commit -m ""[DMy File
+git push
+
+
+
+
+
+
+cat>efm279/efm279.txt
+Ender F Morgul
