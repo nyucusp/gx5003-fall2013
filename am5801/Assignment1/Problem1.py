@@ -19,7 +19,6 @@ def collatz(n):
             n += 1
     if n == 1:
         array.append(1)
-        # print array
         return len(array)
     elif n < 1:
         print "Please type a positive integer!"
