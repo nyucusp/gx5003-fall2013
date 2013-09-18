@@ -1,3 +1,5 @@
+# Awais Malik
+# Assignment 1
 # Problem 1
 
 import sys
@@ -5,7 +7,7 @@ import sys
 first = int(sys.argv[1])
 last = int(sys.argv[2])
 
-# Function for 3n+1
+# Function for creating 3n+1 chain and return length of chain
 def collatz(n):
     array = []
     while n > 1:
@@ -24,7 +26,7 @@ def collatz(n):
     else:
         print "Invalid input."        
 
-# Function to create chain of numbers till n = 1
+# Function to measure max length of chain in given range
 def user_collatz(a, b):
     max_length = collatz(a)
     for i in range(a,b+1):
