@@ -1,3 +1,11 @@
+"""
+Note that this program accepts input on the command line *without* quotation marks.  
+For example, one would type 
+$ python problem1.py 10 20
+and receive an output of
+10 20 21
+"""
+
 import sys
 
 input = (sys.argv)
