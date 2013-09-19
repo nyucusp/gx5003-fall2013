@@ -1,7 +1,25 @@
+"""
+Note that this program accepts input on the command line *without* quotation marks.  
+For example, one would type 
+$ python problem1.py 10 20
+and receive an output of
+10 20 21
+"""
+
 import sys
 
 input = (sys.argv)
 input.pop(0)
+
+
+first_parameter = int(input[0])
+second_parameter = int(input[1])
+
+
+"""
+The following function takes an integer and gives the length of its cycle, as defined
+in the problem statement.  The variable k is a counter for the cycle length.
+"""
 
 def cycle_length(n):
     k = 0
@@ -16,9 +34,14 @@ def cycle_length(n):
           
 list_of_lengths = []
 
-for i in range(min(int(input[0]), int(input[1])), max(int(input[0]), int(input[1]))+1):
+
+"""
+Now we put all the cycle lengths into a list, and print the max of these lengths
+as a string.
+
+"""
+
+for i in range(min(first_parameter, second_parameter), max(first_parameter, second_parameter)+1):
     list_of_lengths.append(cycle_length(i))
 
-print input[0] + " " + input[1] + " " + str(max(list_of_lengths))
-
-
+print str(first_parameter) + " " + str(second_parameter) + " " + str(max(list_of_lengths))

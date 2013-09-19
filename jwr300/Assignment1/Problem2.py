@@ -1,4 +1,9 @@
 #!/usr/local/bin/python
+#Warren Reed
+#Principles of Urban Informatics
+#Assignment 1, Problem 2
+#Determines if a sequence if jolly or not
+
 
 import sys
 
