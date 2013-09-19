@@ -1,7 +1,10 @@
+#Nathan Seltzer
 #problem1.py
+
 import sys
 i = sys.argv[1]
 j = sys.argv[2]
+
 def something(n):
 	for n in range(i,j):
 		print n
