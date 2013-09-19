@@ -35,4 +35,4 @@ print numberOfStudents
 #Now I'm going to select a random student
 import random 
 index = random.randint(0,numberOfStudents-1)
-print 'the lucky person is ' + students[index]
+print 'the lucky person is ' + students[index] 
