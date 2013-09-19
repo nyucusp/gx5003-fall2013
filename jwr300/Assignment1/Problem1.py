@@ -1,4 +1,8 @@
 #!/usr/local/bin/python
+#Warren Reed
+#Principles of Urban Informatics
+#Assignment 1, Problem 1
+#Ror a given starting and end point, this calculates the maximum cycle length of the collatz conjecture
 
 import sys
 
