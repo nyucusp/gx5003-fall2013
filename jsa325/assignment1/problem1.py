@@ -25,4 +25,8 @@ for i in range(rangeMin, rangeMax):     # calculate maximum cycle length
     if (cycleLength > cycleMaxLength):
         cycleMaxLength = cycleLength
 
+<<<<<<< HEAD
 print rangeMin, rangeMax, cycleMaxLength
+=======
+print rangeMin, rangeMax, cycleMaxLength
+>>>>>>> d6f40eeb85f30f87d7da17a58e366c13cf23b728
