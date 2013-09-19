@@ -1,6 +1,9 @@
 # Awais Malik
 # Assignment 1
 # Problem 2
+# First attempt
+# This works for the two examples in the assignment,
+# but there is something wrong that I could not figure out.
 
 import sys
 
@@ -30,7 +33,7 @@ def jolly_test(my_array):
         # Count variable for checking that all numbers from 1 to n-1
         # are present in the diff array
         count = 1
-        # Method to check that no two elements in the diff array are same        
+        # Method to check that no two elements in the diff array are same
         for j in xrange(diff[0], diff[len(diff)-1]):
             for k in xrange(diff[0], diff[len(diff)-1]):
                 if diff[k] != diff[j]:
