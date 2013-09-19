@@ -8,7 +8,7 @@ jollyValue = True
 >>>>>>> d6f40eeb85f30f87d7da17a58e366c13cf23b728
 n = int(sys.argv[1])
 inp = sys.argv[2:]
-intList = map(int, inp)    # map integers to list
+intList = map(int, inp)     # map integers to list
 out = []
 
 

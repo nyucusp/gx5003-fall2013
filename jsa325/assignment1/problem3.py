@@ -41,4 +41,8 @@ for i in range(1, len(tokens)):
     field.append(list(tokens[i]))
 
 listMines = countMines(field)
+<<<<<<< HEAD
 printField(sumMines(field,listMines))
+=======
+printField(sumMines(field,listMines))
+>>>>>>> 984d13d45cfac98fd321137698315413b23d857d
