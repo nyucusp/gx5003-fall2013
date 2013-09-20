@@ -11,10 +11,13 @@ fieldNames = list()
 
 while index<len(raw): #runs through "fields"
     #get number of rows and column for field:
-    numRows = int(raw[index][0]) 
-    numCols = int(raw[index][2])
+    try:
+        numRows = int(raw[index][0]) 
+        numCols = int(raw[index][2])
+    except:
+        pass
 
-    if numRows != 0 or numCols != 0:
+    if numRows > 0 and numCols > 0: #ignore empty fields
         #Setting up blank table of zeros:
         output.append([])
         for x in range(numRows):
@@ -25,21 +28,25 @@ while index<len(raw): #runs through "fields"
         #Mining for mines:
         for x in range(numRows):
             for y in range(numCols):
-                if raw[index+x+1][y] == "*":
-                    output[fieldIndx][x][y] = "*"
-                    #This increments all surrounding fields by 1
-                    for a in range(x-1,x+2):
-                        for b in range(y-1,y+2):
-                            if a >=0 and b>=0: #prevents field wraparound
-                                #prevents error when incrementing another mine
-                                try: 
-                                    output[fieldIndx][a][b] += 1
-                                except:
-                                    pass
+                try:
+                    if raw[index+x+1][y] == "*":
+                        output[fieldIndx][x][y] = "*"
+                        #This increments all surrounding fields by 1
+                        for a in range(x-1,x+2):
+                            for b in range(y-1,y+2):
+                                if a >=0 and b>=0: #prevents field wraparound
+                                    #prevents error when incrementing another mine
+                                    try: 
+                                        output[fieldIndx][a][b] += 1
+                                    except:
+                                        pass
+                except:
+                    output[fieldIndx] = ["Field formatted incorrectly."]
 
         fieldIndx += 1
         fieldNames.append("Field #" + str(fieldIndx) + ":")
     index += numRows+1 #moves index to next field description
+    numRows = numCols = 0 #reset values for next round
 
 for x in range(len(fieldNames)):
     print fieldNames[x]
