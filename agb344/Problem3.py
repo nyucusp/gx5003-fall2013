@@ -51,61 +51,55 @@ def countSurrounding(field, row, col): #given a field and location of a cell, co
     
     surroundingMines = 0
     
-    if (row != 0 and row != last_row and col != 0 and col !=last_col):
+    if (row != 0 and row != last_row and col != 0 and col !=last_col): #non-corner, non-edge cell
         for i in range(row-1, row+2):
             for j in range(col-1, col+2):
                     if field[i][j] == '*':
                         surroundingMines += 1
-    elif row == 0:
-        if col == 0:
-            #print "top right corner"
+    elif row == 0: #top edge
+        if col == 0: #top left corner
             for i in range(row, row+2):
                 for j in range(col, col+2):
                     if field[i][j] == '*':
                         surroundingMines +=1
-        elif col != last_col:
-            #print "top middle"
+        elif col != last_col: #top edge, non-corner
             for i in range(row, row+2):
                 for j in range(col-1, col+2):
                     if field[i][j] == '*':
                         surroundingMines +=1
-        else:
-            #print "top left corner"
+        else: #top right corner
             for i in range(row, row+2):
                 for j in range(col-1, col+1):
                     if field[i][j] == '*':
                         surroundingMines +=1
     
-    elif row == last_row:
-        if col == 0:
-            #print "bottom right corner"
+    elif row == last_row: #bottom edge
+        if col == 0: #bottom left corner
             for i in range(row-1, row+1):
                 for j in range(col, col+2):
                     if field[i][j] == '*':
                         surroundingMines += 1
-        elif col!= last_col:
+        elif col!= last_col: #bottom edge, non-corner
             for i in range(row-1, row+1):
                 for j in range(col-1, col+2):
                     if field[i][j] == '*':
                         surroundingMines += 1
-        else:
+        else: #bottom right corner
             for i in range(row-1, row+1):
                 for j in range(col-1, col+1):
                     if field[i][j] == '*':
                         surroundingMines += 1
-    elif col == 0:
+    elif col == 0: #left edge, non-corner
         for i in range(row-1, row+2):
             for j in range(col, col+2):
                 if field[i][j] == '*':
                     surroundingMines += 1
-    else:
+    else: #right edge, non-corner
         for i in range(row-1, row+2):
             for j in range(col-1, col+1):
                 if field[i][j] == '*':
                     surroundingMines += 1
-    
 
-    #print surroundingMines,
     return surroundingMines
 
 def checkField(field): #checks all cells in 'field' using 'countSurrounding()'
