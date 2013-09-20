@@ -1,4 +1,4 @@
-myFile = open('C:/Users/nivan/Desktop/internshipFiles/shuf_Q13.tsv','r')
+myFile = open('shuf_Q13.tsv','r')
 
 myClerk = 'Clerk#000000738'
 
