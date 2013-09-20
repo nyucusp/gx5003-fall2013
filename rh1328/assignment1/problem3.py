@@ -1,5 +1,6 @@
 import sys
 
+
 def createField(givenField):
 	output = givenField[1].split('\\n')
 #	print output
@@ -28,31 +29,36 @@ def createField(givenField):
 		for b in range (0, len(largeArr[a])):
 			if (largeArr[a][b]=='*'):
 				
-				if (a+1<len(largeArr) and (b-1)>-1):
+				if (a+1<len(largeArr) and (b-1)>-1 and (largeArr[a+1][b-1])!='*'):
 					(largeArr[a+1][b-1])+=1
 
-				if (a+1<len(largeArr)):
+				if (a+1<len(largeArr) and (largeArr[a+1][b])!='*'):
 					(largeArr[a+1][b])+=1
 
-				if ((a+1)<len(largeArr) and (b+1)<len(largeArr)):
+				if ((a+1)<len(largeArr) and (b+1)<len(largeArr) and (largeArr[a+1][b+1])!='*'):
 					(largeArr[a+1][b+1])+=1
 
-				if (b+1<len(largeArr)):
+				if (b+1<len(largeArr) and (largeArr[a][b+1])!='*'):
 					(largeArr[a][b+1])+=1
 
-				if ((b-1)>-1):
+				if ((b-1)>-1 and (largeArr[a][b-1])!='*'):
 					(largeArr[a][b-1])+=1
 				
-				if ((a-1)>-1 and (b+1)<len(largeArr)):
+				if ((a-1)>-1 and (b+1)<len(largeArr) and (largeArr[a-1][b+1])!='*'):
 					(largeArr[a-1][b+1])+=1
 
-				if ((a-1)>-1):
+				if ((a-1)>-1 and (largeArr[a-1][b])!='*'):
 					(largeArr[a-1][b])+=1
 
-				if ((b-1)>-1 and (a-1)>-1):
+				if ((b-1)>-1 and (a-1)>-1 and (largeArr[a-1][b-1])!='*'):
 					(largeArr[a-1][b-1])+=1
 	
-	print largeArr
+	prettyprint(largeArr)
+
+def prettyprint(arr):
+	print "Field:"
+	for item in arr:
+  		print item[0],' '.join(map(str, item[1:]))
 
 def main():
 	givenField = sys.argv
