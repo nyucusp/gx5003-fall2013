@@ -1,0 +1,285 @@
+commit f220498760e845be957e21e889f6be512aa60ed6
+Merge: f9f79ee a2fadd7
+Author: Nivan Ferreira <nivan.ferreira@gmail.com>
+Date:   Fri Sep 20 10:27:36 2013 -0400
+
+    Merge branch 'master' of github.com:nyucusp/gx5003-fall2013
+
+commit f9f79ee4202610a45380fbac589e31b7df8db6f5
+Author: Nivan Ferreira <nivan.ferreira@gmail.com>
+Date:   Fri Sep 20 10:27:31 2013 -0400
+
+    creating lecture3 directory
+
+commit a2fadd736d9705d5d86aeb175de1275319da70d9
+Author: ke638 <elliott.katherine.s@gmail.com>
+Date:   Fri Sep 20 10:21:57 2013 -0400
+
+    Update Problem 1.py
+    
+    made folder added title
+
+commit b3887b52c18a3f0bdbe1a91bdd49322eb35ac2cd
+Author: Katherine Elliot <ellliott.katherine.s@gmail.com>
+Date:   Fri Sep 20 10:20:01 2013 -0400
+
+    updated
+
+commit beaa1ff629e48d9037d127f0f91008952751f966
+Author: Rebecca Hillegass <rebecca.hillegass@gmail.com>
+Date:   Fri Sep 20 01:25:16 2013 -0400
+
+    added proper printing
+
+commit a5fe34d8d41d8ca8d33d15f6a9d2750763158762
+Merge: 2897fbc 9cb1ba7
+Author: Rebecca Hillegass <rebecca.hillegass@gmail.com>
+Date:   Fri Sep 20 01:00:05 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 2897fbce703bc5fdaab70348774ebdda29254877
+Author: Rebecca Hillegass <rebecca.hillegass@gmail.com>
+Date:   Fri Sep 20 00:59:46 2013 -0400
+
+    needs pretty printing and check for star
+
+commit 9cb1ba71bcb6f4cada1ce741af6c9abbfe742f8e
+Author: Amir Beshay <amirbeshay@gmail.com>
+Date:   Thu Sep 19 23:50:59 2013 -0400
+
+    Added some comments to clarify code
+
+commit 313e388926f7a8b1398cefd92759bd12e8332033
+Author: Amir Beshay <amirbeshay@gmail.com>
+Date:   Thu Sep 19 23:47:42 2013 -0400
+
+    Added problem 3
+
+commit 68e3120fbdae93b18a6ed2dacf757a96769211fd
+Author: Jeongki Lim <jl2684@nyu.edu>
+Date:   Thu Sep 19 20:40:45 2013 -0700
+
+    lat committing
+
+commit 4704035a99c8ec01cb23e42acb201359fa43cc92
+Merge: e461d9a 8e88f26
+Author: Jeongki Lim <jl2684@nyu.edu>
+Date:   Thu Sep 19 20:33:11 2013 -0700
+
+    Merge branch 'master' of http://github.com/nyucusp/gx5003-fall2013
+
+commit 8e88f26f56f5b746c61c96492c6b3646d2e4e877
+Author: Gang Zhao <gz475@nyu.edu>
+Date:   Thu Sep 19 23:31:40 2013 -0400
+
+    Message describing my progress
+
+commit e461d9a66fee7edd99acb6eabb19707bc1c05c26
+Author: Jeongki Lim <jl2684@nyu.edu>
+Date:   Thu Sep 19 20:31:25 2013 -0700
+
+    Message decribing my progress.
+
+commit 98e008512500738414a81cb4b24b8497049721fc
+Author: Jeongki Lim <jl2684@nyu.edu>
+Date:   Thu Sep 19 20:30:19 2013 -0700
+
+    Message decribing my progress.
+
+commit 8542b3eace3b799888a704592cd471c1c0c67096
+Author: Winnie Kaaria <wkk229@nyu.edu>
+Date:   Thu Sep 19 23:05:07 2013 -0400
+
+    problem3.py
+
+commit 7351901bc0bdf5a60688c597ea76a0307db622a2
+Author: Winnie Kaaria <wkk229@nyu.edu>
+Date:   Thu Sep 19 22:25:42 2013 -0400
+
+    Assignment 1
+
+commit e5b5955f0974941a4ac9846eb8db5435174e0f26
+Author: Winnie Kaaria <wkk229@nyu.edu>
+Date:   Thu Sep 19 21:45:38 2013 -0400
+
+    lily4
+
+commit bf2de7ba0b0b7a5e081da32abd14d28b8a9459f5
+Author: Fabio Markus Miranda <fmiranda@nyu.edu>
+Date:   Thu Sep 19 20:57:45 2013 -0400
+
+    Problem 1 solved
+
+commit cf21b67371da7517ebd5aacdc107c9a72fcf0205
+Merge: e861c9e 84a3ef6
+Author: Rebecca Hillegass <rebecca.hillegass@gmail.com>
+Date:   Thu Sep 19 19:38:18 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 84a3ef655c4c782f210b9dcf1fb60853ddf6eed4
+Merge: 115293b 984d13d
+Author: JSAdams <jsa325@nyu.edu>
+Date:   Thu Sep 19 19:00:24 2013 -0400
+
+    Add problems 1 - 3
+
+commit 115293b9266de19c99f3a23c85bf29b8fb830c62
+Merge: b66c080 d6f40ee
+Author: JSAdams <jsa325@nyu.edu>
+Date:   Thu Sep 19 18:58:00 2013 -0400
+
+    Add problems 1 - 3
+
+commit 984d13d45cfac98fd321137698315413b23d857d
+Author: thejunglejane <j.stewartadams@gmail.com>
+Date:   Thu Sep 19 18:52:32 2013 -0400
+
+    Start problem3.py
+
+commit 85a6550483ac1c114503ce348d15d184d25c0293
+Author: Fabio Markus Miranda <fmiranda@nyu.edu>
+Date:   Thu Sep 19 18:15:38 2013 -0400
+
+    mac1077.txt
+
+commit cee328b98875cd7eb849fbb67c0b3f86ab67205f
+Merge: d0804da e514d5a
+Author: Kara Leary <kll392@nyu.edu>
+Date:   Thu Sep 19 17:00:09 2013 -0400
+
+    problem 3 updated to accept multiple fields
+
+commit d0804da15e862f4db19d1a8881293bebc1861d4e
+Author: Kara Leary <kll392@nyu.edu>
+Date:   Thu Sep 19 16:59:40 2013 -0400
+
+    updated problem 3 to accept multiple fields
+
+commit e514d5a586f5023baf25d9a1dc9cebe932ea23b4
+Author: thejunglejane <j.stewartadams@gmail.com>
+Date:   Thu Sep 19 16:21:39 2013 -0400
+
+    Complete problem2.py
+
+commit b66c080f59bdcc7ec0c02406f21add42cc104dd7
+Author: JSAdams <jsa325@nyu.edu>
+Date:   Thu Sep 19 16:20:16 2013 -0400
+
+    Completed problem2.py
+
+commit d6f40eeb85f30f87d7da17a58e366c13cf23b728
+Author: thejunglejane <j.stewartadams@gmail.com>
+Date:   Thu Sep 19 16:19:36 2013 -0400
+
+    Completed problem2.py
+
+commit 2280a1dcfbdd68d018d7231fbd5c5ad5dcc8e51f
+Merge: 6eba73e 68eb8ea
+Author: Nivan Ferreira <nivan.ferreira@nyu.edu>
+Date:   Thu Sep 19 15:55:17 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 6eba73ec4fb1978e12db1cfced45324aa07ecafe
+Author: Nivan Ferreira <nivan.ferreira@nyu.edu>
+Date:   Thu Sep 19 15:55:08 2013 -0400
+
+    adding data
+
+commit d3d89097a3d294b11207311c4fbbf02e5b1a31c5
+Author: JSAdams <jsa325@nyu.edu>
+Date:   Thu Sep 19 15:34:24 2013 -0400
+
+    Completed problem1.py
+
+commit 68eb8ea257c9aa7fd23617557d82d4f7d221f379
+Author: thejunglejane <j.stewartadams@gmail.com>
+Date:   Thu Sep 19 15:33:01 2013 -0400
+
+    Complete problem1.py
+
+commit 56605c68444db371588efa50c88c91f95b102403
+Author: Kara Leary <kll392@nyu.edu>
+Date:   Thu Sep 19 14:54:53 2013 -0400
+
+    Problem 3 updated
+
+commit 9e1b731ddab485fb4cb49bdb6f6966edded51791
+Author: JSAdams <jsa325@nyu.edu>
+Date:   Thu Sep 19 13:39:29 2013 -0400
+
+    Adding new file
+
+commit 9c9bc322ff51e7e62bda8c16278e49d70a1a3d8e
+Author: JSAdams <jsa325@nyu.edu>
+Date:   Thu Sep 19 13:38:49 2013 -0400
+
+    Adding new file
+
+commit 54364a024e93414e6f5c9822f8ab3eca75b5a37e
+Author: JSAdams <jsa325>
+Date:   Thu Sep 19 13:30:13 2013 -0400
+
+    Adding new directory + file
+
+commit 6f9f6991c70209a1641023cb099cd57c3cb3f420
+Author: Fabio Markus Miranda <fmiranda@nyu.edu>
+Date:   Thu Sep 19 12:02:09 2013 -0400
+
+    My file
+
+commit 9b70b0dab5bd95dcd5b643e347d587a9e6f0d736
+Merge: 525ebe0 537d4ed
+Author: Kun Xie <k.xie.mail@gmail.com>
+Date:   Thu Sep 19 11:32:52 2013 -0400
+
+    my problem 3
+
+commit 525ebe0fd9378089125a9892d439e59f971cceac
+Merge: 2c3d6c7 84187b8
+Author: Kun Xie <k.xie.mail@gmail.com>
+Date:   Thu Sep 19 11:32:23 2013 -0400
+
+    my problem 3
+
+commit 537d4ed10833dcc3952824a03df7677ad8ed0bd2
+Merge: 4effc3c 84187b8
+Author: Nivan Ferreira <nivan.ferreira@nyu.edu>
+Date:   Thu Sep 19 11:28:57 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 4effc3cf80e0a35b3a6a34164671ca4598844164
+Author: Nivan Ferreira <nivan.ferreira@nyu.edu>
+Date:   Thu Sep 19 11:28:55 2013 -0400
+
+    lecture 2
+
+commit 2c3d6c7309f5c8f1939b93043abb300d6b740671
+Author: Kun Xie <k.xie.mail@gmail.com>
+Date:   Thu Sep 19 10:25:28 2013 -0400
+
+    Update
+
+commit 84187b81f72edca29366878aca63f3153a86aa7d
+Author: michaelmusick <m.a.musick@gmail.com>
+Date:   Thu Sep 19 10:14:58 2013 -0400
+
+    Finished the HW
+
+commit e861c9ec1661ca4f5f35dbce27e257e049475ba2
+Author: Rebecca Hillegass <rebecca.hillegass@gmail.com>
+Date:   Thu Sep 19 10:01:05 2013 -0400
+
+    problem 2 finished
+
+commit 807a54d7b7aadb3f652e5f9fb5606b5099ba585e
+Author: Richard Allen Dunks <richarddunks@gmail.com>
+Date:   Thu Sep 19 09:15:32 2013 -0400
+
+    This is RAD416 alteration
+
+commit 7a17f5164a2328f4ee641467836fb3a24edccf85
+Author: Nivan Ferreira <nivan.ferreira@nyu.edu>
