@@ -1,16 +1,27 @@
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
+from dateutil.parser import parse
 
-# myFile = open('logsofar.txt','r')
-dateTimeOfInterestString = sys.argv[1] + ' -0400'
+# python problem1.py "09/19/2013 09:12:15"
+dateTimeOfInterestString = sys.argv[1] + '-0400'
+dateTimeOfInterest = parse(dateTimeOfInterestString)
+print dateTimeOfInterest
 
-dateTimeOfInterest = datetime.strptime(dateTimeOfInterestString, '%m/%d/%Y %H:%M:%S %z')
+myFile = open('logsofar.txt','r')
+
+for line in myFile:
+  if "Date:" in line: #find a line with a date
+    line_combine = "" #blank line to accept date
+    line_split = line.split(" ") #split the line
+    for i in range(4,9): #iterate through the germane parts of line
+      line_combine += " " + line_split[i] #create line string
+    date_line = parse(line_combine)
+    if (date_line - dateTimeOfInterest >= timedelta(0)):
+      print date_line, "After DOI"
+    else:
+      print date_line, "Before DOI"
 
 
-
-print dateOfInterest
-
-# # python problem1.py "09/19/2013 09:12:15"
 # state = 0
 # commitDateTimes = []
 # for line in myFile:
@@ -23,4 +34,4 @@ print dateOfInterest
 #     if(indexOfDate != -1):#found date from the previous commit
 #       commitDateTimes.append(line)
 #       state = 0
-# myFile.close()
+myFile.close()
