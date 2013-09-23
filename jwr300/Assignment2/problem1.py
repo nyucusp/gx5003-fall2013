@@ -20,8 +20,9 @@ targetDate = targetDate.replace(tzinfo=tz)
 myFile = open('logAfterAssignment1.txt','r')
 
 for line in myFile:
-        #indexOfDate = line.find("Date:")
-        commitDate = dparser.parse(indexOfDate,fuzzy=True)
+        indexOfDate = line.find("Date:")
+        DateString = line[indexOfDate:]
+        commitDate = dparser.parse(DateString,fuzzy=True)
         commitDate = commitDate.replace(tzinfo=tz)
         if commitDate > targetDate:
             commitDateTimes.append(line)
