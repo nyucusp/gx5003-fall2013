@@ -1,7 +1,4 @@
 import sys
-import datetime
-
-
 
 """
 We now open the file and save the lines in a list called "lines"
