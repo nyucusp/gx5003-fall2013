@@ -13,9 +13,6 @@
 from subprocess import call
 from _collections import defaultdict
 
-def calcRatio(incidents, pop):
-  return (incidents/pop)
-
 ########################################
 # Create Borough -> Zip relation       #
 ########################################
@@ -116,3 +113,26 @@ for k in boroughZipDict:
       population += int(zipPopDict[v][0])
   boroughPopDict[k] = population
 
+##################################################
+# Create Borough -> Incidents:Pop ratio relation #
+##################################################
+
+boroughRatioDict = defaultdict(float)
+
+#generate borough incidents per person ratio as dictionary value
+for k in boroughIncidentDict:
+  boroughRatioDict[k] = float(boroughIncidentDict[k])/float(boroughPopDict[k])
+
+##################################################
+# Output Borough -> Incidents:Pop ratio relation #
+##################################################
+
+outFile = open('output_problem3.txt','w')
+
+for k in sorted(boroughRatioDict):
+  outFile.write(k)
+  outFile.write(" ")
+  outFile.write(str(boroughRatioDict[k]))
+  outFile.write('\n')
+
+outFile.close()
