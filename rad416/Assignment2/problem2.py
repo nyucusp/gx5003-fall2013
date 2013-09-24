@@ -11,9 +11,13 @@ for line in zipcodeInFile:
 
 zipcodeInFile.close()
 zipListSorted = sorted(zipList)
-# print zipList
-for i in range(len(zipListSorted)):
-  output = zipListSorted[i][0] + " " + str(zipListSorted[i][1])
-  outFile.write(output)
+print zipList
+print zipListSorted
+for i in range(0,len(zipListSorted)):
+  # output = zipListSorted[i][0] + " " + str(zipListSorted[i][1])
+  outFile.write(zipListSorted[i][0])
+  outFile.write(" ")
+  outFile.write(str(zipListSorted[i][1]))
+  outFile.write('\n')
 
 outFile.close()
