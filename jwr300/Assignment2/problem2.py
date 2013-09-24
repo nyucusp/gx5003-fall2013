@@ -12,9 +12,12 @@ myFile = open('zipCodes.csv','rU')
 File = csv.reader(myFile)
 rows = []
 
+
 #Adding csv to list for easy indexing 
 for row in File:
     rows.append(row)
+
+myFile.close()
     
 header = rows[0] #adding column names to header
 zip_index = header.index('zip code tabulation area')
@@ -43,10 +46,22 @@ for zipcode in zipDict:
 
 
 zipPopDensity = {}
+sumArea = 0.0
+sumPop = 0.0
 for zipcode in zipDict:
     sumAreaList = zipArea[zipcode]
-    float_list = [float(i) for i in sumAreaList]
-    for item in float_list:
-        sumArea = sumArea + item
-    print sumArea
+    #float_list = [float(i) for i in sumAreaList]
+    for item in sumAreaList:
+        sumArea = sumArea + float(item)
+    sumPopList = zipPop[zipcode]
+    float_poplist = [float(i) for i in sumPopList]
+    for item in float_poplist:
+        sumPop = sumPop + item
+    zipPopDensity[zipcode] = (sumPop/sumArea)
 
+outputFile = open('output_problem2.txt','w')
+
+for item in zipPopDensity:
+    outputFile.write(item)
+
+outputFile.close()
