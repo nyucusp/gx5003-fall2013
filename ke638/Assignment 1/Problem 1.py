@@ -1,6 +1,6 @@
 #Katherine Elliott
-#ke638
-#Problem 1
+#Assignment  1 Problem 1
+
 import sys
 print sys.argv
 
