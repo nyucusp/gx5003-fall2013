@@ -1,6 +1,8 @@
 class Borough:
     name = None
     zipcodes = None
+    totalIncidents = 0
+    totalPop = 0
 
     def __init__(self, name):
         self.name = name
@@ -16,3 +18,13 @@ class Borough:
             boroughPop += int(line.population)
             zipCount += 1
         return boroughPop/zipCount
+
+    def addPopInst(self, addlTuple):
+#        print addlTuple
+        if addlTuple[0] != '':
+            self.totalPop += int(addlTuple[0])
+        self.totalIncidents += int(addlTuple[1])
+
+    def calcInstPopAvg(self):
+        floatPop = float(self.totalPop)
+        return floatPop/self.totalIncidents
