@@ -1,12 +1,18 @@
 #!/usr/local/bin/python
+#Warren Reed
+#Principles of Urban Informatics
+#Assignment 1, Problem 2
+#Determines if a sequence if jolly or not
+
 
 import sys
 
 def main(argv):
-    sequence = [int(i) for i in argv] # use list comprehension to convert string list to int
-    for i in range(len(sequence)): # loop through the entire list
-        jolly = abs(sequence[i] - sequence[i-1])
-        if jolly not in sequence:
+    input = [int(i) for i in argv] # use list comprehension to convert str list to int
+    for i in range(len(input)): # loop through the entire list
+        jolly = abs(input[i] - input[i-1])
+        #print jolly #to debug
+        if jolly not in input:
             print "Not Jolly"
             return
         
@@ -14,4 +20,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-   main(sys.argv)
+   main(sys.argv[1:])

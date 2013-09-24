@@ -3,20 +3,27 @@
 Christopher Jacoby
 cbj238@nyu.edu
 GX-5003
+Problem 1
 
 Solution for problem defined at: http://www.programming-challenges.com/pg.php?page=downloadproblem&format=html&probid=110101
 """
 
+import sys
+
+class InputError(Exception):
+    ''' Class for handling exceptions with output '''
+    def __init__(self, msg):
+        self.msg = msg
+
 def parse_input(strIn):
     # This is (ideally...) a list of 2 integers as a string. Make it a list of ints.
-    return [int(x) for x in strIn.split()]
+    intInput = [int(x) for x in strIn]
 
-def inputIsValid(i, j):
-    # ensure the correct range.
-    if (i > 0 and i < 1000000) and (j > 0 and j < 1000000):
-        return True
+    # make sure all the inputs are in range.
+    if ([(x > 0 and x < 1000000) for x in intInput]).count(True) == len(intInput):
+        return intInput
     else:
-        return False
+        raise InputError('Inputs out of range')
 
 def run_algorithm(n):
     """
@@ -41,36 +48,25 @@ def run_algorithm(n):
 
     return cycle_length
 
-def main():
-    while True:
-        #Initialize these for scope...
-        i = 0
-        j = 0
-
-        # This is so we can loop if we recieve a ValueError
-        bValidInput = False
-        while not bValidInput:
-            try:
-                strIn = raw_input("Enter a pair of integers between 0 and 1,000,000 (exclusive):")
-                (i, j) = parse_input(strIn)
-                break
-            except ValueError:
-                print "Invalid input! Try again..."
+def main(args):
+    try:
+        (i, j) = parse_input(args)
 
         # Print the input.
         print i, j,
 
-        # If the input is in a valid range...
-        if inputIsValid(i, j):
-            # Keep track of all of the results.
-            cycleLengths = []
-            for n in xrange(i, j):
-                # run the algorithm for each number between the two entered.
-                cycleLengths.append(run_algorithm(n))
-            # print only the max.
-            print max(cycleLengths)
-        else:
-            print "Bad Input."
+        # Keep track of all of the results.
+        cycleLengths = []
+        for n in xrange(i, j):
+            # run the algorithm for each number between the two entered.
+            cycleLengths.append(run_algorithm(n))
+        # print only the max.
+        print max(cycleLengths)
+
+    except InputError as e:
+        print "Input Error: {0}".format(e.msg)
+    except ValueError:
+        print "Invalid input! Try again..."
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
