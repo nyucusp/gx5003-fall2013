@@ -9,7 +9,7 @@ dateTimeOfInterestString = sys.argv[1] + '-0400' #append EST timezone to datetim
 dateTimeOfInterest = parse(dateTimeOfInterestString) #parse string to datetime obj
 
 #open and read from file
-myFile = open('logsofar.txt','r')
+myFile = open('logAfterAssignment1.txt','r')
 file_list = [] #list to hold file elements
 for line in myFile: #iterator through the file to create list of file elements
   file_list.append(line)
@@ -26,6 +26,11 @@ for i in range(0,len(file_list)):
     date_line = parse(line_combine) #create date time object for comparison
     if (date_line - dateTimeOfInterest >= timedelta(0)): #test for date being equal or greater to date of interest
       if "Merge" in file_list[i-2]: #check that the line to be printed doesn't start with Merge
-        print file_list[i-3], #print line above "Merge"
+        print file_list[i-3],
+        print file_list[i-2],
+        print file_list[i-1],
+        print file_list[i]
       else:
         print file_list[i-2], #pring line of commit
+        print file_list[i-1],
+        print file_list[i]
