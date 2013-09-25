@@ -1,3 +1,438 @@
+commit 6bc010d749aa75d2524c2ebdbc30dfa7a721414e
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Tue Sep 24 22:27:32 2013 -0400
+
+    Problem 2 with final comments
+
+commit 0fa19a65ad923f5bea819a34deb56f369d30bdca
+Merge: f186005 d6f6319
+Author: enderfaruk <efm279@nyu.edu>
+Date:   Tue Sep 24 21:59:20 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit f186005ea6f44ce5814408a3c6482204f6a57b3e
+Author: enderfaruk <efm279@nyu.edu>
+Date:   Tue Sep 24 21:59:14 2013 -0400
+
+    problem 2 update
+
+commit d6f63195b8e185fd109f7bc85c6d318793f89980
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Tue Sep 24 21:24:49 2013 -0400
+
+    new comments for problem2
+
+commit dda83a3927c60dcdf0a1b0a31f02275ca781cd67
+Merge: 93ef399 0a9e41c
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Tue Sep 24 21:20:39 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 93ef399985cda0efcd1c6aa9d308dcd78b666ddb
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Tue Sep 24 21:20:31 2013 -0400
+
+    problem 3 with output text file and python file.  Choices made are explained in the python file
+
+commit 0a9e41c13ef132a331eb814b9ab42363ea1fe2bf
+Merge: 9632528 d621555
+Author: Michael Musick <musick@nyu.edu>
+Date:   Tue Sep 24 18:15:18 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 9632528bef018a90e847f1908f676e55bfdfafc0
+Author: Michael Musick <musick@nyu.edu>
+Date:   Tue Sep 24 18:15:12 2013 -0400
+
+    Problem 3
+
+commit d621555a70641ececbb88e379177955cf6425925
+Merge: f9b8ca5 9895508
+Author: Ender F Morgul <efm279@nyu.edu>
+Date:   Tue Sep 24 17:42:27 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit f9b8ca57f07200fff04202adf7776d0ebfa0a796
+Author: Ender F Morgul <efm279@nyu.edu>
+Date:   Tue Sep 24 17:42:19 2013 -0400
+
+    problem2
+
+commit 98955082154d6c09c5c1c5a1105f28095ffa3f4a
+Author: justinjee <justinjee@gmail.com>
+Date:   Tue Sep 24 16:00:03 2013 -0400
+
+    problem 2 (with input and output files)
+
+commit 13f16bbe7f96755e6600953904bb37d015ecfcd1
+Merge: 8741f26 0260787
+Author: justinjee <justinjee@gmail.com>
+Date:   Tue Sep 24 14:59:39 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 8741f2678ab2badec04b19438d0cfe8c6149ed9e
+Author: justinjee <justinjee@gmail.com>
+Date:   Tue Sep 24 14:57:14 2013 -0400
+
+    problem1
+
+commit 026078755f5318aa0a28563778b496aa2932adce
+Author: coolshaker <k.xie.mail@gmail.com>
+Date:   Tue Sep 24 14:25:22 2013 -0400
+
+    Delete problem3.py~
+
+commit 6c16d8905c61adecf42819592fcacec55e850f54
+Merge: 4caf701 c210bdf
+Author: Andrea Kanner <ak4706@nyu.edu>
+Date:   Tue Sep 24 14:22:06 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 4caf701ac82a9dd0f831cec212228809afd1537b
+Author: Andrea Kanner <ak4706@nyu.edu>
+Date:   Tue Sep 24 14:21:05 2013 -0400
+
+    problem1 final
+
+commit c210bdf18ec1a3fed3ec7f6a1fb32a845cda21f8
+Author: JSAdams <jsa325@nyu.edu>
+Date:   Tue Sep 24 13:45:23 2013 -0400
+
+    Add log .txt file
+
+commit 64eac8b6552529daa9062b85f95251632add1ce5
+Author: Michael Musick <musick@nyu.edu>
+Date:   Tue Sep 24 13:00:59 2013 -0400
+
+    Problem 2 finished
+
+commit ab86cccd028769c469a5fe00bb307b61159e1b45
+Author: michaelmusick <m.a.musick@gmail.com>
+Date:   Tue Sep 24 11:38:10 2013 -0400
+
+    Problem 2 work
+
+commit b6c509d0019d1e62b0b384b29bb0293d1587b780
+Merge: c297575 703284e
+Author: AJM777 <AJM777@nyu.edu>
+Date:   Tue Sep 24 08:56:39 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit c297575592c75dce4427041d59593442d7f1bc83
+Author: AJM777 <AJM777@nyu.edu>
+Date:   Tue Sep 24 08:52:21 2013 -0400
+
+    Tutorial 1 from Lecture 3
+
+commit 703284e82e5a5db2061890fa5fe66b4ece0a6de0
+Merge: e5ad128 3e5e596
+Author: chihninglee <cnl272@nyu.edu>
+Date:   Tue Sep 24 00:55:40 2013 -0400
+
+    My file
+
+commit e5ad128403e2ccf85a2a6a64e7b312f3e7665139
+Author: chihninglee <cnl272@nyu.edu>
+Date:   Tue Sep 24 00:49:41 2013 -0400
+
+    My file
+
+commit 67a56b96f0cdfaa0c5dea695d3a875bfe124e854
+Author: chihninglee <cnl272@nyu.edu>
+Date:   Tue Sep 24 00:42:20 2013 -0400
+
+    My file
+
+commit 3e5e59648a4ac1edab0f56c9e7915a1ba3b8b556
+Merge: 920789e 97b1a55
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Mon Sep 23 23:37:05 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 920789e6b336fa5116eb8b3280550e1cab8d80a3
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Mon Sep 23 23:37:00 2013 -0400
+
+    problem2 cleaned up
+
+commit 97b1a55c3ec5c8b81076ca4fd1e40398605bf154
+Author: Hyunsoo Jeong <hj745@nyu.edu>
+Date:   Mon Sep 23 23:18:16 2013 -0400
+
+    upload output.txt
+
+commit b8b2a994627c76a3ab9445b07e70e63e81f7c063
+Merge: da69ee0 a621bce
+Author: Hyunsoo Jeong <hj745@nyu.edu>
+Date:   Mon Sep 23 23:15:56 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit da69ee0320c9191c7f040090efb6ba520642c040
+Author: Hyunsoo Jeong <hj745@nyu.edu>
+Date:   Mon Sep 23 23:15:09 2013 -0400
+
+    upload tutorial1.py
+
+commit a621bce6c973db84decea39b9ea8b855786b38e4
+Merge: 3c6376e cbac953
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Mon Sep 23 22:44:31 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 3c6376e47b163eb87c763dcc07eb693742c856cd
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Mon Sep 23 22:44:27 2013 -0400
+
+    Redo of problem3.py to output by borough
+
+commit cbac953f6dffef4f3922bb025bd58129629e41ff
+Merge: 63eb435 46069dd
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 22:09:35 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 63eb435240f035186a42f04589b1a381fbb98769
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 22:09:31 2013 -0400
+
+    still need to tweak float casting of Area
+
+commit 46069dda2b65fba3ca7debb56ea0e46d4f734740
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Mon Sep 23 20:54:10 2013 -0400
+
+    Removing .txt output files too.
+
+commit afb3cd63d4fa5625006b0ef9ee2f422c6598f325
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Mon Sep 23 20:51:40 2013 -0400
+
+    Removing datasets from git.
+
+commit 2c2b6e6b2c8fc31dec20a8575e13d628863ea7b0
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Mon Sep 23 20:09:09 2013 -0400
+
+    problem 2, now with comments
+
+commit ed63e848cede64eadacc28fdf43d2fd8b44b43fb
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Mon Sep 23 20:06:19 2013 -0400
+
+    problem 2 added
+
+commit 9953a5013237ba56cdc19cc36e5db4eec66ed421
+Merge: cadc2ae 8539921
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Mon Sep 23 17:28:36 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit cadc2ae47319869ed64a029a1be4000e74f1c6ba
+Author: Ravi Shroff <rs4606@nyu.edu>
+Date:   Mon Sep 23 17:28:30 2013 -0400
+
+    first commit, problem 1
+
+commit 8539921f99cc2615f84b883f6f14f089bb94d583
+Merge: d33f131 466bcbd
+Author: Richard Allen Dunks <richarddunks@gmail.com>
+Date:   Mon Sep 23 17:04:32 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit d33f13115e95f6229871a39e668ed2341b10ee82
+Author: Richard Allen Dunks <richarddunks@gmail.com>
+Date:   Mon Sep 23 17:04:23 2013 -0400
+
+    initial commit of problem1.py
+
+commit 466bcbda95a6f7431eaf5e736df96a9b89b18872
+Merge: 1404741 52d1756
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 16:48:11 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 14047410b0e4b34632e4d8f8f3a7373e2cd11e69
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 16:48:03 2013 -0400
+
+    Adding problem 2
+
+commit 83cc59aa234a9c29d5a7a2273ba231cb8b3c5ef7
+Author: Richard Allen Dunks <richarddunks@gmail.com>
+Date:   Mon Sep 23 15:54:03 2013 -0400
+
+    initial commit with completed tutorial1.py
+
+commit 52d1756ede11741d6a13a51c3c48ca42190f0504
+Author: Nivan Ferreira <nivan.ferreira@gmail.com>
+Date:   Mon Sep 23 12:05:06 2013 -0400
+
+    As asked by lcv232 I'm pushing the problem3.py
+
+commit 96cba202c0b136c674a55b3dd56da40c56fe296f
+Author: Christopher Jacoby <cbj238@nyu.edu>
+Date:   Mon Sep 23 11:34:38 2013 -0400
+
+    added class for handling gitlog
+
+commit 06a3a3fa742953cd642d830a14b707491cc8a86d
+Author: Christopher Jacoby <cbj238@nyu.edu>
+Date:   Mon Sep 23 10:50:34 2013 -0400
+
+    init for problem1
+
+commit ea81d96e799f4f6133c245b2acc4055e598f5913
+Author: Christopher Jacoby <cbj238@nyu.edu>
+Date:   Mon Sep 23 10:45:05 2013 -0400
+
+    some renaming for more logical folder names
+
+commit 00cef520a79843c4190c1ae2f84260c630836d7a
+Author: Christopher Jacoby <cbj238@nyu.edu>
+Date:   Mon Sep 23 10:43:56 2013 -0400
+
+    added gitignore to hide the text files
+
+commit 95c93f6d91512c5b5daebf6401acad10dbd670a2
+Author: Christopher Jacoby <cbj238@nyu.edu>
+Date:   Mon Sep 23 10:42:48 2013 -0400
+
+    added tutorial1
+
+commit 28812803ed7cfb1b5278ab24ea8e4412b13457c6
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 09:48:35 2013 -0400
+
+    updating problem 1
+
+commit 945c837e3828507f5610fe98743ce176cf1b9f5f
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 01:02:57 2013 -0400
+
+    Adding Problem 1
+
+commit c87b0586a481a5086fc40457c7ea7de83d5a2d75
+Merge: 49c8a6f 8ecfa35
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 00:50:19 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 49c8a6f03ea47ac8638905051bb8f9c0ca22354c
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Mon Sep 23 00:50:01 2013 -0400
+
+    First Try of Problem 1
+
+commit 8ecfa3526bcc49e41c534a2fcb87fab8db0557d0
+Author: enderfaruk <efm279@nyu.edu>
+Date:   Sun Sep 22 22:59:01 2013 -0400
+
+    Assignment 2
+
+commit 523b727d5337b782d4137b919b02b239216cbcc7
+Merge: 8e67fc7 1083ad6
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Sun Sep 22 22:06:08 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 8e67fc7d50284906702a5707cf645c64eeef81c3
+Author: Warren Reed <jkr2110@gmail.com>
+Date:   Sun Sep 22 22:05:43 2013 -0400
+
+    adding tutorials
+
+commit 1083ad62a24827985edf7e3e2cb5cf60207dabcd
+Author: michaelmusick <m.a.musick@gmail.com>
+Date:   Sun Sep 22 19:12:51 2013 -0400
+
+    Problem 1 finished
+
+commit 2d2a483877cf317b671f0b32b774cf7af6b22358
+Merge: 4b289a8 f8f325a
+Author: michaelmusick <m.a.musick@gmail.com>
+Date:   Sun Sep 22 19:12:20 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+    
+    # By Alex Chohlas-Wood
+    # Via Alex Chohlas-Wood
+    * 'master' of https://github.com/nyucusp/gx5003-fall2013:
+      First attempt at homework: this time with files.
+      First attempt at homework.
+      Tweaked tutorial2 file.
+      Adding tutorial files.
+
+commit f8f325a7e567eba77602e0ddf0cc5f5d07f5187c
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Sun Sep 22 15:51:07 2013 -0400
+
+    First attempt at homework: this time with files.
+
+commit e1c0d8f1e645300a35be8a587f97a531e551cd41
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Sun Sep 22 15:47:39 2013 -0400
+
+    First attempt at homework.
+
+commit 62ef649bbe3027dcdb28a513724e71b8f9478096
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Sun Sep 22 11:01:10 2013 -0400
+
+    Tweaked tutorial2 file.
+
+commit 27dbb0c725ea5e91d4bfdfa360ed9186c5bb9fe5
+Author: Alex Chohlas-Wood <chohlasa@gmail.com>
+Date:   Sun Sep 22 00:14:47 2013 -0400
+
+    Adding tutorial files.
+
+commit 4b289a8df495299f73e54e9141abd70868664e55
+Author: michaelmusick <m.a.musick@gmail.com>
+Date:   Sat Sep 21 11:31:58 2013 -0400
+
+    tutorial 1
+
+commit aefc0ea50c582895e4769b58ebe9fd665eeb04a3
+Author: lz1023 <lz1023@nyu.edu>
+Date:   Sat Sep 21 00:18:49 2013 -0400
+
+    Problem 3
+
+commit 447bc2fd82b78a4ae9be9197f039e4cf33045a3c
+Merge: 44c2db1 d56a384
+Author: Abdullah Kurkcu <ak4728@nyu.edu>
+Date:   Fri Sep 20 15:52:37 2013 -0400
+
+    Merge branch 'master' of https://github.com/nyucusp/gx5003-fall2013
+
+commit 44c2db1b076d810703fdaa7a77688faac17d7484
+Author: Abdullah Kurkcu <ak4728@nyu.edu>
+Date:   Fri Sep 20 15:52:29 2013 -0400
+
+    Update on problem3
+
+commit d56a3844d442842b4fa8f6491bdc5719f8daad38
+Author: Nivan Ferreira <nivan.ferreira@nyu.edu>
+Date:   Fri Sep 20 10:40:23 2013 -0400
+
+    fixing averageClerk.py to work with relative path
+
 commit f220498760e845be957e21e889f6be512aa60ed6
 Merge: f9f79ee a2fadd7
 Author: Nivan Ferreira <nivan.ferreira@gmail.com>

@@ -1,3 +1,6 @@
+from datetime import datetime
+from dateutil.parser import parse
+
 class LogEntry:
     commitHash = ""
     author = ""
@@ -17,16 +20,17 @@ class LogEntry:
         self.email = line[emailStart+1:emailEnd-1].strip()
 
     def parseDate(self, line):
-        self.date = line
+        dateStart = line.find(':')
+        self.date = parse(line[dateStart+1:])
 
     def appendMessage(self, line):
         self.message += line
 
     def __str__(self):
         rStr = ""
-        rStr += self.commitHash + "\n"
-        rStr += "|" + self.author + "| : <" + self.email + ">\n"
-        rStr += self.date
+        rStr += self.commitHash + " | "
+        rStr += self.author + " : <" + self.email + "> | "
+        rStr += str(self.date) + " | \n"
         rStr += self.message
 
         return rStr
@@ -81,8 +85,9 @@ class GitLog:
         return ret
 
     def getEntriesAfterDate(self, date):
-        pass
-        
+        entriesAfterDate = [x for x in self.entryList if date < x.date.replace(tzinfo=None)]
+        return entriesAfterDate
+            
 '''state = 0
 commitDateTimes = []
 for line in myFile:

@@ -13,7 +13,6 @@
 
 dbFile = open('zipCodes.csv', 'r')
 
-# name,zip code tabulation area,zt36 d00,perimeter,lsad trans,zt36 d00 i,lsad,area,latitude,longitude,Total Population per ZIP Code
 
 # create a dictionary
 zipDict = {}

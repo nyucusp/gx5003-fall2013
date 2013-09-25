@@ -44,11 +44,19 @@ def column(matrix, i):
 import numpy as np
 count_array = np.array(store)
 #count_array2=count_array[:][12].astype(int)
-store_sorted = store[np.argsort(column(store,12))]
+
+final=[0 for x in xrange(2451)] 
+store_sorted=[0 for x in xrange(2451)] 
+for t in range(0,len(np.argsort(column(store,12)))):
+	final[t]=np.argsort(column(store,12))[t]
+
+for y in range(0,len(final)):
+	store_sorted[y] = store[final[y]]
 
 
 for line in range(len(store)):
-	    zipden= str(store[line][1]) + " " + str(store[line][11]) + "\n"
-	    outputFile.write(zipden)
+	    if store_sorted[line][11]!=0:
+	    	zipden= str(store_sorted[line][1]) + " " + str(store_sorted[line][11]) + "\n"
+	    	outputFile.write(zipden)
 outputFile.close()
 
