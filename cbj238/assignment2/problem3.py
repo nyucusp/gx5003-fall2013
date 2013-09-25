@@ -30,6 +30,8 @@ for zipCode in zipIncidents.keys():
 		else:
 			results[borough] = [float(zipIncidents[zipCode]), float(population)]
 
+output = open(outputFile, 'w')
 for brgh in sorted(results.keys()):
 	items = results[brgh]
-	print brgh, items[0] / items[1]
+	output.write(brgh + " " + str(items[0] / items[1]) + "\n")
+output.close()

@@ -1,3 +1,4 @@
-gitlog.pyc
-logsofar.txt
-zipCodes.csv
+*.pyc
+*.txt
+*.csv
+
