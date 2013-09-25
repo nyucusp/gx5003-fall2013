@@ -1,6 +1,6 @@
 ######################################################################
 #
-# 	tutorial 2 - borough class
+# 	problem 4 - borough class
 # 	September 21th, 2013
 #
 #	Michael Musick
@@ -19,12 +19,16 @@ class Borough(object):
 		self.zipcodes = {}
 
 	def addZipcode(self, zipnum):
+		# create a dictionary item to store info
 		self.zipcodes[zipnum] = {'population': 0, 'area': 0}
 
 	def modify_Pop_Area(self, zipnum, pop, area):
-		self.zipcodes[zipnum] = {'population': pop, 'area': area}
+		# modify the entry
+		if zipnum in self.zipcodes:
+			self.zipcodes[zipnum] = {'population': pop, 'area': area}		
 
 	def getAvgPop(self):
+		# get the average population
 		self.totAreaSize = 0
 		self.totPop = 0
 		for zipnum in self.zipcodes:
@@ -34,5 +38,6 @@ class Borough(object):
 		return self.avgPop
 
 	def avgPopStr(self):
+		# return a string
 		self.getAvgPop()
 		return "The average population of " + self.name + " is " + str(self.avgPop) + " people per the unspecified unit of measurement."
