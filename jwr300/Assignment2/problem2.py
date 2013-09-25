@@ -2,66 +2,42 @@
 #Warren Reed
 #Principles of Urban Informatics
 #Assignment 2, Problem 2
-#Calculates the population density by zipcode for NY State
+"""
+Calculates the population density by zipcode for NY State. 
+This assumes there is only one unique record for each zipcode and ignores 
+dirty data that is included in the underlying CSV which contains duplicates
+for a handful of zipcodes 
+"""
+
+import sys
 
 
-import csv
-from collections import defaultdict
+myFile = open('zipCodes.csv','r')
+lines = []
 
-myFile = open('zipCodes.csv','rU')
-File = csv.reader(myFile)
-rows = []
-
-
-#Adding csv to list for easy indexing 
-for row in File:
-    rows.append(row)
-
+#Adding csv to list
+for line in myFile:
+    lines.append(line)
 myFile.close()
     
-header = rows[0] #adding column names to header
-zip_index = header.index('zip code tabulation area')
+#store column headers and get index values for relevant columns required for calculation
+header = lines[0].split(',') 
+zip_index = header.index('zip code tabulation area') 
 area_index = header.index('area')
-population_index = header.index('Total Population per ZIP Code')
+population_index = header.index('Total Population per ZIP Code\n')
 
-#create a set of unique zip codes
-zipDict = set()
-for row in rows:
-    zipDict.add(row[zip_index])
+#create a dictionary of zipcodes-population density key value pairs
+zipPopdensity = {}
 
-#convert unique zip codes back to list
-zipDict = list(zipDict)
+length = len(lines)
 
-#create dictionary of key value pairs of area and zip code
-#create dictionary of key value pairs of population and zip code
+for i in range(1,length):
+    if lines[i].split(',')[10] != "\n":
+        zipPopdensity[lines[i].split(',')[zip_index]] = (float(lines[i].split(',')[population_index].strip())/float(lines[i].split(',')[area_index].strip()))
+                                                      
+outputFile = open('output_density_problem2.txt','w')
 
-zipArea = defaultdict(list)
-zipPop = defaultdict(list)
-for zipcode in zipDict:
-    for row in rows:
-        if (zipcode == row[zip_index]):
-            zipArea.setdefault(zipcode, []).append(row[area_index])
-            if (row[population_index] != ''): #pop column has some blank cells
-                zipPop.setdefault(zipcode, []).append(row[population_index])
-
-
-zipPopDensity = {}
-sumArea = 0.0
-sumPop = 0.0
-for zipcode in zipDict:
-    sumAreaList = zipArea[zipcode]
-    #float_list = [float(i) for i in sumAreaList]
-    for item in sumAreaList:
-        sumArea = sumArea + float(item)
-    sumPopList = zipPop[zipcode]
-    float_poplist = [float(i) for i in sumPopList]
-    for item in float_poplist:
-        sumPop = sumPop + item
-    zipPopDensity[zipcode] = (sumPop/sumArea)
-
-outputFile = open('output_problem2.txt','w')
-
-for item in zipPopDensity:
-    outputFile.write(item)
+for key in sorted(zipPopdensity.iterkeys()):
+    outputFile.write("%s %s \n" % (key, zipPopdensity[key]))
 
 outputFile.close()
