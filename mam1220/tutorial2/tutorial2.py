@@ -7,25 +7,37 @@
 #
 ######################################################################
 
-import zipcode
-import borough
+# import zipcode
+from borough import Borough
+from zipcode import Zipcode
 
-boroughName = 'manhattan'
+myFile = open('boroughs.csv','r')
 
-myFile = open('borough.cvs','r')
+# print myFile
 
-print myFile
-
+boroughs = {}
 lineNum = 0
 for line in myFile:
 	# indexOfBorough = line.find(boroughName)
-	print line
+	# print line
 	lineNum += 1
-	print lineNum
+	# print lineNum
+	tempArray = line.strip().split(',')
+
+	boroughName = tempArray[1]
+	lineZip = int( tempArray[0] )
+
+	if boroughName not in boroughs:
+		boroughs[boroughName] = Borough(boroughName)
+		# print boroughs[boroughName]
+
+	if lineZip not in boroughs[boroughName].zipcodes:
+		boroughs[boroughName].addZipcode(lineZip)
+		# print boroughs[boroughName].zipcodes
 
 
 
-# boroughs['manhattan'] = Borough('manhattan')
+
 
 # zipcode = Zipcode(value_read_from_csv)
 # boroughs['manhattan'].addZipcode(zipcode)
