@@ -5,7 +5,7 @@ import csv
 
 '''
 Key assumptions: 
--"Unique Key" value in incidents csv is # of incidents.
+-"Unique Key" value in incidents csv is # of incidents per address.
 -Including incidents from zips that don't have population, since calculation
 is borough-wide.
 '''
