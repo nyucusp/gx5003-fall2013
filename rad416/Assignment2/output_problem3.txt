@@ -1,0 +1,6 @@
+Incidents per capita for each NYC borough
+Bronx 0.798519327585
+Brooklyn 0.72930850002
+Manhattan 0.71854203481
+Queens 0.585857589316
+Staten 0.64419601903
