@@ -28,10 +28,14 @@ for line in myFile:
 		population_density=numerical_population/numerical_area
 		dict_zip_popdensity[zipcode] = population_density
 
+		lexi_pop_den = []
+		for key in dict_zip_popdensity:
+			lexi_pop_den.append((key, dict_zip_popdensity[key]))
+		lexi_pop_den = sorted(lexi_pop_den)
 
-outputFile=open('population_density_problem2.txt', 'w')
-for key in dict_zip_popdensity:
-	line_contant = key + " " + str(dict_zip_popdensity[key]) + "\n"
-	outputFile.write(line_contant)
+outputFile=open('output_density_problem2.txt', 'w')
+for tp in lexi_pop_den:
+	line_content = tp[0] + " " + str(tp[1]) + "\n"
+	outputFile.write(line_content)
 
 outputFile.close()

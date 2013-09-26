@@ -55,7 +55,8 @@ for y in range(0,len(final)):
 
 
 for line in range(len(store)):
-	    zipden= str(store_sorted[line][1]) + " " + str(store_sorted[line][11]) + "\n"
-	    outputFile.write(zipden)
+	    if store_sorted[line][11]!=0:
+	    	zipden= str(store_sorted[line][1]) + " " + str(store_sorted[line][11]) + "\n"
+	    	outputFile.write(zipden)
 outputFile.close()
 
