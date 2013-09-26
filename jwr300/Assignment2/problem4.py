@@ -4,14 +4,16 @@
 #Assignment 2, Problem 4
 
 import sys
-from borough import Borough
-from zipcode import Zipcode
+import borough
+import zipcode
 
 
 if sys.argv[1] == "staten island":
 	borough_input = "Staten"
 else:
-	borough_input = sys.argv[1].capitalize
+	borough_input = sys.argv[1].capitalize()
+
+print "User entered: %s"  % (borough_input)
 
 #Creating ZipCodes Population Dictionary
 Pop_File = open('zipCodes_tr.csv','r')
@@ -62,26 +64,19 @@ for key in zipCodes_population:
         borough_zip_pop[boroughs_zipcode[key].strip()] = borough_zip_pop[boroughs_zipcode[key].strip()] + zipCodes_population[key]
 
 
-borough_zipCount = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten" : 0.0}
-
-for key in boroughs_zipcode:
-    borough_zipCount[boroughs_zipcode[key]] += 1
-
-borough_zipCount["Staten Island"] = borough_zipCount["Staten"]
-del borough_zipCount["Staten"]
-
-
-user_borough = Borough(borough_input)
+userBorough = borough.Borough(borough_input)
 
 
 for key in boroughs_zipcode:
-	if boroughs_zipcode == borough_input:
-		if key in boroughs_zipcode:
-			zip_code = zipcode.Zipcode(key, boroughs_zipcode[key])
-			user_borough.addZipcode(zip_code)
+	if boroughs_zipcode[key] == borough_input:
+		if key in zipCodes_population:
+			zip_code = zipcode.Zipcode(key, zipCodes_population[key])
+			userBorough.addZipcode(zip_code)
 
-#user_borough.averagePopulation()
-print user_borough
+
+average = userBorough.averagePopulation()
+print average
+
 
 
 
