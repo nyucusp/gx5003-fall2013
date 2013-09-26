@@ -10,8 +10,8 @@ for line in myFile:
 myFile.close()
 
 header = lines[0].split(',') # split line 0 (first line) into header names
-header_length = len(header)
-for i in range(0, header_length):
+lengthHeader = len(header)
+for i in range(0, lengthHeader):
     header[i] = header[i].strip()
 
 indexZip = header.index('zip code') 
@@ -21,7 +21,7 @@ indexPopulation = header.index('population')
 for line in lines:
   lineSplit = line.split(",")
   if lineSplit[10] != '\n': # test for blank
-    lines.append([lineSplit[0], [lineSplit[7], [lineSPlit[10].rstrip()]])
+    lines.append([lineSplit[0], [lineSplit[7], [lineSplit[10].rstrip()]])
 
 zipPopulationDensity = {} # create dictionary
 
@@ -34,7 +34,7 @@ for i in range(1, length):
 outputFile = open('outputDensity.txt', 'w')
 
 for k in sorted(zipPopulationDensity):
-  outputFile.write("%s %s \n" % (key, zipPopdensity[key]))
+  outputFile.write("%s %s \n" % (k, zipPopulationDensity[k]))
   
 outputFile.close()
   
