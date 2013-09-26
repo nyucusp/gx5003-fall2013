@@ -7,6 +7,7 @@ else:
 	print "Invalid Input"
 	exit(-1)
 
+# Get the dicts we need to work with
 zipBorough = GetZipsBorough()
 zipPopulation = GetZipPopulation()
 

@@ -1,6 +1,8 @@
 from zipcodes import *
 
 outputFile="output_problem3.txt"
+
+# Get the dicts to work with from the csvs
 print "Reading Boroughs"
 zipBorough = GetZipsBorough()
 print "Reading Incidents"

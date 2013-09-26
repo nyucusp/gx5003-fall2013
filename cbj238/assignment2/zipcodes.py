@@ -93,6 +93,9 @@ def GetZipIncidentsFromFile():
     return zipsDict
 
 class Borough:
+    '''
+    class to help calculate the average population for a borough.
+    '''
     name = None
     zipcodes = None
     population = 0
@@ -119,9 +122,6 @@ class Borough:
         return (self.population / self.popCount)
 
 def GetZipsBorough():
-    '''
-    I've decided I like the dictionary mehtod better than the clas methof for thos example.
-    '''
     parser = ParseCSV(boroughsFile)
     (fields, data) = parser.getRawData()
 
