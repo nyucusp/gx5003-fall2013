@@ -34,7 +34,7 @@ for i in range(1, length):
 outputFile = open('outputDensity.txt', 'w')
 
 for k in sorted(zipPopulationDensity):
-  outputFile.write("%s %s \n" % (k, zipPopulationDensity[key]))
+  outputFile.write("%s %s \n" % (k, zipPopulationDensity[k]))
   
 outputFile.close()
   
