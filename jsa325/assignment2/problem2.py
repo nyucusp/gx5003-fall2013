@@ -10,8 +10,8 @@ for line in myFile:
 myFile.close()
 
 header = lines[0].split(',') # split line 0 (first line) into header names
-header_length = len(header)
-for i in range(0, header_length):
+lengthHeader = len(header)
+for i in range(0, lengthHeader):
     header[i] = header[i].strip()
 
 indexZip = header.index('zip code') 
@@ -34,7 +34,7 @@ for i in range(1, length):
 outputFile = open('outputDensity.txt', 'w')
 
 for k in sorted(zipPopulationDensity):
-  outputFile.write("%s %s \n" % (key, zipPopdensity[key]))
+  outputFile.write("%s %s \n" % (k, zipPopulationDensity[key]))
   
 outputFile.close()
   
