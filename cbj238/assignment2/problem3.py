@@ -1,9 +1,12 @@
 from zipcodes import *
 
 outputFile="output_problem3.txt"
-
+print "Reading Boroughs"
+zipBorough = GetZipsBorough()
 print "Reading Incidents"
 zipIncidents = GetZipIncidentsFromFile()
+print "Reading populations"
+zipPopulation = GetZipPopulation()
 
 # Calculate the ratio of number of incidents to population for a borough.
 print "Calculating Results"

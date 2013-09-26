@@ -1,7 +1,11 @@
 from zipcodes import *
 import sys
 
-selectedborough = sys.argv[1]
+if len(sys.argv) > 1:
+	selectedborough = sys.argv[1]
+else:
+	print "Invalid Input"
+	exit(-1)
 
 zipBorough = GetZipsBorough()
 zipPopulation = GetZipPopulation()
