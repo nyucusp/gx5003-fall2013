@@ -1,3 +1,5 @@
+#Nathan Seltzer
+#Assignment 2, Problem 2
 
 #open zipCodes.csv, read
 myFile = open('c:\\Users\\Nathan\\desktop\\zipCodes.csv','r')
@@ -10,14 +12,15 @@ for line in myFile: # reads each line, loop
 	print area
 """
 My python fluency is still not the best (I've been working hard
-at it!), but, I can anticipate that the next steps would be:
+at it!), but, I can anticipate the logic of the next steps:
+
 (1) divide population by area for each line in 
-order to get the population density,
+	order to get the population density,
 (2) use and If/Else statement to tell python to ignore
-zip codes with no population,
+	zip codes with no population,
 (3) organize the zip codes (column 0) lexicographically,
 (4) and create an output file to print to, which I did
-figure out, as seen below:
+	figure out, as seen below:
 """
 outputFile = open('output_density_problem2.txt', 'w') #create output file
 

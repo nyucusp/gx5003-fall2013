@@ -1,26 +1,36 @@
+# A script to take in a time from the command line and display all commits 
+# that occured at or after the time passed.  Output to STDOUT
+
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
+from dateutil.parser import parse
 
-# myFile = open('logsofar.txt','r')
-dateTimeOfInterestString = sys.argv[1] + ' -0400'
+dateTimeOfInterestString = sys.argv[1] + '-0400' #append EST timezone to datetime string
+dateTimeOfInterest = parse(dateTimeOfInterestString) #parse string to datetime obj
 
-dateTimeOfInterest = datetime.strptime(dateTimeOfInterestString, '%m/%d/%Y %H:%M:%S %z')
+#open and read from file
+myFile = open('logAfterAssignment1.txt','r')
+file_list = [] #list to hold file elements
+for line in myFile: #iterator through the file to create list of file elements
+  file_list.append(line)
+myFile.close() #close file since no longer used
 
-
-
-print dateOfInterest
-
-# # python problem1.py "09/19/2013 09:12:15"
-# state = 0
-# commitDateTimes = []
-# for line in myFile:
-#   if(state == 0):#look for author line
-#     indexOfCollab = line.find(collabName)
-#     if(indexOfCollab != -1): #found a commit from Collab
-#       state = 1 #now find the date time of this commit
-#   else:
-#     indexOfDate = line.find("Date:")
-#     if(indexOfDate != -1):#found date from the previous commit
-#       commitDateTimes.append(line)
-#       state = 0
-# myFile.close()
+#iterate through and test file
+for i in range(0,len(file_list)):
+  line_test = file_list[i] #temporary variable to hold line from list
+  if "Date:" in line_test: #find a line with a date
+    line_split = line_test.split(" ") #split the line
+    line_combine = "" #blank line to accept date
+    for j in range(4,9): #iterate through the germane parts of line
+      line_combine += " " + line_split[j] #create line string
+    date_line = parse(line_combine) #create date time object for comparison
+    if (date_line - dateTimeOfInterest >= timedelta(0)): #test for date being equal or greater to date of interest
+      if "Merge" in file_list[i-2]: #check that the line to be printed doesn't start with Merge
+        print file_list[i-3],
+        print file_list[i-2],
+        print file_list[i-1],
+        print file_list[i]
+      else:
+        print file_list[i-2], #pring line of commit
+        print file_list[i-1],
+        print file_list[i]
