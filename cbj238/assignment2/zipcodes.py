@@ -3,54 +3,43 @@ boroughsFile="boroughs.csv"
 dataFile = "zipCodes.csv"
 
 import re
-
-def CleanListStrings(strlist):
-    for i in xrange(len(strlist)):
-        strlist[i] = strlist[i].strip()
+from parsecsv import ParseCSV
 
 def GetZipData():
-    fields = []
-    dataDict = {}
+    '''
+    Reads zipCodes.csv into memory, returns it as a dict.
+    '''
+    parser = ParseCSV(dataFile)
 
-    with open(dataFile, 'r') as f:
-        # read the first line for the headers
-        firstLine = f.readline()
-
-        # get the fields from the line
-        fields = firstLine.split(',')
-
-        # store the fields as the keys in the dict
-        for i in xrange(len(fields)):
-            fields[i] = fields[i].strip()
-            dataDict[fields[i].strip()] = []
-
-        # now read all the lines in, and append the things to their 
-        for line in f:
-            values = line.split(',')
-
-            for ind in xrange(len(values)):
-                dataDict[fields[ind]].append(values[ind].strip())
-
-    return (fields, dataDict)
+    return parser.getLabelledData()
 
 def GetZipPopulationDensity():
-    (fields, dataDict) = GetZipData()
+    '''
+    Calculates the population density from zipCodes.csv's area and population fields.
+    Returns it as a dict of:
+    { ("zip code" : population density )}
+    '''
+    dataDict = GetZipData()
 
     # Compute the population density for each zip code.
-    # First, grab the (zip code, area, population)
+    # First, grab the (zip code, area, population) from the dict
     data = (dataDict["name"], dataDict["area"], dataDict["Total Population per ZIP Code"])
-    # print data
 
+    # Calculate the population density for each zip, store it in the array
     resultData = []
     for i in xrange(len(data[0])):
         x = (data[0][i], data[1][i], data[2][i])
-        if x[1] is not '' and x[2] is not '':
+        if x[1] is not '' and x[2] is not '': # if area of population is empty, exclude it
             resultData.append ( (x[0], float(x[2]) / float(x[1])) )
 
+    # return it as a dict.
     return dict(resultData)
 
 def GetZipPopulation():
-    (fields, dataDict) = GetZipData()
+    '''
+    Same as above but only gets the population.
+    '''
+    dataDict = GetZipData()
 
     # Get list of zip code, population
     data = (dataDict["name"], dataDict["Total Population per ZIP Code"])
@@ -63,27 +52,34 @@ def GetZipPopulation():
     return dict(resultData)
 
 def GetZipIncidentsFromFile():
-    numberParser = re.compile(r'[^\d.]+')
-    fileHandle = open(incidentFile, 'r')
+    '''
+    returns a dict of
+    { (Zip Code):incidents }
+    '''
+    parser = ParseCSV(incidentFile, (1, 2))
+    (fields, data) = parser.getRawData()
 
-    headers = fileHandle.readline().split(',')
-    
-    # Clean them up
-    CleanListStrings(headers)
+    # Not all of the zip codes and counts are well-formed.
+    # Using this regex to try and only find numbers in them.
+    numberParser = re.compile(r'[^\d.]+')
 
     zipsDict = {}
+    for i in xrange(len(data[0])):
 
-    for line in fileHandle:
-        lineItems = line.split(',')
-        CleanListStrings(lineItems)
+        zipCode = data[0][i]
+        zipCount = numberParser.sub('', data[1][i])   # I'm not actually sure if this is a count. It looks like it might be, but there's no description anywhere.
 
-        zipCode = lineItems[1]
-        zipCount = numberParser.sub('', lineItems[2])   # I'm not actually sure if this is a count. It looks like it might be, but there's no description anywhere.
-
-        # I am likewise going to assume that any entry is just "1".
+        # I am likewise going to assume that any entry (aka a blank one) is just "1".
         if zipCount is '':
             zipCount = 1
         if zipCode is '':
+            continue
+        # It seems like there are a bunch of errors  in the formatting
+        # This is attemptin gto deal with that noise
+        elif len(zipCode) > 5 and zipCode[0:5].isdigit():
+            zipCode = zipCode[0:5]
+        elif len(zipCode) > 5 and zipCode.isdigit():
+            print zipCode
             continue
 
         try:
@@ -96,20 +92,31 @@ def GetZipIncidentsFromFile():
 
     return zipsDict
 
+class Borough:
+    name = None
+    zipcodes = None
+
+    def __init__(self, name):
+        self.name = name
+        self.zipcodes = []
+
+    def addZipcode(self, zip):
+        self.zipcodes.append(zip)
+
+    def getTotalPopulation(self):
+        pass
+
+    def getAveragePopulation(self):
+        pass
+
 def GetZipsBorough():
-    fileHandle = open(boroughsFile, 'r')
-    headers = fileHandle.readline().split(',')
-    # Clean then up...
-    CleanListStrings(headers)
+    parser = ParseCSV(boroughsFile)
+    (fields, data) = parser.rawData()
 
     zipsDict = {}
-
-    for line in fileHandle:
-        lineItems = line.split(',')
-        CleanListStrings(lineItems)
-
-        zipCode = lineItems[0]
-        borough = lineItems[1]
+    for listItem in data:
+        zipCode = listItem[0]
+        borough = listItem[1]
 
         if zipCode not in zipsDict:
             zipsDict[zipCode] = borough
