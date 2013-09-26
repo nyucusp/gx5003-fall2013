@@ -49,3 +49,26 @@ for i in range(1, num_linesBorough):
     zipBoroughDict[linesBorough[i].split(',')[0] = (float(linesBorough[i].split(',')[10]))
     
 # Create dictionary in which key = borough, value = incidents
+
+boroughIncidentDict = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten Island" : 0.0}
+
+for key in zipIncidentDict:
+  if zipBoroughDict.has_key(key):
+    boroughIncidentDict[zipBoroughDict[key].strip()] = boroughIncidentDict[zipBoroughDict[key].strip()] + zipIncident[key]
+  
+    
+# Create dictionary in which key = borough, value = density of incidents
+
+boroughIncidentDensityDict = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten Island" : 0.0}
+
+for key in boroughIncidentDensityDict:
+    boroughIncidentDensityDict[key] = (boroughIncidentDict[key] / zipPopulationDict[key])
+    
+# Output file
+  
+outputFile = open('output_problem3.txt','w')
+
+for key in sorted(boroughIncidentDensityDict.iterkeys()):
+    outputFile.write("%s %s \n" % (key, boroughIncidentDensityDict[key]))
+
+outputFile.close()
