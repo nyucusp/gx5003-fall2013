@@ -3,7 +3,11 @@
 #Principles of Urban Informatics
 #Assignment 2, Problem 3
 
-#Creating ZipCodes Population Dictionary
+"""
+Creating ZipCodes Population Dictionary with key as zipcode and value 
+as the population of that zipcode
+"""
+
 Pop_File = open('zipCodes_tr.csv','r')
 population_lines = []
 
@@ -12,8 +16,14 @@ for line in Pop_File:
 Pop_File.close()
 
 zipCodes_header = population_lines[0].split(',') #adding column names to header
+
+#strip the header of \n
+zipCodes_header_length = len(zipCodes_header)
+for i in range(0,zipCodes_header_length):
+    zipCodes_header[i] = zipCodes_header[i].strip()
+
 zipCodes_zip_index = zipCodes_header.index('zip code tabulation area')
-zipCodes_population_index = zipCodes_header.index('Total Population per ZIP Code\n')
+zipCodes_population_index = zipCodes_header.index('Total Population per ZIP Code')
 
 zipCodes_population = {}
 
@@ -24,7 +34,10 @@ for i in range(1,Pop_File_length):
         zipCodes_population[population_lines[i].split(',')[zipCodes_zip_index]] = (float(population_lines[i].split(',')[zipCodes_population_index].strip()))
 
 
-#Creating zipcode Borough dictionary
+"""
+Creating zipcode Borough dictionary with key as zipcode and value as 
+borough names
+"""
 Borough_File = open('boroughs_tr.csv','r')
 borough_lines = []
 
@@ -43,18 +56,25 @@ for i in range(1, Borough_File_length):
     if borough_lines[i].split(',')[boroughs_index] != "\n":
         boroughs_zipcode[borough_lines[i].split(',')[boroughs_zip_index]] = (borough_lines[i].split(',')[boroughs_index].strip())
 
+
+"""
+Run through every key-value pair in zipCodes_population and add it to 
+borough_zip_pop with key as borough and value as the borough population
+"""
 borough_zip_pop = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten" : 0.0}
 
-#run through every key-value pair in zipCodes_population and add it to borough_zip_pop
 
 for key in zipCodes_population:
     if boroughs_zipcode.has_key(key):
         borough_zip_pop[boroughs_zipcode[key].strip()] = borough_zip_pop[boroughs_zipcode[key].strip()] + zipCodes_population[key]
 
-#update key name from Staten to Staten Island after (Do it later)
 
 
-#Create a zipcode incidents dictionary
+
+"""
+Creating zipcode incidents dictionary with key as zipcode and value as 
+incident count
+"""
 incidents_file = open('Incidents_grouped_by_Address_and_Zip.csv','r')
 
 incidents_lines = []
@@ -74,11 +94,6 @@ incidents_zip_index = incidents_header.index('Incident Zip')
 #Create a zip_incident dictionary (including dirty data)
 
 incidents_length = len(incidents_lines)
-
-#incidents_zipcode_dirty = {} #create dictionary
-
-#for i in range(1,incidents_length):
- #   incidents_zipcode_dirty[i] = 
     
 
 incidents_zipcode = {} #create dictionary
@@ -94,6 +109,10 @@ for i in range(1,incidents_length):
                     incidents_zipcode[incidents_lines[i].split(',')[incidents_zip_index][0:5]] = incidents_zipcode[incidents_lines[i].split(',')[incidents_zip_index][0:5]] + int(incidents_lines[i].split(',')[incidents_count_index].strip())
 
 
+"""
+Create borough_incidents dictionary with key as borough name and value 
+as incident count
+"""
 borough_incidents = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten" : 0.0}
 
 
@@ -101,7 +120,11 @@ for key in incidents_zipcode:
     if boroughs_zipcode.has_key(key):
         borough_incidents[boroughs_zipcode[key].strip()] = borough_incidents[boroughs_zipcode[key].strip()] + incidents_zipcode[key]
         
+"""
+Create borough_incidents dictionary with key as borough name and value 
+as incident count density
 
+"""
 borough_incident_density = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten" : 0.0}
 
 for key in borough_incident_density:
@@ -111,6 +134,7 @@ for key in borough_incident_density:
 borough_incident_density["Staten Island"] = borough_incident_density["Staten"]
 del borough_incident_density["Staten"]
 
+#Output results of borough incident density dictionary to output txt file
 outputFile = open('output_problem3.txt','w')
 
 for key in sorted(borough_incident_density.iterkeys()):
