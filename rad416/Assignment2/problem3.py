@@ -41,13 +41,18 @@ for v,k in boroughZipList:
 ####################################
 # Create Zip -> Incidents relation #
 ####################################
-zipIncidentFile = open('Incidents_grouped_by_Address_and_Zip.csv','r')
+#fix formatting in Incidents file prior to load
+call("tr '\r' '\n' < Incidents_grouped_by_Address_and_Zip.csv > Incidents_grouped_by_Address_and_Zip_tr2.csv", shell=True)
+
+zipIncidentFile = open('Incidents_grouped_by_Address_and_Zip_tr2.csv','r')
 next(zipIncidentFile) #skip header row
 zipIncidentList = [] #list for file elements
 for line in zipIncidentFile:
   lineSplit = line.split(",")
   if(len(lineSplit[1]) >= 5):
-    zipIncidentList.append(lineSplit[1][ :5])
+    zipIncidentList.append([lineSplit[1][ :5],int(lineSplit[2].rstrip())])
+
+#List in format [zipcode, incidents (#)] (non-aggregate)
   
 #close file
 zipIncidentFile.close()
@@ -55,8 +60,8 @@ zipIncidentFile.close()
 zipIncidentDict = defaultdict(int) #dict to capture zipcodes and counts
 
 #aggregate by zipcode in dict
-for k in zipIncidentList:
-  zipIncidentDict[k] += 1
+for i in range(len(zipIncidentList)):
+    zipIncidentDict[zipIncidentList[i][0]] += zipIncidentList[i][1]
 
 ########################################
 # Create Borough -> Incident relation  #
@@ -128,7 +133,7 @@ for k in boroughIncidentDict:
 ##################################################
 
 outFile = open('output_problem3.txt','w')
-
+outFile.write("Incidents per capita for each NYC borough\n")
 for k in sorted(boroughRatioDict):
   outFile.write(k)
   outFile.write(" ")

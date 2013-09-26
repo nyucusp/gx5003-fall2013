@@ -2,7 +2,7 @@ import sys
 from borough import Borough
 from zipcode import Zipcode
 
-boroughOfInterest = Borough(sys.argv[1])
+boroughOfInterest = Borough(sys.argv[1].split(" ")[0])
 
 #load the zipcodes for the boroughs
 #load the population for the boroughs
@@ -21,4 +21,4 @@ for v in boroughZipDict[boroughOfInterest.name]:
 #calculate average
 average_pop = float(boroughOfInterest.population) / (boroughOfInterest.zipCounter)
 
-print "The average population of the zip codes in", boroughOfInterest.name, "is", str(average_pop)
+print "The average population of the zip codes in", sys.argv[1], "is", str(average_pop)
