@@ -50,7 +50,7 @@ for i in range(1, num_linesBorough):
     
 # Create dictionary in which key = borough, value = incidents
 
-boroughIncidentDict = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten Island" : 0.0}
+boroughIncidentDict = {"Manhattan" : 0.0, "Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten Island" : 0.0}
 
 for key in zipIncidentDict:
   if zipBoroughDict.has_key(key):
@@ -59,7 +59,7 @@ for key in zipIncidentDict:
     
 # Create dictionary in which key = borough, value = density of incidents
 
-boroughIncidentDensityDict = {"Manhattan" : 0.0,"Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten Island" : 0.0}
+boroughIncidentDensityDict = {"Manhattan" : 0.0, "Brooklyn" : 0.0, "Queens": 0.0, "Bronx" : 0.0, "Staten Island" : 0.0}
 
 for key in boroughIncidentDensityDict:
     boroughIncidentDensityDict[key] = (boroughIncidentDict[key] / zipPopulationDict[key])
