@@ -95,6 +95,8 @@ def GetZipIncidentsFromFile():
 class Borough:
     name = None
     zipcodes = None
+    population = 0
+    popCount = 0
 
     def __init__(self, name):
         self.name = name
@@ -103,14 +105,18 @@ class Borough:
     def __eq__(self, other):
         return other.name == self.name
 
-    def addZipcode(self, zip):
-        self.zipcodes.append(zip)
+    def __str__(self):
+        return "Borough " + self.name + ": " + str(self.population) + " : " + str(self.popCount)
+
+    def addPopulation(self, pop):
+        self.population += int(pop)
+        self.popCount += 1
 
     def getTotalPopulation(self):
-        pass
+        return self.population
 
     def getAveragePopulation(self):
-        pass
+        return (self.population / self.popCount)
 
 def GetZipsBorough():
     '''
@@ -121,9 +127,9 @@ def GetZipsBorough():
 
     zipBoroughs = {}
 
-    for listItem in data:
-        zipCode = listItem[0]
-        borough = listItem[1]
+    for idx in xrange(len(data[0])):
+        zipCode = data[0][idx]
+        borough = data[1][idx]
 
         if zipCode not in zipBoroughs:
             zipBoroughs[zipCode] = borough

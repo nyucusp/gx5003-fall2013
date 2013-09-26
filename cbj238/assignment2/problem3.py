@@ -4,10 +4,6 @@ outputFile="output_problem3.txt"
 
 print "Reading Incidents"
 zipIncidents = GetZipIncidentsFromFile()
-print "Reading Boroughs"
-zipBorough = GetZipsBorough()
-print "Reading Populations"
-zipPopulation = GetZipPopulation()
 
 # Calculate the ratio of number of incidents to population for a borough.
 print "Calculating Results"
