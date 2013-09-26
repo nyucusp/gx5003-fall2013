@@ -21,7 +21,7 @@ indexPopulation = header.index('population')
 for line in lines:
   lineSplit = line.split(",")
   if lineSplit[10] != '\n': # test for blank
-    lines.append([lineSplit[0], [lineSplit[7], [lineSPlit[10].rstrip()]])
+    lines.append([lineSplit[0], [lineSplit[7], [lineSplit[10].rstrip()]])
 
 zipPopulationDensity = {} # create dictionary
 
