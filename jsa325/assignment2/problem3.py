@@ -30,7 +30,7 @@ num_linesIncident = len(linesIncident)
 
 for i in range(1, num_linesIncident):
   if linesIncident[i].split(',')[10] != '\n':
-    zipIncidentDict[linesIncident[i].split(',')[0] = (float(linesIncident[i].split(',')[1][:-1]))
+    zipIncidentDict[linesIncident[i].split(',')[0] = (float(linesIncident[i].split(',')[10]))
     
 # Create dictionary in which key = zipcode, value = borough
 
@@ -46,7 +46,7 @@ num_linesBorough = len(linesBorough)
 
 for i in range(1, num_linesBorough):
   if linesBorough[i].split(',')[10] != '\n':
-    zipBoroughDict[linesBorough[i].split(',')[0] = (float(linesBorough[i].split(',')[10]))
+    zipBoroughDict[linesBorough[i].split(',')[0] = (float(linesBorough[i].split(',')[1][:-1]))
     
 # Create dictionary in which key = borough, value = incidents
 
