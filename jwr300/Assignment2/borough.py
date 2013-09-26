@@ -2,7 +2,7 @@
 #Warren Reed
 #Principles of Urban Informatics
 #Assignment 2, Tutorial 2
-#Creates the Borough Class
+#Creates the Borough Class with attribute name and zipcodes. 
 
 class Borough:
 	name = None
@@ -11,6 +11,8 @@ class Borough:
 	def __init__(self, name):
 		self.name = name
 		self.zipcodes = []
+
+	#Calculates average population of a borough per zipcode
 
 	def averagePopulation(self):
 		average = 0
@@ -21,6 +23,8 @@ class Borough:
 
 		average = sumPop/zip_count
 		return average
+
+	# Adds zipcodes to the Borough object as a list
 
 	def addZipcode(self, zip):
 		self.zipcodes.append(zip)
