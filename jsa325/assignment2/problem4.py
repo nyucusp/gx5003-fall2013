@@ -4,10 +4,7 @@ import sys
 from zipcode import Zipcode
 from borough import Borough
 
-nameBorough = sys.argv[1].split(" ",1)[0].capitalize()  # capitalize borough names
-targetBorough = borough.Borough(nameBorough)
-
-targetBorough = Borough(sys.argv[1].split(" ")[0]) # input from user
+targetBorough = Borough(sys.argv[1].split(" ")[0])
 
 fileBorough = open('boroughs_tr.csv','r')
 linesBorough = []
