@@ -1,14 +1,17 @@
+#Nathan Seltzer
+#Assignment 2, Problem 3
+
 
 #open zipCodes.csv, read
 myFile = open('c:\\Users\\Nathan\\desktop\\zipCodes.csv','r')
-myOtherFile = = open('c:\\Users\\Nathan\\desktop\\Incidents_grouped_by_Address_and_Zip.csv','r')
-myOtherOtherFile = = open('c:\\Users\\Nathan\\desktop\\boroughs.csv','r')
+# myOtherFile = = open('c:\\Users\\Nathan\\desktop\\Incidents_grouped_by_Address_and_Zip.csv','r')
+# # myOtherOtherFile = = open('c:\\Users\\Nathan\\desktop\\boroughs.csv','r')
 
 for line in myFile: # reads each line, loop
 	# print line
 	column = line.split(',') #delineates each value in spreadsheet by removing comma
-	area = column[7] # 7 refers to the area column
-	pop = column[10] # 10 refers to the population column
+	area = column[10] # 7 refers to the area column
+	pop = column[7] # 10 refers to the population column
 	print area
 """
 My python fluency is still not the best (I've been working hard
