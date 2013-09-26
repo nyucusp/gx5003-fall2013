@@ -100,6 +100,9 @@ class Borough:
         self.name = name
         self.zipcodes = []
 
+    def __eq__(self, other):
+        return other.name == self.name
+
     def addZipcode(self, zip):
         self.zipcodes.append(zip)
 
@@ -110,15 +113,20 @@ class Borough:
         pass
 
 def GetZipsBorough():
+    '''
+    I've decided I like the dictionary mehtod better than the clas methof for thos example.
+    '''
     parser = ParseCSV(boroughsFile)
-    (fields, data) = parser.rawData()
+    (fields, data) = parser.getRawData()
 
-    zipsDict = {}
+    zipBoroughs = {}
+
     for listItem in data:
         zipCode = listItem[0]
         borough = listItem[1]
 
-        if zipCode not in zipsDict:
-            zipsDict[zipCode] = borough
+        if zipCode not in zipBoroughs:
+            zipBoroughs[zipCode] = borough
 
-    return zipsDict
+    return zipBoroughs
+
