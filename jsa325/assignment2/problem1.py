@@ -25,6 +25,7 @@ for line in myFile:
 
 myFile.close()
 
-print 'The dates and times of the commits after ' + targetDate + ' are '
+# print the output
+print 'The dates and times of the commits made after ' + targetDate + ' are '
   for line in commitDate:
     print line
