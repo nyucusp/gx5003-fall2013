@@ -40,3 +40,15 @@ for u in d.keys():
 			if (z3[line][10])!='':
 				population[u]=population[u]+int(z3[line][10])
 
+
+
+outputFile = open('output_problem3.txt','w')
+for line in range(0,len(d.keys())):
+		ratio=float(incident[d.keys()[line]])/float(population[d.keys()[line]])
+	    	zipden= str(d.keys()[line]) + " " + str(ratio) + "\n"
+	    	outputFile.write(zipden)
+outputFile.close()
+
+
+
+
