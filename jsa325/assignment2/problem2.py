@@ -31,7 +31,7 @@ for i in range(1, length):
   if lines[i].split(',') != "\n":
     zipPopulationDensity[lines[i].split(',')[indexZip] = (float(lines[i].split(',')[indexPopulation].strip())/float(lines[i].split(',')[indexArea].strip())]
     
-outputFile = open('outputDensity.txt', 'w')
+outputFile = open('output_density_problem2.txt', 'w')
 
 for k in sorted(zipPopulationDensity):
   outputFile.write("%s %s \n" % (k, zipPopulationDensity[k]))
