@@ -10,7 +10,7 @@ state = 0
 indexDate = 0
 stringDate = ""
 
-targetDate = datetime.strptime(inputDate, "%m/%d/%Y %H:%M:%S")
+targetDate = datetime.strptime(inputDate, "%M/%D/%Y %H:%M:%S")
 
 myFile = open('logAfterAssingment1.txt', 'r')
 lines = []
