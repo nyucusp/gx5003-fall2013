@@ -1,7 +1,6 @@
 # input target time and output all commits after target time
 
 import sys
-
 from datetime import datetime
 
 
