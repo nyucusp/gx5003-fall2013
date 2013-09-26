@@ -1,3 +1,11 @@
+"""
+Note that this program accepts input on the command line *without* quotation marks.
+For example, one would type
+$ python problem2.py 4 1 4 2 3
+to receive an output of
+Jolly
+"""
+
 import sys
 import math
 
