@@ -9,10 +9,16 @@ zipDataTable = {} #Empty dictionary for zip code details
 zipDensityTable = {}
 
 outputFile = open('prob2_output.txt', 'w')
-outputFile.write('zipcode density\n')
 
 for row in fileReader:
-    if row[10] != '':
-        density = float(row[10])/float(row[7])
-        outputFile.write(row[0]+" %f \n"%density)
+    zipcodeString = row[0]
+    areaString = row[7]
+    populationString = row[10]
+    if populationString != '':
+        density = float(populationString)/float(areaString)
+        zipDensityTable[zipcodeString] = density
 
+sortedZipCodes = sorted(zipDensityTable.keys())
+
+for k in sortedZipCodes:
+    outputFile.write(k+'\t%f\n' %zipDensityTable[k])
