@@ -3,7 +3,6 @@
 import sys
 
 from datetime import datetime
-from dateutil.parser import parse
 
 
 inputDate = sys.argv[1] + '-0400' # EST. Big thank you to my peers for pointing this out!
