@@ -5,8 +5,6 @@ class Borough:
     populations = 0
     popcount = 0
     incidents = 0
-    inpercap = 0
-    popave = 0
 
     def __init__(self, name):
         self.name = name
