@@ -6,7 +6,6 @@ def compare(sysDatetime,logFile):
 	#sysDatetime = only in parenths
 	#parses input date and time into datetime object
 	sysDateTime = parser.parse(sysDatetime)
-	print sysDateTime
 
 	for line in logFile:
 		#since line goes through the file sequentially, we can 
