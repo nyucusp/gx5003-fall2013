@@ -22,9 +22,4 @@ class Borough:
     def addIncident(self, incident):
         self.incidents += incident
    
-    def incidentpercap(self):
-        self.inpercap = self.incidents/float(self.populations)
-
-    def popaverge(self):
-        self.popave = self.populations/float(self.popcount)
     
