@@ -27,6 +27,8 @@ for line in zip_area:
 
            output_data[zipcode] = density
 
+           sorted(output_data)
+
            for den, zipcd in output_data:
 
                gen_data=str(zipcd)+ " "+str(den)+ "\n" #start in a new line each time
