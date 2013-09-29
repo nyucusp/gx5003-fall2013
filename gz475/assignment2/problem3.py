@@ -51,6 +51,6 @@ for incidline in incidcon:
                 boroughs[x].addIncident(int(incidline[2]))
 #output
 outputFile = open('output_problem3.txt','w')
-for x in boroughs.keys():
+for x in sorted(boroughs.keys()):
     outputFile.write(x + ' '+ str(boroughs[x].incidents/float(boroughs[x].populations)) +'\n')
 outputFile.close()

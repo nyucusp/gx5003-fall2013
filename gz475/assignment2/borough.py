@@ -5,8 +5,6 @@ class Borough:
     populations = 0
     popcount = 0
     incidents = 0
-    inpercap = 0
-    popave = 0
 
     def __init__(self, name):
         self.name = name
@@ -22,9 +20,4 @@ class Borough:
     def addIncident(self, incident):
         self.incidents += incident
    
-    def incidentpercap(self):
-        self.inpercap = self.incidents/float(self.populations)
-
-    def popaverge(self):
-        self.popave = self.populations/float(self.popcount)
     

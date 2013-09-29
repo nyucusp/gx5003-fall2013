@@ -45,5 +45,5 @@ for popline in popcon:
 # calculate the average population of each borough
 for x in boroughs.keys():
     average[x] = boroughs[x].populations/float(len(boroughs[x].zipcodes))
-    if x == boroughname:
+    if x == boroughname.capitalize():
         print x,average[x]
