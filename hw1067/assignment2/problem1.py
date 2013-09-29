@@ -14,7 +14,7 @@ import sys
 #The worst part is, the lost problem1.py was the only one that ran in my fold!
 #FML
 #to be save, I will copy and paste my codes to the online editor from  now on, 
-#since"Google  it" is not always the best answer
+#since "Google  it" is not always the best answer
 
 outputfile=[]#the final list shouldbe stored here
 
