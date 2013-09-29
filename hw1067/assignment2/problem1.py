@@ -26,11 +26,11 @@ commit_time=[]#store all the commit time in this list
 for line in log_file:
     committime=line.find("Date:")#if the line start with these five characters, we read its content
     if committime!=-1:
-        for i in range(len(committime)):#label all the lines, and
             
             commit_time=parser.parse(log_file[i][8:-6])#ignoring the timezone info here
-        if commit_time > deadline_time:
-            output_file=outputfile.append()
+            for i in range(len(committime)):#label all the lines, and take the two lines above if no "merge" case+ one line  following underneath.
+                if commit_time > deadline_time:
+                    output_file=outputfile.append([i-2:i+1])#not sure how to add the merge situation
 
 log_file.close()
     
