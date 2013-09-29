@@ -1,5 +1,4 @@
-
-
+# this the work flow. I only got here.
 #create 3 dictionary
 
 #you have zipcode, borough and population
