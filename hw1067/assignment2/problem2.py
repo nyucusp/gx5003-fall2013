@@ -37,7 +37,7 @@ for line in zip_area:
 
 myfile.close()
 
-outputfile.close()
+outputfile.close()#it is empty, but i don't know how to fix it.
 
 
 
