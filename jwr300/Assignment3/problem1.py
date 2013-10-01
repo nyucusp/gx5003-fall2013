@@ -1,3 +1,8 @@
+#!/usr/local/bin/python
+#Warren Reed
+#Principles of Urban Informatics
+#Assignment 3, Problem 1
+
 import sys 
 
 myFile = open('input1.txt','r')
@@ -10,16 +15,16 @@ for line in myFile:
         expenses.append(float(line.strip()))
         TotalExpenses += float(line.strip())
 avgExpense = round(TotalExpenses / numStudents,2)
-print "NumStudents: " + str(numStudents)
-print "expenses: " + str(expenses)
-print "TotalExpenses: " + str(TotalExpenses)
-print "AvgExpense: " + str(avgExpense)
+#print "NumStudents: " + str(numStudents)
+#print "expenses: " + str(expenses)
+#print "TotalExpenses: " + str(TotalExpenses)
+#print "AvgExpense: " + str(avgExpense)
 
 diffExpenses = []
 for i in range (0,numStudents-1):
     diffExpenses.append(round(expenses[i] - avgExpense,2))
 
-print "diffExpenses: " + str(diffExpenses)
+#print "diffExpenses: " + str(diffExpenses)
 
 expGiven = []
 expReceived = []
@@ -34,11 +39,11 @@ for i in range (0, numStudents-1):
         expGiven.append(diffExpenses[i])
         expGivenAmount -= diffExpenses[i]
 
-print "expGiven: " + str(expGiven)
-print "expReceived: " + str(expReceived)
+#print "expGiven: " + str(expGiven)
+#print "expReceived: " + str(expReceived)
 
-print "expGivenAmount: " + str(expGivenAmount)
-print "expReceivedAmount: " + str(expReceivedAmount)
+#print "expGivenAmount: " + str(expGivenAmount)
+#print "expReceivedAmount: " + str(expReceivedAmount)
 
 
 if expGivenAmount < expReceivedAmount:
