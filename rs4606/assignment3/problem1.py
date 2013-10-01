@@ -1,5 +1,5 @@
 import sys
-import numpy
+
 
 """
 First we open the text file and save the lines to the list input_lines
