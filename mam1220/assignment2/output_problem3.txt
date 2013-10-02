@@ -1,0 +1,8 @@
+Number of incidents per person for each borough of NYC
+
+Borough		Ratio Of Incidents
+Bronx		0.066389271206
+Brooklyn	0.102107658395
+Queens		0.123110817587
+Manhattan	0.0447700242321
+Staten		0.194065200917
