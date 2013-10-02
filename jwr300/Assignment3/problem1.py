@@ -17,8 +17,8 @@ for line in myFile:
 myFile.close()
 
 """ 
-Method returns the sum of the difference between the average expense and 
-and expense that is less than the average
+Method that accepts as arguments an expense list and the average expense and returns 
+the sum of the difference between the average expense and expense that is less than the average
 """
 
 def amountToExchange(expense_list, avgExpense):
