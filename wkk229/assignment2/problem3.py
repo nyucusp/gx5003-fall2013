@@ -1,7 +1,11 @@
 #main idea is you want the ration of number of incidents /population for each borough
-import csv
 
-from _collections import defaultdict
+#from numberOf import numberOf
+from decimal import *
+import csv
+from number import numberOf
+from collections import counter
+
 #calculate number of accidents / create dictionaries fo ach file
 #end product is:each line the name of borough and the calculated ratio 
 #the lines should be sorted by alphabetically 
@@ -9,45 +13,55 @@ from _collections import defaultdict
 #creating dictionaries for each file 
 #number of incidents per borough
 #first open all files
-zip=csv.reader(open('zipCodes.csv','rb'),delimiter=',')
-zipcodePopDict=defaultdict(list)
+code=csv.reader(open('zipCodes.csv'),delimiter=',')
+bor= csv.reader(open('boroughs.csv'),delimiter=',')
+zipIncident= csv.reader(open('Incidents.csv'),delimiter=',')
+zipIncident.next () #so as to skip the header because you want to start from second colomn
+cities = [row[1] for row in zipIncident] #calculating how many times zip occurs
+freq=[]
 
-for line in zip:
-	zipcodePopDict.append(population)
-	zipcodePopDict=dict((zipcode,tuple(line for zipcode,population in zipcodePopDict.iteritems())))
-	print line
+for (x,y) in counter (cities).iteritems():
+	freq.append((x,y))
+zip_pop= [] #list of zip codes by population
+code.next()
 
-zipcodeIncidentsDict(zipcode,incedents)
-incedent =csv.reader(open("incedents.csv",'rb'),delimiter=',')
-for line in incedents:
-	zipcode = perse(line)  #pass the zipcode and get line
-if zipcodeIncidenstDict.keys(zipcode):
+for row in code:
+	zip_pop.append ((row[1],row[10]))
+zip_boroughs=[] #list of boroughs and zipcodes
+bor.next()
 
- #you get the number the dictionary and the keys contain zipcode
- #if the zip code is already there add 1
- 	zipcodeIncidenstDict(zipcode).value +=1
-else:
- 	zipcodeIncidenstDict.append(zipcode,1)
-#if that zipcode is not in the dictionary then add it (Append)
+for row in bor:
+	zip_boroughs.append((row[0],row[1]))
 
+#the common among the three file is zipcode. thus we will use it to form dictionaris
+incidents = dict(freq)
+population = dict(zip_pop)
+borough = dict(zip_boroughs)
 
- #module3
+incident_in_borough= [(borough[id]) 
+	for id in set(borough) & set (incidents)] #incidents and population
+population_in_borough=[(borough[id]) 
+	for id in set(borough)& set (population)] #population and borough name
 
- #use the zipcode to connect the three files-since each zipcode is common
- #find which zipcode of what you find are in the dictionary
- 	boroughDict (borough,zipcodes) #loopsthrough the borough and dict
- 	output =boroughDict (borough,n)
-for borough in boroughDict.keys ():
- 	population=(0)
- 	incidents=(0)
-for zipcode in boroughDict (borough):
- 	population += zipcodePopDict(zipcode)
- 	incidents += zipcodeIncidenstDict(zipcode)
+# we have to create a clas that calculates the total population and incidents for each borough
+# then use them to calculate the ratio
 
- 	#for each borough you need to have one unique n
- 	n= incidents/population
- 	output.append(borough,n)
- 	print n
+class1= numberOf(len(incedent),len(population_in_borough),'Brooklyn',incident_in_borough,population_in_borough)
+class2=numberOf(len(incedent),len(population_in_borough),'Bronx',incident_in_borough,population_in_borough)
+class3=numberOf(len(incedent),len(population_in_borough),'Manhattan',incident_in_borough,population_in_borough)
+class4=numberOf(len(incedent),len(population_in_borough),'Queens',incident_in_borough,population_in_borough)
+class5=numberOf(len(incedent),len(population_in_borough),'Staten',incident_in_borough,population_in_borough)
+
+outputFile= open('output_problem3.txt','w')
+outputFile.write("Borough Name\tClass1\n")
+outputFile.write("Bronx\t"+str(class1) +"\n"
+                  "Brooklyn\t"+str(class2) +"\n"
+                  "Manhattan\t"+str(class3) +"\n"
+                  "Queens\t"+str(class4) +"\n"
+                  "Staten\t"+str(class5) +"\n")
+outputFile.close()
+print "done"
+
 
 
 
