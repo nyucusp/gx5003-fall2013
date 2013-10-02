@@ -4,8 +4,8 @@ import sys
 from datetime import datetime, date, time
 import dateutil.parser as timePR
 #date_str = "09/19/2013 09:12:15"
-givenDateTime = sys.argv[1] + " " + sys.argv[2]
-parsedDT = timePR.parser().parse( givenDateTime, None )
+givenDateTime = sys.argv[0] + " " + sys.argv[-1]
+parsedDT = timePR.parser().parse(givenDateTime, None)
 #dt_obj= datetime.strptime(date_str,"%m/%d/%Y %H:%M:%S")
 #print repr(dt_obj)
 print parsedDT
