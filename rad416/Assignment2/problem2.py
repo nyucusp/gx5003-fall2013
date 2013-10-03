@@ -33,7 +33,7 @@ for k in zipAreaPopDict:
 #output result
 outFile = open('output_density_problem2.txt', 'w') #open output file
 for k in sorted(zipAreaPopDict):
-  popPerArea = str(float(zipAreaPopDict[k][1]) / float(zipAreaPopDict[k][0])) #variable to hold ration
+  popPerArea = str(float(zipAreaPopDict[k][0][1]) / float(zipAreaPopDict[k][0][0])) #variable to hold ration
   outFile.write(k)
   outFile.write(" ")
   outFile.write(popPerArea)

@@ -1,4 +1,5 @@
 from _collections import defaultdict
+from collections import deque
 
 inputFile = open('input2.txt','r')
 
