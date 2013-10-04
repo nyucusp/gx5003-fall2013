@@ -74,6 +74,11 @@ input papers_list.  Find_all_authors is explained and defined below, but authors
 is a dictionary whose keys are the integers 1,...,n, where there are n total distinct
 authors, and values are the author names.
 
+Then, we create papers_dictionary by calling the function find_all_papers with the inputs
+authors_dictionary and papers_list.  This is a new dict whose keys are the same as 
+authors_dictionary, but whose corresponding keys are lists of papers titles that the
+corresponding author has co-authored.  Find_all_papers is defined and explained below.
+
 After this, we call the function create_adjacency_matrix, defined and explained below.
 We save it as the variable A.
 
