@@ -1,4 +1,4 @@
-#Alex Chohlas-Wood. Assignment 3, Problem 1.
+#Alex Chohlas-Wood (acw438). Assignment 3, Problem 1.
 
 from decimal import *
 
