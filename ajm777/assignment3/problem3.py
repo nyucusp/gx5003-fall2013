@@ -125,5 +125,4 @@ while j < (len(cases)-1):
     print 'Scenario ' + str(j+1)
     output(authors_to_search, get_erdos(papers))
     j = j + 1
-    print
 
