@@ -172,7 +172,7 @@ def find_all_authors(papers):
     
 
 def find_authors_from_paper(paper):
-    authors_list_to_parse = paper.split(':')[0]
+    authors_list_to_parse = paper.split(':', 1)[0]
     comma_split_list = authors_list_to_parse.split(',')
     list_to_return = []
     for i in range(0, len(comma_split_list)/2):
