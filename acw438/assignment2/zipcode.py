@@ -18,7 +18,12 @@ class Zipcode:
         self.incidents += int(incidents)
 
     def passAttributes(self):
-        return self.population, self.incidents
+        pop = self.population
+        inci = self.incidents
+        self.population = 0 #reset population so it isn't counted twice
+        self.incidents = 0 #reset incidents so they aren't counted twice
+        self.popCounter += 1
+        return pop, inci
 
     def avgFeatures(self, addlPop, addlArea):
         #add up total value of areas collected so far (for this zip):
