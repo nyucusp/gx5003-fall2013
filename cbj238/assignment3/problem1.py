@@ -5,7 +5,6 @@ def calculate_money_that_changed_hands(tripList):
 	ret = []
 
 	for trip in tripList:
-		tripN = trip[0]
 		tripArr = np.array(trip[1])
 
 		# figure out how much each person owes... their value - the mean of the whole thing:
