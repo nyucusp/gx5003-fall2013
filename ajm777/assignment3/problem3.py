@@ -74,13 +74,18 @@ def get_erdos(papers):#expected input is of format: ['Smith, M.N., Martin, G., E
 
 #Create a function to correlate the input names with their erdos num
 def output(authors_to_search, erdos):
-    for authors in authors_to_search:
-        name = authors.strip()[:-1]
-        print name
-        print erdos
+    for author in authors_to_search:
+        name = author.strip()[:-1]
+        enum = 0
         for n, vals in erdos.items():
-            if name in vals:
-                print str(name) + '., ' + str(n)
+            for elem in vals:
+                if name in elem:
+                    enum = n
+                elif enum == 0:
+                    for elem2 in elem:
+                       if name in elem2:
+                           enum = n 
+        print str(name) + '. ' + str(enum)  
 
 
 #Find out the range of data for each case, given the raw data
@@ -116,9 +121,9 @@ while j < (len(cases)-1):
     while (papers_end <= index < authors_end):
         authors_to_search.append(data[index])
         index = index + 1
-    #Created data in the form of 1 list of all papers, 1 list of authors to search for in papers
-    print 'Scenario ' + str(j)
+#Created data in the form of list of  papers, list of authors to search
+    print 'Scenario ' + str(j+1)
     output(authors_to_search, get_erdos(papers))
     j = j + 1
     print
-    print
+
