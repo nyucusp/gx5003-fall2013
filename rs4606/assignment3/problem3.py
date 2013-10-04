@@ -80,14 +80,14 @@ We save it as the variable A.
 Next, we find the key corresponding to 'Erdos, P.' and save it in erdos_key.
 
 Now comes the crucial step in scenario_solver.  If i is the key of a particular author
-in authors_dictionary, then first k in 1,...,l for which the (i, erdos_key) entry of A^k 
+in authors_dictionary, then the first k in 1,...,l for which the (i, erdos_key) entry of A^k 
 is nonzero will be the erdos number of (author) i, where l = num_papers.  
 This is explained further in the definition of create_adjacency_matrix below.  
 So we create a dict called authors_erdos_numbers, and take successive powers of A, 
 and check (i, erdos_key) entries.  When they become nonzero for the first time, we record 
 the author name as key and erdos number as value in authors_erdos_numbers.
 
-We manually set Paul Erdos's key to 0 (as convention).  Finally, for each element in 
+We manually set Paul Erdos's number to 0 (as convention).  Finally, for each element in 
 authors_to_search (we alter the string slightly), we print out the name and erdos number.
 If there are names in authors_to_search that do not appear in authors_erdos_numbers at all,
 we manually print "infinity" as their erdos numbers.
