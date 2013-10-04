@@ -32,9 +32,9 @@ for i in range(0,int(papers)):
   authorSplit = authorBlock.replace('.,','.;').split("; ")
   authorList.append(authorSplit)
 
-nameList = [] #generate list of names for evaluation
+nameDict = defaultdict(int)
 for i in range(0,int(names)):
-  nameList.append(inputQue.popleft())
+    nameDict[inputQue.popleft()] = -1
 
 erdosTree = Tree("Erdos, P.")
 
