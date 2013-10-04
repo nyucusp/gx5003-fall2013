@@ -23,9 +23,13 @@ instances = int(inputQue.popleft()) #instances of Erdos calculations
 
 papers, names = inputQue.popleft().split(" ") #split P,N into variables
 
-paperList = [] #generate list of papers
+authorList = [] #generate list of papers
 for i in range(0,int(papers)):
-  paperList.append(inputQue.popleft())
+  #intern string of paper citation to variable
+  paperString = inputQue.popleft()
+  #extract author block
+  authorBlock = paperString[0:paperString.find(":")]
+  authorList.append(authorBlock)
 
 nameList = [] #generate list of names for evaluation
 for i in range(0,int(names)):
