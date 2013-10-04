@@ -29,12 +29,20 @@ for i in range(0,int(papers)):
   paperString = inputQue.popleft()
   #extract author block
   authorBlock = paperString[0:paperString.find(":")]
-  authorList.append(authorBlock)
+  authorSplit = authorBlock.replace('.,','.;').split("; ")
+  authorList.append(authorSplit)
 
 nameList = [] #generate list of names for evaluation
 for i in range(0,int(names)):
   nameList.append(inputQue.popleft())
 
+erdosTree = Tree("Erdos, P.")
 
+def addChildren(authorList):
+  if authorList.count('Erdos, P.') > 0: #Erdos present in author list
+    for i in authorList:
+      if (i != 'Erdos, P.'):
+        erdosTree.add(Tree(i))
+  else: #handle authors removed from Erdos
 
 
