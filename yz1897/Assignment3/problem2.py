@@ -4,9 +4,12 @@ Created on Thu Oct 03 15:37:31 2013
 @author: Frank Zha,NetID yz1897
 """
 
-import sys
+#this global variable holds the relative directory of input file
+input_filename="input2.txt"
 
-def Parse_Input(in_string):#parse the input
+from problem1 import getlines
+
+def Parse_Input(lines):#parse the input
     vote_container=[]
     '''
     Contains the structured data of each case
@@ -15,7 +18,6 @@ def Parse_Input(in_string):#parse the input
     order_container=[orderlist,...]
     orderlist=[order,...] like [1,2,4,3]
     '''    
-    lines=in_string.split('\\n')
     case_number=int(lines[0])    
     case_container=[]#contains each lines in a case in a list
     #use empty line to seperate the cases
@@ -97,7 +99,8 @@ def Rank_Result(cases):
             
 '''Test the Parse_Input'''
 if __name__=="__main__":
-    #vote_container=Parse_Input("3\\n\\n3\\nA\\nB\\nC\\n1 2 3\\n3 2 1\\n\\n2\\nD\\nE\\n1 2\\n1 2\\n2 1\\n\\n4\\nX\\nY\\nZ\\nU\\n2 1 3 4\\n2 1 3 4\\n4 2 1 3\\n4 3 2 1\\n2 3 4 1\\n3 4 2 1\\n1 4 3 2\\n3 1 4 2")
-    vote_container=Parse_Input(sys.argv[1])    
+    lines=getlines(input_filename)
+    
+    vote_container=Parse_Input(lines)    
     Rank_Result(vote_container)
 
