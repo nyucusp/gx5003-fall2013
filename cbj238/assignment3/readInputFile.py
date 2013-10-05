@@ -116,7 +116,19 @@ class Problem2Input(InputFile):
             self.data.append((candidates, votes))
 
 class Problem3Input(InputFile):
-    pass
+    def __init__(self):
+        self.data = []
+        InputFile.__init__(self, 'input2.txt')
+        self.parse()
+
+    def parse(self):
+        ''' State machine that handles the input. States:
+        0. Line contains the number of scenarios to follow.
+        1. Line contains natrual numbers P N, P Papers to follow, then N names to follow.
+        2. read P Papers
+        3. read N names
+        4. Exit
+        '''
 
 class Problem4Input(InputFile):
     pass
