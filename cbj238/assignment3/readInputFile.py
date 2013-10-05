@@ -1,3 +1,17 @@
+def SplitAuthors(authorString):
+    '''
+        Given a string containing:
+        Last Name, First Name, LastName, FirstName, ...
+        return a list of ["LastName, Firstname", ...]
+    '''
+    authorList = []
+    tmpStr = authorString
+    endIdx = 0
+    while endIdx is not -1:
+        endIdx = tmpStr.find(',', tmpStr.find(',') + 1)
+        authorList.append(tmpStr[:endIdx].strip())
+        tmpStr = tmpStr[endIdx+1:]
+    return authorList
 
 class InputFile:
     handle = None
@@ -118,7 +132,7 @@ class Problem2Input(InputFile):
 class Problem3Input(InputFile):
     def __init__(self):
         self.data = []
-        InputFile.__init__(self, 'input2.txt')
+        InputFile.__init__(self, 'input3.txt')
         self.parse()
 
     def parse(self):
@@ -129,6 +143,55 @@ class Problem3Input(InputFile):
         3. read N names
         4. Exit
         '''
+        state = 0
+        s = -1      # Outer loop (scenarios) size
+        n = -1      # inner looop (N) size
+        p = -1      # P
+        s_idx = -1
+        p_idx = -1
+        n_idx = -1
+        papers = []
+        names = []
+        for line in self.handle:
+            print state, s, n, p, "|" + line + "|"
+            if state is 0:
+                s = int(line.strip())
+                state = 1
+            elif state is 1:
+                line = line.strip()
+                if line is not "":
+                    (p, n) = [int(x) for x in line.split()]
+                    state = 2
+                    p_idx = 0
+                    n_idx = 0
+                else:
+                    state = 4
+            elif state is 2:
+                (authors, title) = line.split(':')
+                
+                papers.append((SplitAuthors(authors), title.strip()))
+                p_idx += 1
+
+                if p_idx is p:
+                    state = 3
+            elif state is 3:
+                names.append(line.strip())
+                n_idx += 1
+
+                if n_idx is n:
+                    self.data.append((papers, names))
+
+                    papers = []
+                    names = []
+                    s_idx += 1
+
+                    if s_idx is s:
+                        state = 4
+                    else:
+                        state = 1
+            elif state is 4:
+                break;
+
 
 class Problem4Input(InputFile):
     pass
