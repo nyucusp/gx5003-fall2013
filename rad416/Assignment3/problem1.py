@@ -1,3 +1,9 @@
+"""
+A script to take in a series of amounts, find the average, subtract from each and return the 
+amount of money that needs to change hands in order to even the net amount among all
+those paying.
+"""
+
 from collections import deque
 from decimal import Decimal
 from operator import sub
@@ -17,7 +23,6 @@ def findPayAvg(inputList): # find the amount each owes
     return sum(posPayList)
 
   paymentAvg = Decimal( round( sum(inputList)/len(inputList) , 2 ) )
-  # print "Payment Average = " + str(paymentAvg)
   return calcPayDiff(inputList, paymentAvg)
 
 #open file
