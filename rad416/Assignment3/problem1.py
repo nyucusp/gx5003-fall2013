@@ -1,4 +1,3 @@
-import sys
 from collections import deque
 from decimal import Decimal
 from operator import sub
@@ -17,7 +16,8 @@ def findPayAvg(inputList): # find the amount each owes
     #return sum of positive numbers
     return sum(posPayList)
 
-  paymentAvg = Decimal( sum(list1)/len(list1)  )
+  paymentAvg = Decimal( round( sum(inputList)/len(inputList) , 2 ) )
+  # print "Payment Average = " + str(paymentAvg)
   return calcPayDiff(inputList, paymentAvg)
 
 #open file
@@ -45,9 +45,7 @@ output = []
 
 #calc paymax for each list of students
 for i in inputList:
-  output += findPayAvg(i)
+    output.append(Decimal(round(findPayAvg(i),2)))
 
 for i in output:
-  print "$" + i
-
-
+    print "$" + str(format(i, '.2f'))
