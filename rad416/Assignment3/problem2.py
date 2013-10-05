@@ -45,7 +45,7 @@ while (winnerCheck == -1): #loop until find majority winner
 
   condition = True
   while condition:
-    loserKey.append(min(ballotDict, key=ballotDict.get))
+    loserKey.append(min(ballotDict, key=ballotDict.get)) #find min
     
 
     #test for other min in dict, if not, break list
@@ -54,12 +54,14 @@ while (winnerCheck == -1): #loop until find majority winner
     else:  
       condition = False #break while loop
     
-  #loser pop  
+  #filter loser
 
+  #check again for winner
+  winnerCheck = calcWinner(ballotList)
   
 
 
-  print candidateDict[winnerCheck]
+print candidateDict[winnerCheck]
   # loopCounter += 1 #incrememt the control counter
 
 # transform ballotList into dictionary keyed on candidate number
@@ -91,3 +93,8 @@ def calcLoser(ballotDict):
 
 def returnValCount(dictionary, value):
   return ballotDict.values().count(value)
+
+def loserList(ballotDict):
+  #find min
+  #find count of min
+  #iterate through dict and return key for losers in list
