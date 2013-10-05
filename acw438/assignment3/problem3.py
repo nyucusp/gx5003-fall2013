@@ -24,32 +24,61 @@ class Scenario:
                 if author not in self.authors:
                     self.authors[author] = 0
 
-    def addErdosOnes(self):
-        for paper in self.papers:
-            if paper.isErdos:
-                for author in paper.authorList:
-                    self.authors[author] = 1
+    def addErdosNums(self):
+        erdosCounter = 1
+        while True:
+            foundAnother = False
+
+            #Add erdos numbers to paper authors connected in last iteration:
+            for paper in self.papers:
+                if paper.erdosNum == erdosCounter:
+                    for author in paper.authorList:
+                        if self.authors[author] == 0:
+                            self.authors[author] = erdosCounter
+
+            #Search for next set of connections:
+            for paper in self.papers:
+                if paper.erdosNum == 0:
+                    for author in paper.authorList:
+                        if self.authors[author] != 0:
+                            paper.erdosNum = self.authors[author] + 1
+                            foundAnother = True
+
+            #If no connections were found on this loop,
+            #mark authors as infinity and break
+            if not foundAnother:
+                for paper in self.papers:
+                    if paper.erdosNum == 0:
+                        for author in paper.authorList:
+                            self.authors[author] = 'infinity'
+                break
+            erdosCounter += 1
+
 
 class Paper:
     def __init__(self, paper):
         self.authorList = []
-        self.isErdos = False
+        self.erdosNum = 0
+
         colonIndex = paper.find(':')
         self.authorList = paper[:colonIndex]
         self.authorList = self.authorList.split('., ')
+
         #Scope problem here, which required me to refer to original list 
-        #in if loop
+        #when inside if loop.
+        #Add periods to author names, find Erdos papers.
         for index, author in enumerate(self.authorList):
             if author[-1] != '.':
                 self.authorList[index] += '.'
             if self.authorList[index] == "Erdos, P.":
-                self.isErdos = True
+                 self.erdosNum = 1
 
 
 rawFile = open('input3.txt', 'r')
 input3 = []
 for line in rawFile:
     input3.append(line.strip())
+rawFile.close()
 
 #Discard number of scenarios:
 input3 = input3[1:]
@@ -69,24 +98,15 @@ for line in input3:
         scenarioList.append(Scenario(line[0], line[1], scenarioCounter))
 
 for item in scenarioList:
+    #After all papers have been added, parse authors into dict
     item.parseAuthors()
-    item.addErdosOnes()
-#    item.calcOtherErdos()
 
+    #Add Erdos numbers to authors
+    item.addErdosNums()
+
+#Run through scenarios,
+#Take author query from input and output dict value
 for item in scenarioList:
     print 'Scenario', item.scenarioNum
-#    for paper in item.papers:
-#        print paper.isErdos
-    print item.authors
-    print ''
-
-#Have a list of Paper objects.
-#Have a dict of names, values = -1.
-#Get the names of people with Erdos#1, change value in dict to 1.
-#Mark Erdos papers as "recorded"
-#Go through remaining papers. If find paper with author with Erdos # != -1:
- #Make other authors that author's number + 1
- #Mark paper as "recorded"
-#If program has cycled through all remaining papers and none have been marked as recorded, mark those authors as "infinity"
-
-#Take author query from input, run through dict and output dict value
+    for author in item.authorQ:
+        print author, item.authors[author]
