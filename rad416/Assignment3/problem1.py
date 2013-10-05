@@ -17,7 +17,7 @@ def findPayAvg(inputList): # find the amount each owes
     #return sum of positive numbers
     return sum(posPayList)
 
-  paymentAvg = round(sum(inputList)/len(inputList),2)
+  paymentAvg = Decimal( sum(list1)/len(list1)  )
   return calcPayDiff(inputList, paymentAvg)
 
 #open file

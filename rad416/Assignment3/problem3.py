@@ -45,4 +45,6 @@ def addChildren(authorList):
         erdosTree.add(Tree(i))
   else: #handle authors removed from Erdos
 
-
+def treeToMap(erdosTree):
+  #convert the tree to a map of values
+  
