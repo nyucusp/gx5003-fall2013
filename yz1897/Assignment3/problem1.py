@@ -32,8 +32,6 @@ def PrintAmount(Exchanges):#make the output into the required form
 def getlines(fname):
     '''
     Get eachlines in a file without return '\n'
-    return a list of line
-    This function will be reused in the rest answers
     '''
     f=open(fname,"r")
     lines=f.readlines()

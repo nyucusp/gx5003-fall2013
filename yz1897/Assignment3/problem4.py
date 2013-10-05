@@ -6,8 +6,17 @@ Created on Wed Oct 02 17:04:13 2013
 #this global variable holds the relative directory of input file
 input_filename="input4.txt"
 
-from problem1 import getlines
-
+def getlines(fname):
+    '''
+    Get eachlines in a file without return '\n'
+    '''
+    f=open(fname,"r")
+    lines=f.readlines()
+    f.close()
+    for i in range(len(lines)):
+        if lines[i][-1]=='\n':
+            lines[i]=lines[i][:-1]
+    return lines
 
 def Locate_Char(ch,matrix):
     '''

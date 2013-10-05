@@ -7,7 +7,17 @@ Created on Thu Oct 03 15:37:31 2013
 #this global variable holds the relative directory of input file
 input_filename="input2.txt"
 
-from problem1 import getlines
+def getlines(fname):
+    '''
+    Get eachlines in a file without return '\n'
+    '''
+    f=open(fname,"r")
+    lines=f.readlines()
+    f.close()
+    for i in range(len(lines)):
+        if lines[i][-1]=='\n':
+            lines[i]=lines[i][:-1]
+    return lines
 
 def Parse_Input(lines):#parse the input
     vote_container=[]
