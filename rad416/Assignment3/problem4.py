@@ -19,6 +19,13 @@ grid = [] # grid list
 for i in range(0,int(rows)):
     grid.append(list(inputQue.popleft().lower()))
 
+words = int(inputQue.popleft())
+
+wordsList = []
+
+for i in range(0,words):
+  wordsList.append(inputQue.popleft())
+
 
 
 #end while loop for instances
