@@ -21,6 +21,8 @@ for line in inputFile:
 
 instances = int(inputQue.popleft()) #instances of Erdos calculations
 
+#start while loop for instances
+
 papers, names = inputQue.popleft().split(" ") #split P,N into variables
 
 authorList = [] #generate list of papers
@@ -47,4 +49,5 @@ def addChildren(authorList):
 
 def treeToMap(erdosTree):
   #convert the tree to a map of values
-  
+
+#end while loop for instances
