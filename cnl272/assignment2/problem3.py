@@ -53,7 +53,6 @@ def getincident():
 	incident_File.close()
 	return dict_zip_incidents
 
-import os
 def borough():
 	borough_File = open('boroughs.csv', 'r')
 	zip_borough = []
@@ -102,7 +101,7 @@ for  borough_key in borough_dict:
 		population_borough = population_borough+population_dict[key_pop]
 
 	incident_ratio = float(incident_borough)/population_borough
-#divide population in each borough with numbers of incidents(sum of number of zipcodes) in each borough
+#divide population in each borough by numbers of incidents in each borough
 	dict_incident_ratio[borough_key]=incident_ratio
 
 lexi_incidentratio = []
