@@ -67,7 +67,7 @@ for index, scenario in enumerate(scenarioList):
     for i in range(1,numCandidates+1):
         canDict[str(i)] = Candidate(str(i), scenario[i]) #scenario[i]=candidate name
     
-    #Create list of votes from remaining items in list:
+    #Create list of votes from remaining lines in scenario:
     voteList = scenario[numCandidates+1:]
 
     #counting total # of voters
