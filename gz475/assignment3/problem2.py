@@ -70,5 +70,3 @@ for x in range(0, len(votes)):
         winneroutput = 0
 
 myfile.close()
-
-
