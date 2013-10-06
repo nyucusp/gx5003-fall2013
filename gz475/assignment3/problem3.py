@@ -13,14 +13,14 @@ class Sortname:# collect names according to their Erdos numbers
 
 myfile = open('input3.txt','r')
 contents = myfile.readlines()
+namedict = {}
+sortname = {}
 newcont = []
 paper = []
 name = []
 sname = []
-namedict = {}
-sortname = {}
-senumb = 1
 rownumb = []
+senumb = 1
 t = 2
 
 for x in contents:

@@ -14,6 +14,7 @@ class Coordinate:# collect coordinates of each Waldorfs' first letters' location
 myfile = open('input4.txt','r')
 content = myfile.readlines()
 senumb = int(content[0])
+coordinate = {}
 numbline = []
 words = []
 newwords = []
@@ -21,7 +22,6 @@ letters = []
 grid = []
 lines = []
 newgrid = []
-coordinate = {}
 count = 0
 secount = 0
 

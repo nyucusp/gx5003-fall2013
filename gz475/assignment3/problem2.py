@@ -3,14 +3,14 @@
 myfile = open('input2.txt','r')
 votes = myfile.readlines()
 senumb = int(votes[0])
-count = 0
 candi = []
-votecount = 0
-candicount = 0
 votelines = []
 newline = []
-winneroutput = 0
 tiedline = []
+count = 0
+votecount = 0
+candicount = 0
+winneroutput = 0
 
 for x in range(0, len(votes)):
     if votes[x]== '\n':# find the blank lines before cases
@@ -70,9 +70,5 @@ for x in range(0, len(votes)):
         winneroutput = 0
 
 myfile.close()
-
-
-
-
 
 

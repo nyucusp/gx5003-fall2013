@@ -1,13 +1,11 @@
 # Gang Zhao, Assignment 3, Problem 1
 
+myfile = open ('input1.txt','r')
+trips = myfile.readlines()
 costsum = 0
 lowchange = 0
 highchange = 0
 avecost = 0
-trips = []
-
-myfile = open ('input1.txt','r')
-trips = myfile.readlines()
 
 for x in range(0, len(trips)):
     if trips[x].find(".") == -1 and int(trips[x]) != 0:# find the beginnings of cases
