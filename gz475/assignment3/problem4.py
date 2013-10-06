@@ -23,10 +23,11 @@ lines = []
 newgrid = []
 coordinate = {}
 count = 0
-printse = 0
+secount = 0
 
 for x in range(0, len(content)):# sacn the input text
     if content[x] == '\n':
+        secount  += 1
         numbline = content[x+1].strip('\n')
         numbline = numbline.split(" ")
         rownumb = int(numbline[0])# find the number of rows
@@ -111,7 +112,7 @@ for x in range(0, len(content)):# sacn the input text
         for y in range (0,len(words)):# print the first coordinates of Waldorfs
             print coordinate[words[y]].coords[0][0],coordinate[words[y]].coords[0][1]
             printse = 1
-        if printse == 1 and x > 1:# blank line between cases
+        if printse == 1 and x > 1 and secount< senumb:# blank line between cases
             print '\n'
         printse = 0
 
