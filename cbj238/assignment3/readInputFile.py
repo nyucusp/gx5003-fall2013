@@ -9,7 +9,10 @@ def SplitAuthors(authorString):
     endIdx = 0
     while endIdx is not -1:
         endIdx = tmpStr.find(',', tmpStr.find(',') + 1)
-        authorList.append(tmpStr[:endIdx].strip())
+        if endIdx is not -1:
+            authorList.append(tmpStr[:endIdx].strip())
+        else:
+            authorList.append(tmpStr.strip())
         tmpStr = tmpStr[endIdx+1:]
     return authorList
 
@@ -153,7 +156,7 @@ class Problem3Input(InputFile):
         papers = []
         names = []
         for line in self.handle:
-            print state, s, n, p, "|" + line + "|"
+            # print state, s, n, p, "|" + line + "|"
             if state is 0:
                 s = int(line.strip())
                 state = 1
