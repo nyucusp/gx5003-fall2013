@@ -26,5 +26,5 @@ for line in log:
                 if(line > average):
                     diff = abs(line - average)
                     total += diff
-            print str(total)
+            print '$' + str(total)
             amounts = []
