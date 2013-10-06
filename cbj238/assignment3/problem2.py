@@ -1,7 +1,7 @@
 '''
 Christopher B. Jacoby
 Urban Informatics
-Homework 3, Problem
+Homework 3, Problem 2
 '''
 
 import sys
