@@ -17,8 +17,7 @@ are tied.
 
 import sys
 
-def ballotCounter(candidates, ballots_list):
-    #first check to see if first candidate has greater than 50% of the votes 
+def ballotCounter(candidates, ballots_list): 
     isWinner = False
     candidatesdict = candidates.copy()
     ballotLength = len(ballots_list)
