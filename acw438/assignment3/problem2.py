@@ -92,12 +92,6 @@ for index, scenario in enumerate(scenarioList):
                 #calculate their current voteshare
                 voteShare = candidate.percentCalc(voteTally)
 
-                #Check if they have over 50%
-                if voteShare > .5:
-                    print candidate.name
-                    print ''
-                    keepRunning = False
-
                 #Add voteshare and ID tuple to voteShares list
                 voteShares.append((voteShare, candidate.ID))
 
@@ -106,21 +100,25 @@ for index, scenario in enumerate(scenarioList):
         lowestShare = voteShares[0][0]
         highestShare = voteShares[-1][0]
 
-        #Look for a tie, in which there is no voteshare difference
-        #between highest and lowest:
-        if (lowestShare == highestShare):
+        #Look for a >50% winner, OR
+        if (highestShare > .5):
+            print canDict[voteShares[-1][1]].name
+            print ''
+            keepRunning = False
+        #A tie, in which there is no voteshare difference, OR
+        elif (lowestShare == highestShare):
             for ID, candidate in canDict.iteritems():
                 if candidate.isRunning:
                     print candidate.name
             print ''
             keepRunning = False
+        #Eliminate loser.
 
-        #If there is not a tie, eliminate any candidate with voteshare
-        #equal to the lowest share, and distribute their votes.
         else:
             for candidates in voteShares:
                 if candidates[0] == lowestShare:
                     canDict[candidates[1]].eliminate()
+                    #Distribute their votes.
                     canDict = canDict[candidates[1]].distribute(canDict)
 
 rawFile.close()
