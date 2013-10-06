@@ -12,6 +12,7 @@ the papers in the paper database of this scenario. Authors which do not have any
 """
 
 import Queue
+
 """
 method calcualtes thre erdos number and returns a dictionary with the author as 
 key erdos number as value
@@ -56,5 +57,8 @@ def main():
         for i in range(numQueries):
             author = myFile.readline().strip()
             print "%s %s" % (author,erdosNum.get(author,'infinity'))
+    myFile.close()
+
+
 if __name__=='__main__':
     main()
