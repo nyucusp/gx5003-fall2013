@@ -3,12 +3,6 @@
 #Principles of Urban Informatics
 #Assignment 3, Problem 4
 
-myFile = open('input4.txt', 'r')
-numScenarios = int(myFile.readline())
-
-currentScenario = 0
-
-myFile.readline() #read blank line
 
 def checkNorth(gridlist, string, row, col):
     i = 0
@@ -71,10 +65,10 @@ def checkSouthWest(gridlist, string, row, col):
     return (i == len(string))
 
 
-def gridCheck(string, gridlist):
+def gridCheck(string, gridlist, numRows, numColumns):
     for row in range (0, numRows):
         for col in range (0,numColumns):
-            if(grid[row][col] == string[0]):
+            if(gridlist[row][col] == string[0]):
                if(checkNorth(gridlist, string, row, col) or 
                   checkSouth(gridlist, string, row, col) or 
                   checkEast(gridlist, string, row, col) or 
@@ -86,23 +80,35 @@ def gridCheck(string, gridlist):
                     return str(row+1) + " " + str(col+1)
     return "0 0"
 
+def main():
+	myFile = open('input4.txt', 'r')
+	numScenarios = int(myFile.readline())
 
-while (currentScenario < numScenarios):
-    gridDimensions = myFile.readline().split()
+	currentScenario = 0
 
-    numColumns = int(gridDimensions[0])
-    numRows = int(gridDimensions[1])
+	myFile.readline() #read blank line
 
-    grid = []
-    for i in range(0,numColumns):
-        line = list(myFile.readline().strip().lower())
-        grid.append(line)
-    numWords = int(myFile.readline())
-    words = []
-    for i in range(0,numWords):
-        words.append(myFile.readline().strip().lower())
-    for word in words:
-        print gridCheck(word, grid)
-    if numScenarios > 1:
-    	print "" #adding a blank line to satify problem specifications
-    currentScenario += 1
+	while (currentScenario < numScenarios):
+	    gridDimensions = myFile.readline().split()
+
+	    numColumns = int(gridDimensions[0])
+	    numRows = int(gridDimensions[1])
+
+	    grid = []
+	    for i in range(0,numColumns):
+	        line = list(myFile.readline().strip().lower())
+	        grid.append(line)
+	    numWords = int(myFile.readline())
+	    words = []
+	    for i in range(0,numWords):
+	        words.append(myFile.readline().strip().lower())
+	    for word in words:
+	        print gridCheck(word, grid, numRows, numColumns)
+	    if numScenarios > 1:
+	    	print "" #adding a blank line to satify problem specifications
+	    currentScenario += 1
+	    myFile.readline() #read blank line
+
+
+if __name__=='__main__':
+    main()
