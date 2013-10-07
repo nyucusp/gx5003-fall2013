@@ -1,3 +1,9 @@
+"""
+A script to take in a crossword, find the words of interest and output the location of the 
+first character in the word of interest on a 1-start indexed grid.
+"""
+
+
 from collections import deque
 
 def gridCheck():
@@ -61,44 +67,34 @@ def wordCheck(stringCat,row,col,stringType):
     for i in range(len(wordsList)):
         stringCatRev = stringCat[::-1]
         if (wordsList[i][1] == -1 and stringCat.find(wordsList[i][0]) >= 0):
-            # print "Word " + wordsList[i][0] + " in the string " + stringCat + " of type " + stringType + " that ends at " + str(row) + "," + str(col) + " at index " + str(stringCat.find(wordsList[i][0]))
             if (stringType == "row"):
                 col = col - len(stringCat) + 1 + stringCat.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
             elif (stringType == "column"):
                 row = row - len(stringCat) + 1 + stringCat.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
             elif (stringType == "rlDiag"):
                 row = row - len(stringCat) + 1 + stringCat.find(wordsList[i][0])
                 col = col - len(stringCat) + 1 + stringCat.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
             elif (stringType == "lrDiag"):
                 row = row - len(stringCat) + 1 + stringCat.find(wordsList[i][0])
                 col = col + len(stringCat) - 1 - stringCat.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
         elif (wordsList[i][1] == -1 and stringCatRev.find(wordsList[i][0]) >= 0): 
-            # print "Word " + wordsList[i][0] + " in the string " + stringCatRev + " of type " + stringType + " that ends at " + str(row) + "," + str(col) + " at index " + str(stringCatRev.find(wordsList[i][0]))
             if (stringType == "row"):
                 col = col - stringCatRev.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
             elif (stringType == "column"):
                 row = row - stringCatRev.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
             elif (stringType == "rlDiag"):
                 row = row - stringCatRev.find(wordsList[i][0])
                 col = col - stringCatRev.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
             elif (stringType == "lrDiag"):
                 row = row - stringCatRev.find(wordsList[i][0])
                 col = col + stringCatRev.find(wordsList[i][0])
-                #print "The start of the word is " + str(row) + "," + str(col)
                 wordsList[i][1] = [row,col]
 
 
@@ -113,27 +109,30 @@ for lines in inputFile: #read input into deque
 instances = int(inputQue.popleft()) #instances of the crossword search
 
 #start while loop for instances
+instanceCounter = 1
+while (instanceCounter <= instances):
+    inputQue.popleft() #kill blank line
 
-inputQue.popleft() #kill blank line
+    rows, columns = inputQue.popleft().split(" ")
 
-rows, columns = inputQue.popleft().split(" ")
+    grid = [] # grid list
+    for i in range(0,int(rows)):
+        grid.append(list(inputQue.popleft().lower()))
 
-grid = [] # grid list
-for i in range(0,int(rows)):
-    grid.append(list(inputQue.popleft().lower()))
+    words = int(inputQue.popleft())
 
-words = int(inputQue.popleft())
+    wordsList = []
 
-wordsList = []
+    for i in range(0,words):
+      wordsList.append([inputQue.popleft().lower(),-1])
 
-for i in range(0,words):
-  wordsList.append([inputQue.popleft().lower(),-1])
+    gridCheck()
 
-gridCheck()
+    #output result
+    for element in wordsList:
+        for i in element[1]:
+            print i+1,
+        print ""
 
-#output result
-for element in wordsList:
-    for i in element[1]:
-        print i+1,
-    print ""
+    instanceCounter += 1
 #end while loop for instances
