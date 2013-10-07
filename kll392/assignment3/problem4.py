@@ -13,6 +13,11 @@ class Word():
     def __init__(self, word):
         self.word = word
         self.isFound = False
+        self.mCoord = 0
+        self.nCoord = 0
+    def addLocation(self, m_coord, n_coord):
+        self.mCoord = m_coord
+        self.nCoord = n_coord
 
 """Create grid"""
 grid = []
@@ -29,7 +34,6 @@ for i in range (0, nWords):
     newword = Word(newline.lower())
     words.append(newword)
 
-myFile.close()
 
 def searchHorizontal(word, line):
     for i in range (0, len(line)):
@@ -95,80 +99,122 @@ for j in range (0, n):
 reverseGrid = reverse(grid)
 reverseVerticalGrid = reverse(verticalGrid)
 
-lastinvert = reverseGrid[::-1]
-NNE = reverse(lastinvert)
+NWdiagonal = reverseGrid[::-1]
+NEdiagonal = reverse(NWdiagonal)
 
-print 'normal grid'
-for line in grid:
-    print line
 
-print ''
-print 'reverse grid'
-for line in reverseGrid:
-    print line
- 
-print ''
-print 'last invert'
-for line in lastinvert:
-    print line 
-
-print ''
-print 'reverse vertical grid'
-for line in reverseVerticalGrid:
-    print line
-
+#For this problem, I wrote a function to search for each word horizontally (left to right) and one to search for words diagonally from Northwest to Southeast.  I then search for each word in all eight directions by using these two functions and rotating the grid to fit them.  For example, to search for the word backwards horizontally, I run my searchHorizontal function on a grid that has been flipped left to right.  To find a word diagonally from SW to NE, I run my searchDiagonal function on a grid that has been rotated clockwise 90 degrees.  If the word.isFound == True, then that means the word has already been found in the grid, and I compare its existing coordinates to the new ones to see if its place needs to be updated to be either uppermost or leftmost in the grid as requested.
 for word in words:
-    if (word.isFound == False):
-        linenumber = 1
-        for line in grid:
-            place = searchHorizontal(word, line)
-            if (place != -1):
+
+    # Search for horizontal word (West to East):
+    linenumber = 1
+    for line in grid:
+        place = searchHorizontal(word, line)
+        if (place != -1):
+            word.isFound = True
+            word.addLocation(linenumber, place)
+            break
+        linenumber += 1
+
+    # Seach for horizontal backwards word (East to West):
+    linenumber = 1
+    for line in reverseGrid:
+        place = searchHorizontal(word, line)
+        if (place != -1):
+            if (word.isFound == False):
                 word.isFound = True
-                print word.word, linenumber, place
-                break
-            linenumber += 1
-    if (word.isFound == False):
-        linenumber = 1
-        for line in reverseGrid:
-            place = searchHorizontal(word, line)
-            if (place != -1):
+                word.addLocation(linenumber, n - place + 1)
+            elif (word.isFound == True):
+                if (word.mCoord >= linenumber):
+                    if (word.nCoord > n - place + 1):
+                        word.addLocation(linenumber, n - place + 1)
+        linenumber += 1
+
+    # Search for vertical word (North to South):
+    linenumber = 1
+    for line in verticalGrid:
+        place = searchHorizontal(word, line)
+        if (place != -1):
+            if (word.isFound == False):
                 word.isFound = True
-                print word.word, linenumber, n - place + 1
-                break
-            linenumber += 1
-    if (word.isFound == False):
-        linenumber = 1
-        for line in verticalGrid:
-            place = searchHorizontal(word, line)
-            if (place != -1):
+                word.addLocation(place, linenumber)
+            elif (word.isFound == True):
+                if (place < word.mCoord):
+                    word.addLocation(place, linenumber)
+                elif (place == word.mCoord):
+                    if (linenumber < word.nCoord):
+                        word.addLocation(place, linenumber)
+        linenumber += 1
+
+    # Search for vertical word (South to North):
+    linenumber = 1
+    for line in reverseVerticalGrid:
+        place = searchHorizontal(word, line)
+        if (place != -1):
+            if (word.isFound == False):
                 word.isFound = True
-                print word.word, place, linenumber
-            linenumber += 1
-    if (word.isFound == False):
-        linenumber = 1
-        for line in reverseVerticalGrid:
-            place = searchHorizontal(word, line)
-            if (place != -1):
-                word.isFound = True
-                print word.word, m - place + 1, linenumber
-            linenumber += 1
-    if (word.isFound == False):
-        if (searchDiagonal(word, grid) != -1):
+                word.addLocation(m - place + 1, linenumber)
+            elif (word.isFound == True):
+                if ((m - place + 1) < word.mCoord):
+                    word.addLocation(m - place + 1, linenumber)
+                elif ((m - place + 1) == word.mCoord):
+                    if (linenumber < word.nCoord):
+                        word.addLocation(m - place + 1, linenumber)
+        linenumber += 1
+
+    # Search for diagonal word (direction: Southeast):
+    if (searchDiagonal(word, grid) != -1):
+        if (word.isFound == False):
             word.isFound = True
             xx, yy = searchDiagonal(word, grid)
-            print word.word, xx, yy
-    if (word.isFound == False):
-        if (searchDiagonal(word, reverseGrid) != -1):
+            word.addLocation(xx, yy)
+        elif (word.isFound == True):
+            if (xx < word.mCoord):
+                word.addLocation(xx, yy)
+            elif (xx == word.mCoord):
+                if (yy < word.nCoord):
+                    word.addLocation(xx, yy)
+                
+    # Search for diagonal word (direction: Southwest):
+    if (searchDiagonal(word, reverseGrid) != -1):
+        if (word.isFound == False):
             word.isFound = True
             xx, yy = searchDiagonal(word, reverseGrid)
-            print word.word, xx, n - yy + 1
-    if (word.isFound == False):
-        if (searchDiagonal(word, lastinvert) != -1):
+        elif (word.isFound == True):
+            if (xx < word.mCoord):
+                word.addLocation(xx, n - yy + 1)
+            elif (xx == word.mCoord):
+                if ((n - yy + 1) < word.nCoord):
+                    word.addLocation(xx, n - yy + 1)
+
+    #Search for diagonal word (direction: Northwest):
+    if (searchDiagonal(word, NWdiagonal) != -1):
+        if (word.isFound == False):
             word.isFound = True
-            xx, yy = searchDiagonal(word, lastinvert)
-            print word.word, m - xx + 1, n - yy + 1
-    if (word.isFound == False):
-        if (searchDiagonal(word, NNE) != -1):
+            xx, yy = searchDiagonal(word, NWdiagonal)
+            word.addLocation(m - xx + 1, n - yy + 1)
+        elif (word.isFound == True):
+            if ((m - xx + 1) < word.mCoord):
+                word.addLocation(m - xx + 1, n - yy + 1)
+            elif ((m - xx + 1) == word.mCoord):
+                if ((n - yy + 1) < word.nCoord):
+                    word.addLocation(m - xx + 1, n - yy + 1)
+
+    # Search for diagonal word (direction: Northeast)
+    if (searchDiagonal(word, NEdiagonal) != -1):
+        if (word.isFound == False):
             word.isFound = True
-            xx, yy = searchDiagonal(word, NNE)
-            print word.word, m - xx + 1, yy
+            xx, yy = searchDiagonal(word, NEdiagonal)
+        elif (word.isFound == True):
+            if ((m - xx + 1) < word.mCoord):
+                word.addLocation(m - xx + 1, yy)
+            elif ((m - xx + 1) == word.mCoord):
+                if (yy < word.nCoord):
+                    word.addLocation(m - xx + 1, yy)
+
+
+for word in words:
+    print word.mCoord, word.nCoord
+print ''
+
+myFile.close()
