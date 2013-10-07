@@ -24,7 +24,7 @@ words = int(inputQue.popleft())
 wordsList = []
 
 for i in range(0,words):
-  wordsList.append(inputQue.popleft())
+  wordsList.append(inputQue.popleft().lower())
 
 def gridCheck():
   print "Rows\n"
@@ -49,7 +49,7 @@ def gridCheck():
       stringCat += grid[i][j]
       j += -1
     wordCheck(stringCat)
-    print stringCat
+    # print stringCat
 
   print "\nLR Residual\n"
 
@@ -60,7 +60,7 @@ def gridCheck():
       stringCat += grid[i][j]
       j += -1
     wordCheck(stringCat)
-    print stringCat
+    # print stringCat
 
   print "\nRL Diagonals\n"
   l = int(columns) - 1
@@ -71,7 +71,7 @@ def gridCheck():
       stringCat += grid[i][j]
       j += 1
     wordCheck(stringCat)
-    print stringCat
+    # print stringCat
     l += -1
 
   print"\nRL Residuals\n"
@@ -84,7 +84,7 @@ def gridCheck():
         stringCat += grid[i][j]
         j += 1
       wordCheck(stringCat)
-      print stringCat
+      # print stringCat
       l +=-1
 #end method gridCheck
 
