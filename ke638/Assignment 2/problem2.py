@@ -29,7 +29,7 @@ for k in range(1,length):
     if lines[k].split(',')[10] != '\n':
         density[lines[k].split(',')[zipcode_index]]= (float(lines[k].split(',')[pop_index].strip())/float(lines[k].split(',')[area_index].strip()))
 
-outputFile = open('problem2poutput.txt','w')
+outputFile = open('output_density_problem2.txt','w')
 
 for key in sorted(density.iterkeys()):
     outputFile.write('%s %s \n' % (key, density[key]))

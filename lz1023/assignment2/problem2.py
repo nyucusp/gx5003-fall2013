@@ -1,4 +1,4 @@
-myFile = open('zipCodes.txt','r')
+myFile = open('zipCodes.csv','r')
 zd = {} #create a dictionary
 
 firstline = 0 #pass the first line

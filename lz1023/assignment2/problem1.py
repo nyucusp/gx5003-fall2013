@@ -4,7 +4,7 @@ from datetime import datetime
 inputDateTime = sys.argv[1]
 inputdt = datetime.strptime(inputDateTime, "%m/%d/%Y %H:%M:%S")#format the input time
 
-myFile = open('logfile.txt','r')
+myFile = open('logAfterAssignment.csv','r')
 
 commitDateTime = []#create an array of commit datetime
 for line in myFile:
