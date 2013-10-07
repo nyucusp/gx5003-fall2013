@@ -30,7 +30,7 @@ def data_parse(x_case): #take one case and parse the data
         i = i + 1
     return letters, words
 
-def find_firsts(parsed_data):#Finds all locations of the first letter 
+def find_firsts(parsed_data):#Finds all locations of the first letter from the parsed data
     letters = parsed_data[0]
     words = parsed_data[1]
     new_letters = []
@@ -59,7 +59,7 @@ def find_firsts(parsed_data):#Finds all locations of the first letter
             r = r + 1
     return location_first    
 
-def cell_search(x, y, goal_val, rows, cols, list_name): #function return vals in surrounding cells
+def cell_search(x, y, goal_val, rows, cols, list_name): #function to return values in surrounding cells without going out of bounds
     if x<0 or y<0 or x>=rows or y>=cols:
         return False
     if list_name[x][y].lower() == goal_val.lower():
@@ -67,6 +67,7 @@ def cell_search(x, y, goal_val, rows, cols, list_name): #function return vals in
     else:
         return False
 
+#Function to find the word and determine which first letter is the one with the rest of the word surrounding it
 def find_words(parsed_data, location_first):
     letters = parsed_data[0]
     words = parsed_data[1]
@@ -77,11 +78,9 @@ def find_words(parsed_data, location_first):
         new_letters.append(list(letter))
     for word in words:
         new_words.append(list(word))
-    for new_word in new_words:
-        #print new_word
-        for new_letter in new_letters:
-            #print new_letter
-            for item in location_first.items():
+    for new_word in new_words: #loop through each letter of the word
+        for new_letter in new_letters: #check for it with a loop through each line of the grid
+            for item in location_first.items(): #Giant loop to search in all directions of first letter for rest of word
                 first_letter = item[0]
                 locations = item[1]
                 for location in locations:
@@ -96,7 +95,6 @@ def find_words(parsed_data, location_first):
                             r = r - 1
                             c = c - 1
                             if n == len(new_word)-1:
-                                #print ' Final Answer for ' + str(new_word) + str(location)
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -111,7 +109,6 @@ def find_words(parsed_data, location_first):
                             r = r - 1
                             c = c
                             if n == len(new_word) - 1:
-                               # print 'final location is at ' + str(new_word) + ' is at ' + str(location)
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -126,7 +123,6 @@ def find_words(parsed_data, location_first):
                             r = r - 1
                             c = c + 1
                             if n == len(new_word) - 1:
-                                #print 'final location is at ' + str(new_word) + str(location)
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -141,7 +137,6 @@ def find_words(parsed_data, location_first):
                             r = r 
                             c = c - 1
                             if n == len(new_word) - 1:
-                                #print ' final location is at ' + str(new_word) + str(location)
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -156,7 +151,6 @@ def find_words(parsed_data, location_first):
                             r = r
                             c = c + 1
                             if n == len(new_word) - 1:
-                                #print 'final location is at ' + str(new_word) + str(location)
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -171,7 +165,6 @@ def find_words(parsed_data, location_first):
                             r = r + 1
                             c = c - 1
                             if n == len(new_word)- 1: 
-                                #print 'final location is at ' + str(new_word) + str(location)
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -186,7 +179,6 @@ def find_words(parsed_data, location_first):
                             r = r + 1
                             c = c
                             if n == len(new_word) - 1:
-                               # print 'final location is at ' + str(new_word) + str(location)
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -200,8 +192,7 @@ def find_words(parsed_data, location_first):
                         while cell_search(r+1, c+1, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
                             r = r + 1
                             c = c + 1
-                            if n == len(new_word) - 1:
-                                #print 'final location is at ' + str(new_word) + ' ' + str(location)
+                            if n == len(new_word) -1:
                                 final_loc_store.append(r_init)
                                 final_loc_store.append(c_init)
                                 word = ''.join(new_word)
@@ -215,8 +206,13 @@ def find_words(parsed_data, location_first):
 
     return final_locations
 
+<<<<<<< HEAD
 def output(final_locations, parsed_data): #expected input is dictionary created by find_words
     print parsed_data
+=======
+#Function to match output locations to names and pritn values in order and format
+def output(final_locations, parsed_data): #expected input is dictionary created by find_words
+>>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
     words = parsed_data[1]
     for word in words:
         for item in final_locations.items(): 
@@ -224,7 +220,10 @@ def output(final_locations, parsed_data): #expected input is dictionary created 
             vals = item[1]
             vals.sort()
             if name == word:
+<<<<<<< HEAD
                 #print word
+=======
+>>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
                 print str(vals[0][0]+1) + ' ' + str(vals[0][1]+1)#Add one to each since index starts from 0
         
 
@@ -247,6 +246,3 @@ while j < (len(cases) - 1):
     output(final_locations, parsed_data)
     j = j + 1
     print
-    print
-
-
