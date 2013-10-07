@@ -215,14 +215,17 @@ def find_words(parsed_data, location_first):
 
     return final_locations
 
-def output(final_locations): #expected input is dictionary created by find_words
-    for item in final_locations.items(): 
-        name = item [0]
-        vals = item[1]
-        vals.sort()
-        print name
-        print str(vals[0][0] + 1) + ' ' + str(vals[0][1] + 1)
-    print
+def output(final_locations, parsed_data): #expected input is dictionary created by find_words
+    print parsed_data
+    words = parsed_data[1]
+    for word in words:
+        for item in final_locations.items(): 
+            name = item[0]
+            vals = item[1]
+            vals.sort()
+            if name == word:
+                #print word
+                print str(vals[0][0]+1) + ' ' + str(vals[0][1]+1)#Add one to each since index starts from 0
         
 
 #Apply functions to data:
@@ -241,7 +244,7 @@ while j < (len(cases) - 1):
     parsed_data = data_parse(x_case)
     first_locations = find_firsts(parsed_data)
     final_locations = find_words(parsed_data, first_locations)
-    output(final_locations)
+    output(final_locations, parsed_data)
     j = j + 1
     print
     print
