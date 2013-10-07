@@ -1,6 +1,7 @@
 # Awais Malik
 # Assignment 3
 # Problem 1
+# Collaborated with Alex Chohlas-Wood
 
 from decimal import *
 
