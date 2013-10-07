@@ -1,16 +1,16 @@
+import codecs
 
 def handleInput(readem, numCases):
 #reusable for different cases
 	newCaseP = []
 	newCaseN = []
-        numCases = readem[0]
-        p, n = readem[1].split(" ")     
+        p, n = readem[0].split(" ")     
         p = int(p)
 	n = int(n)
 	num = 0
 	q = 0
 #deletes num of cases and p,n
-        del readem[0:2]
+        del readem[0]
 	while num < p:
 		num += 1	
 		newCaseP.append(readem[0].split(':')[0])
@@ -20,6 +20,7 @@ def handleInput(readem, numCases):
 		newCaseN.append(readem[0])
 		del readem[0]
 	makeGraph(newCaseP, newCaseN)
+	return readem
 
 
 def makeGraph(relations, names):
@@ -78,12 +79,23 @@ def bfs(graph, beg, end):
 	print beg + ". " + "infinity"	
 
 
+def scenarios(readem, numCases, x):
+	if x < numCases:
+		x += 1
+		print "Scenario " + str(x)
+		readem1 = handleInput(readem, numCases)
+		scenarios(readem1, numCases, x)
+
 def main():
-	thefile = open("input3.txt", "r")        
-	readem = thefile.readlines()
-        numCases = readem[0]
-	
-	handleInput(readem, numCases)
+	with codecs.open("input3.txt", "r", "utf-8-sig") as thefile:
+		readem = thefile.readlines()
+		numCases = readem[0]
+		numCases = numCases.strip()
+		numCases = numCases.rstrip("\n")
+		numCases = int(numCases)
+		del readem[0]
+		x = 0
+		scenarios(readem, numCases, x)
 
 if __name__ == "__main__":
 	main()
