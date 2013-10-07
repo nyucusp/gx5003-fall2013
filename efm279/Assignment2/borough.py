@@ -4,16 +4,20 @@ class Borough:
    sumpopul = None
    
    def __init__(self, name):
-   	self.name = name
-        zipcodes = []
-	sumpopul = 0
- 
-   def addZipCode(self, zip):
-        self.zipcodes.append(zip)
+     self.name = name
+     self.zipcodes = []
+     self.sumpopul = 0
 
-   def avgZipPop2(self):
-        # self.sumpopul += int(no)
-  	return 15
+# here we have zip :[(zipcode,population in the zip code)] 
+   def addZipcode(self, zip):
+     self.zipcodes.append(zip[0][0])
+     self.sumpopul += zip[0][1]
 
+#average population calculator
 
-  
+   def averagec(self):
+     sum=0	
+     for i in range(0,len(self.zipcodes)):
+	sum+=self.zipcodes[i][1] 	     
+     return sum/i
+
