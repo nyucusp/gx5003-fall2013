@@ -35,8 +35,8 @@ that have as values the second letter. At this point, the possible starting loca
 the possible directions will have been sorted out. Follow the possible directions until
 the full word is found, or until the next key does not contain the next letter. In the
 former case, return the original key. In the latter case, eliminate the key from the list
-and keep iterate with the other possible keys and directions until the word is found. NOTE
-TO SELF: Can I make it such that if there is only 1 key in the list it will just print?
+and iterate with the other possible keys and directions until the word is found. NOTE TO 
+SELF: Can I make it such that if there is only 1 key in the list it will just print?
 """
 
 def searchWords(currentCase):
