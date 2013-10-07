@@ -24,76 +24,79 @@ words = int(inputQue.popleft())
 wordsList = []
 
 for i in range(0,words):
-  wordsList.append(inputQue.popleft().lower())
+  wordsList.append([inputQue.popleft().lower(),-1])
 
 def gridCheck():
-  print "Rows\n"
-  for i in range(int(rows)):
-    stringCat = ""
-    for j in range(int(columns)):
-      stringCat += grid[i][j]
-    wordCheck(stringCat)
-      
-  print "\nColumns\n"
-  for j in range(int(columns)):
-    stringCat = ""
+#    print "Rows\n"
     for i in range(int(rows)):
-      stringCat += grid[i][j]
-    wordCheck(stringCat)
+        stringCat = ""
+        for j in range(int(columns)):
+            stringCat += grid[i][j]
+        wordCheck(stringCat,i,j,"row")
+        
+#    print "\nColumns\n"
+    for j in range(int(columns)):
+        stringCat = ""
+        for i in range(int(rows)):
+            stringCat += grid[i][j]
+        wordCheck(stringCat,i,j,"column")
 
-  print "\nLR Diagonals\n"
-  for k in range(0,max(int(rows),int(columns))):
-    stringCat = ""
-    j = (min(k,int(columns)))
-    for i in range(0,min(k+1,int(rows))):
-      stringCat += grid[i][j]
-      j += -1
-    wordCheck(stringCat)
-    # print stringCat
+#    print "\nLR Diagonals\n"
+    for k in range(0,max(int(rows),int(columns))):
+        stringCat = ""
+        j = (min(k,int(columns)))
+        for i in range(0,min(k+1,int(rows))):
+            stringCat += grid[i][j]
+            j += -1
+        wordCheck(stringCat,i,j,"lrDiag")
 
-  print "\nLR Residual\n"
+#        print stringCat
 
-  for k in range(1,int(rows)):
-    stringCat = ""
-    j = int(columns) - 1
-    for i in range(k,int(rows)):
-      stringCat += grid[i][j]
-      j += -1
-    wordCheck(stringCat)
-    # print stringCat
+#    print "\nLR Residual\n"
 
-  print "\nRL Diagonals\n"
-  l = int(columns) - 1
-  for k in range(1,int(columns)):
-    stringCat = ""
-    j = l
-    for i in range(0,min(k,int(rows))):
-      stringCat += grid[i][j]
-      j += 1
-    wordCheck(stringCat)
-    # print stringCat
-    l += -1
+    for k in range(1,int(rows)):
+        stringCat = ""
+        j = int(columns) - 1
+        for i in range(k,int(rows)):
+            stringCat += grid[i][j]
+            j += -1
+        wordCheck(stringCat,i,j,"lrDiag")
 
-  print"\nRL Residuals\n"
-  l = int(rows)
-  for k in range(0,int(rows)):
-    stringCat = ""
-    j = 0
-    while (j < l):
-      for i in range(k,int(rows)):
-        stringCat += grid[i][j]
-        j += 1
-      wordCheck(stringCat)
-      # print stringCat
-      l +=-1
+#        print stringCat
+
+#    print "\nRL Diagonals\n"
+    l = int(columns) - 1
+    for k in range(1,int(columns)):
+        stringCat = ""
+        j = l
+        for i in range(0,min(k,int(rows))):
+            stringCat += grid[i][j]
+            j += 1
+        wordCheck(stringCat,i,j-1,"rlDiag")
+#        print stringCat
+        l += -1
+
+ #   print"\nRL Residuals\n"
+    l = int(rows)
+    for k in range(0,int(rows)):
+        stringCat = ""
+        j = 0
+        while (j < l):
+            for i in range(k,int(rows)):
+                stringCat += grid[i][j]
+                j += 1
+            wordCheck(stringCat,i,j-1,"rlDiag")
+ #           print stringCat
+            l +=-1
 #end method gridCheck
 
-def wordCheck(stringCat):
+def wordCheck(stringCat,row,col,stringType):
   for i in range(len(wordsList)):
-    if stringCat.find(wordsList[i]) >= 0:
-      print "Found " + wordsList[i] + " in " + stringCat
-    elif stringCat[::-1].find(wordsList[i]) >= 0: 
-      print "Found " + wordsList[i] + " in " + stringCat
+    stringCatRev = stringCat[::-1]
+    if (wordsList[i][1] == -1 and stringCat.find(wordsList[i][0]) >= 0):
+      print "Word " + wordsList[i][0] + " in the string " + stringCat + " of type " + stringType + " that ends at " + str(row) + "," + str(col) + " at index " + str(stringCat.find(wordsList[i][0]))
+    elif (wordsList[i][1] == -1 and stringCatRev.find(wordsList[i][0]) >= 0): 
+      print "Word " + wordsList[i][0] + " in the string " + stringCatRev + " of type " + stringType + " that ends at " + str(row) + "," + str(col) + " at index " + str(stringCatRev.find(wordsList[i][0]))
 #        else: 
 #            print "Didn't find " + wordsList[i] + " in " + stringCat
 
