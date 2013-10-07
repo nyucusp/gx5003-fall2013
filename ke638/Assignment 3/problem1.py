@@ -4,12 +4,12 @@
 
 import re
 
-f = open('./input1.txt', 'r')
+inputFile = open('./input1.txt', 'r')
 
 expenses = []
 student_num = 0
 
-for line in f:
+for line in inputFile:
     if re.search('\.', line): # only append figures that have a '.'
         expenses.append(float(line))
 
@@ -33,4 +33,4 @@ for line in f:
         if line == "0":
             break
 
-f.close()
+inputFile.close()
