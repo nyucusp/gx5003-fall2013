@@ -195,6 +195,81 @@ class Problem3Input(InputFile):
             elif state is 4:
                 break;
 
+        if papers is not [] and names is not []:
+            self.data.append((papers, names))
+
 
 class Problem4Input(InputFile):
-    pass
+    def __init__(self):
+        self.data = []
+        InputFile.__init__(self, 'input4.txt')
+        self.parse()
+
+    def parse(self):
+        ''' State machine that handles the input. States:
+        0. Line contains the number of cases to follow.
+        1. a blank line
+        2. contains "m n", which is m lines and n characters
+        3. read m lines (with n characters each)
+        4. contains k, the number of words to follow
+        5. read k lines
+        6. Exit
+        '''
+        state = 0
+        s = -1      # Outer loop (scenarios) size
+        m = -1      # m lines
+        n = -1      # n characters
+        k = -1      # words to search
+        p = -1      # P
+        s_idx = -1
+        m_idx = -1
+        k_idx = -1
+        charGrid = []
+        words = []
+        for line in self.handle:
+            line = line.strip()
+            print state, s_idx, m_idx, k_idx, "|" + line + "|"
+            if state is 0:
+                s = int(line)
+                state = 1
+            elif state is 1:
+                state = 2
+            elif state is 2:
+                if line is not "":
+                    (m, n) = [int(x) for x in line.split()]
+                    state = 3
+                    m_idx = 0
+                    k_idx = 0
+                else:
+                    state = 6
+            elif state is 3:
+                charGrid.append(line)
+                m_idx += 1
+
+                if m_idx is m:
+                    state = 4
+            elif state is 4:
+                k = int(line)
+                state = 5
+            elif state is 5:
+                words.append(line)
+                k_idx += 1
+
+                if k_idx is k:
+                    self.data.append((charGrid, words))
+
+                    charGrid = []
+                    words = []
+                    s_idx += 1
+
+                    if s_idx is s:
+                        state = 6
+                    else:
+                        state = 1
+            elif state is 6:
+                break
+
+        if charGrid is not [] and words is not []:
+            self.data.append((charGrid, words))
+
+
