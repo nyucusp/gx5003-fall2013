@@ -6,7 +6,7 @@ inputFile = open('input2.txt','r')
 inputQue = deque()
 
 for lines in inputFile:
-  inputQue.append(lines.rstrip())
+    inputQue.append(lines.rstrip())
 
 caseInt = int( inputQue.popleft() ) #number of cases
 
@@ -22,13 +22,13 @@ candidatesNum = int(inputQue.popleft()) #number of candidates
 #populate dict with candidates
 #key is int, value is name string
 for i in range(1,candidatesNum+1):
-  candidateDict[i] = ( inputQue.popleft() )
+    candidateDict[i] = ( inputQue.popleft() )
 
 ballotList = [] #list of deques containing ballots
 
 # populate list with deques of ballots
 for i in range(len(inputQue)):
-  ballotList.append( deque(inputQue[i].split(" ")) )
+    ballotList.append( deque(inputQue[i].split(" ")) )
 
 numVoters = len(ballotList)
 
@@ -39,25 +39,25 @@ ballotDict = ballotCounter(ballotList)
 winnerCheck = calcWinner(ballotList) 
 
 while (winnerCheck == -1): #loop until find majority winner
-  #loser check
-  minVotes = min(ballotList.values())
-  loserList = []
+    #loser check
+    minVotes = min(ballotList.values())
+    loserList = []
 
-  condition = True
-  while condition:
-    loserKey.append(min(ballotDict, key=ballotDict.get)) #find min
-    
+    condition = True
+    while condition:
+        loserKey.append(min(ballotDict, key=ballotDict.get)) #find min
+        
 
-    #test for other min in dict, if not, break list
-    if ( returnValCount(ballotList,minVotes) > 1 ):
-      #pop item from dict
-    else:  
-      condition = False #break while loop
-    
-  #filter loser
+        #test for other min in dict, if not, break list
+        if ( returnValCount(ballotList,minVotes) > 1 ):
+            #pop item from dict
+        else:  
+            condition = False #break while loop
+        
+    #filter loser
 
-  #check again for winner
-  winnerCheck = calcWinner(ballotList)
+    #check again for winner
+    winnerCheck = calcWinner(ballotList)
   
 
 
@@ -66,33 +66,33 @@ print candidateDict[winnerCheck]
 
 # transform ballotList into dictionary keyed on candidate number
 def ballotCounter(ballotList):
-  ballotDict = defaultdict(int)
-  for i in ballotList:
-    ballotDict[i[0]] += 1
-  return ballotDict
+    ballotDict = defaultdict(int)
+    for i in ballotList:
+        ballotDict[i[0]] += 1
+    return ballotDict
 
 # check for majority winner
 def calcWinner(ballotDict): 
-  ballotSum = 0
-  for k in ballotDict:
-    ballotSum += ballotDict[k]
+    ballotSum = 0
+    for k in ballotDict:
+        ballotSum += ballotDict[k]
 
-  for k in ballotDict:
-    if (ballotDict[k] / ballotSum > 0.5):
-      return k
-    else:
-      return -1
+    for k in ballotDict:
+        if (ballotDict[k] / ballotSum > 0.5):
+            return k
+        else:
+            return -1
 
 #check for loser or loser tie
 def calcLoser(ballotDict):
-  ballotSum = 0
-  for k in ballotDict:
-    ballotSum += ballotDict[k]
+    ballotSum = 0
+    for k in ballotDict:
+        ballotSum += ballotDict[k]
 
-  for k in ballotDict:
+    for k in ballotDict:
 
 def returnValCount(dictionary, value):
-  return ballotDict.values().count(value)
+    return ballotDict.values().count(value)
 
 def loserList(ballotDict):
   #find min
