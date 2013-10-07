@@ -113,20 +113,20 @@ instanceCounter = 1
 while (instanceCounter <= instances):
     inputQue.popleft() #kill blank line
 
-    rows, columns = inputQue.popleft().split(" ")
+    rows, columns = inputQue.popleft().split(" ") #split line with rows and columns into variables
 
     grid = [] # grid list
-    for i in range(0,int(rows)):
+    for i in range(0,int(rows)): # populate grid with input from file
         grid.append(list(inputQue.popleft().lower()))
 
-    words = int(inputQue.popleft())
+    words = int(inputQue.popleft()) # count of words of interest
 
-    wordsList = []
+    wordsList = [] # list for words of interest
 
-    for i in range(0,words):
+    for i in range(0,words): # populate words of interest
       wordsList.append([inputQue.popleft().lower(),-1])
 
-    gridCheck()
+    gridCheck() #run the check for the word location and append result to list
 
     #output result
     for element in wordsList:
@@ -134,5 +134,5 @@ while (instanceCounter <= instances):
             print i+1,
         print ""
 
-    instanceCounter += 1
+    instanceCounter += 1 #increment counter for while loop
 #end while loop for instances

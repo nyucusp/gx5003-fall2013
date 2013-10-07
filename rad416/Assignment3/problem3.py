@@ -5,8 +5,8 @@ from _collections import defaultdict
 from collections import deque
 
 class Tree(object):
-  def __init__(self, data, children=[]):
-    self.data = data
+  def __init__(self, name, children=[]):
+    self.data = name
     self.children = list(children)
 
   def add(self, child):
