@@ -129,7 +129,7 @@ class Problem2Input(InputFile):
             else:
                 break;
 
-        if candidates is not [] and votes is not []:
+        if len(candidates) > 0 and len(votes) > 0:
             self.data.append((candidates, votes))
 
 class Problem3Input(InputFile):
@@ -195,7 +195,7 @@ class Problem3Input(InputFile):
             elif state is 4:
                 break;
 
-        if papers is not [] and names is not []:
+        if len(papers) > 0 and len(names) > 0:
             self.data.append((papers, names))
 
 
@@ -228,7 +228,7 @@ class Problem4Input(InputFile):
         words = []
         for line in self.handle:
             line = line.strip()
-            print state, s_idx, m_idx, k_idx, "|" + line + "|"
+            # print state, s_idx, m_idx, k_idx, "|" + line + "|"
             if state is 0:
                 s = int(line)
                 state = 1
@@ -243,7 +243,7 @@ class Problem4Input(InputFile):
                 else:
                     state = 6
             elif state is 3:
-                charGrid.append(line)
+                charGrid.append([x for x in line.lower()])
                 m_idx += 1
 
                 if m_idx is m:
@@ -269,7 +269,7 @@ class Problem4Input(InputFile):
             elif state is 6:
                 break
 
-        if charGrid is not [] and words is not []:
+        if (len(charGrid) > 0) and (len(words) > 0):
             self.data.append((charGrid, words))
 
 
