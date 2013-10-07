@@ -20,7 +20,7 @@ while inputIndex < len(input1):
     #Get number of people on this trip:
     peopleCount = int(input1[inputIndex])
 
-    #Discard empty trips:
+    #Ignore empty trips:
     if peopleCount != 0:
 
         #Reset moneyTotal

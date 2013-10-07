@@ -22,7 +22,6 @@ for line in myFile:
             state = 0
 myFile.close()
 
-print 'The date/times of the commits of ' + collabName + ' were '
 for commitDateTime in commitDateTimes:
     outputFile.write(commitDateTime)
 outputFile.close()
