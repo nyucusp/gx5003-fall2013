@@ -1,3 +1,9 @@
+#Kara Leary
+#Urban Informatics
+#Assignment 3 -Problem 2
+
+#My code currently only handles inputs that hold one case. I hope to have enough time to update it to accept multiple cases.  For this problem I created a class Candidate that has a name, index, totalvotes, and isElim values.  The name stores the candidate's name, the index value stores the number that corresponds to the candidate (i.e. John Doe would be 1, Jane Smith is 2, Jane Austen is 3 in the sample input).  isElim stores true or false based on whether or not the candidate has been eliminated.  I also defined the functions isMajority, minCand and isTie to determine if a candidate has over 50% of the votes, who the minimum candidate(s) are and whether or not the remaining candidates are tied.  Basically, my program creates a list of candidates and ballots, and then for each round determines who the losers are and removes them from the candidate list.  All votes for removed candidates are replaced with zeros so that that ballot's next highest un-eliminated vote can be counted.  This continues until someone has majority or the remaining candidates are tied, at which case the program ends.
+
 import sys
 import string
 
@@ -49,7 +55,8 @@ def isTie(candidateList):
 
 candidates = []
 isWinner = False
-#Create list of candidates:
+
+#Here I create list of the candidates:
 count = 0
 while count < nCand:
     count += 1
@@ -57,7 +64,7 @@ while count < nCand:
     tempperson = Candidate(line, count)
     candidates.append(tempperson)
 
-#First round of votes:
+#First round of votes: the votes are stored in the list "votearray" to be accessed and updated as candidates are eliminated.  If a number in the first choices of votes corresponds to a candidates index number, I add a vote to their total:
 votearray = []
 nBallots = 0
 for line in myFile:
@@ -128,13 +135,15 @@ while isWinner is False:
             elif (vote == '0'):
                 continue
 
-    if (isMajority(candidates, nBallots) != 0):
-        print isMajority(candidates, nBallots)
-        isWinner = True
-    
     if (isTie(candidates) == True):
         for person in candidates:
             print person.name
         isWinner = True
 
+    if (isMajority(candidates, nBallots) != 0):
+        print isMajority(candidates, nBallots)
+        isWinner = True
+    
 
+
+myFile.close()
