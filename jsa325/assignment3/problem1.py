@@ -20,7 +20,7 @@ def minCostEqualize(costList):
     avg = sum(costList)/len(costList)                     # compute average cost
     minAmt = 0.00
     for elt in costList:
-        if elt <= avg:                                    # if the individual cost is less than or equal to the average
+        if elt <= avg:                                    # if an element is less than or equal to the average
             minAmt += round((avg - elt), 2)               # round to the nearest cent when computing the difference
     return minAmt
     
