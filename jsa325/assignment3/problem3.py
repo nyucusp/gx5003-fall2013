@@ -34,21 +34,6 @@ Manually set [Erdos, P: 0].
 7. Define a function findErdos on the input ?
 """
 
-"""
-8. Create a dictionary searchDict with keys = authors and values = strings 0,...,infinity. 
-This dictionary will call the function searchAuthors on the input erdosDict.
-
-with keys = integers 1,...,n (where n is the number of authors) and values = 
-authors. This dictionary will call the function findAuthors on the input listPapers.
-# Create a dictionary of papers with keys = integers 1,...,n (same as above) and 
-# values = papers. 
-# Create a master dictionary with keys = authors and values = Erdos numbers. If key =
-# 'Erdos, P.': value = 0. Else: value = infinity. Call findAuthors on listPapers - if 
-# 'Erdos, P.' appears in the result for a paper, assign value 1 in authorsDict to all 
-# authors in the result. If 'Erdos, P.' does not appear in the result, do nothing.
-
-"""
-
 erdos_key = -1
     for key,value in authorsDict.items():
         if value == 'Erdos, P.':
