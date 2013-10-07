@@ -6,8 +6,6 @@ inputLines = []                                           # save lines in a list
 for line in inputFile:
   inputLines.append(line)
 inputFile.close()
-<<<<<<< HEAD
-=======
 
 """
 A scenario is a list containing a pair of integers P N denoting the number of 
@@ -61,4 +59,3 @@ erdos_key = -1
                 mark += 1
         if mark == 0:
             print author[:-1] + " " + "infinity"
->>>>>>> 3e2c3051c1d6792351b3429494e726e5ac7dc67a
