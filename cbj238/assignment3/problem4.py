@@ -15,6 +15,8 @@ def search_grid_for_words(grid, words):
 	search_arrays_for_words(construct_verticals(gridArr), words, resultDict)
 	search_arrays_for_words(construct_diagonals(gridArr), words, resultDict)
 
+	process_results(words, resultDict)
+
 def search_arrays_for_words(arrays, words, resultDict):
 	for rowIndex in xrange(len(arrays)):
 		for word in words:
@@ -26,10 +28,10 @@ def search_arrays_for_words(arrays, words, resultDict):
 
 			if findForwards >= 0:
 				resultDict[word].append((rowIndex, findForwards))
-				print "Found Forward Hor:", rowIndex, findForwards
+				print "Found Forward:", word, rowIndex, findForwards
 			if findBackwards >= 0:
-				resultDict[word].append((rowIndex, len(findBackwards) - 1 - findBackwards))
-				print "Found Backwards Hor:", rowIndex, len(findBackwards) - 1 - findBackwards
+				resultDict[word].append((rowIndex, len(row) - 1 - findBackwards))
+				print "Found Backwards:", word, rowIndex, len(row) - 1 - findBackwards
 
 def construct_horizontals(grid):
 	return [x for x in grid]
@@ -52,6 +54,26 @@ def construct_diagonals(grid):
 
 
 	return ret
+
+def process_results(words, resultDict):
+	'''
+	remove the duplicates from the dict if there are any. Otherwise, just return the required strings.
+	'''
+	for key in words:
+		result = None
+		if len(resultDict[key]) == 1:
+			result = resultDict[key][0]
+			
+		elif len(resultDict[key]) > 1:
+			pass
+		elif len(resultDict[key]) == 0:
+			pass
+
+		if result is not None:
+			i, j = result
+			print "{0} {1}".format(i, j)
+		else:
+			print "Error! Word not found"
 
 debug = False
 if len(sys.argv) > 1:

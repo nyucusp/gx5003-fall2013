@@ -252,7 +252,7 @@ class Problem4Input(InputFile):
                 k = int(line)
                 state = 5
             elif state is 5:
-                words.append(line)
+                words.append(line.lower())
                 k_idx += 1
 
                 if k_idx is k:
