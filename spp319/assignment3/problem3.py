@@ -15,6 +15,7 @@ papersForAuthorDict = {}
 pName = ""
 erdosFound = False
 relationshipCounter = 0
+s = 1
 
 def numBuilder(erdosNumber):
     pName = 0
@@ -140,6 +141,7 @@ while scen > 0:
          relationshipCounter += 1
 
     m = 0
+    print "Scenario", "", s
     while m < len(namesToRate):
         if eNumDict.get(namesToRate[m]) == "na":
             print namesToRate[m], "", "infinity"
@@ -166,6 +168,7 @@ while scen > 0:
     erdosNumber = 0
     relationshipCounter = 0
     m = 0
+    s = s + 1
 
 
     #numBuilder()
