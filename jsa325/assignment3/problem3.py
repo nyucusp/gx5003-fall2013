@@ -22,8 +22,8 @@ numScenarios = int(inputLines[0])
 new = 1
 
 for i in range(1, numScenarios):
-    new += int(inputLines[marker].split()[0])+int(inputLines[new].split()[1])+1
-    newScenario.append(marker)
+    new += int(inputLines[new].split()[0])+int(inputLines[new].split()[1])+1
+    newScenario.append(new)
 
 newScenario.append(len(inputLines))
 
