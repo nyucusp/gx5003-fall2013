@@ -11,73 +11,191 @@ from readInputFile import Problem4Input
 def search_grid_for_words(grid, words):
 	gridArr = np.array(grid)
 	resultDict = dict(zip(words, [[] for x in words]))
-	search_arrays_for_words(construct_horizontals(gridArr), words, resultDict)
-	search_arrays_for_words(construct_verticals(gridArr), words, resultDict)
-	search_arrays_for_words(construct_diagonals(gridArr), words, resultDict)
+	
+	for y in xrange(gridArr.shape[0]):
+		for x in xrange(gridArr.shape[1]):
+			results = word_search_by_point(gridArr, words, y, x)
+			for word in results:
+				resultDict[word].append((y, x))
 
 	process_results(words, resultDict)
 
-def search_arrays_for_words(arrays, words, resultDict):
-	for rowIndex in xrange(len(arrays)):
-		for word in words:
-			row = arrays[rowIndex].tostring()
-			findForwards = row.find(word)
-			# to see if it's there backwards, we reverse the string... but then we have to
-			# subtract the result from the index.
-			findBackwards = row[::-1].find(word)
+def word_search_by_point(grid, words, y, x):
+	results = []
+	for word in words:
+		if grid[y, x] == word[0]:
+			if word_e(grid, word, y, x) or word_se(grid, word, y, x) or word_s(grid, word, y, x) or word_sw(grid, word, y, x) or word_w(grid, word, y, x) or word_nw(grid, word, y, x) or word_n(grid, word, y, x) or word_ne(grid, word, y, x):
+				results.append(word)
 
-			if findForwards >= 0:
-				resultDict[word].append((rowIndex, findForwards))
-				if debug:
-					print "Found Forward:", word, rowIndex, findForwards
-			if findBackwards >= 0:
-				resultDict[word].append((rowIndex, len(row) - 1 - findBackwards))
-				if debug:
-					print "Found Backwards:", word, rowIndex, len(row) - 1 - findBackwards
+	return set(results)
 
-def construct_horizontals(grid):
-	return [x for x in grid]
-
-def construct_verticals(grid):
-	return [x for x in grid.T]
-
-def construct_diagonals(grid):
-	# Top Left to bottom right diagonals
-	# Get the diagonals for y:[0,len]
-	diagList = []
-	for y in xrange(len(grid)):
-		diagList.append(get_diagonal_from_start(grid, y, 0))
-		
-	for x in xrange(1, grid.shape[1]):
-		diagList.append(get_diagonal_from_start(grid, 0, x))
-
-	# # Top right to bottom left diagonals
-	for y in xrange(len(grid)):
-		diagList.append(get_diagonal_from_start(grid, y, grid.shape[0]-1, -1))
-		
-	# # Get the diagonals for x:[1,len]
-	for x in xrange(grid.shape[1] - 1):
-		diagList.append(get_diagonal_from_start(grid, 0, x, -1))
-
-	return diagList
-
-def get_diagonal_from_start(grid, y, x, dir=1):
-	x_ind = x
+def word_e(grid, word, y, x):
+	word_ind = 1
 	y_ind = y
+	x_ind = x + 1
+	ret = False
+	while x_ind < grid.shape[1]:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
 
-	diagRet = []
-	if dir > 0:
-		while x_ind < grid.shape[1] and y_ind < grid.shape[0]:
-			diagRet.append(grid[y_ind, x_ind])
-			x_ind += 1
-			y_ind += 1
-	elif dir < 0:
-		while x_ind >= 0 and y_ind >= 0:
-			diagRet.append(grid[y_ind, x_ind])
-			x_ind -= 1
-			y_ind -= 1
+		x_ind += 1
 
-	return np.array(diagRet)
+	if debug and ret:
+		print "Found {0} E ({1}, {2})".format(word, y, x)
+	return ret
+
+def word_se(grid, word, y, x):
+	word_ind = 1
+	y_ind = y + 1
+	x_ind = x + 1
+	ret = False
+	while y_ind < grid.shape[0] and x_ind < grid.shape[1]:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
+
+		x_ind += 1
+		y_ind += 1
+
+	if debug and ret:
+		print "Found {0} SE ({1}, {2})".format(word, y, x)
+
+	return ret
+
+def word_s(grid, word, y, x):
+	word_ind = 1
+	y_ind = y + 1
+	x_ind = x
+	ret = False
+	while y_ind < grid.shape[0]:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
+
+		y_ind += 1
+
+	if debug and ret:
+		print "Found {0} S ({1}, {2})".format(word, y, x)
+	return ret
+
+def word_sw(grid, word, y, x):
+	word_ind = 1
+	y_ind = y + 1
+	x_ind = x - 1
+	ret = False
+	while y_ind < grid.shape[0] and x_ind >= 0:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
+
+		x_ind -= 1
+		y_ind += 1
+
+	if debug and ret:
+		print "Found {0} SW ({1}, {2})".format(word, y, x)
+
+	return ret
+
+def word_w(grid, word, y, x):
+	word_ind = 1
+	y_ind = y
+	x_ind = x - 1
+	ret = False
+	while x_ind >= 0:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
+
+		x_ind -= 1
+
+	if debug and ret:
+		print "Found {0} W ({1}, {2})".format(word, y, x)
+
+	return ret
+
+def word_nw(grid, word, y, x):
+	word_ind = 1
+	y_ind = y - 1
+	x_ind = x - 1
+	ret = False
+	while y_ind >= 0 and x_ind >= 0:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
+
+		x_ind -= 1
+		y_ind -= 1
+
+	if debug and ret:
+		print "Found {0} NW ({1}, {2})".format(word, y, x)
+
+	return ret
+
+def word_n(grid, word, y, x):
+	word_ind = 1
+	y_ind = y - 1
+	x_ind = x
+	ret = False
+	while y_ind >= 0:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
+
+		y_ind -= 1
+
+	if debug and ret:
+		print "Found {0} N ({1}, {2})".format(word, y, x)
+	return ret
+
+def word_ne(grid, word, y, x):
+	word_ind = 1
+	y_ind = y - 1
+	x_ind = x + 1
+	ret = False
+	while y_ind >= 0 and x_ind < grid.shape[1]:
+		if grid[y_ind, x_ind] == word[word_ind]:
+			word_ind += 1
+			if word_ind == (len(word)):
+				ret = True
+				break
+		else:
+			break
+
+		x_ind += 1
+		y_ind -= 1
+
+	if debug and ret:
+		print "Found {0} NE ({1}, {2})".format(word, y, x)
+	return ret
 
 
 def process_results(words, resultDict):
@@ -104,7 +222,7 @@ def process_results(words, resultDict):
 			result = (minValA, minValB)
 		if result is not None:
 			i, j = result
-			print "{0} {1}".format(i, j)
+			print "{0} {1}".format(i+1, j+1)
 		else:
 			print "Error! Word not found"
 
