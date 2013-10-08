@@ -65,10 +65,17 @@ def process_results(words, resultDict):
 			result = resultDict[key][0]
 			
 		elif len(resultDict[key]) > 1:
-			pass
-		elif len(resultDict[key]) == 0:
-			pass
-
+			# If there's more than one, take the one with the min first value
+			minValA = None
+			minValB = None
+			for item in resultDict[key]:
+				if (minValA is None) or (item[0] < minValA):
+					minValA = item[0]
+					minValB = item[1]
+				# if there's more than one first value, take the one with the lest second value
+				elif minValA is item[0]:
+					if item[1] < minValB:
+						minValB = item[1]
 		if result is not None:
 			i, j = result
 			print "{0} {1}".format(i, j)
