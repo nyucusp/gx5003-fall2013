@@ -30,34 +30,202 @@ def data_parse(x_case): #take one case and parse the data
         i = i + 1
     return letters, words
 
-def analyze_letters(parsed_data):
+def find_firsts(parsed_data):#Finds all locations of the first letter from the parsed data
     letters = parsed_data[0]
     words = parsed_data[1]
     new_letters = []
     new_words = []
-    for letter in letters:#break up grid and words into letters
+    for letter in letters:#break up grid and words into lists of letters
         new_letters.append(list(letter))
     for word in words:
         new_words.append(list(word))
-    i = 0
+    location_first = {}
+    locations = []
     for word in new_words:#for each word in the list to search for
-        while i < len(word):#iterate through the elements of word
-            r = 0
-            for letter in new_letters: #iterate through elements of letter
-                c = 0
-                while c < len(letter):
-                    if word[i].lower() == letter[c].lower(): #if match, iterate surroundings
-                        print 'column '+ str(c) + ' row ' + str(r)
-                        print 'Match at '+str(i)+' '+str(c)
-                        print word
-                        print letter
-                        print
-                    c = c + 1
-                r = r + 1
-            i = i + 1
+        r = 0
+        while r < (len(new_letters)): #iterate through elements of letter
+            c = 0
+            while c < len(new_letters[0]):
+                locations = []
+                if word[0].lower() == new_letters[r][c].lower(): #create a dictionary with location of first letters in grid with (r, c) coordinates
+                    locations.append(r)
+                    locations.append(c)
+                    if word[0] in location_first:
+                        location_first[word[0]].append(locations)
+                    else:
+                        location_first[word[0]] = []
+                        location_first[word[0]].append(locations)
+                c = c + 1
+            r = r + 1
+    return location_first    
+
+def cell_search(x, y, goal_val, rows, cols, list_name): #function to return values in surrounding cells without going out of bounds
+    if x<0 or y<0 or x>=rows or y>=cols:
+        return False
+    if list_name[x][y].lower() == goal_val.lower():
+        return True
+    else:
+        return False
+
+#Function to find the word and determine which first letter is the one with the rest of the word surrounding it
+def find_words(parsed_data, location_first):
+    letters = parsed_data[0]
+    words = parsed_data[1]
+    new_letters = []
+    new_words = []
+    final_locations={}
+    for letter in letters:#break up grid and words into lists of letters
+        new_letters.append(list(letter))
+    for word in words:
+        new_words.append(list(word))
+    for new_word in new_words: #loop through each letter of the word
+        for new_letter in new_letters: #check for it with a loop through each line of the grid
+            for item in location_first.items(): #Giant loop to search in all directions of first letter for rest of word
+                first_letter = item[0]
+                locations = item[1]
+                for location in locations:
+                    r = location[0]
+                    c = location[1]
+                    r_init = location[0]
+                    c_init = location[1]
+                    n = 1
+                    final_loc_store = []
+                    if first_letter == new_word[0]:
+                        while cell_search((r-1), (c-1), new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r - 1
+                            c = c - 1
+                            if n == len(new_word)-1:
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else: 
+                                n = n + 1
+                        while cell_search(r-1, c, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r - 1
+                            c = c
+                            if n == len(new_word) - 1:
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else:
+                                n = n + 1 
+                        while cell_search(r-1, c+1, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r - 1
+                            c = c + 1
+                            if n == len(new_word) - 1:
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else: 
+                                n = n + 1
+                        while cell_search(r, c-1, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r 
+                            c = c - 1
+                            if n == len(new_word) - 1:
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else:
+                                n = n + 1
+                        while cell_search(r, c+1, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r
+                            c = c + 1
+                            if n == len(new_word) - 1:
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else:
+                                n = n + 1
+                        while cell_search(r+1, c-1, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r + 1
+                            c = c - 1
+                            if n == len(new_word)- 1: 
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else:
+                                n = n + 1
+                        while cell_search(r+1, c, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r + 1
+                            c = c
+                            if n == len(new_word) - 1:
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else: 
+                                n = n + 1
+                        while cell_search(r+1, c+1, new_word[n], len(new_letters), len(new_letters[0]), new_letters) == True:
+                            r = r + 1
+                            c = c + 1
+                            if n == len(new_word) -1:
+                                final_loc_store.append(r_init)
+                                final_loc_store.append(c_init)
+                                word = ''.join(new_word)
+                                if word in final_locations:
+                                    final_locations[word].append(final_loc_store)
+                                else:
+                                    final_locations[word] = []
+                                    final_locations[word].append(final_loc_store)
+                            else: 
+                                n = n + 1
+
+    return final_locations
+
+<<<<<<< HEAD
+def output(final_locations, parsed_data): #expected input is dictionary created by find_words
+    print parsed_data
+=======
+#Function to match output locations to names and pritn values in order and format
+def output(final_locations, parsed_data): #expected input is dictionary created by find_words
+>>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
+    words = parsed_data[1]
+    for word in words:
+        for item in final_locations.items(): 
+            name = item[0]
+            vals = item[1]
+            vals.sort()
+            if name == word:
+<<<<<<< HEAD
+                #print word
+=======
+>>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
+                print str(vals[0][0]+1) + ' ' + str(vals[0][1]+1)#Add one to each since index starts from 0
         
-    print 
-    print
 
 #Apply functions to data:
 input =  open('input4.txt','r')
@@ -73,5 +241,8 @@ while j < (len(cases) - 1):
         x_case.append(data[index])
         index = index + 1
     parsed_data = data_parse(x_case)
-    analyze_letters(parsed_data)
+    first_locations = find_firsts(parsed_data)
+    final_locations = find_words(parsed_data, first_locations)
+    output(final_locations, parsed_data)
     j = j + 1
+    print
