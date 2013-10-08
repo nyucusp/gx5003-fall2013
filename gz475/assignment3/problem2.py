@@ -8,6 +8,7 @@ votelines = []
 newline = []
 tiedline = []
 count = 0
+l = 0
 votecount = 0
 candicount = 0
 winneroutput = 0
@@ -29,7 +30,7 @@ for x in range(0, len(votes)):
             votelines.append(votes[y].strip('\n'))
         for y in votelines:
             newline.append(y.split(" "))
-        while candicount!=0 and winneroutput!=1:# find the winner loop
+        while candicount!=0 and winneroutput!=1 and count<senumb :# find the winner loop
             voteindex = [0 for y in range(0,voteplus)]# set up an index sequence
             removecandi = 0
             for p in newline[0]:# collect the remained candidates
@@ -46,7 +47,7 @@ for x in range(0, len(votes)):
                     if voteindex[i]<min:
                         min = voteindex[i]
             for i in range(1,voteplus):
-                if voteindex[i]> float(votecount*0.5):# winner, if candidate votes plus half of total votes
+                if voteindex[i]> float(votecount*0.5)and voteindex[i]!= min:# winner, if candidate votes plus half of total votes
                     print candi[i-1]
                     winneroutput = 1
                     count += 1
@@ -55,9 +56,11 @@ for x in range(0, len(votes)):
                 if voteindex[i] ==  min:# remove lowest votes from votes list
                     removecandi += 1
                     for p in range(0,votecount):
-                        if int(newline[p][0])== i: 
+                        print newline
+                        if int(newline[p-l][0])== i: 
                             for lowvote in newline:
                                 lowvote.remove(str(i))
+                                l = l + 1
             if removecandi == candicount:# if all removed, print them
                 for tiedcandi in sorted(tiedline):
                     print candi[int(tiedcandi)-1]
@@ -68,5 +71,8 @@ for x in range(0, len(votes)):
             candicount = candicount - removecandi
         votecount = 0
         winneroutput = 0
+        candi = []
+        votelines = []
+        tiedline = []
 
 myfile.close()
