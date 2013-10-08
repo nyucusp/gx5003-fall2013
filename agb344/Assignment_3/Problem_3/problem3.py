@@ -61,9 +61,9 @@ class Scenario:
                     authorDict[author] = erdosNumber
         for author in authorDict.keys():
             if authorDict[author] != -1:
-                print author +' %i'%authorDict[author]
+                print author.replace(' ',', ') +' %i'%authorDict[author]
             else:
-                print author + ' infinity'
+                print author.replace(' ',', ') + ' infinity'
 
 inputFile = open('input3.txt','r')
 inputFile.seek(0)
