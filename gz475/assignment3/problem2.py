@@ -56,7 +56,6 @@ for x in range(0, len(votes)):
                 if voteindex[i] ==  min:# remove lowest votes from votes list
                     removecandi += 1
                     for p in range(0,votecount):
-                        print newline
                         if int(newline[p-l][0])== i: 
                             for lowvote in newline:
                                 lowvote.remove(str(i))
