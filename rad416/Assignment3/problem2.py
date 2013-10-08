@@ -8,9 +8,9 @@ def ballotCounter(ballotList):
     return ballotDict
 
 # check for majority winner
-def calcWinner(ballotList): 
+def calcWinner(ballotDict): 
     ballotSum = 0
-    for i in range(len(ballotList)):
+    for k in ballotDict:
         ballotSum += ballotDict[k]
 
     for k in ballotDict:
@@ -19,12 +19,12 @@ def calcWinner(ballotList):
         else:
             return -1
 
-def genLoserList(ballotDict):
+def genLoserList():
     minVotes = min(ballotDict.values())
     loserList = []
     for k,v in ballotDict.iteritems():
-    if v == minVotes:
-        loserList.append(k)
+        if v == minVotes:
+            loserList.append(k)
     return loserList
 
 inputFile = open('input2.txt','r')
@@ -36,68 +36,50 @@ for lines in inputFile:
 
 caseInt = int( inputQue.popleft() ) #number of cases
 
-# loopCounter = 1 #counter to control iterations of ballot runs   
-# while (i <= caseInt):
+caseCounter = 1 #counter to control iterations of ballot runs   
+while ( caseCounter <= caseInt):
 
-inputQue.popleft() #blank linespace removal
+    inputQue.popleft() #blank linespace removal
 
-candidateDict = defaultdict(str) #dict for candidates
+    candidateDict = defaultdict(str) #dict for candidates
 
-candidatesNum = int(inputQue.popleft()) #number of candidates
+    candidatesNum = int(inputQue.popleft()) #number of candidates
 
-#populate dict with candidates
-#key is int, value is name string
-for i in range(1,candidatesNum+1):
-    candidateDict[i] = ( inputQue.popleft() )
+    #populate dict with candidates
+    #key is int, value is name string
+    for i in range(1,candidatesNum+1):
+        candidateDict[i] = ( inputQue.popleft() )
 
-ballotList = [] #list of deques containing ballots
+    ballotList = [] #list of deques containing ballots
 
-# populate list with deques of ballots
-for i in range(len(inputQue)):
-    ballotList.append( deque(inputQue[i].split(" ")) )
+    # populate list with list of ballots in selection order
+    for i in range(len(inputQue)):
+        ballotList.append( inputQue[i].split(" ") )
 
-# generate dict key on candidate number and value number votes
-ballotDict = ballotCounter(ballotList)
-
-#check for majority winner in first round
-winnerCheck = calcWinner(ballotDict) 
-
-while (winnerCheck == -1): #loop until find majority winner
-    #loser check
-    
-    loserList = genLoserList()
-    for i in range(len(ballotList)):
-        for loser in loserList:
-            print filter(lambda x : x != loser, ballotList[i])
-
-    #filter loser(s) from ballotList
-
-    #recalc ballotDict
+    # generate dict key on candidate number and value number votes
     ballotDict = ballotCounter(ballotList)
 
+    #check for majority winner in first round
+    winnerCheck = calcWinner(ballotDict) 
 
+    while (winnerCheck == -1 and len(ballotDict) > 2): #loop until find majority winner or tie between two
+        #loser check
+        loserList = genLoserList()
+        for i in range(len(ballotList)):
+            for loser in loserList: 
+                ballotList[i] = filter(lambda x : x != loser, ballotList[i]) #filter loser(s) from ballotList
 
+        #recalc ballotDict
+        ballotDict = ballotCounter(ballotList)
 
+        #check again for winner
+        winnerCheck = calcWinner(ballotDict)
 
-    # condition = True
-    # while condition:
-    #     loserKey.append(min(ballotDict, key=ballotDict.get)) #find min
-        
+    if winnerCheck != -1:
+        print candidateDict[int(winnerCheck)]
+    else:
+        for k in ballotDict:
+            print candidateDict[ballotDict[k]]
+    caseCounter += 1 #increment the control counter
 
-    #     #test for other min in dict, if not, break list
-    #     if ( returnValCount(ballotList,minVotes) > 1 ):
-    #         #pop item from dict
-    #     else:  
-    #         condition = False #break while loop
-        
-    #filter loser
-
-    #check again for winner
-    winnerCheck = calcWinner(ballotList)
-  
-
-
-print candidateDict[int(winnerCheck)]
-  # loopCounter += 1 #incrememt the control counter
-
-# transform ballotList into dictionary keyed on candidate number
+print "Goodbye!"
