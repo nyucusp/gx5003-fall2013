@@ -68,5 +68,11 @@ for x in range(0, len(newcont)):
             print y+' '+str(namedict[y])
         senumb += 1
         t = x + papnumb +peopnumb
+        namedict = {}
+        sortname = {}
+        paper = []
+        name = []
+        sname = []
+        rownumb = []
 
 myfile.close()
