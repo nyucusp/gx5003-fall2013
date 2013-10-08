@@ -100,7 +100,7 @@ for word in wordList:
 							letterPos += 1
 							if letterPos == wordLen:
 								found = True
-								wordList[word] = [row-1, col-1]
+								wordList[word] = [row+1, col+1]
 				print
 
 				# check south
@@ -116,13 +116,29 @@ for word in wordList:
 							letterPos += 1
 							if letterPos == wordLen:
 								found = True
-								wordList[word] = [row-1, col-1]
+								wordList[word] = [row+1, col+1]
 				print
-	
 
-	break
+				# check south west
+				letterPos = 1
+				check = 1
+				while check == 1:								
+					check = 0
+					if col-letterPos > 0 and row+letterPos < gridSize[0]:
+						if grid[row+letterPos][col-letterPos] == word[letterPos]:
+							print "at " + str(row+letterPos) + " " + str(col-letterPos)
+							print grid[row+letterPos][col-letterPos]
+							check = 1
+							letterPos += 1
+							if letterPos == wordLen:
+								found = True
+								wordList[word] = [row+1, col+1]
+				print
 
 
+
+
+print wordList
 
 
 
