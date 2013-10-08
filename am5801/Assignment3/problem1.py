@@ -1,6 +1,7 @@
 # Awais Malik
 # Assignment 3
 # Problem 1
+# Collaborated with Alex Chohlas-Wood
 
 from decimal import *
 
@@ -26,5 +27,5 @@ for line in log:
                 if(line > average):
                     diff = abs(line - average)
                     total += diff
-            print str(total)
+            print '$' + str(total)
             amounts = []
