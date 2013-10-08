@@ -28,10 +28,12 @@ def search_arrays_for_words(arrays, words, resultDict):
 
 			if findForwards >= 0:
 				resultDict[word].append((rowIndex, findForwards))
-				print "Found Forward:", word, rowIndex, findForwards
+				if debug:
+					print "Found Forward:", word, rowIndex, findForwards
 			if findBackwards >= 0:
 				resultDict[word].append((rowIndex, len(row) - 1 - findBackwards))
-				print "Found Backwards:", word, rowIndex, len(row) - 1 - findBackwards
+				if debug:
+					print "Found Backwards:", word, rowIndex, len(row) - 1 - findBackwards
 
 def construct_horizontals(grid):
 	return [x for x in grid]
@@ -40,30 +42,43 @@ def construct_verticals(grid):
 	return [x for x in grid.T]
 
 def construct_diagonals(grid):
-	ret = []
-
 	# Top Left to bottom right diagonals
 	# Get the diagonals for y:[0,len]
 	diagList = []
 	for y in xrange(len(grid)):
 		diagList.append(get_diagonal_from_start(grid, y, 0))
 		
-	for x in xrange(len(grid[0])):
+	for x in xrange(1, grid.shape[1]):
 		diagList.append(get_diagonal_from_start(grid, 0, x))
 
-	# Top right to bottom left diagonals
+	# # Top right to bottom left diagonals
 	for y in xrange(len(grid)):
-		diagList.append(get_diagonal_from_start(grid, y, len(grid[y]), -1))
+		diagList.append(get_diagonal_from_start(grid, y, grid.shape[0]-1, -1))
 		
-	# Get the diagonals for x:[1,len]
-	for x in xrange(len(grid[0])):
-		diagList.append(get_diagonal_from_start(grid, len(grid), x, -1))
+	# # Get the diagonals for x:[1,len]
+	for x in xrange(grid.shape[1] - 1):
+		diagList.append(get_diagonal_from_start(grid, 0, x, -1))
 
-
-	return ret
+	return diagList
 
 def get_diagonal_from_start(grid, y, x, dir=1):
-	pass
+	x_ind = x
+	y_ind = y
+
+	diagRet = []
+	if dir > 0:
+		while x_ind < grid.shape[1] and y_ind < grid.shape[0]:
+			diagRet.append(grid[y_ind, x_ind])
+			x_ind += 1
+			y_ind += 1
+	elif dir < 0:
+		while x_ind >= 0 and y_ind >= 0:
+			diagRet.append(grid[y_ind, x_ind])
+			x_ind -= 1
+			y_ind -= 1
+
+	return np.array(diagRet)
+
 
 def process_results(words, resultDict):
 	'''
@@ -79,13 +94,14 @@ def process_results(words, resultDict):
 			minValA = None
 			minValB = None
 			for item in resultDict[key]:
-				if (minValA is None) or (item[0] < minValA):
-					minValA = item[0]
-					minValB = item[1]
 				# if there's more than one first value, take the one with the lest second value
-				elif minValA is item[0]:
+				if minValA == item[0]:
 					if item[1] < minValB:
 						minValB = item[1]
+				elif (minValA == None) or (item[0] < minValA):
+					minValA = item[0]
+					minValB = item[1]
+			result = (minValA, minValB)
 		if result is not None:
 			i, j = result
 			print "{0} {1}".format(i, j)
