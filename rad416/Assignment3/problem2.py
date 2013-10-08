@@ -1,3 +1,7 @@
+"""
+A script to take in a series of candidates and ballots and perform instant run-off voting.
+"""
+
 from _collections import defaultdict
 from collections import deque
 
@@ -50,11 +54,19 @@ while ( caseCounter <= caseInt):
     for i in range(1,candidatesNum+1):
         candidateDict[i] = ( inputQue.popleft() )
 
+    #find break point
+    breakPoint = 0
+    for i in range(len(inputQue)):
+        if inputQue[i] == '':
+            breakPoint = i
+    if breakPoint == 0:
+        breakPoint = len(inputQue)
+
     ballotList = [] #list of deques containing ballots
 
     # populate list with list of ballots in selection order
-    for i in range(len(inputQue)):
-        ballotList.append( inputQue[i].split(" ") )
+    for i in range(breakPoint):
+        ballotList.append( inputQue.popleft().split(" ") )
 
     # generate dict key on candidate number and value number votes
     ballotDict = ballotCounter(ballotList)
@@ -79,7 +91,8 @@ while ( caseCounter <= caseInt):
         print candidateDict[int(winnerCheck)]
     else:
         for k in ballotDict:
-            print candidateDict[ballotDict[k]]
+            print candidateDict[int(k)]
+    print "\n"
     caseCounter += 1 #increment the control counter
 
-print "Goodbye!"
+
