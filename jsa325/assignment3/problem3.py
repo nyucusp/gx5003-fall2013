@@ -6,90 +6,134 @@ inputLines = []                                           # save lines in a list
 for line in inputFile:
   inputLines.append(line)
 inputFile.close()
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
 
 """
 A scenario is a list containing a pair of integers P N denoting the number of 
 papers P and the number of authors N in each scenario, followed by P + N lines. 
 Parse the input for integer pairs and splice input into a new list of scenarios
-<<<<<<< HEAD
-(a list of lists). Define a funciton X that takes a scenario as input and outputs 
+(a list of lists). Define a function that takes a scenario as input and outputs 
 the authors and their Erdos numbers. Return a dictionary searchDict with keys = 
 authors and values = Erdos numbers.
 """
 
+listScenarios = []
+newScenario = [1]
+numScenarios = int(inputLines[0])
+new = 1
+
+for i in range(1, numScenarios):
+    new += int(inputLines[new].split()[0])+int(inputLines[new].split()[1])+1
+    newScenario.append(new)
+
+newScenario.append(len(inputLines))
+
+for k in range(0,len(newScenario)-1):
+    listScenarios.append(inputLines[newScenario[k]:newScenario[k+1]])
+    
 """
-1. Define a function X that splices each scenario into two lists: a list of papers 
+1. Create a list of lists listScenarios that splices each scenario into two lists: a list of papers 
 listPapers, and a list of authors listAuthors. 
+"""
+
+def solveErdos(currentScenario):
+  numPapers = int(currentScenario[0].split()[0])
+  papersList = currentScenario[1:numPapers+1]
+  
+  searchAuthors = currentScenario[numPapers+1:]
+  
+  authorsDict = findAuthors(listPapers)
+  papersDict = findPapers(authorsDict, listPapers)
+  
+  keyErdos = -1
+  for key,value in authorsDict.items():
+    if value == 'Erdos, P.':
+      keyErdos = key
+  erdosDict = {}
+    
+  for i in range(1, len(authorsDict)+1):
+    count = 0
+    for k in range(1, numPapers + 1):
+      if [i-1, keyErdos - 1] != 0 and count == 0 and keyErdos != -1:
+        count += 1
+        erdosDict[authorsDict[i]] = k
+      elif k == numPapers and count == 0:
+        erdosDict[authorsDict[i]] = "infinity"
+    
+  erdosDict['Erdos, P.'] = 0
+    
+  for author in searchAuthors:
+    mark = 0
+    for key in erdosDict:
+      if author[:-1] == key or author[:-1]+"." == key:
+        print key + " " + str(erdosDict[key])
+        mark += 1
+      if mark == 0:
+        print author[:-1] + " " + "infinity"
+  
+"""
 2. Create a dictionary authorsDict with keys = integers 1,...,n (where n is the number 
 of authors) and values = authors. This dictionary will call the function findAuthors
 on the input listPapers.
 3. Define a function findAuthors on the input listPapers.
-4. Create a dictionary papersDict with keys = integers 1,...,n and values = papers.
+4. Define a function findPaperAuthors on the input listPapers that will split up the
+list of authors for each paper.
+"""
+
+def findAuthors(papers):
+  authorsDict = {}
+  authors = set()
+    
+  for line in papers:        
+    listAuthors = find_authors(line)
+      for elt in listAuthors:
+        authors.add(elt)    
+    
+  tempList = []
+  for author in authors:
+    tempList.append(author)
+    
+  for i in range(0, len(tempList)):
+    authorsDict[i+1] = tempList[i]
+    
+  return authorsDict
+
+def findPaperAuthors(paper):
+  parseAuthorsList = paper.split(':', 1)[0]
+  splitList = parseAuthorsList.split(',')
+  listPaperAuthors = []
+  for i in range(0, len(splitList)/2):
+    listPaperAuthors.append((splitList[2*i] + "," + splitList[2*i + 1]).lstrip())
+    
+  return listPaperAuthors
+
+"""
+5. Create a dictionary papersDict with keys = integers 1,...,n and values = papers.
 This dictionary will call the function findPapers on the input authorsDict and 
 listPapers.
-5. Define a function findPapers on the input authorsDict and listPapers.
-6. Create a dictionary erdosDict with keys = authors and values = strings 0,...,infinity
+6. Define a function findPapers on the input authorsDict and listPapers.
+"""
+
+def findPapers(authorsDict, papers):
+  papersDict = {}
+  
+  for key in authorsDict:
+    listPapers = []
+    for paper in papers:
+      if paper.find(authorsDict[key]) != -1:
+        listPapers.append(paper.ssplit(':')[1].lstrip())
+    papersDict[key] = papersList
+    
+  return papersDict
+
+"""
+7. Create a dictionary erdosDict with keys = authors and values = strings 0,...,infinity
 (where the string is an Erdos number). This dictionary will call the function findErdos 
-on the input papersDict and authorsDict. NOTE TO SELF: I DON'T KNOW IF THIS IS RIGHT.
-Manually set [Erdos, P: 0].
-7. Define a function findErdos on the input ?
+on the input searchAuthors and authorsDict. Manually set [Erdos, P: 0].
+8. Define a function findErdos on the input searchAuthors and authorsDict.
 """
 
-erdos_key = -1
-    for key,value in authorsDict.items():
-        if value == 'Erdos, P.':
-            erdos_key = key
-    authors_erdos_numbers = {}
-    
-    for i in range(1, len(authorsDict)+1):
-        count = 0
-        for k in range(1, num_papers + 1):
-            if numpy.linalg.matrix_power(A, k)[i-1, erdos_key - 1] != 0 and count == 0 and erdos_key != -1:
-                count += 1
-                authors_erdos_numbers[authorsDict[i]] = k
-            elif k == num_papers and count == 0:
-                authors_erdos_numbers[authorsDict[i]] = "infinity"
-    
-    authors_erdos_numbers['Erdos, P.'] = 0
-    
-    for author in authors_to_search:
-        mark = 0
-        for key in authors_erdos_numbers:
-            if author[:-1] == key or author[:-1]+"." == key:
-                print key + " " + str(authors_erdos_numbers[key])
-                mark += 1
-        if mark == 0:
-            print author[:-1] + " " + "infinity"
->>>>>>> 3e2c3051c1d6792351b3429494e726e5ac7dc67a
-=======
-(a list of lists). Define a funciton searchAuthors that takes a scenario as input 
-and outputs the authors and their Erdos numbers. Return a dictionary searchDict 
-with keys = authors and values = Erdos numbers.
-"""
-
-"""
-1. Define a function listScenarios that splices each scenario into two lists: a 
-list of papers listPapers, and a list of authors listAuthors. 
-2. Create a dictionary authorsDict with keys = integers 1,...,n (where n is the 
-number of authors) and values = authors. This dictionary will call the function 
-findAuthors on the input listPapers.
-3. Define a function findAuthors on the input listPapers that returns a list of 
-unique authors.
-4. Create a dictionary papersDict with keys = integers 1,...,n and values = papers.
-This dictionary will call the function findPapers on the input authorsDict and 
-listPapers.
-5. Define a function findPapers on the input authorsDict and listPapers that returns
-a list of papers associated with each author in authorsDict.
-6. Define a function findErdos on the input authorsDict and listPapers that returns 
-a list of all papers associated with 'Erdos, P.' REDUNDANT; FIX
-6. Create a dictionary erdosDict with keys = authors and values = 0,...,infinity 
-(where the string is an Erdos number). This dictionary will call the  function 
-findErdos on the input papersDict and authorsDict. Manually set [Erdos, P: 0].
-...
-"""
->>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
+def findErdos(searchAuthors, authorsDict):
+  erdosDict = {}
+  
+  for key in authorsDict:
+    listErdos = []
