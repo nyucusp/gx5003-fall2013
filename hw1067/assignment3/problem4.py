@@ -14,10 +14,16 @@ do the same for next group of input in the file.
 """
 
     
+#open and read file
+lines =  open('input4.txt').readlines()#note, not readline() here
+lines = [line.strip() for line in lines]
+#print lines 
+lines = [line for line in lines if len(line) > 0]  # discard empty lines
+#print lines 
 
 def knowitall(table, row_number, col_number, end_row, end_col):
     rubics = ''
-#split the "8 11" input, and use them as column and row numbers
+#method: split the "8 11" input, and use them as column and row numbers
     while (row_number >= 0 and
             row_number < len(table) and
             col_number >= 0 and
@@ -28,16 +34,10 @@ def knowitall(table, row_number, col_number, end_row, end_col):
     return rubics
     #print rubics
 
-#open and read file
-lines =  open('input4.txt').readlines()
-lines = [line.strip() for line in lines]
-#print lines 
-lines = [line for line in lines if len(line) > 0]  # discard empty lines
-#print lines 
-
 #get number of cases
 cases = int(lines.pop(0))
 
+#find a way to use line "8 11"
 for c in range(cases):
     lame = lines.pop(0).split()
     num_row = int(lame[0])
@@ -56,10 +56,10 @@ for c in range(cases):
     lines = lines[num_name:]
     #print lines
 
+
     print "Senario: ","No.", c + 1
     for name in names:
         found = False
-        #matching in the 8*11 table
         for row_number in range(num_row):
             for col_number in range(num_col):
                 # there are eight possible ways/directions to look for a word in a table.
@@ -67,15 +67,13 @@ for c in range(cases):
                     name == knowitall(table, row_number, col_number, 1, 0)[:len(name)] or
                     name == knowitall(table, row_number, col_number, -1, 0)[:len(name)] or
                     name == knowitall(table, row_number, col_number, 0, -1)[:len(name)] or
-                    name == knowitall(table, row_number, col_number, 0, 0)[:len(name)] or
-                    name == knowitall(table, row_number, col_number, 1, 1)[:len(name)] or
+                    name == knowitall(table, row_number, col_number, 1, -1)[:len(name)] or
                     name == knowitall(table, row_number, col_number, -1, 1)[:len(name)] or
-                    name == knowitall(table, row_number, col_number, 1, -1)[:len(name)]):
-                    # If a word is found, print the coordinate(x,y) for each result found.
+                    name == knowitall(table, row_number, col_number, 1, 1)[:len(name)] or
+                    name == knowitall(table, row_number, col_number, -1, -1)[:len(name)]):
+                    # print the coordinate(x,y) for each result found.
                     if not found:
                         print row_number + 1, col_number + 1
                         found = True
-        
-
-    #
+#not tested for more than one senario. fixed a problem with the word-checking directions.
     print
