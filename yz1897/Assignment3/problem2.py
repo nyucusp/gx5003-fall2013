@@ -96,11 +96,16 @@ def Rank_Result(cases):
                     print voter_list[voters-1]
                 break
             else:#delete the last one
-                lastone=ordered_voter_list[0][1]
+                lowest=ordered_voter_list[0][0]
+                lastones=[]
+                for voters in frequence:
+                    if frequence[voters]==lowest:
+                        lastones.append(voters)
                 new_vote_list=[]
                 #use a new list to backup all the right-after-deleting voting result
                 for individual_orders in vote_list:
-                    individual_orders.remove(lastone)
+                    for lastone in lastones:
+                        individual_orders.remove(lastone)
                     if len(individual_orders)!=0:
                         new_vote_list.append(individual_orders)
                 vote_list=new_vote_list

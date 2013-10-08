@@ -192,7 +192,7 @@ for word in words:
         if (yy < word.nLoc):
           word.addLoc(xx, yy)
                 
-  if (searchDiagonal(word, reverseGrid) != -1):     # search for diagonal word from UR to BL
+  if (searchDiagonal(word, reverseGrid) != -1):     # search for diagonal word UR to BL
     if (word.isFound == False):
       word.isFound = True
       xx, yy = searchDiagonal(word, reverseGrid)
