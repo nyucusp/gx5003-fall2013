@@ -142,9 +142,9 @@ while scen > 0:
     m = 0
     while m < len(namesToRate):
         if eNumDict.get(namesToRate[m]) == "na":
-            print "infinity"
+            print namesToRate[m], "", "infinity"
         else:
-            print eNumDict.get(namesToRate[m])
+            print namesToRate[m], "", eNumDict.get(namesToRate[m])
         m = m + 1
     scen -= 1
     lineTotal = lineTotal + x[2]
