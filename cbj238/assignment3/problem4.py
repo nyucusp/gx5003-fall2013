@@ -44,16 +44,26 @@ def construct_diagonals(grid):
 
 	# Top Left to bottom right diagonals
 	# Get the diagonals for y:[0,len]
-	# for y in xrange(len(grid)):
-	# 	for x
-	# Get the diagonals for x:[1,len]
+	diagList = []
+	for y in xrange(len(grid)):
+		diagList.append(get_diagonal_from_start(grid, y, 0))
+		
+	for x in xrange(len(grid[0])):
+		diagList.append(get_diagonal_from_start(grid, 0, x))
 
 	# Top right to bottom left diagonals
-	# get diagonals for y:[len:1]
-	# get diagonals for x:[len:0]
+	for y in xrange(len(grid)):
+		diagList.append(get_diagonal_from_start(grid, y, len(grid[y]), -1))
+		
+	# Get the diagonals for x:[1,len]
+	for x in xrange(len(grid[0])):
+		diagList.append(get_diagonal_from_start(grid, len(grid), x, -1))
 
 
 	return ret
+
+def get_diagonal_from_start(grid, y, x, dir=1):
+	pass
 
 def process_results(words, resultDict):
 	'''
