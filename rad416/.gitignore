@@ -1,3 +1,5 @@
 Assignment1/argv_test.py
 *.txt
 *.csv
+*.pyc
+*.ipynb
