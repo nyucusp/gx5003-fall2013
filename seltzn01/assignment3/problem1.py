@@ -2,6 +2,10 @@
 #Assignment 3
 	#Problem 1
 
+#the following creates a function that rounds number to two decimal points
+def roundNumber(x):
+	return int(100 * x)/100.0
+
 """open input1.txt file"""
 
 input1 = open('input1.txt','r')
@@ -17,9 +21,44 @@ num_students = []
 
 sum_of_costs = []
 fileLines = input1.readlines()
-print fileLines
+#print fileLines
 sum_of_costs = fileLines
 
+####################
+import math #neccesary for absolute value function
+
+lineIndex = 0
+numberOfLines = len(fileLines)
+
+
+while(lineIndex < numberOfLines):
+	studentsCosts = []
+	numberOfStudents = int(fileLines[lineIndex])
+	if(numberOfStudents == 0):
+		break
+	# terminates at zero
+	lineIndex = lineIndex + 1
+	totalCost = 0
+	#the following creates list of numbers following each integer
+	for t in range(0,numberOfStudents): #from 0 until the number of students
+		studentCost = float(fileLines[lineIndex])
+		studentsCosts.append(studentCost)
+		totalCost = totalCost + studentCost
+		lineIndex = lineIndex + 1
+	averageCost = totalCost / numberOfStudents
+	# print averageCost
+	# averageCost	= int(100 * averageCost)/100.0
+	# print averageCost
+
+	totalChange = 0
+	for t in range(0,numberOfStudents):
+		hasToPay = math.fabs(averageCost - studentsCosts[t])
+		hasToPay = roundNumber(hasToPay)
+		totalChange = totalChange + hasToPay
+		#print hasToPay
+	print totalChange/2.0	
+
+### the rest of this file was my thinking process
 """
 not sure how to exactly write the loop syntax, but the
 following code would add up each float value and divide
