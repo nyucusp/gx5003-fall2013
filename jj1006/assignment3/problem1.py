@@ -23,7 +23,10 @@ while not n==0:
 	if not '.' in line:
 		if n>0:
 			cstr = str(change(costs))
-			print "$"+cstr[0:(len(cstr)-2)]+"."+cstr[(len(cstr)-2):len(cstr)]
+			cents = cstr[(len(cstr)-2):len(cstr)]
+			while len(cents)<2:
+				cents = "0"+cents
+			print "$"+cstr[0:(len(cstr)-2)]+"."+cents
 			costs = []
 		n = int(line)
 	else:
