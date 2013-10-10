@@ -7,11 +7,22 @@ candi = []
 votelines = []
 newline = []
 tiedline = []
+nline = []
+deline = []
 count = 0
+xline = []
 l = 0
+k = 0
 votecount = 0
 candicount = 0
 winneroutput = 0
+
+def clean(list):
+    checked = []
+    for x in list:
+        if x not in checked:
+            checked.append(x)
+    return checked
 
 for x in range(0, len(votes)):
     if votes[x]== '\n':# find the blank lines before cases
@@ -30,15 +41,37 @@ for x in range(0, len(votes)):
             votelines.append(votes[y].strip('\n'))
         for y in votelines:
             newline.append(y.split(" "))
+        for y in newline:
+            xline.append(y)
         while candicount!=0 and winneroutput!=1 and count<senumb :# find the winner loop
             voteindex = [0 for y in range(0,voteplus)]# set up an index sequence
             removecandi = 0
-            for p in newline[0]:# collect the remained candidates
-                tiedline.append(p)
+            m = 0
+            for p in range(0,votecount):# collect the remained candidates
+                tiedline.append(newline[p][k])
+            tiedline = clean(tiedline)
             for p in range(0,votecount):
                 for n in range(1,voteplus):# calculate the votes of each candidate
-                    if int(newline[p][0]) == n:
+                    if int(newline[p][k]) == n:
                         voteindex[n] += 1
+            for p in newline[0]:
+                for n in range (0,len(tiedline)):
+                    if tiedline[n].find(p)!= -1:
+                        nline.append(p)
+            for p in newline[0]:
+                if p not in nline:
+                        deline.append(p)
+                        m += 1
+            candicount = candicount - m
+            deline = clean(deline)
+            nline = clean(nline)
+            for p in newline:
+                for i in deline:
+                    if i in p:
+                        p.remove(i)
+            if m !=0:
+                k = k + 1
+                continue
             for i in range(1,voteplus):# find the candidate with lowest vote
                 if voteindex[i]!=0:
                     min = voteindex[i]
@@ -55,11 +88,10 @@ for x in range(0, len(votes)):
                         print '\n'
                 if voteindex[i] ==  min:# remove lowest votes from votes list
                     removecandi += 1
-                    for p in range(0,votecount):
-                        if int(newline[p-l][0])== i: 
-                            for lowvote in newline:
-                                lowvote.remove(str(i))
-                                l = l + 1
+                    for p in newline:
+                        if str(i) in p:
+                            p.remove(str(i))
+                            l = l+1
             if removecandi == candicount:# if all removed, print them
                 for tiedcandi in sorted(tiedline):
                     print candi[int(tiedcandi)-1]
@@ -68,10 +100,13 @@ for x in range(0, len(votes)):
                 if count < senumb:# blank line between cases
                     print '\n'
             candicount = candicount - removecandi
+            tiedline = []
         votecount = 0
         winneroutput = 0
         candi = []
         votelines = []
-        tiedline = []
+        deline = []
+        nline = []
+        newline = []
 
 myfile.close()
