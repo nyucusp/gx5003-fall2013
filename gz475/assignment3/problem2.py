@@ -69,16 +69,21 @@ for x in range(0, len(votes)):
                 for i in deline:
                     if i in p:
                         p.remove(i)
-            if m !=0:
-                k = k + 1
-                continue
             for i in range(1,voteplus):# find the candidate with lowest vote
                 if voteindex[i]!=0:
                     min = voteindex[i]
+                    max = voteindex[i]
             for i in range(1,voteplus):
                 if voteindex[i]!=0: 
                     if voteindex[i]<min:
                         min = voteindex[i]
+            for i in range(1,voteplus):
+                if voteindex[i]!=0: 
+                    if voteindex[i]>max:
+                        max = voteindex[i]
+            if max == min and k<candicount - 1 :
+                k = k + 1
+                continue
             for i in range(1,voteplus):
                 if voteindex[i]> float(votecount*0.5)and voteindex[i]!= min:# winner, if candidate votes plus half of total votes
                     print candi[i-1]
