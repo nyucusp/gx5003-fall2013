@@ -10,62 +10,64 @@ blankposition=[]#find the space position in the readdata and put them into anoth
 for a in range(1,len(readdata)):
 	if readdata[a]=='':
 		blankposition.append(a)
-		
-#the calculation part hasn't been finished
-def getposition_up(griddata,worddata):
-	if len(griddata)[0:i+1]>=wordlen:
-		j=j-1
-	else:
-		getpostion_up(griddata,worddata)
+casenumber=int(readdata[0])#get the number of how many cases there are		
 
-def getposition_left(griddata,worddata):
-	if len(griddata)[0:j+1]>=wordlen:
-		j=j-1
-	else:
-		getpostion_up(griddata,worddata)
+#Here I wanna define a function to calculate the position where each word appears 
+#in the grid. I will get the first letter of the first word to find the position
+#where has the same letter. Then I will check whether the left lenths in 8 directions
+#are longer than the word's lenth. If longer, check whether the next (lengh-1) letters
+#are the same as the word's left (lenth-1) letters. If they are matched, I can get the
+#position and then loop this calculating process for all words.
 
-def getposition_right(griddata,worddata):
-	for k in worddata:
-		wordlen=int(len(worddata[i]))#get the length of each word
-		for i in range (0,m):
-			for j in range(0,n):
-				for g in range(0,wordlen+1):
-					while griddata[i][j]==worddata[k][0]:
-						if len(griddata[j:])>=wordlen:
-							j=j+1
-						else:
-							getposition_left(griddata,worddata)
-						return
-						
+#I have tried my best but writing the code of this process is too complicated for me.
 
-
-
-
-
-
-def eachcasedata(eachcase):
-	m=int(allcasedata[0].split()[0])#number of lines in the grid
-	n=int(allcasedata[i].split()[1])#number of columes in the grid
-	grid=[m,n]
-
-	griddata=[]
-	griddata.append(allcasedata[1:m+1])#put the data of grid into an array
-
-	w=int(allcasedata[m+1])#number of words that could be found in the grid
-	worddata=[]
-	worddata.append(allcasedata[m+2:m+2+w])#put the words into an array
+def get_position():
 	
-	getposition(griddata,worddata)
-	return	
+	for i in range(0,casenumber):
+		eachworddata=worddata[i]
+		for j in (0,len(worddata[i])):
+			word=eachworddata[i][j]
+			firstletter=word.split()[0]#get the first letter of the word
+			for k in range(0,casenumber):
+				if firstletter in griddata[k]:
 
 
 
 
-allcasedata=[]#find the data of every case and put them into a new array
-for b in range(0,len(blankposition)-1):
-	x=blankposition[b]+1#the case content starts from the next line of the first space
-	y=blankposition[b+1]#the case content ends in the line before the space
-	allcasedata.append(readdata[x:y])
-	for eachcase in allcasedata:
+griddata=[]
+worddata=[]
+def eachcase():
+	allcasedata=[]#find all case data and put them into a new array
+	for b in range(0,len(blankposition)-1):
+		x=blankposition[b]+1#the case content starts from the next line of the first space
+		y=blankposition[b+1]#the case content ends in the line before the space
+		allcasedata.append(readdata[x:y])
+	
+
+
 		
-		eachcasedata(eachcase)
+	for i in range(len(allcasedata)):#get the data of each case 
+		eachcasedata=[]
+		eachcasedata=allcasedata[i]
+
+		m=int(eachcasedata[0].split()[0])#number of lines in the grid
+		n=int(eachcasedata[0].split()[1])#number of columes in the grid
+				
+
+		
+		griddata.append(eachcasedata[1:m+1])#put the data of grid into an array
+
+		w=int(eachcasedata[m+1])#number of words that could be found in the grid
+		
+		worddata.append(eachcasedata[m+2:m+2+w])#put the words into an array
+		
+		
+eachcase()
+	
+		
+
+
+
+
+
+
