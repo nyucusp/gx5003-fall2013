@@ -25,7 +25,7 @@ def get_scenerio_info(input_lines):
 			co_author_name_string=papers.split(":")[0]
 			s=co_author_name_string[:-1]
 			co_author_list=s.split("., ")
-			co_author_list=[author_name+'.' for author_name in co_author_list]
+			co_author_list=[author_name+'.' for author_name in co_author_list]#add "." in the end of the last author
 			paperlines_parse.append(co_author_list)
 		paper_author_context.append((paperlines_parse,author_list))
 		return paper_author_context
