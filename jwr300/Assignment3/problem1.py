@@ -8,13 +8,6 @@ of money that must exchange hands in order to equalize within one cent, all the 
 
 """
 
-# Reads input form txt file into list
-expenses = []
-myFile = open('input1.txt','r')
-
-for line in myFile:
-    expenses.append(line)
-myFile.close()
 
 """ 
 Method that accepts as arguments an expense list and the average expense and returns 
@@ -36,11 +29,25 @@ to screen.
 
 
 """
-for i in range (0,len(expenses)):
-    if expenses[i].find(".") == -1:
-        expense_list = []
-        for j in range (i+1, i+int(expenses[i])+1):
-            expense_list.append(round(float(expenses[j]),2))
-        if (len(expense_list) > 0):
-            amount = amountToExchange(expense_list, round((sum(expense_list) / len(expense_list)),2))
-            print "$%.2f" % (amount)  
+def main():
+
+    # Reads input form txt file into list
+    expenses = []
+    myFile = open('input1.txt','r')
+
+    for line in myFile:
+        expenses.append(line)
+    myFile.close()
+
+    for i in range (0,len(expenses)):
+        if expenses[i].find(".") == -1:
+            expense_list = []
+            for j in range (i+1, i+int(expenses[i])+1):
+                expense_list.append(round(float(expenses[j]),2))
+            if (len(expense_list) > 0):
+                amount = amountToExchange(expense_list, round((sum(expense_list) / len(expense_list)),2))
+                print "$%.2f" % (amount)  
+
+
+if __name__=='__main__':
+    main()
