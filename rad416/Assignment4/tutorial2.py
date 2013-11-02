@@ -2,8 +2,8 @@ import MySQLdb
    
  #connect to database
  db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                      user="courseuser", # your username
-                       passwd="password", # your password
+                      user="rad416", # your username
+                       passwd="mysql", # your password
                        db="coursedb") # name of the data base
  
  # The Cursor object will let you execute the sql commands
