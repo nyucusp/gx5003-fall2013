@@ -1,13 +1,8 @@
 import MySQLdb
-from parsecsv import ParseCSV
+from parsecsv import *
 
-BOROUGHS_FILE="boroughs.csv"
 BOROUGHS_TABLE="boroughs"
-
-ZIP_FILE="zipCodes.csv"
 ZIP_TABLE="zipcodes"
-
-INCIDENTS_FILE="Incidents_grouped_by_Address_and_Zip.csv"
 INCIDENTS_TABLE="incidents"
 
 class dbMgr:
@@ -19,11 +14,11 @@ class dbMgr:
                              db="coursedb")
         
         # The Cursor object lets you execute the sql commands
-        self.cur = db.cursor()
+        self.cur = self.db.cursor()
 
     def run_sql(self, command):
-        if len(command) > 0 and command is not None:
-            cur.execute(command)
+        if command is not None and len(command) > 0:
+            self.cur.execute(command)
 
     def close(self):
         # Must commit changes before closing connection Else data won't be inserted.    
@@ -33,11 +28,13 @@ class dbMgr:
         self.db.close()
 
 def create_schema_from_header(tableName, data):
-    print "Schema:", tableName, data.keys()
+    print "Schema:", tableName, data[0], data[1]
     return None
 
 def insert_data_from_contents(tableName, data):
-    print "Data:", tableName, len(data)
+    # print "Data:", tableName, len(data[1])
+    # for index in xrange(len(data[1])):
+    #     print data[1][index]#, data[2][index]
     return None
 
 def csv_to_db(csvData, tableName):
@@ -47,10 +44,10 @@ def csv_to_db(csvData, tableName):
     - The table schema is created from the header data.
     '''
     db = dbMgr()
-    data = csvData.getLabelledData()
+    data = csvData.getRawData()
     
     create_schema = create_schema_from_header(tableName, data)
-    db.run_sql(chreate_schema)
+    db.run_sql(create_schema)
 
     insert_data = insert_data_from_contents(tableName, data)
     db.run_sql(insert_data)
@@ -60,9 +57,9 @@ def csv_to_db(csvData, tableName):
 
 def main():
     # Read in and parse all the CSV files.
-    boroughFile = ParseCSV(BOROUGHS_FILE)
-    zipFile = ParseCSV(ZIP_FILE)
-    incidentsFile = ParseCSV(INCIDENTS_FILE)
+    boroughFile = ParseBoroughsCSV()
+    zipFile = ParseZipCodesCSV()
+    incidentsFile = ParseIncidentsCSV()
 
     csv_to_db(boroughFile, BOROUGHS_TABLE)
     csv_to_db(zipFile, ZIP_TABLE)

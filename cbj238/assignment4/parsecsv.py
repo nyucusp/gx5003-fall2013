@@ -4,24 +4,45 @@ def CleanListStrings(strlist):
 	for i in xrange(len(strlist)):
 		strlist[i] = strlist[i].strip()
 
-class ParseCSV:
+def gettype(s):
+    """ Given a parameter as a string, return
+    a tuple containing (type, value)
+
+    type is in [int, float, str]
+    value is the int, float, or string"""
+    try:
+        return int, int(s)
+    except ValueError:
+        try:
+            return float, float(s)
+        except ValueError:
+            return str, s		
+
+class ParseCSV(object):
 	'''
 	ParseCSV is a class for handling all CSV reading.
 	'''
 	fieldNames = []
+	fieldTypes = []
 	data = []
 	
-	def __init__(self, filename, fieldSelect=None):
+	def __init__(self, filename, fieldSelect=None, skipHeader=False):
 		''' init takes the csv filename.
 		and reads the csv into memory.
 
 		fieldSelect allows you to enter a tuple which extracts only the 
 		column indexes entered from the file, thereby saving space as necessary.
+
+		use skipHeader if this file lacks a header, or if you want to enter the headers yourself.
+			Note: if you make this true, you *have* to enter the header yourself.
 		'''
 
 		with open(filename, 'r') as fileHandle:
-			self.readHeader(fileHandle, fieldSelect)
+			if not skipHeader:
+				self.readHeader(fileHandle, fieldSelect)
 			self.readData(fileHandle, fieldSelect)
+
+		self.parseFieldTypes()
 
 	def readHeader(self, fileHandle, fieldSelect):
 		'''
@@ -54,19 +75,33 @@ class ParseCSV:
 			CleanListStrings(values)
 			# If fieldSelect is none, use all the values
 			if fieldSelect is None:
-				for ind in xrange(len(values)):
-					self.data[ind].append(values[ind])
+				try:
+					for ind in xrange(len(self.fieldNames)):
+					    self.data[ind].append(values[ind])
+				except IndexError:
+					print "IndexError!!! <{0}>,<{1}>,<{2}>".format(len(self.fieldNames), len(values), values)
 			else:
 				# else, grab only the columns we care about.
 				for fieldIndex in xrange(len(fieldSelect)):
 					self.data[fieldIndex].append(values[fieldSelect[fieldIndex]])
+
+	def parseFieldTypes(self):
+		self.fieldTypes = []
+		for column in self.data:
+			index = 0
+
+			#This is to skip blank things.
+			while index < len(column) and column[index] == "":
+				index += 1
+
+			self.fieldTypes.append(gettype(column[index])[0])
 
 	def getRawData(self):
 		'''
 		returns the data as a tuple of
 		(labels, [list of data lists])
 		'''
-		return (self.fieldNames, self.data)
+		return (self.fieldNames, self.fieldTypes, self.data)
 
 	def getLabelledData(self):
 		'''
@@ -79,3 +114,25 @@ class ParseCSV:
 			dataDict[self.fieldNames[i]] = self.data[i]
 
 		return dataDict
+
+class ParseBoroughsCSV(ParseCSV):
+	filename = "boroughs.csv"
+	def __init__(self):
+		self.fieldNames = ["Zip Code", "Borough"]
+
+		super( ParseBoroughsCSV, self ).__init__(self.filename, skipHeader=True)
+
+class ParseZipCodesCSV(ParseCSV):
+	filename = "zipCodes.csv"
+	def __init__(self):	
+		# For this we skip the header so we can make a prettier one.
+		super( ParseZipCodesCSV, self ).__init__(self.filename)
+
+		self.fieldNames = ["Name","zip code tabulation area","zt36 d00","Perimeter","lsad trans","zt36 d00 i","lsad","Area","Latitude","Longitude","Population"]
+
+class ParseIncidentsCSV(ParseCSV):
+	filename = "Incidents_grouped_by_Address_and_Zip.csv"
+	def __init__(self):
+		super( ParseIncidentsCSV, self ).__init__(self.filename)
+
+		self.fieldNames = ["Address","Zip","Count"]
