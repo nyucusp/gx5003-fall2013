@@ -1,15 +1,15 @@
-import MySQLdb
-# import warnings
-# warnings.filterwarnings("ignore")
+"""
+A script to find every address where an incident occured in Manhattan. Blank 
+addresses have been removed and the addresses sorted. The file output goes to
+STDOUT.
+"""
 
-db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                      user="rad416", # your username
-                       passwd="mysql", # your password
-                       db="coursedb") # name of the data base
+import MySQLdb
+
+db = MySQLdb.connect(host="localhost", user="rad416", passwd="mysql", db="coursedb")
 
 with db:
 
-  # The Cursor object will let you execute the sql commands
   cur = db.cursor()
 
   query = "SELECT address FROM incidents i INNER JOIN boroughs b ON b.zipcode = i.zipcode WHERE borough = 'Manhattan' AND address > '' GROUP BY address ORDER BY address"
