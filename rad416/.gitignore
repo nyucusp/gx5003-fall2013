@@ -3,3 +3,4 @@ Assignment1/argv_test.py
 *.csv
 *.pyc
 *.ipynb
+*.sql
