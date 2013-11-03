@@ -11,4 +11,10 @@ We create the following three tables:\
 \
 boroughs, with schema (zip, borough_name).  We removed duplicate entries (there were 480 rows in the original file, with each row duplicated once).\
 \
-zipcodes, with schema (zip, area, population).  Here, we had data in which several of the same zip codes had different areas or populations.  We made the decision to just use the information from the *last* instance of the zip code that appeared in the file.  We also ignored the zipcodes that have no population information.}
+zipcodes, with schema (zip, area, population).  Here, we had data in which several of the same zip codes had different areas or populations.  We made the decision to just use the information from the *last* instance of the zip code that appeared in the file.  We also ignored the zipcodes that have no population information.\
+\
+incidents, with schema (zip, address, and incident_count).  We had to remove single apostrophes (i.e. "King's" became "Kings") in order to be able to insert addresses into the database.\
+\
+\
+\
+Problems 2 and 3: Please enter the zip code or borough name WITHOUT quotation marks in the command line, and with the first letter CAPITALIZED.}
