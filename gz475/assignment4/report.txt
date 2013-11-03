@@ -1,0 +1,16 @@
+Gang Zhao, Assignment 4, Report
+Problem 1, to deal with problem 2-6 , the three tables created as following:
+	   drop former tables named boroughs, zipcodes and incidents;
+	   boroughs: use zipcode and borough data in boroughs.csv, but delete the duplicate records;
+	   zipcodes: use zipcode, area and population data in zipCodes.csv, but delete the records without population number;
+	   incidents: use all the data in Incidents_grouped_by_Address_and_Zip.csv.
+Problem 2, the input format should be "python problem2.py *";
+	   if there's no record in zipcodes table returns "None";
+	   if one zipcode have more than one records in table, caculate the population density separately, for example 10504;
+	   query of 6390 should be 06390.
+Problem 3, the imput format should be "python problem3.py *";
+	   if there's no match borough returns "None"; 
+	   the incidents without detailed addresses but have zipcodes data are also considered when cacualte the sum.
+Problem 4, the incidents without detailed addresses are not printed. 
+Problem 5, the incidents without detailed addresses are not printed. 
+Problem 6, use simple query without complicated syntaxes.
