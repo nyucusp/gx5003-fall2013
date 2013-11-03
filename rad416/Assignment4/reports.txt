@@ -1,0 +1,22 @@
+problem1.py
+-XX and HH don't have any population. They are being filtered out
+-Only fields necessary for the program are loaded into the database
+-The boroughs.csv file has duplicate entries for every zipcode. Removed with a SELECT DISTINCT and copy into new table and dropping the old table
+
+problem2.py
+-filtering output for zipcodes not in New York City with test of null result (len == 0)
+
+problem3.py
+-Since Staten Island is in the database as "Staten", the output is tested for "Staten" and "Island" is appended to output
+-The processing is done purely in SQL with a subquery and a join with another subquery to generate the result
+
+problem4.py
+-removed any blank addresses within SQL query
+-sorted output by address
+
+problem5.py
+-removed any blank addresses within SQL query
+-sorted output by address
+
+problem6.py
+-output listed in order by zipcode
