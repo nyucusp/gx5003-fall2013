@@ -1,15 +1,19 @@
+"""
+A script to take three prepared files, each containing information on NYS zipcodes, 
+boroughs, population, and incidents in those zipcodes.  The following script
+creates tables for the files, parses the files and uploads them to the database.
+The code must be loaded in the same folder as the code in order to successfully run.
+"""
+
 import sys
 from _collections import defaultdict
 import MySQLdb
 from subprocess import call
 from decimal import *
-# import warnings
-# warnings.filterwarnings("ignore")
+import warnings
+warnings.filterwarnings("ignore")
 
-db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                      user="rad416", # your username
-                       passwd="mysql", # your password
-                       db="coursedb") # name of the data base
+db = MySQLdb.connect(host="localhost", user="rad416", passwd="mysql", db="coursedb")
 
 with db:
 
@@ -72,12 +76,13 @@ with db:
   #  Load Incidents Data   #
   ##########################
 
+  #remove the single quote in the address field
   call("tr \"'\" \" \" < Incidents_grouped_by_Address_and_Zip.csv > Incidents_grouped_by_Address_and_Zip_tr.csv", shell=True)
 
   #upload incidents file (original with commas in col 1)
   zipIncidentFile = open('Incidents_grouped_by_Address_and_Zip_tr.csv','r')
   next(zipIncidentFile) #skip header row
-  zipIncidentList = []
+  zipIncidentList = [] #list for formatted file contents
   for line in zipIncidentFile:
     lineSplit = line.split(",")
     if(len(lineSplit) == 3 and len(lineSplit[1]) >= 5 and lineSplit[1][0] == '1'):
@@ -100,7 +105,7 @@ with db:
   zipPopFile = open('zipCodes.csv','r')
   next(zipPopFile) #skip header row
 
-  zipPopDict = defaultdict(int) #list for file contents
+  zipPopDict = defaultdict(int) #dict for file contents
 
   #populate zipList
   for line in zipPopFile: 
@@ -126,7 +131,7 @@ with db:
   zipPopFile = open('zipCodes.csv','r')
   next(zipPopFile) #skip header row
 
-  zipPopDict = defaultdict(Decimal) #list for file contents
+  zipPopDict = defaultdict(Decimal) #dict for file contents
 
   for line in zipPopFile:
     lineSplit = line.split(",")
