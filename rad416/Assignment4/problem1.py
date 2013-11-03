@@ -2,6 +2,7 @@ import sys
 from _collections import defaultdict
 import MySQLdb
 from subprocess import call
+from decimal import *
 # import warnings
 # warnings.filterwarnings("ignore")
 
@@ -117,5 +118,28 @@ with db:
 
   for q in populationList:
     cur.execute(q) 
+
+  ##########################
+  #     Load Area Data     #
+  ##########################
+
+  zipPopFile = open('zipCodes.csv','r')
+  next(zipPopFile) #skip header row
+
+  zipPopDict = defaultdict(Decimal) #list for file contents
+
+  for line in zipPopFile:
+    lineSplit = line.split(",")
+    if(lineSplit[10] != '\n'): #skip if population is empty
+      zipPopDict[lineSplit[1]] += Decimal(lineSplit[7])
+
+  areaList = []
+  baseQuery = "UPDATE zipcode_population SET area = "
+
+  for k, v in zipPopDict.items():
+    areaList.append(baseQuery + str(v) + " WHERE zcta = '" + k + "'")
+
+  for q in areaList:
+    cur.execute(q)
 
 db.close()
