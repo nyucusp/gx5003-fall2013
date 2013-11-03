@@ -23,6 +23,8 @@ db = MySQLdb.connect(	host   = "localhost",# your host, usually localhost
 # create a cursor object to execute commands
 cur = db.cursor()
 
+cur.execute("SET autocommit = 0;")
+
 # get all tables that currently exist in this db
 query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'coursedb';"
 cur.execute(query)
