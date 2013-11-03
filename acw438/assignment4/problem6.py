@@ -11,9 +11,9 @@ db = MySQLdb.connect(host='localhost', \
                      db='coursedb')
 cur = db.cursor()
 
-cur.execute("SELECT DISTINCT B.zip, P.population FROM zip_incidents AS I, zip_boroughs as B, zip_population_area as P WHERE I.zip = B.zip AND I.zip=P.zip AND B.borough = 'MANHATTAN' LIMIT 100;")
+cur.execute("SELECT B.zip, P.population FROM zip_incidents AS I, zip_boroughs as B, zip_population_area as P WHERE I.zip = B.zip AND I.zip=P.zip AND B.borough = 'MANHATTAN' GROUP BY B.zip;")
 
 for incident in cur.fetchall():
-    print incident[0]
+    print str(incident[0]) + '\t' + str(incident[1])
 
 db.close()
