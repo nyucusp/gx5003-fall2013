@@ -1,9 +1,12 @@
+"""
+A script to find the addresses of all incidents occurring in either Bronx
+or Queens.  Empty addresses are omitted and the output is sorted.  The script
+output is sent to STDOUT.
+"""
+
 import MySQLdb
 
-db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                      user="rad416", # your username
-                       passwd="mysql", # your password
-                       db="coursedb") # name of the data base
+db = MySQLdb.connect(host="localhost", user="rad416", passwd="mysql", db="coursedb")
 
 with db:
 
