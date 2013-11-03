@@ -12,10 +12,10 @@ with db:
   # The Cursor object will let you execute the sql commands
   cur = db.cursor()
 
-  query = "SELECT zp.zcta, zp.total_population FROM zipcode_population zp INNER JOIN boroughs b ON b.zipcode = zp.zcta INNER JOIN incidents i ON b.zipcode = i.zipcode WHERE b.borough = 'Manhattan' and i.incidents > 0" 
+  query = "SELECT zp.zcta, zp.total_population FROM zipcode_population zp INNER JOIN boroughs b ON b.zipcode = zp.zcta INNER JOIN incidents i ON b.zipcode = i.zipcode WHERE b.borough = 'Manhattan' and i.incidents > 0 GROUP BY zp.zcta ORDER BY zp.zcta" 
   cur.execute(query)
-
-  for row in cur:
-    print row
+  result = cur.fetchall()
+  for row in result:
+    print row[0], row[1]
 
 db.close()
