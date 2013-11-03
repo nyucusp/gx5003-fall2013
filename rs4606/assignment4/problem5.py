@@ -19,9 +19,7 @@ rather than a normal UNION, because the same address may exist in Bronx and Quee
 """
 query = "(SELECT address FROM boroughs JOIN incidents WHERE borough_name = 'Bronx' AND boroughs.zip = incidents.zip) UNION ALL (SELECT address FROM boroughs JOIN incidents WHERE borough_name = 'Queens' AND boroughs.zip = incidents.zip);"
 cur.execute(query)
-total = 0
 for row in cur.fetchall():
     print row[0]
-    total += 1
-print total
+
 db.close()
