@@ -12,11 +12,11 @@ db = MySQLdb.connect(host="localhost", # your host, usually localhost
 cur = db.cursor()   
 
 """
-In this query we list all addresses from incidents that occurred in Manhattan.  Note that
-some of these addresses are blank, corresponding to those incidents for which there was
-no listed address
+In this query we list all addresses from incidents that occurred in Manhattan.  
+Note that some of these addresses are blank, corresponding to those incidents for which 
+there was no listed address
 """
-query = "select address from boroughs join incidents where borough_name = 'Staten' and boroughs.zip = incidents.zip;"
+query = "SELECT address FROM boroughs JOIN incidents WHERE borough_name = 'Manhattan' AND boroughs.zip = incidents.zip;"
 cur.execute(query)
 for row in cur.fetchall():
     print row[0]
