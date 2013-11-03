@@ -1,8 +1,8 @@
 import sys
 from _collections import defaultdict
 import MySQLdb
-import warnings
-warnings.filterwarnings("ignore")
+# import warnings
+# warnings.filterwarnings("ignore")
 
 db = MySQLdb.connect(host="localhost", # your host, usually localhost
                       user="rad416", # your username
@@ -13,6 +13,10 @@ with db:
 
   # The Cursor object will let you execute the sql commands
   cur = db.cursor()
+
+  #################
+  # Create Tables #
+  #################
 
   query = "DROP TABLE IF EXISTS zipcode_population"
   cur.execute(query)
@@ -32,6 +36,10 @@ with db:
   query = "CREATE TABLE incidents ( zipcode INT, incidents INT )"
   cur.execute(query)
 
+  ##########################
+  #   Load Boroughs Data   #
+  ##########################
+
   #parse boroughs file and upload
   boroughZipFile = open('boroughs.csv', 'r')
 
@@ -43,6 +51,7 @@ with db:
     boroughZipInsert.append(baseQuery + "('" + lineSplit[0] + "','" + lineSplit[1].rstrip() + "')")
 
   boroughZipFile.close()
+
   for q in boroughZipInsert:
     cur.execute(q) 
 
@@ -56,6 +65,10 @@ with db:
   #drop duplicate table
   query = "DROP TABLE IF EXISTS boroughs_raw"
   cur.execute(query)
+
+  ##########################
+  #  Load Incidents Data   #
+  ##########################
 
   #upload incidents file (original with commas in col 1)
   zipIncidentFile = open('Incidents_grouped_by_Address_and_Zip.csv','r')
@@ -76,12 +89,30 @@ with db:
   for q in incidentsList:
     cur.execute(q) 
 
+  ##########################
+  #  Load Population Data  #
+  ##########################
+
+  zipPopFile = open('zipCodes.csv','r')
+  next(zipPopFile) #skip header row
+
+  zipPopDict = defaultdict(int) #list for file contents
+
+  #populate zipList
+  for line in zipPopFile: 
+    lineSplit = line.split(",")
+    if(lineSplit[10] != '\n'): #skip if population is empty
+      zipPopDict[lineSplit[1]] += int(lineSplit[10].rstrip())
+
+  zipPopFile.close() #close file
+
+  populationList = []
+  baseQuery = "INSERT IGNORE INTO zipcode_population (zcta, total_population) VALUES "
+
+  for k,v in zipIncidentDict.items():
+    populationList.append(baseQuery + "('" + k + "','" + str(v) + "')")
+
+  for q in populationList:
+    cur.execute(q) 
+
 db.close()
-# #populate boroughZipList
-# for line in boroughZipFile:
-#   lineSplit = line.split(",")
-#   boroughZipList.append([lineSplit[0], lineSplit[1].rstrip()])
-
-#parse 
-
-#parse incidents file and upload
