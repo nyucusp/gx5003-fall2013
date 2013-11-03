@@ -8,7 +8,7 @@ Problem 2, the input format should be "python problem2.py *";
 	   if there's no record in zipcodes table returns "None";
 	   if one zipcode have more than one record in table, caculate the population density separately, for example 10504;
 	   query of 6390 should be 06390.
-Problem 3, the imput format should be "python problem3.py *";
+Problem 3, the input format should be "python problem3.py *";
 	   if there's no match borough returns "None"; 
 	   the incidents without detailed addresses but have zipcodes data are also considered when cacualte the sum.
 Problem 4, Problem 5, the incidents without detailed addresses are not printed. 
