@@ -23,8 +23,6 @@ db = MySQLdb.connect(	host   = "localhost",# your host, usually localhost
 # create a cursor object to execute commands
 cur = db.cursor()
 
-cur.execute("SET autocommit = 0;")
-
 # get all tables that currently exist in this db
 query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'coursedb';"
 cur.execute(query)
@@ -84,14 +82,12 @@ query += "area DECIMAL(13,9) UNSIGNED, population INT UNSIGNED, primary key(zip)
 # print query
 cur.execute(query)
 
+
 # open the csv db file
 csvFile = open('zipCodes.csv', 'r')
 # go through that freaking document
 for line in csvFile:
 	# print line
-
-	# complete entry flag
-	completeEntry = True
 
 	tempArray = line.strip().split(',')
 
@@ -102,25 +98,35 @@ for line in csvFile:
 
 		# assign the zip to the variable
 		zipCode = int(tempArray[1])
-		# check if the zip code has an associated NYC borough from the last csv file
-		# if not, then I am assuming it is not in NYC and not valid
-		if zipCode not in zipList:
-			completeEntry = False
 
 		# this is the population for a given zip
 		if( len(tempArray[10]) > 0  ):
 			pop = int(tempArray[10])
 		else:
-			completeEntry = False
+			pop = 0
 
 		# get the area
 		if( len( tempArray[7] ) > 0 ):
-			area = str( tempArray[7] )
+			area = float( tempArray[7] )
 		else:
-			area = "0"
+			area = 0
 
-		if completeEntry:
-			query = "INSERT INTO zip_infos values( " + str(zipCode) + ", '" + area + "', " + str(pop) + ");"
+		# check if an entry already exists
+		testQuery = "SELECT zip, area, population FROM zip_infos WHERE zip=" + str(zipCode) + ";"
+		cur.execute( testQuery )
+		returned = cur.fetchall()
+		# if it does exist, update it
+		if len(returned)==1:
+			returned = returned[0]
+			pop += int(returned[2])
+			area += float(returned[1])
+			query = "UPDATE zip_infos SET population=" + str(pop) + ", area=" + str(area) + " WHERE zip=" + str(zipCode) + ";"
+			# print query
+			cur.execute( query )
+		# else create an entry
+		else:
+			query = "INSERT INTO zip_infos VALUES ( " + str(zipCode) + ", '" + str(area) + "', '" + str(pop) + "');"
+			# print query
 			cur.execute(query)
 
 # close the csv file
