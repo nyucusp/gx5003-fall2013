@@ -21,7 +21,7 @@ with db:
   query = "DROP TABLE IF EXISTS zipcode_population"
   cur.execute(query)
 
-  query = "CREATE TABLE zipcode_population ( zcta INT, total_population INT,PRIMARY KEY (zcta) )"
+  query = "CREATE TABLE zipcode_population ( zcta INT, total_population INT, area NUMERIC(10,9) PRIMARY KEY (zcta) )"
   cur.execute(query)
 
   query = "DROP TABLE IF EXISTS boroughs_raw"
