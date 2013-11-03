@@ -17,4 +17,6 @@ incidents, with schema (zip, address, and incident_count).  We had to remove sin
 \
 \
 \
-Problems 2 and 3: Please enter the zip code or borough name WITHOUT quotation marks in the command line, and with the first letter CAPITALIZED.}
+Problems 2 and 3: Please enter the zip code or borough name WITHOUT quotation marks in the command line, and with the first letter CAPITALIZED.\
+\
+Problem 5: Note that we chose to use UNION ALL here rather than UNION, since we want to retain duplicate addresses, where one is in Queens and one is in the Bronx.  If the problem specified distinct addresses, we could use the normal UNION command.}
