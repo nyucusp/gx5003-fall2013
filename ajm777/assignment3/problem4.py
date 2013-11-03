@@ -206,8 +206,13 @@ def find_words(parsed_data, location_first):
 
     return final_locations
 
+<<<<<<< HEAD
+def output(final_locations, parsed_data): #expected input is dictionary created by find_words
+    print parsed_data
+=======
 #Function to match output locations to names and pritn values in order and format
 def output(final_locations, parsed_data): #expected input is dictionary created by find_words
+>>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
     words = parsed_data[1]
     for word in words:
         for item in final_locations.items(): 
@@ -215,6 +220,10 @@ def output(final_locations, parsed_data): #expected input is dictionary created 
             vals = item[1]
             vals.sort()
             if name == word:
+<<<<<<< HEAD
+                #print word
+=======
+>>>>>>> daf65bf8067c6e57579f5dc8b41448d73533f9f8
                 print str(vals[0][0]+1) + ' ' + str(vals[0][1]+1)#Add one to each since index starts from 0
         
 
