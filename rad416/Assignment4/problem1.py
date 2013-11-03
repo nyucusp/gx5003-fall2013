@@ -1,5 +1,8 @@
 import sys
+from _collections import defaultdict
 import MySQLdb
+import warnings
+warnings.filterwarnings("ignore")
 
 db = MySQLdb.connect(host="localhost", # your host, usually localhost
                       user="rad416", # your username
@@ -43,9 +46,35 @@ with db:
   for q in boroughZipInsert:
     cur.execute(q) 
 
+  query = "DROP TABLE IF EXISTS boroughs"
+  cur.execute(query)
+
   # deduplicate data
   query = "CREATE TABLE boroughs AS ( SELECT DISTINCT zipcode, borough FROM boroughs_raw)"
   cur.execute(query)
+
+  #drop duplicate table
+  query = "DROP TABLE IF EXISTS boroughs_raw"
+  cur.execute(query)
+
+  #upload incidents file (original with commas in col 1)
+  zipIncidentFile = open('Incidents_grouped_by_Address_and_Zip.csv','r')
+  next(zipIncidentFile) #skip header row
+  zipIncidentDict = defaultdict(int) #dict to capture zipcodes and counts
+  for line in zipIncidentFile:
+    lineSplit = line.split(",")
+    if(len(lineSplit) == 3 and len(lineSplit[1]) >= 5 and lineSplit[1][0] == '1'):
+      zipIncidentDict[lineSplit[1][ :5]] += int(lineSplit[2].rstrip())
+  
+  zipIncidentFile.close()
+
+  incidentsList = []
+  baseQuery = "INSERT IGNORE INTO incidents (zipcode, incidents) VALUES "
+  for k,v in zipIncidentDict.items():
+    incidentsList.append(baseQuery + "('" + k + "','" + str(v) + "')")
+
+  for q in incidentsList:
+    cur.execute(q) 
 
 db.close()
 # #populate boroughZipList
