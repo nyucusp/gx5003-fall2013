@@ -118,7 +118,7 @@ class ParseCSV(object):
 class ParseBoroughsCSV(ParseCSV):
 	filename = "boroughs.csv"
 	def __init__(self):
-		self.fieldNames = ["Zip Code", "Borough"]
+		self.fieldNames = ["zipcode", "borough"]
 
 		super( ParseBoroughsCSV, self ).__init__(self.filename, skipHeader=True)
 
@@ -128,11 +128,11 @@ class ParseZipCodesCSV(ParseCSV):
 		# For this we skip the header so we can make a prettier one.
 		super( ParseZipCodesCSV, self ).__init__(self.filename)
 
-		self.fieldNames = ["Name","zip code tabulation area","zt36 d00","Perimeter","lsad trans","zt36 d00 i","lsad","Area","Latitude","Longitude","Population"]
+		self.fieldNames = ["name","zip_code_tabulation_area","zt36_d00","perimeter","lsad_trans","zt36_d00_i","lsad","area","latitude","longitude","population"]
 
 class ParseIncidentsCSV(ParseCSV):
 	filename = "Incidents_grouped_by_Address_and_Zip.csv"
 	def __init__(self):
 		super( ParseIncidentsCSV, self ).__init__(self.filename)
 
-		self.fieldNames = ["Address","Zip","Count"]
+		self.fieldNames = ["address","zip","count"]
