@@ -7,49 +7,82 @@ INCIDENTS_TABLE="incidents"
 
 class dbMgr:
     def __init__(self):
-        #connect to database
-        self.db = MySQLdb.connect(host="localhost",
-                             user="cbj238",
-                             passwd="1122334455",
-                             db="coursedb")
+        try: 
+            #connect to database
+            self.db = MySQLdb.connect(host="localhost",
+                                 user="cbj238",
+                                 passwd="1122334455",
+                                 db="coursedb")
+
+            self.cur = self.db.cursor() 
+        except MySQLdb.Error:
+            print "There was a problem in connecting to the database. Please ensure tha tthe database exists on the local host system."
+            exit(-1)
 
     def run_sql(self, command):
         if command is not None and len(command) > 0:
             # The Cursor object lets you execute the sql commands
-            self.cur = self.db.cursor()
 
-            self.cur.execute(command)
+            try: 
+                self.cur.execute(command)
 
-            self.cur.close()
+            # self.cur.close()
+             # OperationalError
+            except MySQLdb.OperationalError, e :
+                print "Some of the information you have passed is not valid. Please check it before trying to use this program again. You may also use '-h' to see the options available."
+                print "The exact error information reads as follows:%s" %(e)
+                raise
+            # DataError
+            # ProgrammingError
+            except (MySQLdb.DataError, MySQLdb.ProgrammingError), e:
+                print "An irrecoverable error has occured in the way your data was to be processed. This application must now close. An error message describing the fault has been sent to the development team. Apologies for any inconvenience."
+                raise
+            # IntegrityError
+            except MySQLdb.IntegrityError, e:
+                print "An irrecoverable database error has occurred and this process must now end. An error message describing the fault has been sent to the database administrator. Apologies for any inconvenience."
+                raise
+            # InternalError
+            # NotSupportedError
+            except (MySQLdb.InternalError, MySQLdb.NotSupportedError), e:
+                print "An irrecoverable error has occurred and this process must now end. An error message describing the fault has been sent to the appropriate staff. Apologies for any inconvenience."
+                raise
+            except MySQLdb.Warning:
+                pass
 
-    def close(self):
+    def commit(self):
         # Must commit changes before closing connection Else data won't be inserted.    
         self.db.commit()
+
+    def close(self):
 
         # Close the connection
         self.db.close()
 
 def clean_db(db):
-    clean_command = "DROP TABLE IF EXISTS zipcodes"
-    db.run_sql(clean_command)
-    clean_command = "DROP TABLE IF EXISTS incidents"
-    db.run_sql(clean_command)
-    clean_command = "DROP TABLE IF EXISTS boroughs"
-    db.run_sql(clean_command)
+    try:
+        clean_command = "DROP TABLE IF EXISTS zipcodes"
+        db.run_sql(clean_command)
+        clean_command = "DROP TABLE IF EXISTS incidents"
+        db.run_sql(clean_command)
+        clean_command = "DROP TABLE IF EXISTS boroughs"
+        db.run_sql(clean_command)
+        db.commit()
+    except MySQLdb.Warning:
+        # Just ignore those warnings about them not existing.
+        pass
 
 def get_sql_column(name, vartype, primary_key):
     retStr = "{0} ".format(name)
-    if vartype==int:
+
+    if vartype=="INT":
         retStr += "int"
-    elif vartype==float:
+    elif vartype=="FLOAT":
         retStr += "float(6)"
     else:
         retStr += "varchar(255)"
 
     if (primary_key == name) and (vartype==int):
         retStr += " not null"
-
-    # print retStr
 
     return retStr
 
@@ -76,7 +109,7 @@ def build_column_list(columns):
     return ", ".join(columns)
 
 def is_valid_cell(cell, columntype):
-    return gettype(cell) == columntype
+    return gettype(cell)[0] == columntype
 
 def build_data_list(data, types):
     entries = []
@@ -102,25 +135,20 @@ def build_data_list(data, types):
         else:
             invalidEntries.append( entryStr ) 
 
+    print "{0} Valid entries".format(len(entries))
     print "{0} Invalid entries".format(len(invalidEntries))
     # for entry in invalidEntries:
     #     print entry
 
-    print "{0} Valid entries".format(len(entries))
-
     return entries
 
-def insert_data_from_contents(tableName, data):
+def insert_data_from_contents(db, tableName, data):
     column_list = build_column_list(data[0])
     data_list = build_data_list(data[2], data[1])
     
     for row in data_list:
-        try:
-            insert_query = "INSERT INTO {0} ({1}) VALUES {2}".format(tableName, column_list, data_list)
-            # print insert_query
-            # db.run_sql(insert_query)
-        except:
-            print "Exception at query: {0}".format(insert_query)
+        insert_query = "INSERT INTO {0} ({1}) VALUES {2}".format(tableName, column_list, row)
+        db.run_sql(insert_query)
 
 def csv_to_db(db, csvData, tableName, primary_key=None):
     ''' Takes a ParseCSV object and the table to create,
@@ -130,6 +158,7 @@ def csv_to_db(db, csvData, tableName, primary_key=None):
     '''
     
     data = csvData.getRawData()
+    print "Creating {0}. {1} records in csv.".format(tableName, len(data[2][0]))
 
     # Error checking: make sure no column names have spaces
     for name in data[0]:
@@ -137,9 +166,12 @@ def csv_to_db(db, csvData, tableName, primary_key=None):
             name.replace(' ', '_')
     
     create_schema = create_schema_from_header(tableName, data, primary_key)
+    print create_schema
     db.run_sql(create_schema)
+    db.commit()
 
-    insert_data_from_contents(tableName, data)
+    insert_data_from_contents(db, tableName, data)
+    db.commit()
     
 
 def main():
@@ -149,12 +181,12 @@ def main():
 
     # Read in and parse all the CSV files.
     boroughFile = ParseBoroughsCSV()
-    # zipFile = ParseZipCodesCSV()
-    # incidentsFile = ParseIncidentsCSV()
+    zipFile = ParseZipCodesCSV()
+    incidentsFile = ParseIncidentsCSV()
 
     csv_to_db(db, boroughFile, BOROUGHS_TABLE)
-    # csv_to_db(db, zipFile, ZIP_TABLE)
-    # csv_to_db(db, incidentsFile, INCIDENTS_TABLE)
+    csv_to_db(db, zipFile, ZIP_TABLE)
+    csv_to_db(db, incidentsFile, INCIDENTS_TABLE)
 
     db.close()
 

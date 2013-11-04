@@ -11,12 +11,12 @@ def gettype(s):
     type is in [int, float, str]
     value is the int, float, or string"""
     try:
-        return int
+        return "INT", int(s)
     except ValueError:
         try:
-            return float
+            return "FLOAT", float(s)
         except ValueError:
-            return str
+            return "STR", s		
 
 class ParseCSV(object):
 	'''
@@ -94,7 +94,7 @@ class ParseCSV(object):
 			while index < len(column) and column[index] == "":
 				index += 1
 
-			self.fieldTypes.append(gettype(column[index]))
+			self.fieldTypes.append(gettype(column[index])[0])
 
 	def getRawData(self):
 		'''
