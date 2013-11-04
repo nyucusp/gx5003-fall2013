@@ -1,0 +1,19 @@
+---Report---
+Abdullah Kurkcu
+____________________________________________________________________________________________________________________
+While reading the data before inserting it into MySQL, I tried to avoid None objects in the dataset.
+Therefore, I removed the ones without address or zipcode.
+I also checked for incomplete adresses such as "STREET, ST" or statements like "I DON'T KNOW or IDK".
+You can see this in problem1.py in putNull function.
+____________________________________________________________________________________________________________________
+if row[i] == '' or row[i]=='ANONYMOUS' or row[i]=='NO CLUE' or row[i]=='NO IDEA' or row[i]=="DON'T KNOW" 
+or row[i]=='IDK' or row[i]=='N/A' or row[i]=='NA' or row[i]=='N//A' or row[i]=='XXXXX' or row[i]=='XXX' 
+or row[i]=='X' or row[i]=='NOT SURE' or row[i]=='UNKNOWN' or row[i]=='UNK' or row[i]=='X': #is the column value NULL?
+____________________________________________________________________________________________________________________
+
+Because of the duplicate rows, I usually use SELECT DISTINCT, and also in order to prevent printing
+None results if loops are created for the final results.
+____________________________________________________________________________________________________________________
+Problem 1 checks if there is an existing table, drops the table and creates it again.
+____________________________________________________________________________________________________________________
+I didn't use any joins instead I used multiple queries.
