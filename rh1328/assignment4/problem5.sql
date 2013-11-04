@@ -1,0 +1,1 @@
+select coursedb.incidents.address from coursedb.incidents INNER JOIN coursedb.boroughs on coursedb.incidents.zipcode = coursedb.boroughs.zipcode where coursedb.boroughs.boroughname = "Bronx" or coursedb.boroughs.boroughname = "Queens";

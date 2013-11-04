@@ -1,11 +1,11 @@
 # Awais Malik
 # Assignment 3
 # Problem 2
+# Collaborated with Alex Chohlas-Wood
 
 input = open('input2.txt','r')
 
 ballots = []
-
 
 for line in input:
     ballots.append(line.strip())
@@ -58,7 +58,7 @@ for ballot in ballot_list:
             
         elif(vote_tally[0][1] == vote_tally[-1][1]):
             for i in candidates:
-                if candidates[i][2]:
+                if(candidates[i][2]):
                     print candidates[i][0]
             permission = False
             print ''
