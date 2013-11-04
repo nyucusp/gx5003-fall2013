@@ -15,6 +15,6 @@ query = "SELECT zip_code, pop_by_zip FROM zips WHERE zip_code IN (SELECT zip_cod
 cur.execute(query)
 
 for row in cur.fetchall():
-    print str(row[0]), str(row[1])
+    print 'Zip Code: ' + str(row[0]) + ' Population: ' +  str(row[1])
 
 db.close()
