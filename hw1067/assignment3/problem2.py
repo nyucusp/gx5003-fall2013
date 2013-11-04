@@ -19,7 +19,7 @@ def youwin(vote):
     if winnercounts >= sum(vote)/2 and vote.count(winnercounts) == 1:
         return vote.index(winnercounts)
     if min(vote) == 0:
-        return CUSP
+        return "CUSP"
     return None
 
 def eliminate(vote):
@@ -31,7 +31,6 @@ def eliminate(vote):
 
     ballot_count = len(ballot)
     while x < ballot_count:
-        #print ballo
         ballot[x].remove(loser)
         #print ballot[x]
         x += 1
@@ -49,33 +48,34 @@ for case in range(case_num):
     line.pop(0) #this can help skipping blank lines
 
     candidatecounts = int(line.pop(0))
-    cadidates = line[:candidatecounts]
+    candidates = line[:candidatecounts]
     line = line[candidatecounts:]
 
-    ballots = []
+    ballot = []
     while line and line[0]:
         ballot = [int(x)  for x in line.pop(0).split()]
-        ballots.append(ballot)
+        ballot.append(ballot)
     #print ballots
-    votes = [0 for candidate in candidates]
-    for ballot in ballots:
+    vote = [0 for candidate in candidates]
+    for ball in ballot:
         vote[ballot[0]-1] += 1
 
-    while youwin(votes) is None:
-        ballot = eliminate(votes)
+    while youwin(vote) is None:
+        ballot = eliminate(vote)
 
         for ballot in ballots:
-            votes[ballot[0]-1] += 1
+            vote[ballot[0]-1] += 1
 
-        youwin(votes)
+        youwin(vote)
 
     i = 0
-    if youwin(votes) == CUSP:
-        while i < len(votes):
-            if votes[i] > 0:
+    if youwin(vote) == "CUSP":
+        while i < len(vote):
+            if vote[i] > 0:
                 print "%s" % candidates[i]
             i += 1
 
     else:
-        print "%s" % candidates[youwin(votes)]
+        print "%s" % candidates[youwin(vote)]
+        
     print

@@ -1,0 +1,17 @@
+Ender F. Morgul
+
+For all tables I added auto increment ID column for primary key, otherwise selecting any other columns as primary caused data loss. 
+I thought I needed this primary keys if I use "Join" for the problems however I never needed so did not use these ID columns later. 
+I used varchar type for most of the fields. 
+
+For boroughs table I have "zip" field int not null and "bname" varchar(50). I realized there are duplicates in the table but I decided to handle them
+using "select distinct" in sql since I think it will be faster than filtering in python. I used insert table and passed the arguments as strings. It was quite fast so I decided to
+stick with this method for the other tables as well. 
+ 
+For Zipcodes table I have an id again in case I use joins by matching zip codes. I passed all the fields as strings then made all the computations and filtering in SQL. 
+I realized there are lots of outliers (such as "anonymus, don't know") in this dataset, so I decided to replace them with "NULL" using "update" query in mysql. Since this is quite time consuming then I decided to
+update only population and area columns. zip codes are not null.
+
+For Incidents table I used the same procedure using "insert" command however this table has so many columns that it took a while to pass all the variables to sql database. 
+In this table several columns have problematic entries. I updated address,zip and uniquekey column by replacing bad values (empty or XXXX) by NULL.  I also trim the zipcodes to left 5 digits using "update" and "left" 
+to avoid truncation of values such as "10001-689" in queries.

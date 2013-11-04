@@ -1,0 +1,40 @@
+1) table "boroughs" is defined with the following parameters:
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| zip     | varchar(255) | NO   | PRI | NULL    |       |
+| borough | varchar(255) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+*Note although "borough" is allowed to be null, none of the entries in boroughs.csv are empty, so all are assigned
+
+
+2) table "zipCodes" is defined with the following parameters:
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| zip        | varchar(255) | NO   | PRI | NULL    |       |
+| tabarea    | varchar(255) | YES  |     | NULL    |       |
+| zt36       | varchar(255) | YES  |     | NULL    |       |
+| perimeter  | int(11)      | YES  |     | NULL    |       |
+| lsadtrans  | varchar(255) | YES  |     | NULL    |       |
+| zt36i      | varchar(255) | YES  |     | NULL    |       |
+| lsad       | varchar(255) | YES  |     | NULL    |       |
+| area       | float        | YES  |     | NULL    |       |
+| latitude   | float        | YES  |     | NULL    |       |
+| longitude  | float        | YES  |     | NULL    |       |
+| population | int(11)      | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+*Note that not all are used in the homework questions, but I attempted to store all fields in the original csv file
+*All fields that are blank in the original csv file are stored as null (see problem1.py for implementation)
+
+3) table "incidents" is defined with the following parameters:
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| address | varchar(255) | NO   |     | NULL    |       |
+| zip     | varchar(255) | YES  |     | NULL    |       |
+| uk      | int(11)      | YES  |     | NULL    |       |
+| id      | int(11)      | NO   | PRI | 0       |       |
++---------+--------------+------+-----+---------+-------+
+*Here, id is a made-up field indicating which line in the original csv file the incident came from (to ensure uniqueness)
+*All fields that are blank in the original csv file are stored as null (see problem1.py for implementation)

@@ -1,7 +1,8 @@
 #problems - extracting the data (names and authors) from the text 
 # problem2-calculating  the Erdos number.
 import Queue 
-import string 
+import string
+import itertools 
 #I am going to use queue data structure to store intermediate results asI transverse th egraph as follows:
 #Enqueue the root node
 #dequeue a node to examine it
@@ -17,6 +18,7 @@ for line in content:
 	raw_input.append(lines)
 #finding the rows of  the case
 content = raw_input[2:]
+numScens = int(raw_input[0])
 temp_list= []
 temp_list.append(0)
 i=0
@@ -26,10 +28,10 @@ for line in content:
 		temp_list.append(i+1)
 		i = i+1
 	temp_list.append(len(content))
-	num_scenario= int (raw_input[0])
-	temp_list[num_scenario] = temp_list [num_scenario] + 1
+	num_scenario= int(raw_input[0])
+	temp_list[num_scenario] = temp_list [num_scenario]+1
 
-def calculate_erdos():
+def dicts():
 	f = raw_input[temp_list[i]+2:temp_list[i]+num_papers+2]
 	authortx= {}
 	curAuthor=[]
@@ -54,24 +56,26 @@ def calculate_erdos():
 				if authortx [x] == 'infinity':
 					authortx [x]==minima+1#lowest score
 	return  authortx,curAuthor,targets,f,author,authorwork,articles
-def erdosNumber():
+def results():
 	for author in targets:
 		if author == "Erdos,p.":
 			print "Erdos,p.: 0"
-		elif author not in list(intertools.chain.from_iterable(curAuthor)):
+		elif author not in list(itertools.chain.from_iterable(curAuthor)):
 			print author,'not erdos number'
 		else:
 			print "%s: %s" % (author ,authortx[author])
 i=0
-while i<(num_scenario):
+while i<(temp_list) and numScens > 0:
 	print "scenario" ,i+1
-	nums = [int(s) for s in raw_input[temp_list[i]+1].split() if s.isdigit()]
-	num_papers =nums[0]
-	names= nums[1]
-	#print num_papers, authortx ,num_scenario
-	i=i+1
 
-erdosNumber
-print targets
+	nums = [int(s) for s in raw_input[temp_list[i]+1].split() if s.isdigit()]
+	num_papers =nums[0] #number of articles
+	names= nums[1] # number of authors
+	(authortx, curAuthor, targets, f, author ,authorwork, articles)=dicts()
+	results()
+	i=i+1
+	numScens = numScens - 1
+
+
 
 
