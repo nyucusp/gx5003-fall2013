@@ -103,8 +103,10 @@ def build_data_list(data, types):
             invalidEntries.append( entryStr ) 
 
     print "{0} Invalid entries".format(len(invalidEntries))
-    for entry in invalidEntries:
-        print entry
+    # for entry in invalidEntries:
+    #     print entry
+
+    print "{0} Valid entries".format(len(entries))
 
     return entries
 
