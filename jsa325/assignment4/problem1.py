@@ -1,6 +1,6 @@
 import MySQLdb
 
-db = MySQLdb.connect(host="localhost", user="jsa325", passwd="M1nd=Body", db="coursedb")
+db = MySQLdb.connect(host="localhost", user="jsa325", passwd="M1nd=B0dy", db="coursedb")
 
 # create cursor object
 cur = db.cursor()
@@ -51,7 +51,7 @@ for i in range(1, len(linesZip)):
 		dictZip[linesZip[i].split(',')[0]] = (float(linesZip[i].split(',')[10]), float(linesZip[i].split(',')[7]))
 
 for key in dictZip
-	insertCommand2 = "insert into zipcodes values(" + "'" + key "'" _ "," + str(dictZip[key][1]) + "," + srt(dictZip[key][0]) +');"
+	insertCommand2 = "insert into zipcodes values(" + "'" + key "'" + "," + str(dictZip[key][1]) + "," + str(dictZip[key][0]) + ");"
 	cur.execute(insertCommand2)
 
 fileIncidents = open(incidents.csv', 'r')
