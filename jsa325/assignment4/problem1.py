@@ -14,7 +14,7 @@ createCommand2 = "create table if not exists zipcodes (zip varchar(255), area de
 cur.execute(createCommand2)
 
 # create incidents table
-createCommand3 = "create table if not exists (zip varcahr(255), address varchar(255), incident_count int)"
+createCommand3 = "create table if not exists incidents (zip varcahr(255), address varchar(255), incident_count int)"
 cur.execute(createCommand3)
 
 db.commit()
