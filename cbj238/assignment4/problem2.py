@@ -16,26 +16,26 @@ def validate_input(zipInput):
 	"""
 	Returns true if zipInput is a valid numerical zip code. Else, false
 	"""
-	return zipInput.isdigit()
+	return zipInput.isdigit() and len(zipInput) == 5
 
 def main(args):
 	if len(args) > 0:
 		db = dbMgr()
 		zipInput = args[0]
 		if validate_input(zipInput):
-			pass
+			query = "select area, population from zipcodes where name={0}".format(zipInput)
+			db.run_sql(query)
 
-		query = "select area, population from zipcodes where name={0}".format(zipInput)
-		db.run_sql(query)
+			results = db.results()
+			if len(results) > 0:
+				(area, population) = results[0]
+				print "Zip Code: {0}\n Population: {1}\n Area: {2}\n Density: {3}".format(zipInput, population, area, population / area)
+			else:
+				print "No entry for this zip."
 
-		results = db.results()
-		if len(results) > 0:
-			(area, population) = results[0]
-			print "Zip Code: {0}\n Population: {1}\n Area: {2}\n Density: {3}".format(zipInput, population, area, population / area)
+			db.close()
 		else:
-			print "No entry for this zip."
-
-		db.close()
+			print "Invalid zip code. Must not contain letters, and must be 5 characters long"
 	else:
 		print "Error: Invalid input. Please enter a zip code."
 
