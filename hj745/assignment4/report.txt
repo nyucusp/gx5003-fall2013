@@ -1,0 +1,48 @@
+mysql> show tables;
++--------------------+
+| Tables_in_coursedb |
++--------------------+
+| boroughs           |
+| incidents          |
+| zipcodes           |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> desc boroughs;
++---------+------------+------+-----+---------+-------+
+| Field   | Type       | Null | Key | Default | Extra |
++---------+------------+------+-----+---------+-------+
+| zip     | varchar(5) | NO   |     | NULL    |       |
+| borough | varchar(9) | YES  |     | NULL    |       |
++---------+------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
+
+mysql> desc incidents;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| Incident_Address | varchar(80) | YES  |     | NULL    |       |
+| Incident_Zip     | varchar(10) | NO   |     | NULL    |       |
+| Unique_Key       | int(6)      | YES  |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql> desc zipcodes;
++-------------------------------+-------------+------+-----+---------+-------+
+| Field                         | Type        | Null | Key | Default | Extra |
++-------------------------------+-------------+------+-----+---------+-------+
+| name                          | varchar(5)  | NO   |     | NULL    |       |
+| zip_code_tabulation_area      | varchar(5)  | YES  |     | NULL    |       |
+| zt36_d00                      | varchar(10) | YES  |     | NULL    |       |
+| perimeter                     | varchar(11) | YES  |     | NULL    |       |
+| lsad_trans                    | varchar(12) | YES  |     | NULL    |       |
+| zt36_d00_i                    | varchar(4)  | YES  |     | NULL    |       |
+| lsad                          | varchar(2)  | YES  |     | NULL    |       |
+| area                          | varchar(11) | YES  |     | NULL    |       |
+| latitute                      | varchar(15) | YES  |     | NULL    |       |
+| longitude                     | varchar(15) | YES  |     | NULL    |       |
+| Total_Population_per_ZIP_Code | varchar(6)  | YES  |     | NULL    |       |
++-------------------------------+-------------+------+-----+---------+-------+
+11 rows in set (0.02 sec)
+
+

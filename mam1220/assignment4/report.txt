@@ -1,0 +1,122 @@
+Michael Musick
+Assignment 4 Report
+
+
+********************************************************************************
+--boroughs.csv--
+
+table name: "boroughs"
+
+table schema:	
+	mysql> describe boroughs;
+	+---------+-----------------------+------+-----+---------+-------+
+	| Field   | Type                  | Null | Key | Default | Extra |
+	+---------+-----------------------+------+-----+---------+-------+
+	| zip     | mediumint(8) unsigned | NO   | PRI | NULL    |       |
+	| borough | varchar(9)            | YES  |     | NULL    |       |
+	+---------+-----------------------+------+-----+---------+-------+
+
+decisions made:
+	lines are placed directly into the table, after checking that a zip has not been repeated
+	if it is repeated, the line is ignored
+
+table example:
+	mysql> SELECT * FROM boroughs LIMIT 3;
+	+-------+-----------+
+	| zip   | borough   |
+	+-------+-----------+
+	| 10001 | Manhattan |
+	| 10002 | Manhattan |
+	| 10003 | Manhattan |
+	+-------+-----------+
+
+
+********************************************************************************
+--zipCodes.csv--
+
+table name: "zip_infos"
+
+table schema:	
+	mysql> describe zip_infos;
+	+------------+------------------------+------+-----+---------+-------+
+	| Field      | Type                   | Null | Key | Default | Extra |
+	+------------+------------------------+------+-----+---------+-------+
+	| zip        | mediumint(8) unsigned  | NO   | PRI | NULL    |       |
+	| area       | decimal(13,9) unsigned | YES  |     | NULL    |       |
+	| population | int(10) unsigned       | YES  |     | NULL    |       |
+	+------------+------------------------+------+-----+---------+-------+
+
+decisions made:
+	1. For each line, if the zip code is not recorded as a 5-digit number then it is not included
+		-This removes the zip codes that are recorded as "123HH", for example.
+	2. If a 'population' or 'area' field is missing "good" line 
+		then the missing data field is entered as a '0'
+		- This is to allow for the addition of zip codes recorded multiple times in this document
+	3. Every lines zip code is checked against the previously inserted tuples in the database table,
+		if it already exists, then the current line's 'area' and 'population' are summed to the
+		previously inserted zip code's tuple and the tuple is updated to reflect this summation.
+	4. Area is assumed to be represented as "square miles" per line
+	5. Zip codes which are listed as 5-digits, but start with 0's are accepted
+	6. Because I am checking and ensuring that a zip is only included once,
+		I am setting the zip code to be the 'primary key'.
+
+table example:
+	mysql> SELECT * FROM zip_infos LIMIT 10;
+	+-------+-------------+------------+
+	| zip   | area        | population |
+	+-------+-------------+------------+
+	|  6390 | 0.001642954 |        236 |
+	| 10001 | 0.000180136 |      21102 |
+	| 10002 | 0.000262565 |      81410 |
+	| 10003 | 0.000151918 |      56024 |
+	| 10004 | 0.000151600 |       3089 |
+	| 10005 | 0.000024300 |       7135 |
+	| 10006 | 0.000017700 |       3011 |
+	| 10007 | 0.000053200 |       6988 |
+	| 10009 | 0.000157604 |      61347 |
+	| 10010 | 0.000090800 |      31834 |
+	+-------+-------------+------------+
+
+
+********************************************************************************
+--incidents--
+
+table name: "incidents_by_address"
+
+table schema:	
+	mysql> describe incidents_by_address;
+	+---------+-----------------------+------+-----+---------+----------------+
+	| Field   | Type                  | Null | Key | Default | Extra          |
+	+---------+-----------------------+------+-----+---------+----------------+
+	| id      | int(11)               | NO   | PRI | NULL    | auto_increment |
+	| zip     | mediumint(8) unsigned | NO   |     | NULL    |                |
+	| address | varchar(255)          | YES  |     | NULL    |                |
+	+---------+-----------------------+------+-----+---------+----------------+
+
+decisions made:
+	1. Since Zip Codes will be listed multiple times, the 'Primary Key' is an auto_incrementing
+		'id' int.  
+	2. In order to capture all possible data, every line is entered if it has a 5-digit zip code
+		- This is regardless of what the 5 digits are.  
+		- They are simply checked that to have 5 digits.
+	3. Addresses may be entered as 'NULL' when not entered
+
+table example:
+	mysql> SELECT * FROM incidents_by_address LIMIT 10;
+	+----+-------+-------------------------+
+	| id | zip   | address                 |
+	+----+-------+-------------------------+
+	|  1 | 10459 | 1294 SOUTHERN BOULEVARD |
+	|  2 | 10027 | 80 WEST 125 STREET      |
+	|  3 | 11204 | 1724 60 STREET          |
+	|  4 | 11204 | 1636 59 STREET          |
+	|  5 | 10001 | 213A WEST 35 STREET     |
+	|  6 | 11214 | 191 BAY 20 STREET       |
+	|  7 |  7086 | 65 CHESTNUT ST          |
+	|  8 | 11102 | 3115 30 AVE             |
+	|  9 | 10017 | 6E EAST 43 STREET       |
+	| 10 | 10466 | 1012 EAST 233 STREET    |
+	+----+-------+-------------------------+
+
+
+********************************************************************************
