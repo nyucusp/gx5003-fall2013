@@ -31,7 +31,7 @@ def main(args):
 		results = db.results()
 		if len(results) > 0:
 			(area, population) = results[0]
-			print (population / area)
+			print "Zip Code: {0}\n Population: {1}\n Area: {2}\n Density: {3}".format(zipInput, population, area, population / area)
 		else:
 			print "No entry for this zip."
 
