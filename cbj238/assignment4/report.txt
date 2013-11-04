@@ -1,0 +1,5 @@
+Handling Data Types:
+	I have designed my database schema to have the types of the first data entry in each column. That is, if the data returns as an "int" in python, it is created as an int in sql, and the same with float. Anything else becomes a varchar(255).
+
+	However, this assumption becomes difficult when reading them in, as there are some cases of zip codes where the zip codes seem to have alpha characters in them, like 123NN. I have decided to treat these as invalid zip codes, and to not include any entry into the database that has invalid data.
+
