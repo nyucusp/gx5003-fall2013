@@ -17,5 +17,26 @@ cur.execute(createCommand2)
 createCommand3 = "create table if not exists incidents (zip varcahr(255), address varchar(255), incident_count int)"
 cur.execute(createCommand3)
 
+"""
+Read data
+"""
+
+fileBoroughs = ('boroughs.csv', 'r')
+
+linesBoroughs = []
+for line in fileBoroughs:
+	linesBoroughs.append(line)
+fileBoroughs.close()
+
+for i in range(0, len(linesBoroughs)):
+	nameBorough = linesBoroughs[i].split(',')[1][:-1]
+	zipBorough = linesBoroughs[i].split(',')[0]
+	insertCommand1 = "insert into boroughs values(" + "'" + zipBorough + "'" + "," + "'" + nameBorough + "'" + ");"
+	cur.execute(insertCommand1)
+
+# remove duplicates
+removeduplicates = "ALTER IGNORE TABLE boroughs ADD UNIQUE INDEX (zip)"
+cur.execute(removeduplicates)
+
 db.commit()
 db.close()
