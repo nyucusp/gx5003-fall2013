@@ -54,5 +54,27 @@ for key in dictZip
 	insertCommand2 = "insert into zipcodes values(" + "'" + key "'" _ "," + str(dictZip[key][1]) + "," + srt(dictZip[key][0]) +');"
 	cur.execute(insertCommand2)
 
+fileIncidents = open(incidents.csv', 'r')
+
+linesIncidents = []
+for line in fileIncidents:
+	linesIncidents.append(line)
+fileIncidents.close()
+
+zipIncidents = []
+numIncidents = len(linesIncidents)
+
+for i in range(1, numIncidents):
+	zipIncidents.append(linesIncidents[i].split(',')[1])
+
+for i in range(1, len(linesIncidents)):
+	zipIncidents = linesIncidents[i].split(',')[1][0:5]
+	if (zipIncidents.isdigit()):
+		addressIncidents = linesIncidents[i].split(',')[0].replace("'","")
+		numIncidents = linesIncidents[i].split(',')[2][:-1]
+		if numIncidents.isdigit()):
+			insertCommand3 = "insert into incidents values(" + "'" + zipIncidents + "'" + "," + "'" + addressIncidents + "'" + "," + "'" + numIncidents + "'" + ");"
+			cur.execute(insertCommand3)
+
 db.commit()
 db.close()
