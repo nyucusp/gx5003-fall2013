@@ -4,7 +4,7 @@ import MySQL db
 input = sys.argv
 boroughGiven = input[0].split()[0]
 
-db = MySQLdb.connect(host="localhost", user="jsa325", passwd="M1nd=B0dy", db="coursedb"
+db = MySQLdb.connect(host="localhost", user="jsa325", passwd="M1nd=B0dy", db="coursedb")
 
 cur = db.cursor()
 
