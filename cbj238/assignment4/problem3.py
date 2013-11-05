@@ -30,7 +30,7 @@ def main(args):
 		boroughName = args[0]
 		if validate_input(boroughName):
 			print "Computing query (this may take a moment...)"
-			query = "SELECT SUM(Z.population), SUM(I.count) from boroughs B, zipcodes Z, incidents I where B.borough = '{0}' && Z.name = B.zipcode && Z.name = I.zip;".format(boroughName)
+			query = "SELECT SUM(Z.population), SUM(I.count) from boroughs B, zipcodes Z, incidents I where B.borough = '{0}' && Z.zipcode = B.zipcode && Z.zipcode = I.zip;".format(boroughName)
 			db.run_sql(query)
 
 			results = db.results()
@@ -42,7 +42,7 @@ def main(args):
 		else:
 			print "Input must be one of: {0}".format(BOROUGH_NAMES)
 	else:
-		print "Error: Invalid input. Please enter a zip code."
+		print "Error: Invalid input. Must be one of {0}.".format(BOROUGH_NAMES)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

@@ -3,7 +3,7 @@ Handling Data Types:
 
 	However, this assumption becomes difficult when reading them in, as there are some cases of zip codes where the zip codes seem to have alpha characters in them, like 123NN. I have decided to treat these as invalid zip codes, and to not include any entry into the database that has invalid data.
 
-Dealing with duplicates:
+Dealing with duplicates and empty values:
 	for boroughs.csv, in which there were a number of duplicate entries, I made a dictionary of the items in python during conversion to handle duplicates. Then, I made the zip code the primary key.
 
 	for zipcodes.csv:
@@ -20,5 +20,3 @@ Dealing with duplicates:
 		Another note about problems that I found in this file: a number of entries include single quotes as
 			apostrophies. Had to use double quotes instead to catch them.
 
-ToDo:
-	* Make it so that it makes things NULL that don't exist.
