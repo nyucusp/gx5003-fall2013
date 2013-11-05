@@ -18,7 +18,7 @@ intab = "(),'"
 outtab = "    "
 trantab = maketrans(intab, outtab)
 addresses = []
-print "Addresses where incidents occurred in Manhattan the Bronx or Queens in the file BXQNAddressesWithIncidents.txt"
+print "Addresses where incidents occurred in the Bronx or Queens in the file BXQNAddressesWithIncidents.txt"
 string = ""
 for row in cur.fetchall():
     string = str(row)
