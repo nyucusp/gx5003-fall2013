@@ -14,7 +14,7 @@ createCommand2 = "create table if not exists zipcodes (zip varchar(255), area de
 cur.execute(createCommand2)
 
 # create incidents table
-createCommand3 = "create table if not exists incidents (zip varcahr(255), address varchar(255), numIncidents int)"
+createCommand3 = "create table if not exists incidents (zip varchar(255), address varchar(255), numIncidents int)"
 cur.execute(createCommand3)
 
 """
