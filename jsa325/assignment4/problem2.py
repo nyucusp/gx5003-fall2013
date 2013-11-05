@@ -19,5 +19,4 @@ for row in cur.fetchall():
 	else:
 		print "'sys.argv[0]' + is not a New York zipcode." 
 
-db.commit()
 db.close()
