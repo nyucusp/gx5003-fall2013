@@ -1,0 +1,12 @@
+Awais Malik
+Assignment 4
+Report
+
+I decided not to filter the data in python, and created the tables as exact copies of the data present in the csv files.
+
+Using MySQL to filter through the data was much more convenient. It only took about a minute to create the tables (compared to much longer wait times for friends).
+With MySQL, it was also possible to ignore the tuples with incorrect/missing data by making the appropriate additions the query.
+Duplicates were handled by using "select distinct".
+
+I'm assuming that my numbers for the queries assigned are correct, as I did not get a chance to compare results with friends.
+In problem 6, all the zip codes in Manhattan where incidents have occurred have been listed, even if the population is unavailable/missing.
