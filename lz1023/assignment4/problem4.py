@@ -11,6 +11,6 @@ query="select address from incidents i, borough b where name='Manhattan' and b.z
 cur.execute(query)
 address=cur.fetchall()
 for row in address:
-	print row[0]
+    print row[0]
 
 db.close()	
