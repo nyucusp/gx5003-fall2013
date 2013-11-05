@@ -1,0 +1,4 @@
+Problems 4, 5, and 6
+
+I had the addresses written to a file for a few reasons: 1) because it was time consuming having them print out on the screen, 2) they would be easier to use for future manipulation, 3) it was easier for me to clean the output.
+Regarding the 3rd reason in more detail: The addresses which I pulled from the database and saved to a list all had parentheses and extra quotation marks around them. I was unable to use the .strip() command successfully with them, but I did find that I could use a "translate" method with more success, then strip. When you run my program, the output in the commandline indicates the name of the file the information was written to.
