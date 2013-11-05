@@ -17,7 +17,7 @@ for row in cur.fetchall():
 		else: 
 			print "The ratio of incidents to population in " + row[0] + " is " + str(row[1])
 	else: 
-		print sys.argv[1] + " isn't a borough of New York City."
+		print sys.argv[0] + " isn't a borough of New York City."
 
 db.commit()
 db.close()
