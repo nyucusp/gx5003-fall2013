@@ -9,5 +9,4 @@ cur.execute("(SELECT address FROM boroughs JOIN incidents WHERE nameBorough = 'B
 for row in cur.fetchall():
 	print row[0]
 
-db.commit()
 db.close
