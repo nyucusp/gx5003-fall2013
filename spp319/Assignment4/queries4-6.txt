@@ -1,0 +1,21 @@
+Tested queries in MySQL with success. To be implemented in python.
+
+select distinct i.Address
+from coursedb.borough b
+join coursedb.incidents i
+on i.Zipcode = b.zipcode
+where b.BoroughName = 'Manhattan';
+
+select distinct i.Address
+from coursedb.borough b
+join coursedb.incidents i
+on i.Zipcode = b.zipcode
+where b.BoroughName in ('Queens', 'Bronx');
+
+select distinct b.zipcode,
+z.PopPerZip
+from coursedb.borough b
+join coursedb.zipcodes z
+on z.ZipcodeTab = b.zipcode
+where b.BoroughName = 'Manhattan'
+and b.zipcode in (select zipcode from coursedb.incidents);

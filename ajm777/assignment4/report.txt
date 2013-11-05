@@ -1,8 +1,8 @@
 Aliya Merali
 Urban Informatics
-Assignment 4
-Report on Table Creation
+Report on Assignment 4
 
+_____PROBLEM 1:_____
 Schema: 
 For all tables, I decided that the common column to connect on would be the zip codes. So, each table's schema includes a column with the 5-digit zip code only. The other information linked to that zip code comprises the other columns, unique to each table as discussed below: 
 
@@ -11,3 +11,18 @@ For all tables, I decided that the common column to connect on would be the zip 
 2. Borough Table: The borough table was very simple, because the data file is complete and formatted well. I simply read in each line of the .csv file, and inserted the zip code value and the borough name into the table. 
 
 3. Incidents Table: The incident data file was very large and very messy. I put all three values into the table - so there are three columns with address, zip code, and number of incidents. I am assuming that the third column in this file (Unique Key) represents the number of incidents reported at that address / zip code combination. In order to sort through the inconsistent zip code entries, I went through and found all numbers in the zip code column and took the frist 5, so it would match all other zip code formats in the other two tables. Then, I prevented it from committing to the table if the zip code element was empty, since without that number, the data in the file will be useless. I also had to remove all " ' " characters from the address line for propper formatting in the insert command. This table insert command took quite a bit of time to fill because the code went through each line in the very large csv file. 
+
+_____PROBLEM 2:_____
+For problem two, output format was not specified, so I chose to output in the format: "The population density for zip code 11021 is 24386788.3003"
+
+_____PROBLEM 3:_____
+Please note that this problem takes some time to run. The output is formatted as such: "The ratio between the number of incidents and the population in Staten is: 0.660348174855"
+
+_____PROBLEM 4:_____
+Because the format for this output was not specified, I am simply printing the raw results from the query into the command screen. This can easily be adjusted.
+
+_____PROBLEM 5:_____
+Because the format for this output was not specified, I am simply printing the raw results from the query into the command screen. This can easily be adjusted.
+
+_____PROBLEM 6:_____
+Because the format for this output was not specified, I am printing the results from the query as "Zip Code: 10036 Population: 24711" into the command screen. This can easily be adjusted.
