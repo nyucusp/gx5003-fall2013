@@ -23,13 +23,13 @@ def main(args):
 		db = dbMgr()
 		zipInput = args[0]
 		if validate_input(zipInput):
-			query = "select area, population from zipcodes where name={0}".format(zipInput)
+			query = "select area, population from zipcodes where zipcode={0}".format(zipInput)
 			db.run_sql(query)
 
 			results = db.results()
 			if len(results) > 0:
 				(area, population) = results[0]
-				print "Zip Code: {0}\n Population: {1}\n Area: {2}\n Density: {3}".format(zipInput, population, area, population / area)
+				print "Zip Code: {0}\n Population: {1}\n Area: {2}\n Population Density: {3}".format(zipInput, population, area, population / area)
 			else:
 				print "No entry for this zip."
 
