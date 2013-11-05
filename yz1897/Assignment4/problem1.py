@@ -18,10 +18,7 @@ def Make_Borough_Table():
   
     #create table  
     cur = db.cursor() 
-    try:
-        cur.execute("drop table Borough")
-    except:
-        pass  
+    cur.execute("drop table if exists Borough")
     createCommand = "create table Borough (bzip varchar(255), bname varchar(255), primary key(bzip))"
     cur.execute(createCommand)
 
@@ -52,10 +49,7 @@ def Make_Zip_Table():
     db = MySQLdb.connect(host="localhost",user="yz1897",passwd="123456",db="coursedb")  
     cur = db.cursor() 
     #create table
-    try:
-        cur.execute("drop table Zipcode")
-    except:
-        pass
+    cur.execute("drop table if exists Zipcode")
     createCommand = "create table Zipcode (zzip varchar(255), zarea float, zpop int, primary key(zzip))"
     cur.execute(createCommand)
 
@@ -92,6 +86,10 @@ def Make_Zip_Table():
                     continue
             else:
                 zipdic[zipc]=[area,pop]
+    #make sure area is not zero, otherwise the data is mistaken 
+    for i in zipdic:
+        if zipdic[i][0]==0:
+            del zipdic[i]
                 
     #insert into table            
     for z in zipdic:
@@ -114,10 +112,7 @@ def Make_Inc_Table():
     db = MySQLdb.connect(host="localhost",user="yz1897",passwd="123456",db="coursedb")  
     cur = db.cursor() 
     #create table
-    try:
-        cur.execute("drop table Incident")
-    except:
-        pass
+    cur.execute("drop table if exists Incident")
     createCommand = "create table Incident (izip varchar(255), iaddress varchar(255))"
     cur.execute(createCommand)
 
@@ -151,6 +146,6 @@ def Make_Inc_Table():
     # close connection
     db.close()
 
-#Make_Borough_Table()
-#Make_Zip_Table()
+Make_Borough_Table()
+Make_Zip_Table()
 Make_Inc_Table()

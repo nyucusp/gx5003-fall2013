@@ -1,0 +1,57 @@
+Lim Jeongki 
+Assignment 4 
+
+Problem1.py  
+Here I am creating three tables ‘borough’, ‘zipcode’, and ‘incidents’ from three data sets ‘boroughs.csv’, ‘zipCodes.csv’, ‘Incidents_grouped_by_Address_and_Zip.csv” respectively. 
+
+First, I want all the inputs from .csv to table to be only data. So I get rid of the first row of both zipcode and incident data. [line 25] 
+
+Then, I am creating three tables where treating almost all values as string by setting it varchar[255]. [line34, line42]
+
+In zipcode data, I did cleaning by focusing on zipcode without ‘HH.’ [line 50]
+
+In incident data, I did cleaning by not inputting empty zipcode value and “DON’T KNOW” [line 64]. Also I cleaned apostrophies in addresses [line 64] and restricted zipcode to only first five digits. [line 65]
+
+For each table, followings are their schema: 
+borough – zipcode, borough_name 
+zipcode – zipcode, population_of_zip, area 
+incidents – address, zipcode, incident 
+
+
+Problem2.py
+Here with a zipcode given in the command line, the output should be the population density of the zipcode. 
+
+First, I used sys.argv to keep the input value from the command line. [line 3] 
+
+Then, in order to find the population density, I need for the input zipcode, population and area of the zipcode both attributes that can be found in table zipcode. 
+
+I executed the query finding both then divided them. 
+
+Problem3.py
+Here with a borough name given in the command line, the output should be the ratio between the number of incidents and the population in that borough.
+
+First, I set out to find zipcodes associated with the given borough in the table ‘borough’ and create a list called “zipcodes_by_borough”. [line 13]
+
+Then, for each value (zipcode) of the list, I set out to find the incident number [line 23] and population [line29] with two separate queries at the tables “incidents” and “zipcode” respectively. In order to sum them, I create two lists corresponding to each called “incidents_all” and “population_all”. After summing them, I divided the incident value by population value. [line 36]
+
+
+Problem4.py 
+Here, the outputs are addresses of all incidents happened in Manhattan. 
+First I found zipcodes of Manhattan from the table ‘borough’ and create a list called “zipcodes_of_manhattan.”[line 13]
+Then, for each value of the list, I queried the address from the table ‘incidents’ with another condition incident > ‘0’ and printed them. [line 20]
+
+Problem5.py
+Here, the outputs are addresses of all incidents that happened in either Bronx or Queens. 
+I used the same methodology except for finding zipcodes I went for Bronx or Queens. [line 10]
+
+Problem6.py
+Here, the output is the set of zipcode and its population for areas in Manhattan where an incident happened. 
+
+I sent out to find zipcodes from table ‘incident’ where incident > ‘0’ [line 11].
+Then, for each zipcode, I checked if they belong in Manhattan from the table ‘borough.’ [line15] The for each zipcode, I found the population value from the table ‘zipcode’ and printed zipcode and its population value in one line.  [line 18]  
+
+
+
+
+
+
