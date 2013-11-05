@@ -1,1 +1,27 @@
-Decisions
+PROBLEM 1
+Remove single quotes in address field
+Zipcodes with XX or HH don't have a population
+Duplicate entries for every zipcode in boroughs.csv
+Remove duplicates with ADD UNIQUE INDEX
+Schema:
+	boroughs(zip varchar(255), nameBorough varchar(255))
+	zipcodes(zip varchar(255), area decimal(10, 9), population decimal)
+	incidents(zip varchar(255), address varchar(255), numIncidents int)
+
+PROBLEM 2
+Test output for len > 0 and filter zipcodes that aren't in New York
+
+PROBLEM 3
+Test output for "Staten" and append "Island" to the output
+
+PROBLEM 4
+Remove blank addresses
+Sort output by address
+
+PROBLEM 5
+Use UNION ALL instead of just UNION to keep duplicates
+Remove blank addresses
+Sort output by address
+
+PROBLEM 6
+Sort output by zipcode
