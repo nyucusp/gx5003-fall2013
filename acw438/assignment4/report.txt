@@ -1,0 +1,70 @@
+#Alex Chohlas-Wood (acw438). Assignment 1, Report.
+
+The incidents file required the greatest amount of cleaning. I
+processed each address before adding it to the database, condensing
+full postal terms (like street) into corresponding abbreviations
+(ST). Particular trouble occurred with the directional abbreviations,
+like SW, but I think I caught most of these. I also eliminated double
+spaces and surrounded the address in double quotes (") so MySQL could
+process addresses with apostrophes.
+
+I assumed the "Unique Key" column actually signified the number of
+incidents at that address. If an address already existed in the table,
+I added the number of incidents together. I completely excluded
+erroneous data of two kinds: those entries with a blank zipcode, and
+those entries with non-numeric zipcodes. A sample of these data are
+shown below.
+
+The other two tables were uniquely keyed by the five-digit zipcode,
+which ignored detail on the nine-digit zipcode level. I set these as
+Varchar(5) to accomodate zipcodes ending in HH. These zipcodes are a
+census accounting trick and probably won't figure into our analysis,
+but I kept them anyway.  I also kept track of duplicates in all three
+tables in a "records" column, which counted how many separate entries
+there were in the original data.
+
+For area and population data, my biggest assumption was that
+duplicate zipcode entries each signified a unique subset of that
+zipcode. If I found a duplicate, I added its area and population (only
+if not null) to the existing entry. I justified this by comparing my
+results to online zipcode population data, which largely matched
+perfectly the results of summing population.  
+
+I also set the zipcode area as a DOUBLE type, since many of the areas
+were extremely small and seemingly vulnerable to floating-point
+inaccuracies (this is probably overkill, but I did it anyway).
+
+For the boroughs file, I simply transferred the data to MySQL. Oddly,
+this file had one duplicate of every record. These duplicates were
+ignored but noted in the "records" column. Also, this file is missing
+a few big zipcodes, including 10065 and 10075 in Manhattan. I did not
+attempt to correct these missing tuples.
+
+Other notes: If the assignment did not require a database table for
+each of the imported tables, I would have combined the Boroughs data
+with the Population and Area table. Future analysis might also read
+addresses with missing zipcodes, assign the correct zips, and include
+them in the total counts; however, this is beyond the scope of this
+assignment.
+
+
+# SAMPLE of erroneous tuples from Incident table:
+Empty zipcodes:
+['CROTONA PARK', '', '16']
+['RED HOOK PARK COFFEY PLGD', '', '7']
+['', '', '323522'] <-- This is probably a bin for all the complaints 
+     	 	       with no address. Lots of them!
+['RED HOOK RECREATION AREA', '', '28']
+['PARK LA S', '', '1']
+['241 ST', '', '1']
+['FLUSHING MEADOWS PARK', '', '176']
+Non-numeric/incomplete zipcode:
+['16 CENTRAL AVENUE', 'NA', '1']
+['UNKNOWN UNKNOWN', 'N/A', '1']
+['16 CENTRAL AVENUE', 'N/A', '1']
+['6910 OWENSMOUTH AVE', 'N/A', '1']
+['P.O BOX 157', '4009-0517', '1']
+['NA NAN', 'NA', '1']
+['123 POPLAR ST', 'N/A', '1']
+['N/A PELHAM PARKWAY SOUTH', 'N/A', '1']
+['AIRPORT AIRPORT', '?', '1']
