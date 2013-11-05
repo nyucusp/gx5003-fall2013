@@ -9,5 +9,4 @@ cur.execute("SELECT intermediate.zip, population FROM (SELECT distinct incidents
 for row in cur.fetchall():
 	print row[0], row[1]
 
-db.commit()
 db.close()
