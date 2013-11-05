@@ -36,7 +36,6 @@ def get_sql_column(name, vartype, primary_key):
     return retStr
 
 def create_schema_from_header(tableName, data, primary_key):
-    # print "Schema:", tableName, data[0], data[1]
     # All we need are the names and types for each field
     primary_key_str = primary_key
     createCommand = "create table " + tableName + " ("
@@ -57,7 +56,10 @@ def build_column_list(columns):
     return ", ".join(columns)
 
 def is_valid_cell(cell, columntype):
-    return gettype(cell)[0] == columntype
+    if cell == "":
+        return None
+    else:
+        return gettype(cell)[0] == columntype
 
 def build_data_list(data, types):
     entries = []
@@ -72,9 +74,13 @@ def build_data_list(data, types):
         for j in xrange(col_count):
             cell = data[j][i]
 
-            isValid &= is_valid_cell(cell, types[j])
-
-            entry.append("'" + cell + "'")
+            ret = is_valid_cell(cell, types[j])
+            if ret is None:
+                entry.append("NULL")
+            elif ret is False:
+                isValid = False
+            else:
+                entry.append('"' + cell + '"')
 
         entryStr = "(" + ", ".join(entry) + ")"
 
@@ -83,8 +89,8 @@ def build_data_list(data, types):
         else:
             invalidEntries.append( entryStr ) 
 
-    print "{0} Valid entries".format(len(entries))
-    print "{0} Invalid entries".format(len(invalidEntries))
+    # print "{0} Valid entries".format(len(entries))
+    # print "{0} Invalid entries".format(len(invalidEntries))
     # for entry in invalidEntries:
     #     print entry
 
@@ -96,6 +102,7 @@ def insert_data_from_contents(db, tableName, data):
     
     for row in data_list:
         insert_query = "INSERT INTO {0} ({1}) VALUES {2}".format(tableName, column_list, row)
+        # print insert_query
         db.run_sql(insert_query)
 
 def csv_to_db(db, csvData, tableName, primary_key=None):
@@ -106,7 +113,7 @@ def csv_to_db(db, csvData, tableName, primary_key=None):
     '''
     
     data = csvData.getRawData()
-    print "Creating {0}. {1} records in csv.".format(tableName, len(data[2][0]))
+    # print "Creating {0}. {1} records in csv.".format(tableName, len(data[2][0]))
 
     # Error checking: make sure no column names have spaces
     for name in data[0]:
@@ -114,7 +121,7 @@ def csv_to_db(db, csvData, tableName, primary_key=None):
             name.replace(' ', '_')
     
     create_schema = create_schema_from_header(tableName, data, primary_key)
-    print create_schema
+    # print create_schema
     db.run_sql(create_schema)
     db.commit()
 
@@ -132,8 +139,8 @@ def main():
     zipFile = ParseZipCodesCSV()
     incidentsFile = ParseIncidentsCSV()
 
-    csv_to_db(db, boroughFile, BOROUGHS_TABLE)
-    csv_to_db(db, zipFile, ZIP_TABLE)
+    csv_to_db(db, boroughFile, BOROUGHS_TABLE, primary_key="zipcode")
+    csv_to_db(db, zipFile, ZIP_TABLE, primary_key="zipcode")
     csv_to_db(db, incidentsFile, INCIDENTS_TABLE)
 
     db.close()

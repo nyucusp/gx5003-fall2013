@@ -122,13 +122,62 @@ class ParseBoroughsCSV(ParseCSV):
 
 		self.fieldNames = ["zipcode", "borough"]
 
+		# Make sure that we have unique zip codes
+		# To do this... make it a dict.
+		fieldDict = dict(zip(self.data[0], self.data[1]))
+
+		# Reconstruct the data so I don't have to re-write the rest of my program...
+		self.data = [[], []]
+		for k in sorted(fieldDict.keys()):
+			self.data[0].append(k)
+			self.data[1].append(fieldDict[k])
+
+
 class ParseZipCodesCSV(ParseCSV):
 	filename = "zipCodes.csv"
 	def __init__(self):	
 		# For this we skip the header so we can make a prettier one.
 		super( ParseZipCodesCSV, self ).__init__(self.filename)
 
-		self.fieldNames = ["name","zip_code_tabulation_area","zt36_d00","perimeter","lsad_trans","zt36_d00_i","lsad","area","latitude","longitude","population"]
+		# So, I know there are some data that have missing entries. 
+		# First, I go through and grab all the good ones, putting the bad ones into a separate dict.
+		goodData = {}
+		badData = []
+
+		for index in xrange(len(self.data[0])):
+			# Just grab name, area, population - all we need for this assignment
+			name = self.data[self.fieldNames.index("name")][index]
+			area = self.data[self.fieldNames.index("area")][index]
+			population = self.data[self.fieldNames.index("Total Population per ZIP Code")][index]
+			
+			if self.validate_input(name, area, population):
+				if name not in goodData:
+					goodData[name] = [area, population]
+				else:
+					# So, if it's in the data already, see if the area or population are higher
+					if area > goodData[name][0] or population > goodData[name][1]:
+						goodData[name] = [area, population]
+						# print "Updated data {0}: {1}, {2}".format(name, area, population)
+			else:
+				badData.append([name, area, population])
+
+		# print "Starting - Good: {0}, Bad: {1}".format(len(goodData.keys()), len(badData))
+		
+		# Now, recreate the data with only the data we care about.
+		self.data = [[], [], []]
+		for k in sorted(goodData.keys()):
+			v = goodData[k]
+			self.data[0].append(k)
+			self.data[1].append(v[0])
+			self.data[2].append(v[1])
+
+		self.fieldNames = ["zipcode", "area", "population"]
+
+		self.parseFieldTypes()
+
+	def validate_input(self, name, area, pop):
+		return name.isdigit() and len(name) == 5 and len(area) > 0 and len(pop) > 0
+
 
 class ParseIncidentsCSV(ParseCSV):
 	filename = "Incidents_grouped_by_Address_and_Zip.csv"
@@ -136,3 +185,23 @@ class ParseIncidentsCSV(ParseCSV):
 		super( ParseIncidentsCSV, self ).__init__(self.filename)
 
 		self.fieldNames = ["address","zip","count"]
+
+		newData = [[], [], []]
+		badDataCount = 0
+		for index in xrange(len(self.data[0])):
+			address = self.data[0][index]
+			zipcode = self.data[1][index]
+			count = self.data[2][index]
+
+			if self.validate_input(address, zipcode, count):
+				newData[0].append(address)
+				newData[1].append(zipcode)
+				newData[2].append(count)
+			else:
+				badDataCount += 1
+		# print "Bad Incidents: ", badDataCount
+
+		self.data = newData
+
+	def validate_input(self, addr, zipcode, count):
+		return zipcode.isdigit() and len(zipcode) == 5 and count.isdigit()
