@@ -11,7 +11,13 @@ cur = db.cursor()
 cur.execute(SELECT sum(population) FROM boroughs JOIN zipcodes WHERE nameBorough = " + "'" + boroughGiven + "'" + "and boroughs.zip = zipcodes.zip;"
 
 for row in cur.fetchall():
-	print "The ratio of incidents to population in " + row[0] + " is " + str(row[0])
+	if len(cur.fetchall()) > 0:
+		if row[0] == "Staten":
+			print "The ratio of incidents to population in " + row[0] + " Island is " + str(row[1])
+		else: 
+			print "The ratio of incidents to population in " + row[0] + " is " + str(row[1])
+	else: 
+		print sys.argv[1] + " isn't a borough of New York City."
 
 db.commit()
 db.close()
