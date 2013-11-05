@@ -10,7 +10,7 @@ db = MySQLdb.connect(host="localhost", user="jsa325", passwd="M1nd=B0dy", db="co
 cur = db.cursor()
 
 # define query to compute population density
-cur.execute("SELECT (population/area) FROM zipcodes WHERE zip = " + "'" + zipGiven + "'" + ";"
+cur.execute("SELECT (population/area) FROM zipcodes WHERE zip = " + "'" + zipGiven + "'" + ";")
 
 for row in cur.fetchall():
 	if len(cur.fetchall()) > 0:
