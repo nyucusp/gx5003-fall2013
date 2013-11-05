@@ -27,12 +27,6 @@ for row in cur.fetchall():
     string = ""
 
 
-# rowIndex = 0
-# for item in addresses:
-#     print addresses[rowIndex]
-#     print "\n"
-#     rowIndex = rowIndex + 1
-
 outFile = open("ManhattanAddressesWithIncidents.txt", "w")
 print >> outFile , "Addresses where incidents occurred in Manhattan: \n"
 for a in addresses:

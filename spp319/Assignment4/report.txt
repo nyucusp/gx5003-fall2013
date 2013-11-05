@@ -1,4 +1,11 @@
+Problem 1
+While it takes my computer a long time to get through this, it correctly adds the tables to the database. I actually didn't perform and data cleaning because I found that it wasn't needed, and that MySQL could return the correct data regardless. Stripping and splitting was all I really did to clean. I do replace apostrophies that could throw off the splitting. When I create the table I give my columns max's so that I would prevent potential massive storage problems.
+Also, notice how for the incidents table, I use a right split with max 2... this was done because some of the address lines contained symbols which were making splitting difficult.
+
+Problems 1,2,3,4,5,6
+Because I chose not to clean the data, almost all of my solutions will return a "warning" message, letting me know that I've got some funky data. These are simply warnings though, they do not stop my programs from running, and the correct information is still returned. Since the assignment instructions did not indicate that this was a problem, I have decided to keep it the way it is.
+
 Problems 4, 5, and 6
 
 I had the addresses written to a file for a few reasons: 1) because it was time consuming having them print out on the screen, 2) they would be easier to use for future manipulation, 3) it was easier for me to clean the output.
-Regarding the 3rd reason in more detail: The addresses which I pulled from the database and saved to a list all had parentheses and extra quotation marks around them. I was unable to use the .strip() command successfully with them, but I did find that I could use a "translate" method with more success, then strip. When you run my program, the output in the commandline indicates the name of the file the information was written to.
+Regarding the 3rd reason in more detail: The addresses which I pulled from the database and saved to a list all had parentheses and extra quotation marks around them. I was unable to use the .strip() command successfully with them, but I did find that I could use a "translate" method with more success, then strip. When you run my program, the output in the commandline indicates the name of the file the information was written to. Additionally, for problem 6, I had to add "L" to the translate table because I was working with "long numbers" and they were printing out with the data.
