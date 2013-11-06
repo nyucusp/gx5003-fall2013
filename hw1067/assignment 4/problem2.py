@@ -1,12 +1,10 @@
     ##########################
-    #Assignment4 Problem2    #
-    #Haozhe Wang             #
+    #  Assignment4 Problem2  #
+    #  Haozhe Wang           #
     ##########################
 import sys
 import MySQLdb
 
-
-#zipinput = sys.argv[1]
 zipinput = sys.argv[1]
 
 db = MySQLdb.connect(host = 'localhost',
@@ -16,11 +14,13 @@ db = MySQLdb.connect(host = 'localhost',
 cur = db.cursor()
                      
 query = "select pop_by_zip/ area from zips where zip_code = "+ "'" + zipinput + "'" +";"
+#query = "select pop_by_zip/ area from zips where zip_code = "+ "'" + '10504' + "'" +";"
+
 cur.execute(query)
 
 #print cur.fetchall()
 
-for row in cur.fetchall() :
+for row in cur.fetchall():
     print row
 # close connection
 db.close()
