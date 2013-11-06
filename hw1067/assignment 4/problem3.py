@@ -6,7 +6,7 @@
 import MySQLdb
 import sys
 
-#boroughinput = sys.argv[1]
+boroughinput = sys.argv[1]
 
 db = MySQLdb.connect(host = "localhost",
 	user = "hw1067",
@@ -29,7 +29,7 @@ query_king = "SELECT bp.name, bi.num_inc/bp.pop_by_zip FROM (SELECT b.name name,
 cur.execute(query_king)
 
 for row in cur.fetchall():
-        print row
+    print row
 # close connection
 db.close()
 
