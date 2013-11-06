@@ -7,7 +7,7 @@ import MySQLdb
 
 
 #zipinput = sys.argv[1]
-zipinput = '10001'
+zipinput = sys.argv[1]
 
 db = MySQLdb.connect(host = 'localhost',
                      user = 'hw1067',
