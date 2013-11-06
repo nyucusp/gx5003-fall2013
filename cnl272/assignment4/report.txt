@@ -1,12 +1,12 @@
 Problem 1
-- drop the tables first if they already exeist
+- drop the tables first if they already exist
 - the three tables are boroughs, zipcodes and incidents
    - schema of boroughs: borough_zip and borough_name, with duplicates removed, there will be 240 rows in this table
-   - schema of zipcodes: zip, area and population, use the last zip appeared in the file and ignore the zipcodes which  have no poupulation 
+   - schema of zipcodes: zip, area and population, use the last zip appeared in the file and ignore the zipcodes which  have no population 
    - schema of incidents: zip, address and incidents_num, record only the first 5 numbers of zipcodes, remove "'" in the address, identify and use the zipcodes and incidents numbers only if they are digits 
 
 Problem 3
-- sum the total population and incidents number of boroughs seperately and compute the incidents ratio of the given borough
+- sum the total population and incidents number of boroughs separately and compute the incidents ratio of the given borough
 
 Problem 4
 - use inner join on address of boroughs and incidents in Manhattan
