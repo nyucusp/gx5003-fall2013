@@ -1,0 +1,31 @@
+The Columns of each table is given as below.
+
+Table: coursedb.Borough;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| bzip  | varchar(255) | NO   | PRI |         |       |
+| bname | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+Table: coursedb.Zipcode;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| zzip  | varchar(255) | NO   | PRI |         |       |
+| zarea | float        | YES  |     | NULL    |       |
+| zpop  | int(11)      | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+
+Table: coursedb.Incident;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| izip     | varchar(255) | YES  |     | NULL    |       |
+| iaddress | varchar(255) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+
+In order to solve the problems,
+All the data in file Borough.csv are used.
+Zipcode, area and population in file Zipcode.csv are used.
+Zipcode and address in file Incidents_grouped_by_Address_and_Zip.csv are chosen.

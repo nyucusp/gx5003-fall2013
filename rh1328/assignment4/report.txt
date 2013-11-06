@@ -1,0 +1,13 @@
+-I created the tables zipCodeData to hold the information from zipcodes.csv; incidents to hold the information from the incident csv; and boroughs to hold the info from boroughs.csv
+
+-I made the zipcodes varchars because some zip codes have letters in them 
+
+-If there was no data provided for a column in any of the cvs's, NULL was stored in the database (also true if the data said not avail, or other things indicative of no available data).
+
+-in problem1, i start out by dropping all tables if they exist so that the script can successfully run twice if needed without error/inserting duplicates
+
+
+
+
+
+

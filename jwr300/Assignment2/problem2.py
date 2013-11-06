@@ -21,10 +21,16 @@ for line in myFile:
 myFile.close()
     
 #store column headers and get index values for relevant columns required for calculation
-header = lines[0].split(',') 
+header = lines[0].split(',')
+
+#strip the header of \n
+header_length = len(header)
+for i in range(0,header_length):
+    header[i] = header[i].strip()
+
 zip_index = header.index('zip code tabulation area') 
 area_index = header.index('area')
-population_index = header.index('Total Population per ZIP Code\n')
+population_index = header.index('Total Population per ZIP Code')
 
 #create a dictionary of zipcodes-population density key value pairs
 zipPopdensity = {}

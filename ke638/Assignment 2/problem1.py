@@ -8,7 +8,7 @@ import dateutil.parser as dparser
 
 rawtime = sys.argv[1]
 rawtime += ' -0400'#gives time zone
-truetime = dparser.parse(rawtime, fuzzy =True) #parses argument to compile commits
+truetime = dparser.parse(rawtime, fuzzy =True) #parses argument to compile commits to accept different formats
 commitDateTimes = []
 state = 0
 indexOfDate = 0
@@ -29,8 +29,7 @@ myFile.close()
 #Output
 print 'The date/times of the commits after ' + rawtime + ' were '
 for commitDateTime in commitDateTimes:
-    print commitDateTimes
-
+    print commitDateTime
 
 outputFile = open('output.txt','w')
 
