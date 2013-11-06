@@ -25,7 +25,7 @@ with open('boroughs.csv') as f:
     rows = csv.reader(f, delimiter=',')
     for row in rows:
         zip = row[0]
-        borough = row[1]
+        borough = row[1].lower()
         #Check for duplicate values of zip codes in table:
         checkDuplicates = "(SELECT * FROM boroughs WHERE zip =" + zip + ");"
         if cur.execute(checkDuplicates) != 1:
