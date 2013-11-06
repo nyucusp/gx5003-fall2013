@@ -4,9 +4,9 @@
     ##########################
 
 import MySQLdb
-import sys
+#import sys
 
-boroughinput = sys.argv[1]
+#boroughinput = sys.argv[1]
 
 db = MySQLdb.connect(host = "localhost",
 	user = "hw1067",
