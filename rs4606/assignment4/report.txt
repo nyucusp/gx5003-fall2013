@@ -1,0 +1,21 @@
+Problem 1:
+
+IMPORTANT NOTE: do not run problem1.py more than once without going into mysql and dropping the three tables boroughs, zipcodes, and incidents.  Otherwise an error message will be raised (since you are trying to add duplicate values to a table with a uniqueness constraint).
+
+We create the following three tables:
+
+boroughs, with schema (zip, borough_name).  We removed duplicate entries (there were 480 rows in the original file, with each row duplicated once).
+
+zipcodes, with schema (zip, area, population).  Here, we had data in which several of the same zip codes had different areas or populations.  We made the decision to just use the information from the *last* instance of the zip code that appeared in the file.  We also ignored the zipcodes that have no population information.
+
+incidents, with schema (zip, address, and incident_count).  We had to remove single apostrophes (i.e. "King's" became "Kings") in order to be able to insert addresses into the database.  We also included only those zip codes which were properly formatted, e.g. those whose first 5 digits were 5 numbers (and we also recorded only the first 5 digits, so something like "11231-9342" was saved as "11231").
+
+
+
+Problems 2 and 3: Please enter the zip code or borough name WITHOUT quotation marks in the command line, and with the first letter CAPITALIZED.
+
+Problem 5: Note that we chose to use UNION ALL here rather than UNION, since we want to retain duplicate addresses, where one is in Queens and one is in the Bronx.  If the problem specified distinct addresses, we could use the normal UNION command.
+
+Problem 6: Note that although there are 55 zip codes in Manhattan where incidents occurred (as can be seen by running the query:
+SELECT DISTINCT incidents.zip FROM boroughs JOIN incidents WHERE boroughs.zip = incidents.zip AND borough_name = 'Manhattan';)
+there are only 43 zip codes of the above 55 that appear in the zipCodes.csv file with population information, hence our final answer to this query only has 43 rows.  I'm not sure which answer you want, but if you'd like to see all 55 zip codes (without population information) in Manhattan where incidents occurred, you can just run the query listed above.

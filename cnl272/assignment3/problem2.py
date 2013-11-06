@@ -71,7 +71,7 @@ def get_candidates_and_votes(input_lines):
 		if input_lines[all_line] == '':
 			blank.append(all_line)
 			#use blank to identify each case
-	for case_line in range(blank[0]):
+	for case_line in range(0,len(blank)-1):
 		case_list=input_lines[blank[case_line]+1:blank[case_line+1]]
 		case_context.append(case_list)	
 #put the information of candidates number, candidates'name and ballots into case_context

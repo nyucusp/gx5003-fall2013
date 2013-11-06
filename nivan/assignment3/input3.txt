@@ -1,0 +1,33 @@
+1
+13 18
+Erdos, P., C, C., FUFAIL, F.: asdf
+Erdos, P., B, B.: asdf
+Erdos, P., A, A.: asdfa
+B, B., G, G.: asdf
+A, A., H, H.: asdf
+H, H., I, I.: asdf
+I, I., J, J., K, K.: asdf
+J, J., L, L.: asdf
+L, L., F, F.: asdf
+C, C., F, F.: aadsf
+F, F., D, D., E, E.: asdf
+M, M., N, N., O, O.: asdf
+WTF, F., WTF, U.: asdf
+Erdos, P.
+A, A.
+B, B.
+C, C.
+D, D.
+E, E.
+F, F.
+G, G.
+H, H.
+I, I.
+J, J.
+K, K.
+L, L.
+M, M.
+N, N.
+O, O.
+WTF, F.
+WTF, U.
