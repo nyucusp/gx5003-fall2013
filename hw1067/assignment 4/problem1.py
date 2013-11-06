@@ -49,13 +49,26 @@ for line in zipcodecon:
             #print insertCommand
             cur.execute(insertCommand)
 
+boroughcont = csv.reader(borough_file,delimiter= ',')
+for line in boroughcont:
+    if n == 0:
+        n+=1
+        continue
+    else:
+        zipcode = line[0]
+        name = line[1]
+        #print line_split[10]
+        insertCommand = "insert into boroughs values("+ zipcode + "," + "'" + name + "'" + ");"
+        #print insertCommand
+        cur.execute(insertCommand)
+"""
 for line in borough_file:
     line_split = line.split(',')
     zipcode = line_split[0]
     name = line_split[1]
     insertCommand = "insert into boroughs values("+ zipcode + "," + "'" + name + "'" + ");"
     cur.execute(insertCommand)
-
+"""
 
 incidents = csv.reader(incident_file,delimiter= ',')
 
