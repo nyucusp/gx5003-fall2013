@@ -1,0 +1,5 @@
+The first table I made was the borough table and that was the simplest - there were no column headers or any problematic values, and called them Zip which is an int and Borough varchar(15) since no borough has more letters than that
+
+Then I made the zipcode table and saw what values we would need for the rest of the problems.  I made the zip an int and not null, then area is a float because its a decimal not null, and population an int not null.  I ignored a value that was empty or if the zipcode had a random letter in it, and had to skip the headers.
+
+Then the incidents table was most challenging because it had the most incomplete data.  The address was a varchar(255), zipcode is int(5) not null, and the number of times is an int(10) not null.  I had to skip the header, and make sure to only get the zipcode if it was a 5 digit number. 
