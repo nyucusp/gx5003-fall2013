@@ -24,7 +24,7 @@ for zipBorough in boroughsFile:
     thisBorough = zipBorough.split(',')[1]
     insertCommand = "insert into zipBoroughs (zipcode, borough) values ("+thisZip+", '"+thisBorough[0:-1]+"');"
     #boroughDict[thisBorough.lower()[:-1]].append(thisZip)
-    print insertCommand
+    #print insertCommand
     #print insertCommand
     cur.execute(insertCommand)
 
@@ -39,7 +39,7 @@ for zipcode in zipcodesFile:
         thisZipPopulation = int(thisParse[10])
     #print thisZipName, thisZipArea, thisZipPopulation
     insertCommand = "insert into zipcodes (zipcode, area, population) values ('"+thisZipName+"', "+str(thisZipArea)+", "+str(thisZipPopulation)+");"
-    print insertCommand
+    #print insertCommand
     cur.execute(insertCommand)
 
 incidentsFile.readline()
@@ -49,7 +49,7 @@ for incident in incidentsFile:
     thisZipName = thisParse[1]
     if(thisZipName != '' and thisZipName.isdigit()):
         insertCommand = "insert into incidents (zipcode) values("+str(thisZipName)[:5]+");"
-        print insertCommand
+        #print insertCommand
         cur.execute(insertCommand)
 
 db.commit()
