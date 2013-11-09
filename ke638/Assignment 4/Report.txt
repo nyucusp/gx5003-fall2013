@@ -1,0 +1,6 @@
+Katherine Elliott
+ke638
+Assignment 4
+Report
+
+Codes are complete, but experiencing issues with the server. The boroughs table in coursedb is wrong and needs to be updated. Tables cannot be made without server connection.
