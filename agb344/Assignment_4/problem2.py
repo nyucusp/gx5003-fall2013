@@ -10,6 +10,6 @@ db = MySQLdb.connect(host="localhost", user="agb344", passwd="amir", db="assignm
 cur = db.cursor()
 
 cur.execute(query)
-print cur.fetchall()[0]
+print str(cur.fetchall()[0])[1:-2]
 
 db.close()
