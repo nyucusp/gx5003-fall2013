@@ -22,7 +22,7 @@ newdates = list(xrange(33))
 fig, ax = plt.subplots()
 fig.canvas.draw()
 
-plt.plot(newdates, apple)
+ax.plot(newdates, apple, label='AAPL')
 
 plt.xticks(np.arange(0, max(newdates) + 1, 1))
 plt.yticks(np.arange(40, 240, 20))
@@ -43,17 +43,6 @@ fig.suptitle('Apple Stock Quotes', fontsize=20)
 plt.xlabel('Month', fontsize = 16)
 plt.ylabel('Stock Value', fontsize = 16)
 
-'''max = 0
-i = 0
-index = 0
-for line in apple:
-    i += 1
-    print "line, max ", line, max
-    if (line >= max):
-        print 'hi'
-        max = line
-        index = i
-print max
-print index'''
+legend = ax.legend(loc = 'lower right')
 
 plt.show()
