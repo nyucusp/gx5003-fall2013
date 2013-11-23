@@ -6,7 +6,6 @@ import operator
 
 years = []
 transistors = []
-processors = []
 data = {}
 
 with open('microprocessors.dat', 'r') as f:
@@ -20,11 +19,8 @@ with open('microprocessors.dat', 'r') as f:
         data[processor] = year, transistor
         years.append(year)
         transistors.append(transistor)
-
-for item in data:
-    print item, data[item]
-
 simpleList = np.arange(0, 13)
+
 
 fig = plt.figure()
 
