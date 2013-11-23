@@ -24,11 +24,7 @@ newdates = list(xrange(33))
 
 fig = plt.figure()
 ax1 = fig.add_subplot(211)
-ax2 = fig.add_subplot(212)
-
-ax1.plot(newdates, apple, label='AAPL')
-ax2.plot(newdates, microsoft, label='MSFT')
-
+ax1.plot(newdates, apple, 'r', label='AAPL')
 plt.xticks(np.arange(0, max(newdates)+3, 1))
 plt.yticks(np.arange(40, 240, 20))
 
@@ -37,18 +33,32 @@ for i in range(0, len(month)):
     if (i%7 == 0):
         xaxis.append(month[i])
 
-ax1.set_ylabel('Stock Value')
-ax2.set_xlabel('Month')
-ax2.set_ylabel('Stock Value')
+labels = [item.get_text() for item in ax1.get_xticklabels()]
+for i in range(1, len(month)):
+    if (i%5 == 0):
+        labels[i] = month[i]
+
+ax1.set_xticklabels(labels)
+plt.ylabel('Stock Value', fontsize = 16)
+legend = ax1.legend(loc = 'upper left')
 
 
+ax2 = fig.add_subplot(212)
+ax2.plot(newdates, microsoft, label='MSFT')
+plt.xticks(np.arange(0, max(newdates)+3, 1))
+plt.yticks(np.arange(20, 100, 20))
 
-#ax1.set_xticklabels(labels)
-#ax2.set_xticklabels(labels)
+labels = [item.get_text() for item in ax2.get_xticklabels()]
+for i in range(1, len(month)):
+    if (i%5 ==0):
+        labels[i] = month[i]
+
+ax2.set_xticklabels(labels)
+plt.xlabel('Month', fontsize = 16)
+plt.ylabel('Stock Value', fontsize = 16)
+legend = ax2.legend(loc = 'upper left')
 
 fig.suptitle('Apple vs Microsoft Stock Value', fontsize=18)
-legend = ax1.legend(loc = 'upper left')
-legend = ax2.legend(loc = 'upper left')
 
 ax1.grid(True)
 ax2.grid(True)
