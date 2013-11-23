@@ -7,7 +7,7 @@ db=MySQLdb.connect(host="localhost",
 	               db="coursedb")
 cur=db.cursor()
 
-query="select b.zip, z.population from borough b, zipcodes z where b.zip=z.zip and name='Mahhattan' and b.zip in(select i.zip from incidents i);"
+query="select b.zip, z.population from borough b, zipcodes z where b.zip=z.zip and name='Manhattan' and b.zip in(select i.zip from incidents i);"
 cur.execute(query)
 zippop=cur.fetchall()
 for row in zippop:
