@@ -1,7 +1,7 @@
 #Aliya Merali
 #Urban Informatics
 #Assignment 5
-#Problem 2
+#Problem 3
 
 import numpy as np
 import matplotlib.pyplot as plt
