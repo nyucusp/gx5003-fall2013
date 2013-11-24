@@ -1,0 +1,5 @@
+﻿I chose to do all the selecting of data through MySQL statements as I find that easier to do than in Python & there are simple command statements present there to do that. All I did in Python was to strip & split to manage the discrepancies in the data. I relied on Python for only the Insert statements. I just maxed-out the columns where high data was present to avoid data being not captured.
+
+I was getting warning messages whenever I ran the programs; it was because I chose not the clean the data. As they were just warning signs, it can be ignored – code runs, files got created & the output objectives were achieved. 
+
+For Problem4, Problem5 & Problem6 where we were given specific SQL queries, I made the output be written on files as the Incidents file is huge to read & output on the screen. For Problem 6, I took the idea to add an ‘L’ into the translate table as I was working with numbers that were too long which were printing out the data.

@@ -1,0 +1,29 @@
+Report
+
+Problem1:
+
+3 tables to be created:
+-Incidents--> Include only the first 5 digits of the zip code, address and incident.
+-Zip_codes--> Remove zip codes without population; include zip code, area and population.
+-Boroughs--> Removing duplicates, 240 were left.
+
+Problem2:
+Compute population of a zip code per borough
+-Take number of population per zip code
+
+Problem3:
+Compute number of incidents per borough
+-Sum of total population plus incidents
+
+Problem4:
+Incidents in Manhattan
+-Join of bouroughs' addresses and incidents in Manhattan, ignoring addresses with no info
+
+
+Problem5:
+Incidents either in Bronx or Queens
+-Join of boroughs; addresses for Quenns and/or Bronx, ignoring addresses with no info
+
+Problem6:
+Set of zipcodes in Manhattan with incidents
+-Zipcodes and population from all boroughs, zipcodes and incidents only from Manhattan
