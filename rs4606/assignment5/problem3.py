@@ -1,6 +1,5 @@
 """
-Note: annotations that answer the questions in the assignment are at the *bottom* of this
-code.
+Note: There are no requested annotations for this problem.
 """
 
 import sys
