@@ -32,7 +32,7 @@ for k in sorted(processorDict.items(), key=lambda x: x[1]):
     processorRankList.append( k[0] )
 
 
-fig = plt.figure(figsize = (25,10), )
+fig = plt.figure(figsize = (25,10))
 ax1 = fig.add_subplot(1,2,1)
 ax1.plot(sorted_years, rangeList, 'o')
 ax1.grid(True,which='both')
