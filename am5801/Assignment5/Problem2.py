@@ -2,6 +2,7 @@
 # Assignment 5
 # Problem 2
 # Annotations at the end of the code
+# Open Histogram in full screen mode
 
 from dateutil.parser import parse
 import pandas as pd

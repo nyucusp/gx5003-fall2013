@@ -2,6 +2,7 @@
 # Assignment 5
 # Problem 3
 # Annotations at the end of the code
+# Open Plot in Full Screen Mode
 
 import pandas as pd
 import matplotlib.pyplot as plt
