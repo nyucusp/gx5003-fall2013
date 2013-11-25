@@ -1,0 +1,6 @@
+I used Pandas to import data because it is the most easiest way for it. 
+Also, it is useful to make the regression model. 
+In order to get statistics summary with the regression model, I added statsmodels.formula.api.
+This module is very useful to conduct the statistical analysis
+More details about the Problem 4 are described in the 'Problem_4.py' file. 
+Please find comments in the file. .
