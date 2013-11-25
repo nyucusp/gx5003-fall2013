@@ -48,12 +48,41 @@ def main():
 	df2 = df2.sort()
 
 
-	ax = df2.plot(kind='bar', grid=False)
+	ax = df2.plot(kind='bar', grid=False, legend=False)
 	ax.xaxis.set_major_locator(MonthLocator())
 	ax.xaxis.set_major_formatter(DateFormatter('%B'))
 	xlabel('Date')
-	ylabel('Number of Actions')
-	title('Problem 2')
+
+	ax.text(0.5, 1.06, 'Histogram of Actions',
+         horizontalalignment='center',
+         fontsize=16,
+         transform = ax.transAxes)
+	ax.set_ylabel('No. of Actions')
+
+
+	ax.vlines(x = 9, ymin = 0, ymax = 14000,\
+	linestyles = 'dashed', colors='k', label='Assignments 0,1')
+	ax.annotate('Assigns 0,1', xy=(10,14010))
+
+	ax.vlines(x = 24, ymin = 0, ymax = 14000,\
+	linestyles = 'dashed', colors='k', label='Assignment 2')
+	ax.annotate('Assign 2', xy=(25,14010))
+
+	ax.vlines(x = 35, ymin = 0, ymax = 14000,\
+	linestyles = 'dashed', colors='k', label='Assignments 3')
+	ax.annotate('Assign 3', xy=(36,14010))
+
+	ax.vlines(x = 53, ymin = 0, ymax = 14000,\
+	linestyles = 'dashed', colors='k', label='Assignments 4')
+	ax.annotate('Assign 4', xy=(49,14010))
+
+	ax.vlines(x = 67, ymin = 0, ymax = 14000,\
+	linestyles = 'dashed', colors='k', label='Assignments 5')
+	ax.annotate('Assign 5', xy=(66,14010))
+
+	ax.vlines(x = 63, ymin = 0, ymax = 14000,\
+	linestyles = 'dashed', colors='k', label='Assignments 6')
+	ax.annotate('Assign 6', xy=(59,14010))
 
 	plt.savefig('Problem2.png', dpi=400)
 
