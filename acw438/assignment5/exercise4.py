@@ -80,12 +80,14 @@ for comb, indx in zip(gene_combs, range(0,16)):
 
 
 # Regressions -----------------------------------------------------------------
-y_vals = sorted(genes_df['A'])
+
 
 # Regression function
 def plot_regression_A(gene, y_loc, degree):
-    x_vals = sorted(genes_df[gene])
+    y_vals = genes_df['A']
+    x_vals = genes_df[gene]
     coeffs = polyfit(x_vals, y_vals, degree)
+    x_vals = sorted(x_vals)
     y_fit_vals = polyval(coeffs, x_vals)
     axarr[y_loc, 0].plot(x_vals, y_fit_vals, color='r', zorder=2, linestyle='-', \
                          label='Best fit,\ndegree=' + str(degree))
