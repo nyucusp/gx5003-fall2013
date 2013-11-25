@@ -44,5 +44,5 @@ plt.figtext(0.5, 0.94, 'Correlation Scattor Plots of Genes A, B, C & D', fontsiz
 Pandas rescues me once again! The scatter_matrix function takes care of
 all the mess involved in creating 12 subplots. However, I do not have the option
 of putting scatter plots in the diagonals. I can either use kde curves
-or histograms. I chose the kde curves. I then used polyval and polyfit
+or histograms. I chose the histogram option. I then used polyval and polyfit
 to create the polynomial fits for the three plots. """
