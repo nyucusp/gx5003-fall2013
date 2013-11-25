@@ -64,12 +64,12 @@ ilines = incidentsCSV.readlines()
 
 incidentsCSV = csv.reader(file('Incidents_grouped_by_Address_and_Zip.csv'))
 # Skip first line
-next(incidentsCSV)
-
-for row in incidentsCSV:	
-
-	Icommand = "insert into incidents values('" + row[0] + "', '" + row[1] + "', '" + row[2] + "'')"
-	cur.execute(Icommand)
+# next(incidentsCSV)
+myData2 = {}
+for row in incidentsCSV:
+	if not row[0] in myData2:
+		Icommand = "insert into incidents values('" + row[0] + "', '" + row[1] + "', '" + row[2] +"')"
+cur.execute(Icommand)
 
 
 
@@ -78,13 +78,13 @@ zipcodes
 """
 
 # cur.execute("DROP TABLE IF EXISTS zipcodes")
-# createZipcodes = ("create table zipcodes (zipcode int, zipcode_tabulation_area int,zt36_d00 int, perimeter float, lsad_trans varchar(255), zt36_d00_i int, lsad varchar(255), area float, latitude float, longitude float, TotalPopulation int, primary key (zipcode))")
+# createZipcodes = ("create table zipcodes(zipcode int, zipcode_tabulation_area int,zt36_d00 int, perimeter float, lsad_trans varchar(255), zt36_d00_i int, lsad varchar(255), area float, latitude float, longitude float, TotalPopulation int, primary key (zipcode))")
 # cur.execute(createZipcodes)
 
 # zipcodesCSV = csv.reader(file('zipcodes.csv'))
-# Zcommand = "insert into incidents values('" + row[0] + "', '" + row[1] + "', '" + row[2] + "'', '" + row[3] + "'', '" + row[4] + "'', '" + row[5] + "'', '" + row[6] + "'', '" + row[7] + "'', '" + row[8] + "'', '" + row[9] + "'', '" + row[10] + "'')"
 # for row in zipcodesCSV:
-# 	cur.execute(Zcommand)
+# 	Zcommand = "insert into incidents values('" + row[0] + "', '" + row[1] + "', '" + row[2] + "', '" + row[3] + "', '" + row[4] + "', '" + row[5] + "', '" + row[6] + "', '" + row[7] + "', '" + row[8] + "', '" + row[9] + "', '" + row[10] + "')"
+# cur.execute(Zcommand)
 
 
 
