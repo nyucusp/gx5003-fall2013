@@ -15,7 +15,7 @@ from matplotlib import *
 gene_file = pd.read_csv('genes.dat')
 genes = gene_file[['A','B','C','D']]
 
-ender = scatter_matrix(genes, alpha=0.2, figsize=None, diagonal = 'kde')
+ender = scatter_matrix(genes, alpha=0.2, figsize=None, diagonal = 'hist')
 
 # A vs B Correlation (5th degree poly fit)
 B_coefficients = polyfit(genes['B'],genes['A'],5)
@@ -25,7 +25,7 @@ ender[0,1].plot(Bx_sort, By_values, 'r-', label = '5th degree')
 ender[0,1].legend(loc='upper left', fontsize='x-small')
 
 # A vs C Correlation (Linear fit)
-C_coefficients = polyfit(genes['C'],genes['A'],5)
+C_coefficients = polyfit(genes['C'],genes['A'],1)
 Cx_sort = sorted(genes['C'])
 Cy_values = polyval(C_coefficients, Cx_sort)
 ender[0,2].plot(Cx_sort, Cy_values, 'r-', label = 'Linear')
