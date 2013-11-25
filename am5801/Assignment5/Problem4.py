@@ -15,7 +15,7 @@ from matplotlib import *
 gene_file = pd.read_csv('genes.dat')
 genes = gene_file[['A','B','C','D']]
 
-ender = scatter_matrix(genes, alpha=0.2, figsize=None, diagonal = 'hist')
+ender = scatter_matrix(genes, alpha=0.2, figsize=None, diagonal = 'kde')
 
 # A vs B Correlation (5th degree poly fit)
 B_coefficients = polyfit(genes['B'],genes['A'],5)
@@ -43,6 +43,6 @@ plt.figtext(0.5, 0.94, 'Correlation Scattor Plots of Genes A, B, C & D', fontsiz
 """ Annotations:
 Pandas rescues me once again! The scatter_matrix function takes care of
 all the mess involved in creating 12 subplots. However, I do not have the option
-of putting scatter plots in the diagonals. I can either use kde curves
-or histograms. I chose the histogram option. I then used polyval and polyfit
+of putting scatter plots in the diagonals. I can either use Kernel Density curves
+or histograms. I chose the kde option. I then used polyval and polyfit
 to create the polynomial fits for the three plots. """
