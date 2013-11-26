@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <title>Assignment 5</title>
+  </head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="./json/citibike_0.json"></script>
+  <script src="./json/citibike_1.json"></script>
+  <script src="./json/citibike_2.json"></script>
+  <script src="./json/citibike_3.json"></script>
+  <script src="./json/citibike_4.json"></script>
+  <script src="./json/citibike_5.json"></script>
+  <script src="./json/citibike_6.json"></script>
+  <script src="./json/citibike_7.json"></script>
+  <script src="./json/citibike_8.json"></script>
+  <script src="./json/citibike_9.json"></script>
+  <script src="./json/citibike_10.json"></script>
+  <script src="./json/citibike_11.json"></script>
+  <script src="./json/citibike_12.json"></script>
+  <script src="./json/citibike_13.json"></script>
+  <script src="./json/citibike_14.json"></script>
+  <script src="./json/citibike_15.json"></script>
+  <script src="./json/citibike_16.json"></script>
+  <script src="./json/citibike_17.json"></script>
+  <script src="./json/citibike_18.json"></script>
+  <script src="./json/citibike_19.json"></script>
+  <script src="assignment5.js"></script>
+  <style>
+
+  .bar {
+    fill: steelblue;
+  }
+
+  .bar:hover {
+    fill: brown;
+  }
+
+  .axis {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  .x.axis path {
+    display: none;
+  }
+
+  .chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: red;
+  }
+  </style>
+  <body>
+    <div class='chart'>chart</div>
+      <table id='mytable'>
+        <tr>
+          <td></td>
+          <td><div id='div1' class="chart">Div 1</div></td>
+          <td><div id='div2' >Div 2</div></td>
+        </tr>
+      </table>
+  </body>
+  </html>
