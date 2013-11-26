@@ -169,8 +169,8 @@ def main():
     """ main function """
     file_header, file_data = read_comma_separated_file('stocks.dat')
 
-    # problem1a(file_header, file_data)
-    # problem1b(file_header, file_data)
+    problem1a(file_header, file_data)
+    problem1b(file_header, file_data)
     problem1c(file_header, file_data)
 
 if __name__ == "__main__":
