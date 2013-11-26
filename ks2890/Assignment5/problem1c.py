@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pylab   
 
+# read the stocks data
 stocks = open('stocks.dat','r')
 
 # create empty lists to append the data
