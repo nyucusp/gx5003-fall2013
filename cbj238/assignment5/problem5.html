@@ -53,14 +53,39 @@
     shape-rendering: crispEdges;
   }
 
+  #stationlist {
+    overflow:scroll;
+    height: 550px;
+    background: #ccc;
+    border: 2px solid;
+    border-radius: 10px;
+  }
+
+  .station {
+    color: purple;
+    font: 16px sans-serif;
+    padding: .25em;
+  }
+
+  .title {
+    font: 16px sans-serif;
+    font-weight: bold;
+    text-align: center;
+  }
+
   </style>
   <body>
       <table id='mytable'>
         <tr>
           <td></td>
-          <td><div class="wrap"><svg id='chart1' ></svg></div></td>
-          <td><div class="wrap"><svg id='chart2' ></svg></div></td>
+          <td><div class="title">Available Bikes over Time</div> <hr />
+            <div class="wrap"><svg id='chart1' ></svg></div>
+          </td>
+          <td><div class="title">Scroll To View More. Click to Select.</div><hr />
+            <div id='stationlist' ></div>
+          </td>
         </tr>
       </table>
+      <div id="debug"></div>
   </body>
   </html>
