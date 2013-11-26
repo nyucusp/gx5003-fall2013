@@ -23,68 +23,91 @@ var svg = d3.select('#div1').append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+// -----------------------------------------------------------------------------
+
+var bike_data = []
+var station_data = []
+
+var data_array = [json1,json2,json3,json4,json5,json6]
+data_array.forEach(function(row, index, arr) {bike_data.push([row['executionTime'].split(' ')[1]]);})
+
+//var time_template = bike_data;
+var time_template = jQuery.extend(true, [], bike_data);
+var time_domain = bike_data.map(function(value, index) {return value[0]})
+console.log("Query times: ", time_domain);
+
 var highest_y = 0;
-var avail_tot_bikes = new Array();
-var labar = ['03:03pm', '06:16pm', '08:32pm', '08:52pm', '10:53pm', '11:14pm']
 
-console.log('should be first');
+// Build station list
+json1.stationBeanList.forEach(function(row, index, arr) {
+	var templist = jQuery.extend(true, [], time_template);
+	templist.push(row.stationName);
+	station_data.push(templist);
+	});
 
-for (i=1; i<7; i++) 
-{
-     var filename = "bike" + i + ".json"
-		
-     d3.json(filename, function(json) {
-     	console.log(filename + ' ' + json["executionTime"]);
+data_array.forEach(function(row, index, arr) {
 
+	// Build total available bike count ----------------------------
+	var totbikes = d3.sum(row.stationBeanList, function (station) {
+		return station.availableBikes;
+		});
+	if (totbikes > highest_y) {
+		highest_y = totbikes
+		}
+	bike_data[index].push(totbikes);
 
-     	var station_num = json.stationBeanList.length;
-     	var avail_bike_list = new Array();
-     	for (var i=0; i<station_num; i++) {
-     		avail_bike_list.push(json.stationBeanList[i].availableBikes);
-     		};
+	// There is the same number of stations per datagrab
+	// console.log(row.stationBeanList.length);
 
-		console.log(d3.sum(json.stationBeanList, function(station) {
-				return station.availableBikes;
-			}));
+	// Build station available bike counts -------------------------
+	row.stationBeanList.forEach(function(stat_row, stat_index, stat_arr) {
+		station_data[stat_index][index][1] = stat_row.availableBikes;
+	});
+});
 
-		var tot_val = d3.sum(avail_bike_list);
-		console.log(tot_val);
-		avail_tot_bikes.push(tot_val);
-		tot_val > highest_y ? highest_y = tot_val: 1==1;
-		
-		console.log('should be middle');
-		
-		x.domain(labar);
+console.log("Available bikes: ", bike_data.map(function(value,index) {return value[1]}));
+console.log("Here is the normal bike data", bike_data);
+console.log("Here is the bike station data", station_data);
 
-		
-		svg.append("g")
-    .attr("class", "y axis")
+x.domain(time_domain);
+y.domain([0, highest_y]);
+
+svg.append("g")
+	.attr("class", "y axis")
     .call(yAxis)
+    
+svg.append("g")
+	.attr("class", "x axis")
+	.attr("transform", "translate(0," + height + ")")
+	.call(xAxis);
 
 svg.selectAll(".bar")
-    .data(avail_tot_bikes)
+    .data(bike_data)
     .enter().append("rect")
     .attr("class", "bar")
-    .attr("x", function(d, i) { return x(labar[i]); })
+    .attr("x", function(d) { return x(d[0]); })
     .attr("width", x.rangeBand())
-    .attr("y", function(d) { return y(d); })
-    .attr("height", function(d) { return height - y(d); });
+    .attr("y", function(d) { return y(d[1]); })
+    .attr("height", function(d) { return height - y(d[1]); });
 
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+// -------------------------------------------------------------------------
 
-svg.append("g")
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Available Bikes");
+stationNames = station_data.map(function(value, index) {return value[6]});
+console.log(stationNames);
 
-})
-};
-
-console.log('should be last');
-y.domain([0, 5500]);
+var station_DOM = d3.select('#div2')
+	.data(stationNames)
+	.enter().append("text")
+	.attr("class", "stationName")
+	.attr("id", function(d, i) {return i-1})
+	.text(function(d) {return d})
+	.on("mouseover", function(d, i) {
+		svg.selectAll(".bar")
+			.data(station_data[i])
+			.enter().append("rect")
+	    	.attr("class", "bar")
+   			.attr("x", function(d) { return x(d[0]); })
+    		.attr("width", x.rangeBand())
+   			.attr("y", function(d) { return y(d[1]); })
+    		.attr("height", function(d) { return height - y(d[1]); });
+	});
