@@ -113,11 +113,7 @@ d3.selectAll("text").remove();
 
   
 /*
-d3.select('body').select("#div2")
-	.data(data[1])
-	.enter()
-	.append("div")
-	.text(function(d){return d.values});
+Coded by Abdullah Kurkcu
  */
  
                             // define the y scale  (vertical)
@@ -151,6 +147,7 @@ d3.select('body').select("#div2")
                                 .call(yAxis);
 
                             // draw x axis with labels and move to the bottom of the chart area
+			    console.log("Coded by Abdullah Kurkcu");
                             svg.append("g")
                                 .attr("class", "xaxis axis") // two classes, one for css formatting, one for selection below
                             .attr("transform", "translate(0," + (h - margin) + ")")
