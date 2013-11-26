@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
-# <nbformat>3.0</nbformat>
-
-# <codecell>
-
-cd documents\python learning\hw1data
-
-# <codecell>
+#just a trail 
+#Haozhe Wang
 
 import pandas as pd
 import csv
@@ -13,21 +8,15 @@ import pylab
 import numpy as np
 import matplotlib.pyplot as plt
 
-# <codecell>
 
 stockfile = pd.read_csv('stocks.dat')#read the file with pandas call function
 #print stockfile
 
-# <codecell>
-
 index = stockfile.set_index('month')
 #print index
 
-# <codecell>
 
 right_timeseq = index.sort()
-
-# <codecell>
 
 #fig = plt.figure(figsize=(8,5))
 #fig, axes = plt.subplots(nrows=1, ncols=2)
@@ -47,15 +36,5 @@ plt.tight_layout()
 
 #plt.annotate("USD27.06 in\n Jan 2006",xy=(28,38),fontsize = 10, color = "g")#annotate the baseline with font size 10 on top of the actual line in green 
 #plt.annotate("USD75.51 in\n Jan 2006",xy=(28,84),fontsize = 10, color = "b")
-plt.show()
-
-# <codecell>
-
-savefig(r'JuxMandA2.png', dpi = 300)
-
-# <codecell>
-
-
-# <codecell>
 
 
