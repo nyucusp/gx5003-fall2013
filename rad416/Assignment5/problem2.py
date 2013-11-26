@@ -7,22 +7,24 @@ from _collections import defaultdict
 actionsFile = open('actions-fall-2007.dat','r')
 next(actionsFile) #dump the header
 
-actionsList = []
+timebinsDaysDict = defaultdict(int)
+
 for line in actionsFile:
-    actionsList.append(parse(line.rstrip()))
+    date = parse(line.rstrip())
+    timebinsDaysDict[date.strftime('%m-%d')] += 1
 actionsFile.close()
 
-timebinsHoursDict = defaultdict(int)
+timeBinsDaysDF = pd.DataFrame.from_dict(timebinsDaysDict,orient='index')
+timeBinsDaysDF.columns = ['Count of actions']
 
-for t in actionsList:
-    timebinsHoursDict[t.strftime('%m-%d-%H')] += 1
+timeBinsDaysDF = timeBinsDaysDF.sort()
 
-timeBinsHoursDF = pd.DataFrame.from_dict(timebinsHoursDict,orient='index')
-timeBinsHoursDF.columns = ['Count of actions']
-del timebinsHoursDict
+n=5
 
-timeBinsHoursDF = timeBinsHoursDF.sort()
-
-actionsplot = timeBinsHoursDF.plot(kind='bar',grid='off')
+ax = timeBinsDaysDF.plot(kind='bar')
+ticks = ax.xaxis.get_ticklocs()
+ticklabels = [l.get_text() for l in ax.xaxis.get_ticklabels()]
+ax.xaxis.set_ticks(ticks[::n])
+ax.xaxis.set_ticklabels(ticklabels[::n])
 
 plt.savefig('Problem_2.png')
