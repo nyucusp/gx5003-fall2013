@@ -1,31 +1,33 @@
+import csv
 import sys
-import borough as boroughClass
-boroughInput =sys.argv[0]
-boroughInput =boroughInput.title()
-boroughName= open ('boroughs.csv','r')
-zippop= open('zipCodes.csv','r')
-#setting the input as part of the boroughClass
-boroughObj= borough(boroughInput)
+#ration between population and area
+#sort the code
+#save in a new file
 
-#add the list of the zip codes to the boroughClass
-boroughDict=csv.DictReader(boroughName,'zipvalues','name')
-for row in boroughDict:
-	if row['name']==boroughInput:
-		boroughObj.addZipcode(row['zippop)'])
 
-		#get the total population
-popboInput=csv.DictReader(zippop)
-totalpop = 0
-count = 0
-for row in popboInput:
-	if row ['total pop per zip'] != '':
-		population = row ['total pop per zip']
-		zipCode = row ['name']
-		if zipCode in boroughObj.zipCodes:
-			count =count +1
-			totalpop = totalpop + int(pop)
+myfile = open('zipCodes.csv','r')
+fileLines = myfile.readlines()
 
-			#average =
-			boroughObj.calcAvgPop(totalpop,count)
-			print boroughObj.avg
-		main()
+header = fileLines.pop(0).strip().split(',')
+populationDensity={}
+rows = []
+area = 0.0
+population = 0
+
+#separing the rows so as to enable computation
+for lines in fileLines:
+    rows= lines.strip().split(',')
+    #calculating the popdensity= pop/Area
+    zipC =rows[0]
+    if rows [7] and rows[10]:
+        area= float(rows[7])
+        population = int(rows[10])
+        populationDensity[zipC] = (population/area)
+
+
+
+#putting the code into the new file and saving it..also display the new file
+if populationDensity != []:
+    output=open("output_density_problem2.txt","w")
+    for s in sorted (populationDensity.keys()):
+        print >> output,s,populationDensity[s]
