@@ -84,3 +84,4 @@ exponentially  for the later deadlines. It may be that early on in the
 semester, students started assignments earlier, and later in teh semester, 
 they left the assignments until much closer to the deadline and were forced 
 to work on them much more just before and just after the deadlines. 
+"""
