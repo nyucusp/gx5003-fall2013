@@ -5,6 +5,7 @@ from scipy import *
 import csv
 import math
 import numpy
+import operator
 
 x1 = []
 dates = []
@@ -14,7 +15,9 @@ barcount=1
 
 with open('microprocessors.dat', 'rb') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',')
-    spamreader.next() 
+    spamreader.next()
+    spamreader = sorted(spamreader, key=operator.itemgetter(1), reverse=True)
+    
     for row in spamreader:
             x1.append(row[0])
             bars.append(barcount)

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment 5</title>
+	
+	<!-- add Problem_5.ps and json1.json -->
+	<script type="Problem_5.js"></script>
+	<script src="json1.json"></script>
+
+</head>
+<body>
+	<h2>Problem 5: Bar Chart</h2>
+	
+	<!-- Location of the Chart -->
+	<div id="chart"></div>
+
+    <!-- Load Problem_5.js -->
+    <script type="text/javascript">
+
+		//Transforms
+
+        var jason1 = {
+	        
+			'barChart': [
+		        
+					{"tag":"ul","class":"barChart", "children":function() {return(jason1.transform(this.groups,transforms.barChartGroup));}}
+
+	        ],
+			'barChartGroup': [
+		       
+					{"tag":"li","class":"group","children":[
+						{"tag":"div","class":"bar","style":'height:${value}px;'},
+						{"tag":"div","class":"label","html":"${label}"}
+					]}
+	       
+			]};
+ 
+    </script>
+
+    <!-- Load Data Feed -->
+    <script type="text/javascript">
+        getBarChart({'groups':[{'value':1,'label':'executionTime1'},{'value':2,'label':'executionTime2'},{'value':3,'label':'executionTime3'},{'value':4,'label':'executionTime4'},{'value':5,'label':'executionTime5'},{'value':6,'label':'executionTime6'}]});
+    </script>
+</body>
+
+</html>
