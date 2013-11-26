@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Assignment 5</title>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="assignment5.js"></script>
+
+<style type="text/css">
+
+
+#div2 {
+	position: absolute;
+	top: 517px;
+	right: 1271px;
+	width: 341px;
+	height: 107px;
+}
+
+#div1 {
+	position: absolute;
+	top: 97px;
+	right: 200;
+	width: 700px;
+	height:400px;
+	left: 30px;
+}
+td, th {
+    padding: 1px 4px;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+rect {
+	-moz-transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+rect:hover {
+	fill: red;
+}
+</style>
+</head>
+
+  <body>
+  <div id="container">
+    
+  <p>* You need to run this page in your local server. </p>
+    <p>* First table shows the total number of available bikes for the 7 different time periods within the selected day. When you hover the name of the station, it updates the bar chart for the given station (I thought using the name instead of the id would be more appropriate). </p>
+  </br></div>
+      <table id='mytable'>
+      <tr>
+         <td><div id='div1'>Div 1</div></td>
+         </tr>
+         <tr>
+         <td><div id='div2'>Div 2</div></td>
+         </tr>
+      </table>
+<script type="text/javascript">
+
+
+</script>
+  </body>
+  </html>
