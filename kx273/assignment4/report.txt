@@ -1,0 +1,44 @@
+In order to keep all the information, the field names defined in the database tables are the same as the original ones in the csv files (if space exists, it is replaced by the "_").Additionally, a filed "id" was created to serve as the primary key for each table. The schema for the three tables is shown as follows:
+
+1.boroughs
+Field		Type		Note		
+id		int(11)		primary key
+zipcode		char(50)
+borough		char(50)
+
+2.incidents
+Field		Type		Note		
+id		int(11)		primary key
+incident_addressvarchar(255)
+incident_zip	char(50)
+unique_key	int(11)
+
+3.zipcodes
+Field		Type		Note	
+id		int(11)		primary key
+name		char(50)
+zip_code_tabulation_area char(50)
+zt36_d00	int(11)
+perimeter	float
+lsad_trans	char(50)
+ZT36_D00_i	int(11)
+lsad		char(10)
+area		float
+latitude	float
+longitude	float
+total_population_per_zip_code int(11)
+
+For all the "int" fields, I define a "incheck" function to exmain the input. It the input is int type, return the string of its value, otherwise return the string "NULL".
+
+In addition, for all the "float" fields, I define a "floatcheck" function to exmain the input. It the input is float type, return the string of its value, otherwise return the string "NULL".
+
+For example, if input string "aaaa" to the field area in table zipcodes, the value stored in the MySQL database is converted into NULL. 
+
+If there is a "missing data" as a input of a float field or a int field, the value stored in the MySQL database is NULL.
+
+If there is a "missing data" as a input of a string field, the value stored in the MySQL database is blank.
+
+
+
+
+

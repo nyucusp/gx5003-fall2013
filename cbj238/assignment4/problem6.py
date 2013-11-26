@@ -12,7 +12,7 @@ import sys
 def main(args):
 	db = dbMgr()
 	print "Computing query (this may take a moment...)"
-	query = "SELECT B.zipcode, Z.population from boroughs B, zipcodes Z, incidents I where B.borough = 'Manhattan' && B.zipcode = I.zip && B.zipcode = Z.name;"
+	query = "SELECT B.zipcode, Z.population from boroughs B, zipcodes Z, incidents I where B.borough = 'Manhattan' && B.zipcode = I.zip && B.zipcode = Z.zipcode;"
 	db.run_sql(query)
 
 	results = db.results()

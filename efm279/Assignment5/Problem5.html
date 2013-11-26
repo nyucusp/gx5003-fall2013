@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+
+.chart rect {
+  fill: steelblue;
+  stroke: white;
+}
+
+.chart text {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: middle;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.floatLeft { width: 50%; float: left; }
+.floatRight {width: 50%; float: right; }
+.container { overflow: hidden; }
+
+.floatTL{
+ position:absolute;
+    top:0px;
+    left:0px;
+}
+
+.floatTR{
+ position:absolute;
+    top:700px;
+    left:0px;
+}
+
+</style>
+
+    
+<head>
+    <meta charset="utf-8" />
+    <title>JSON Sample</title>
+</head>
+
+
+<body>
+   
+<div class="container">
+<div class="floatTR">
+<div id='div2'>List of Stations</div>
+
+</div>
+
+<div class="floatLeft">
+<tr><table>
+<tr><td class="box4_t"></svg>
+<tr><td class="box4_b"></td></tr>
+</td></tr></table>
+</div>    
+    
+<div class="floatTL">
+<svg class="chart"></svg>
+
+</div>
+
+
+
+
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="mysc4.js"></script>
+    <script>
+
+    </script>
+</body>
+</html>

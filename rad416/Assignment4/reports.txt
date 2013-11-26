@@ -2,6 +2,9 @@ problem1.py
 -XX and HH don't have any population. They are being filtered out
 -Only fields necessary for the assignment are loaded into the database
 -The boroughs.csv file has duplicate entries for every zipcode. Removed with a SELECT DISTINCT from initial boroughs_raw and SELECT into new table (boroughs) and dropping the old table
+-Dropping addresses with commas in them because there's no way to know where the relevant information is in the file. Writing code for the handful of edge cases doesn't seem important as it doesn't meaningfully affect the results
+-Only the first 5 digits of a zipcode are used (I drop the presort code)
+-I only use zipcodes in NY State and drop all other zipcodes as not germane to the tasks.
 Schema is as follows:
   CREATE TABLE zipcode_population ( 
     zcta INT, 

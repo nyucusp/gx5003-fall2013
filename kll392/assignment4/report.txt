@@ -1,0 +1,10 @@
+Kara Leary
+Urban Informatics - Assignment 4, Problem 1
+
+In this problem I created three separate tables for each csv file.  
+
+First, I created a table called “boroughs” that held the information from boroughs.csv.  There are only two columns in this csv, both of which will be relevant to later problems.  So, I made the columns “zip” and “borough”, and made zip the primary key.  The only tricky part in creating this table was to remove duplicate values, as each zip code is entered more than once in the csv file.  To do this, I wrote a “checkDuplicates” query, that returned 1 if the entry was already present in the table.  A simple “if” statement allowed me to ignore zip codes that had already been entered into the table.  
+
+Second, I created the “zip codes” table, which held the information from zipCodes.csv.  This file held a lot of information that would not be relevant in later problems; I chose not to add these columns into my table.  The only columns I created were “zip”, “area” and “population”.  Again, I made the zip code the primary key.  I chose to omit entries that did not have a value for population, as they would be of no use to me in later problems.  I used the same method as above to check for duplicates, and only added unique values to the table.  
+
+Finally, I created an “incidents” table, holding the information from Incidents_grouped_by_Address_and_Zip.csv.  I created a new primary key for this table by simply adding incrementing integers.  I added the address and zip codes from the file to the table.  In order to properly input all of the addresses, I had to replace ‘ with ‘’, so as to not tamper with the SQL statements.  I also wrote a small function to check if the value in the “zip code” column was an integer.  There were many blank entries, as well as strings ranging from N/A to N, etc.  It would have been much more costly to check for each possible incorrect entry in the zip code column, so instead I just checked if the entry was an integer or not.  If a zip code entry was not an integer, I simply set it to be NULL, thereby discarding the string values that would have been useless to me.
