@@ -33,7 +33,6 @@
   }
 
   #chart1 text {
-    fill: white;
     font: 10px sans-serif;
     text-anchor: middle;
   }
@@ -41,6 +40,19 @@
   #chart1 rect:hover {
     fill: brown;
   }
+
+  .axis text {
+    font: 10px sans-serif;
+    color: #fff;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
   </style>
   <body>
       <table id='mytable'>
