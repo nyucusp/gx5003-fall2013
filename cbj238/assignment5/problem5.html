@@ -28,45 +28,26 @@
   <script src="assignment5.js"></script>
   <style>
 
-  .bar {
+  #chart1 rect {
     fill: steelblue;
   }
 
-  .bar:hover {
+  #chart1 text {
+    fill: white;
+    font: 10px sans-serif;
+    text-anchor: middle;
+  }
+
+  #chart1 rect:hover {
     fill: brown;
-  }
-
-  .axis {
-    font: 10px sans-serif;
-  }
-
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
-
-  .x.axis path {
-    display: none;
-  }
-
-  .chart div {
-    font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: red;
   }
   </style>
   <body>
-    <div class='chart'>chart</div>
       <table id='mytable'>
         <tr>
           <td></td>
-          <td><div id='div1' class="chart">Div 1</div></td>
-          <td><div id='div2' >Div 2</div></td>
+          <td><div class="wrap"><svg id='chart1' ></svg></div></td>
+          <td><div class="wrap"><svg id='chart2' ></svg></div></td>
         </tr>
       </table>
   </body>
