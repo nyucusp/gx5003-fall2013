@@ -50,11 +50,11 @@ for i in range(1, len(linesZip)):
 	if linesZip[i].split(',')[10]!="\n":
 		dictZip[linesZip[i].split(',')[0]] = (float(linesZip[i].split(',')[10]), float(linesZip[i].split(',')[7]))
 
-for key in dictZip
-	insertCommand2 = "insert into zipcodes values(" + "'" + key "'" + "," + str(dictZip[key][1]) + "," + str(dictZip[key][0]) + ");"
+for key in dictZip:
+	insertCommand2 = "insert into zipcodes values(" + "'" + key + "'" + "," + str(dictZip[key][1]) + "," + str(dictZip[key][0]) + ");"
 	cur.execute(insertCommand2)
 
-fileIncidents = open(incidents.csv', 'r')
+fileIncidents = open('incidents.csv', 'r')
 
 linesIncidents = []
 for line in fileIncidents:
@@ -72,7 +72,7 @@ for i in range(1, len(linesIncidents)):
 	if (zipIncidents.isdigit()):
 		addressIncidents = linesIncidents[i].split(',')[0].replace("'","")
 		numIncidents = linesIncidents[i].split(',')[2][:-1]
-		if numIncidents.isdigit()):
+		if numIncidents.isdigit():
 			insertCommand3 = "insert into incidents values(" + "'" + zipIncidents + "'" + "," + "'" + addressIncidents + "'" + "," + "'" + numIncidents + "'" + ");"
 			cur.execute(insertCommand3)
 

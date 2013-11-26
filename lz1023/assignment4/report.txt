@@ -1,0 +1,4 @@
+In the three files, zipcode is the common schema that will be used in three tables.
+1. In the first table borough, I use zip(zipcode) and name(borough name) as schemas and remove the duplicates in this table.
+2. In the second table zipcodes, I use zip(zipcode), area and population as schemas and remove the data of zip and area when there its related population is null.
+3. In the third tabale incidents, I use zip(zipcode), address and incident_num(incident numbers) as schemas. Since there are some addresses with "'" that can't be used in mysql, I replace the "'" with space to let them be useful. And I also remove the data whose doesn't have digital zipcode.

@@ -11,7 +11,7 @@ for line in myFile:
     lines.append(line)
 myFile.close()
 
-title = lines[0].split(',') #stores relevantt column titles
+title = lines[0].split(',') #stores relevant column titles
 
 title_length = len(title) #strips column titles
 for k in range(0,title_length):

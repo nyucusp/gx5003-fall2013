@@ -1,0 +1,10 @@
+For this proble, I created three tables with the following schema:
+
+incidents: Auto-incrementing integer id (primary key), zipcode
+zipBoroughs: Auto-incrementing integer id (primary key), zipcode, borough name
+zipcodes: Auto-incrementing integer id (primary key), zipcode, area, population
+
+The incidents table simply lists all zipcodes of incidents, therefore making it possible to count t
+hem.
+The zipBoroughs table matches a zipcode to its boroguh.
+The zipcodes table simply lists all zipcodes and their area and population to get the density.
