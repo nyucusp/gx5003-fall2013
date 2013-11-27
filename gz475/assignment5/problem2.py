@@ -41,8 +41,7 @@ for i in range(0, 6):
     plt.text(deadtime[i],10000 + 1000*i,labels[i],rotation=0, size='small')
 plt.vlines(date2num(deadtime), 0, 16000, color = 'k',linestyle = 'dashed' )
 plt.savefig("Problem 2.png")
-plt.clf()
 
 # I choose every 24 hours between 12:00 to 12:00 as my bins, since the deadline is 12:00 for each assignment.
 # More activities in assignment 3,4,5 and 6, which might means that more works with these assignments.
-# For assignment 0,1,4,5 and 6, students trend to finished before the dealine, but for assignment 2 and 3, more students finished after the dealine.
+# For assignment 0,1,4,5 and 6, students trend to finished before the deadline, but for assignment 2 and 3, more students finished after the deadline.
