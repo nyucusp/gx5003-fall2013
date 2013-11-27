@@ -46,7 +46,7 @@ plt.plot(geneA, geneD,'og',alpha = 0.5)
 plt.xlabel('Gene A')
 plt.ylabel('Gene D')
 
-plt.savefig('Problem 4a.png')
+figname = 'Problem 4a.png'
 # plt.show()
 plt.close()
 
@@ -66,7 +66,7 @@ plt.plot(geneA, fity, '-', color = 'red', label = 'Linear Fit')
 plt.scatter(geneA, geneC)
 plt.xlabel('Gene A')
 plt.ylabel('Gene C')
-plt.savefig('Problem 4b.png')
+figname = 'Problem 4b.png'
 # plt.show()
 plt.close()
 
@@ -79,7 +79,7 @@ plt.plot(z, '-', color = 'red', label = 'Cubic Fit')
 plt.scatter(geneA, geneD)
 plt.xlabel('Gene A')
 plt.ylabel('Gene D')
-plt.savefig('Problem 4c.png')
+figname = 'Problem 4c.png'
 # plt.show()
 plt.close()
 
@@ -92,7 +92,7 @@ plt.plot(p, '-', color = 'red', label = 'Degree-5 Polynomial Fit')
 plt.scatter(geneA, geneB)
 plt.xlabel('Gene A')
 plt.ylabel('Gene B')
-plt.savefig('Problem 4c.png')
+figname = 'Problem 4c.png'
 # plt.show()
 plt.close()
 
