@@ -31,6 +31,7 @@ plt.gca().xaxis.set_major_locator(MonthLocator())
 plt.gca().xaxis.set_major_formatter(DateFormatter('%B'))
 plt.ylabel('Number of Actions')
 plt.title('24-hour count of student actions in 2007Fall Scientific Visualization Course')
+
 # plot due date
 deadlines = ['2007-09-18 12:00:00', '2007-10-04 12:00:00', '2007-10-25 12:00:00', '2007-11-27 12:00:00', '2007-12-11 12:00:00','2007-12-15 12:00:00']
 deadtime = []
