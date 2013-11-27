@@ -7,7 +7,7 @@ mpl.rcParams['lines.linewidth'] = 3 #set linewidth to be wider
 """
 A script to display gene data in a scatter matrix and after determining the rank of 
 correlation, add least squares regression line, a cubic polynomial line, and 5-d polynomial
-line to the scatter matrix
+line to the scatter matrixgit s
 """
 
 genes = pd.read_csv('genes.dat')
