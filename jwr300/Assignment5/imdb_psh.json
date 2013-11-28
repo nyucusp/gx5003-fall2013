@@ -1,0 +1,50 @@
+{
+    "executionTime": "013-11-22 01:22:03 PM",
+    "stationBeanList": [
+        {
+            "title": "W 52 St & 11 Ave",
+            "opening": 27,
+            "release": {
+                "year": 39,
+                "month": "In Service",
+                "day": 12
+            }
+        },
+        {
+            "title": "Franklin St & W Broadway",
+            "opening": 11,
+            "release": {
+                "year": 33,
+                "month": "In Service",
+                "day": 20
+            }
+        },
+        {
+            "title": "St James Pl & Pearl St",
+            "opening": 8,
+            "release": {
+                "year": 26,
+                "month": "In Service",
+                "day": 17
+            }
+        },
+        {
+            "title": "Atlantic Ave & Fort Greene Pl",
+            "opening": 15,
+            "release": {
+                "year": 62,
+                "month": "In Service",
+                "day": 44
+            }
+        },
+        {
+            "title": "W 17 St & 8 Ave",
+            "opening": 18,
+            "release": {
+                "year": 39,
+                "month": "In Service",
+                "day": 18
+            }
+        }
+    ]
+}

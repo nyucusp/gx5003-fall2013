@@ -1,4 +1,4 @@
-    // Define Margin and SVG height & width
+// Define Margin and SVG height & width
     var margin = {top:50, right:50, bottom: 150, left: 150},
         width  = 500 - margin.left - margin.right,
         z = d3.scale.category20c(),
@@ -24,7 +24,7 @@
     var yAxis = d3.svg.axis()
         .scale(yScale)
         .orient("left")
-        .tickFormat(function(d) { return "$" + formatComma(d); });
+        .tickFormat(function(d) { return formatComma(d); });
 
     // Define Innter Drawing Space
     var innerDrawingSpace = d3.select("#div2").append("svg")
@@ -34,17 +34,17 @@
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Get JSON Data
-    d3.json("citibike1.json", function(error, data) {
+    d3.json("citibike0.json", function(error, data) {
 
       // Add H1 Element With Actor Name
       d3.select("#div1").append("h1")
-          .text("Citibike Available Stations");
+          .text("Citibike Station Data: Available Bikes");
 
       // Set the X Scale Domain
-      xScale.domain(data.stationBeanList.map(function(d) { return d.id }));
+      xScale.domain(data.stationBeanList.map(function(d) { return d.stationName }));
 
       // Set the Y Scale Domain
-      yScale.domain([0, d3.max(data.movies, function(d) { return d.availableBikes; })]).nice();
+      yScale.domain([0, d3.max(data.stationBeanList, function(d) { return d.availableBikes; })]).nice();
 
       // Create the X Axis, Move it to the bottom and transform the axis text
       innerDrawingSpace.append("g")
@@ -68,7 +68,7 @@
           .data(data.stationBeanList)
         .enter().append("rect")
           .attr("class", "bar")
-          .attr("x", function(d) { return xScale(d.id);   })
+          .attr("x", function(d) { return xScale(d.stationName);   })
           .attr("y", function(d) { return yScale(d.availableBikes); })
           .attr("width", xScale.rangeBand())
           .attr("height", function(d) { return height - yScale(d.availableBikes); })
@@ -90,7 +90,7 @@
 
       //  Mouse Over Function
       function mouseOver(d) {
-        div.html("Station Name:<br />" + d.stationBeanList.stationName + " " + "<br />Status: " + d.stationBeanList.statusValue)
+        div.html("Total Docks:<br />" + "  " + d.stationData.totalDocks + "<br />Available Bikes: " + formatComma(d.availableBikes))
             .style("left" , (d3.event.pageX - 120) + "px")
             .style("top", (d3.event.pageY) + "px")
             .style("opacity", 1);
