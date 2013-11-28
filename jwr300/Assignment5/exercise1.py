@@ -25,6 +25,7 @@ params = {'axes.labelsize': 16,
 pylab.rcParams.update(params)
 
 #Creating Problem 1a Figure
+
 def Problem1a(df):
 
 	df['AAPL'].plot(marker='o',ms=8,ls='-')
@@ -104,4 +105,11 @@ def main():
 if __name__ == "__main__":
 	main()
 
+'''
+Annotations:
+To keep the plots clear I made sure to apply certain principles of data visualization. 
+The first principle is to make the data stand out using clear vision. I avoided clutter by making the line size and points small enough to not overlap. 
+I also used visual prominence to make the visually prominent graphical elements to show the data. I also scaled the lines and data rectangle. For superposed datasets 
+I made the symbols separate colors to easily view. 
+'''
 
