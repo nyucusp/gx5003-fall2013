@@ -5,7 +5,8 @@ import numpy as np
 import scipy
 import pandas as pd
 import matplotlib.mlab as mlab
-import matplotlib.ticker as ticker
+from  matplotlib.ticker import MultipleLocator
+from matplotlib.dates import YearLocator, MonthLocator, DateFormatter, date2num, num2date
 import pylab
 from datetime import timedelta
 from datetime import datetime
@@ -17,19 +18,30 @@ pylab.rcParams.update(params)
 
 actionsFile = pd.read_table('/Users/JSAdams/Downloads/Hw1data/actions-fall-2007.dat', sep = ',')
 actionsFile['timestamp'] = pd.to_datetime(actionsFile['timestamp'])
-actionsFile['timestamp'] = date2num(actionsFile['timestamp']
+actionsFile['timestamp'] = date2num(actionsFile['timestamp'])
 
 fig, ax = plt.subplots()
+
 ax.xaxis.set_major_locator(MonthLocator())
+ax.xaxis.set_major_formatter(DateFormatter('%B'))
 ax.yaxis.set_major_locator(MultipleLocator(2500))
+
+# Set limits
+xmin = pd.to_datetime('2007-09-02')
+xmax = pd.to_datetime('2007-12-20')
+ax.set_xlim(xmin, xmax)
+ax.set_ylim(1, 16000)
+
+h_lines = [5000, 10000, 15000]
+ax.hlines(h_lines, xmin, xmax, color='0.85', zorder=1, linestyle=':')
 
 datesDue = ['2007-09-18 12:00:00', '2007-09-18 12:00:00', '2007-10-04 12:00:00', '2007-10-25 12:00:00', '2007-11-27 12:00:00', '2007-12-15 12:00:00', '2007-12-11 12:00:00']
 datesDue = pd.to_datetime(datesDue)
 datesDue = date2num(datesDue)
 ax.vlines(datesDue, 0, 16000, color='0.35', zorder=10, linestyle='--', linewidth=1)
 
-labels = ["Assn." + str(x) + " " for x in range (0, 7)]
-labels[0] = labels[0] + ",\nAssn. 1"
+labels = ["Assignment " + str(x) for x in range (0, 7)]
+labels[0] = labels[0] + ",\nAssignment 1"
 counter = 0
 for date in datesDue:
     if counter != 1 and counter != 5:
@@ -41,9 +53,9 @@ base = str(num2date(actionsFile['timestamp'].min()))
 noon = ' 12:00:00+00:00'
 base = base.split(' ')[0] + noon
 base = date2num(pd.to_datetime(base))
-binList = [base + i for i in range(0,99)]
+binList = [ base + i for i in range(0,99) ]
 
-plt.hist(actionsFile['timestamp'], binList, histtype='stepfilled', color='gray', zorder=2, ec='none')
+plt.hist(actionsFile['timestamp'], binList, histtype='stepfilled', color='green', zorder=2, ec='none')
 
 t = ax.set_title('Actions, 2007.')
 t.set_y(1.03)
