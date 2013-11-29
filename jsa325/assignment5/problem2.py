@@ -32,6 +32,11 @@ xmax = pd.to_datetime('2007-12-20')
 ax.set_xlim(xmin, xmax)
 ax.set_ylim(1, 16000)
 
+ax.spines['top'].set_visible(False)
+ax.xaxis.set_ticks_position('bottom')
+ax.spines['right'].set_visible(False)
+ax.yaxis.set_ticks_position('left')
+
 h_lines = [5000, 10000, 15000]
 ax.hlines(h_lines, xmin, xmax, color='0.85', zorder=1, linestyle=':')
 
@@ -65,3 +70,17 @@ plt.subplots_adjust(left=.11, top=.9, right=.95, bottom=.13)
 plt.savefig('Problem 2.png')
 plt.show()
 plt.close()
+
+"""
+I chose bins for 24 hour periods from noon to noon since the due dates were
+all at noon.
+
+Assignments 3, 4, and 5 required more actions that assignments 1, 3, and 6.
+This could indicate that the former were more difficult than the latter.
+
+The number of actions is greatest on both sides of the deadline. For assign-
+ments 1, 4, 5, 6, the greatest number of actions were committed in the 24 hours
+before the due date; for assignments 2 and 3 the greatest number of actions
+were committed in the 24 hours after the due date.
+
+"""
