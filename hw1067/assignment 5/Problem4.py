@@ -16,7 +16,7 @@ data = genesfile[['A','C','D','B']]
 cool = pd.scatter_matrix(data, figsize = (8,8), diagonal = 'kde', color = 'k', alpha = 0.3)
 #cool.set_title('Genes correalted to Group A')
 
-#Fitting lines
+#Fitting lines are rearranged to show a fitting trend
 B_coefficients = polyfit(genesfile['B'],genesfile['A'],5)
 Bx_sort = sorted(genesfile['B'])
 By_values = polyval(B_coefficients, Bx_sort)
