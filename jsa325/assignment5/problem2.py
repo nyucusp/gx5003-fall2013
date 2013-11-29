@@ -15,69 +15,41 @@ params = {'axes.labelsize': 12, 'text.fontsize': 12, 'legend.fontsize': 12, 'xti
 
 pylab.rcParams.update(params)
 
-actionsFile = open('/Users/JSAdams/Downloads/Hw1data/actions-fall-2007.dat', 'r')
-r = mlab.csv2rec(actionsFile)
-ts = r.timestamp
-
-dt = timedelta(days=1)
-t = min(ts).date()
-endDate = max(ts).date()
-
-setDate = []
-while t < endDate:
-    setDate.append(t)
-    t += dt
-setDate = np.array(setDate)
-
-s = len(ts)
-dist = dict([(i,0) for i in setDate])
-b = dict([(1,2),(3,4)])
-
-for i in ts:
-    dist[i.date()]+=1
-for d in dist:
-    dist[d] = dist[d]
-actions = np.array(dist.values())
+actionsFile = pd.read_table('/Users/JSAdams/Downloads/Hw1data/actions-fall-2007.dat', sep = ',')
+actionsFile['timestamp'] = pd.to_datetime(actionsFile['timestamp'])
+actionsFile['timestamp'] = date2num(actionsFile['timestamp']
 
 fig, ax = plt.subplots()
+ax.xaxis.set_major_locator(MonthLocator())
+ax.yaxis.set_major_locator(MultipleLocator(2500))
 
-N = len(setDate)
-ind = np.arange(N)
+datesDue = ['2007-09-18 12:00:00', '2007-09-18 12:00:00', '2007-10-04 12:00:00', '2007-10-25 12:00:00', '2007-11-27 12:00:00', '2007-12-15 12:00:00', '2007-12-11 12:00:00']
+datesDue = pd.to_datetime(datesDue)
+datesDue = date2num(datesDue)
+ax.vlines(datesDue, 0, 16000, color='0.35', zorder=10, linestyle='--', linewidth=1)
 
-def dateFormat(x, pos=None):
-    thisind = np.clip(int(x+0.5), 0, N-1)
-    return setDate[thisind].strftime('%b %d')
+labels = ["Assn." + str(x) + " " for x in range (0, 7)]
+labels[0] = labels[0] + ",\nAssn. 1"
+counter = 0
+for date in datesDue:
+    if counter != 1 and counter != 5:
+        ax.text(date-1, 15500, labels[counter] + "\ndue", ha='right', va='top', multialignment='right', color='0.35', fontsize=10)
+    counter += 1
+ax.text(datesDue[5]+1, 15500, labels[5] + "\ndue", ha='left', va='top', color='0.35', fontsize=10)
 
-ax.bar(ind-0.5, actions, width=1.0, alpha=0.5)
-ax.xaxis.set_major_formatter(ticker.FuncFormatter(dateFormat))
-fig.autofmt_xdate()
+base = str(num2date(actionsFile['timestamp'].min()))
+noon = ' 12:00:00+00:00'
+base = base.split(' ')[0] + noon
+base = date2num(pd.to_datetime(base))
+binList = [base + i for i in range(0,99)]
 
-ax.set_xlim(ind[0]-5, ind[-1]+5)
+plt.hist(actionsFile['timestamp'], binList, histtype='stepfilled', color='gray', zorder=2, ec='none')
 
-strDue = ['2007-09-18 12:00:00','2007-10-04 12:00:00','2007-10-25 12:00:00','2007-11-27 12:00:00','2007-12-15 12:00:00','2007-12-11 12:00:00']
-from dateutil.parser import parse
-datesDue = np.array([parse(i, fuzzy=True) for i in strDue])
-
-posDue = []
-for j in datesDue:
-    for i in ind:
-        if setDate[i] == j.date():
-            posDue.append(i)
-
-ylim = ax.get_ylim()
-
-count = 0
-
-for d in posDue:
-    ax.plot([d,d],ylim,'--',color='red',alpha=0.5)
-    xyt = (d-10,10500+1500*math.sin(math.pi*count*0.5))
-    xy = (d,8000)
-    count += 1
-
-ax.set_xlabel('Date')
-ax.set_ylabel('Actions')
-fig.set_size_inches(9.60,4.80)
-figname = 'Problem2.png'
-plt.savefig(figname)
+t = ax.set_title('Actions, 2007.')
+t.set_y(1.03)
+ax.set_ylabel('Number of Actions')
+ax.set_xlabel('Due Dates')
+plt.subplots_adjust(left=.11, top=.9, right=.95, bottom=.13)
+plt.savefig('Problem 2.png')
 plt.show()
 plt.close()
