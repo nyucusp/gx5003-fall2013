@@ -14,21 +14,19 @@ pylab.rcParams.update(params)
 
 # Read data
 
-stocksFile = open('/Users/JSAdams/Downloads/Hw1data/stocks.dat', 'r')
-r = mlab.csv2rec(stocksFile)
-r.sort()
+stocksFile = pd.read_table('/Users/JSAdams/Downloads/Hw1data/stocks.dat', sep = ',')
+stocksFile['month'] = pd.to_datetime(stocksFile['month'])
 
 # 1a
 
 fig, ax = plt.subplots()
-ax.plot(r.month, r.apple, 'o-', alpha=0.5)
+ax.plot(stocksFile['month'], stocksFile['apple'], 'o-', alpha=0.5)
 fig.autofmt_xdate()
 plt.xlabel('Date')
 plt.ylabel('Stock Price (USD)')
 plt.title('Apple Stock Growth by Month')
-figname='Problem 1a.png'
-plt.savefig(figname)
-plt.show()
+plt.savefig('Problem 1a.png')
+# plt.show()
 plt.close()
 
 """
@@ -40,19 +38,18 @@ The axes, ticks, and labels are in black sans-serif font.
 # 1b
 
 fig, ax = plt.subplots()
-stockA=r.apple-r.apple[0]
-stockM=r.microsoft-r.microsoft[0]
-ax.plot(r.month, stockA, 'o-', label='Apple' ,alpha=0.5)
-ax.plot(r.month, stockM, 'o-', label='Microsoft' , alpha=0.5)
-ax.plot([r.month[0],r.month[-1]],[0,0],'--', color='red', label='Jan 2006')
+stockA = stocksFile['apple'].map(lambda x: x - 75.51)
+stockM = stocksFile['microsoft'].map(lambda x: x - 27.06)
+# plt.axhline(y=0, color='red')
+ax.plot(stocksFile['month'], stockA, 'o-', label='Apple', alpha=0.5)
+ax.plot(stocksFile['month'], stockM, 'o-', label='Microsoft', alpha=0.5)
 fig.autofmt_xdate()
 plt.xlabel('Date')
-plt.ylabel('Stock Price (USD)')
+plt.ylabel('Relative Stock Price (USD)')
 plt.title('Stock Growth')
-figname='Problem 1b.png'
 plt.legend(loc=0)
-plt.savefig(figname)
-plt.show()
+plt.savefig('Problem 1b.png')
+# plt.show()
 plt.close()
 
 """
@@ -67,34 +64,30 @@ driven by necessity.
 
 # 1c
 
-stockA = r.apple-r.apple[0]
-stockM = r.microsoft-r.microsoft[0]
-
 fig, (ax1,ax2) = plt.subplots(1,2,sharey=False)
 
 fig.autofmt_xdate()
 fig.set_size_inches(9.60,3.60)
 fig.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.8, hspace=None)
 
-ax1.plot(r.month, stockA, 'o-', color='blue', label='Apple', alpha=0.5)
-ax1.plot([r.month[0],r.month[-1]],[0,0],'--', color='red', label='Jan 2006')
+ax1.plot(stocksFile['month'], stockA, 'o-', color='blue', label='Apple', alpha=0.5)
+# plt.axhline(y=0, color='red')
 ax1.set_xlabel('Date')
-ax1.set_ylabel('Stock Price (USD)')
-ax1.set_title('Apple Stock Growth')
+ax1.set_ylabel('Relative Stock Price (USD)')
+ax1.set_title('Apple Stock Growth since Jan 2006')
 ax1.set_ylim(-50,150)
 ax1.legend(loc=2)
 
-ax2.plot(r.month, stockM, 'o-', color='green', label='Microsoft', alpha=0.5)
-ax2.plot([r.month[0],r.month[-1]],[0,0], '--', color='red', label='January 2006')
+ax2.plot(stocksFile['month'], stockM, 'o-', color='green', label='Microsoft', alpha=0.5)
+# plt.axhline(y=0, color='red')
 ax2.set_xlabel('Date')
-ax2.set_ylabel('Stock Price (USD)')
-ax2.set_title('Microsoft Stock Growth')
+ax2.set_ylabel('Relative Stock Price (USD)')
+ax2.set_title('Microsoft Stock Growth since Jan 2006')
 ax2.set_ylim(-10,30)
 
-figname='Problem 1c.png'
 plt.legend(loc=2)
-plt.savefig(figname)
-plt.show()
+plt.savefig('Problem 1c.png')
+# plt.show()
 plt.close()
 
 """
