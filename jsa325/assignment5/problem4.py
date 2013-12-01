@@ -1,15 +1,15 @@
 # Import packages
 
-import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
-import matplotlib.ticker as ticker
-import pylab
-import numpy as np
-from numpy import polyfit, polyval
-import scipy
 import pandas as pd
-from datetime import timedelta, datetime
-import math
+from scipy import *
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib import *
+import pylab
+from pylab import *
+from matplotlib.dates import MonthLocator, DateFormatter
+from pandas.tools.plotting import scatter_matrix
+from numpy import polyval, polyfit
 
 params = {'axes.labelsize': 10, 'text.fontsize': 10, 'legend.fontsize': 13, 'xtick.labelsize': 6, 'ytick.labelsize': 6, 'xtick.direction': 'out', 'text.usetex': True}
 
@@ -29,77 +29,48 @@ with open('/Users/JSadams/Downloads/Hw1data/genes.dat', 'r') as genesFile:
         geneD.append(float(line.strip().split(',')[3]))
     genesFile.close()
 
-# Part 1: plot correlations between the four genes
+dfGenes = pd.DataFrame({str(header[0]):geneA, str(header[1]):geneB, str(header[2]):geneC, str(header[3]):geneD})
+dfGenes = dfGenes.sort(['A','B','C','D'])
 
-plt.subplot(221)
-plt.plot(geneA, geneB,'or',alpha = 0.5)
-plt.xlabel('Gene A')
-plt.ylabel('Gene B')
-
-plt.subplot(222)
-plt.plot(geneA, geneC,'ob',alpha = 0.5)
-plt.xlabel('Gene A')
-plt.ylabel('Gene C')
-
-plt.subplot(223)
-plt.plot(geneA, geneD,'og',alpha = 0.5)
-plt.xlabel('Gene A')
-plt.ylabel('Gene D')
-
-figname = 'Problem 4a.png'
-# plt.show()
-plt.close()
-
-"""
-Visual analysis give the following in descending order of correlation to A: C, D, B.
-
-"""
+axes = scatter_matrix(dfGenes, alpha=0.3, figsize=(4, 4), diagonal='histogram')
 
 # Part 2: draw linear best fit line between A and C 
 
-(m,b) = polyfit(geneA, geneC, 1)
-# print(m)
-# print(b)
-fity = polyval([m,b], geneA)
-
-plt.plot(geneA, fity, '-', color = 'red', label = 'Linear Fit')
-plt.scatter(geneA, geneC)
-plt.xlabel('Gene A')
-plt.ylabel('Gene C')
-figname = 'Problem 4b.png'
-# plt.show()
-plt.close()
+y = polyfit(dfGenes['C'],dfGenes['A'],1)
+fity = polyval(y, dfGenes.sort(['C']))
+AC = axes[0,2]
+AC.plot(dfGenes.sort(['C']), fity, c='red', label='Linear Best Fit')
+AC.legend(loc='best', frameon=False, fontsize=3, numpoints=1)
+yticks(ha='right')
+xticks(ha='left')
 
 # Part 3: draw cubic best fit curve between A and D
 
-z = polyfit(geneA, geneD, 3)
-fitz = np.poly1d(z)
- 
-plt.plot(z, '-', color = 'red', label = 'Cubic Fit')
-plt.scatter(geneA, geneD)
-plt.xlabel('Gene A')
-plt.ylabel('Gene D')
-figname = 'Problem 4c.png'
-# plt.show()
-plt.close()
+z = polyfit(dfGenes['D'],dfGenes['A'],3)
+fitz = polyval(z, dfGenes.sort(['D']))
+AD = axes[0,3]
+AD.plot(dfGenes.sort(['D']), fitz, c='red', label='Best Cubic Fit')
+AD.legend(loc='best', frameon=False, fontsize=3, numpoints=1)
+yticks(ha='right')
+xticks(ha='left')
 
 # Part 4: draw degree-5 polynomial best fit curve between A and B
 
-p = polyfit(geneA, geneB, 5)
-fitp = np.poly1d(p)
-
-plt.plot(p, '-', color = 'red', label = 'Degree-5 Polynomial Fit')
-plt.scatter(geneA, geneB)
-plt.xlabel('Gene A')
-plt.ylabel('Gene B')
-figname = 'Problem 4c.png'
-# plt.show()
-plt.close()
+p = polyfit(dfGenes['B'],dfGenes['A'],5)
+fitp = polyval(p, dfGenes.sort(['B']))
+AB = axes[0,1]
+AB.plot(dfGenes.sort(['B']), fitp, c='red', label='Best 5-Degree Polynomial Fit')
+AB.legend(loc='best', frameon=False, fontsize=3, numpoints=1)
+yticks(ha='right')
+xticks(ha='left')
 
 # FINAL: create 4x4 matrix
 
-fig, axarr = plt.subplots(4, 4)
-fig.set_size_inches(8, 8.5)
-plt.subplots_adjust(top = 0.92)
-plt.suptitle('Gene Expressions', fontsize = 14)
-plt.savefig('Problem4.png')
+plt.suptitle('Expression of Genes A, B, C, D', fontsize=14)
+plt.savefig('Problem 4.png')
+plt.show()
+plt.close()
+
+"""                                                                                                      Visual analysis give the following in descending order of correlation to A: C, D, B.                     
+
+"""
