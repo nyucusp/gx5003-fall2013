@@ -29,10 +29,7 @@ params = {'axes.labelsize': 10,
 
 pylab.rcParams.update(params)
 
-'''
-Based on visual analysis, gene A is best correlated with C, 
-less correlated with D, and most likely not correlated with B.
-'''
+
 
 def main():
 	geneA = []
@@ -92,3 +89,9 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
+'''
+Annotations
+Based on visual analysis, gene A is best correlated with C, 
+less correlated with D, and most likely not correlated with B.
+'''
