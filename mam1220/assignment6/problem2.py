@@ -24,6 +24,7 @@ import matplotlib as mpl
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt 
 import numpy as np
+import math
 
 
 
@@ -54,8 +55,8 @@ def main():
 	# print unlabeledLen
 
 	# create individual matrix
-	labeledZip           = np.matrix( labeledMatrix[:,0] )
-	unlabeledZip         = np.matrix( unlabeledMatrix[:,0] )
+	labeledZip           = np.array( labeledMatrix[:,0] )
+	unlabeledZip         = np.array( unlabeledMatrix[:,0] )
 	labeledPop           = np.array( labeledMatrix[:,1] )
 	unlabeledPop         = np.array( unlabeledMatrix[:,1] )
 	labeled_numIncidents = np.array( labeledMatrix[:,2] )
@@ -65,48 +66,54 @@ def main():
 
 	# create matrix to pass to lastsq function
 	numOfOnes = 1
-	# X_nonlin_labeled   = np.concatenate( ( labeledZip.T, labeledPop.T, np.ones((matLen, numOfOnes)) ), axis=1 )
+	X_nonlin_labeled   = np.concatenate( ( np.matrix(labeledZip).T, np.matrix(labeledPop).T, np.ones((matLen, numOfOnes)) ), axis=1 )
 	# X_nonlin_Zip       = np.concatenate( ( labeledZip.T, np.ones((matLen, numOfOnes)) ), axis=1 )
 	# X_nonlin_Pop       = np.concatenate( ( np.ones((matLen, numOfOnes)), labeledPop.T ), axis=1 )
-	# X_nonlin_Pop       = np.concatenate( ( labeledPop.T,  np.ones((matLen, numOfOnes)) ), axis=1 )
-	# X_nonlin_unlabeled = np.concatenate( ( unlabeledZip.T, unlabeledPop.T, np.ones((unlabeledLen, numOfOnes)) ), axis=1 )
+	X_nonlin_Pop       = np.concatenate( ( np.matrix(labeledPop).T,  np.ones((matLen, numOfOnes)) ), axis=1 )
+	X_nonlin_unlabeled = np.concatenate( ( np.matrix(unlabeledZip).T, np.matrix(unlabeledPop).T, np.ones((unlabeledLen, numOfOnes)) ), axis=1 )
 
 	# get 1st order ols
-	# w_ols     = np.linalg.lstsq( X_nonlin_labeled, labeled_numIncidents.T )[0]
+	w_ols     = np.linalg.lstsq( X_nonlin_labeled, labeled_numIncidents.T )[0]
 	# w_ols_Zip = np.linalg.lstsq( X_nonlin_Zip, labeled_numIncidents.T )[0]
-	# w_ols_Pop = np.linalg.lstsq( X_nonlin_Pop, labeled_numIncidents.T )[0]
+	w_ols_Pop = np.linalg.lstsq( X_nonlin_Pop, labeled_numIncidents.T )[0]
 	
 	# print w_ols
 	# print w_ols_Pop
 	# print "OLS for labeled data is " + str(w_ols[0])+", "+str(w_ols[1])+", "+str(w_ols[2])
 
 	# create t_hat sets
-	# t_hat_labeled   = X_nonlin_labeled.dot(w_ols)
+	t_hat_labeled   = X_nonlin_labeled.dot(w_ols)
 	# t_hat_Zip       = X_nonlin_Zip.dot(w_ols_Zip)
-	# t_hat_Pop       = X_nonlin_Pop.dot(w_ols_Pop)
+	# t_hat_pop       = X_nonlin_Pop.dot(w_ols_Pop)
 	# t_hat_unlabeled = X_nonlin_unlabeled.dot( w_ols )
-
+	# print t_hat_pop1.shape
 
 
 	# 1st order linear regression of population
-	# order1_pop = labeledPop.T*w_ols_Pop[0]+w_ols_Pop[1]
-	# print order1_pop
+	t_hat_pop1 = labeledPop.T*w_ols_Pop[0]+w_ols_Pop[1]
+	# print t_hat_pop1
 	
-	print type(labeledPop)
-	print labeledPop
+
+	# print labeledPop
 
 	# get 2nd order regression of pop
-	numOfOnes    = 5
-	# X_nonlin_Pop = np.concatenate( ( labeledPop.T,  np.ones(matLen) ), axis=1 )
-	# w_pop        = np.linalg.lstsq( X_nonlin_Pop, labeled_numIncidents.T )[0]
-	# print w_pop
-	# order2_pop   = labeledPop.T**2*w_pop[0] + labeledPop.T*w_pop[1] + w_pop[2]
-	# print labeledPop.T
-	# order2_pop   = np.power( labeledPop.T, 2 )*w_pop[2] + labeledPop.T*w_pop[1] + w_pop[0] 
-	# labeledPop2 = np.array( labeledPop[0,0] )
-	# labeled_numIncidents = np.array( labeled_numIncidents[0] )
-	order2_pop   = np.poly1d( np.polyfit(labeledPop, labeled_numIncidents, numOfOnes ) )
-	# print order2_pop
+	fitDegree = 2
+	t_hat_pop2   = np.poly1d( np.polyfit(labeledPop, labeled_numIncidents, fitDegree ) )
+	# print t_hat_pop2
+
+	# find the RMSE for 1st order
+	print type(labeled_numIncidents)
+	print type(t_hat_pop1)
+	rmse_1 = math.sqrt( np.sum( (labeled_numIncidents - t_hat_pop1)**2 ) / labeled_numIncidents.size )
+	print rmse_1
+
+	# find the R^2
+	t_mean = np.sum( labeled_numIncidents ) / labeled_numIncidents.size
+	print t_mean
+	top = np.sum( (labeled_numIncidents - t_hat_pop1)**2 )
+	bottom = np.sum( ( labeled_numIncidents - t_mean )**2 )
+	r2_1 = 1 - ( top / bottom )
+	print r2_1
 
 
 	#### PLOTTING ####
@@ -130,8 +137,8 @@ def main():
 	fig, ax = plt.subplots(1,1, figsize=[10,10], sharey=True )	
 	# 1. pop X num_incidents
 	ax.plot(labeledPop, labeled_numIncidents, 'k.')
-	# ax.plot(labeledPop.T, order1_pop, 'r')
-	ax.plot(regInput, order2_pop(regInput), 'b')
+	ax.plot(labeledPop.T, t_hat_pop1.T, 'r')
+	ax.plot(regInput, t_hat_pop2(regInput), 'b')
 	# format plot
 	marginRatio = 0.05
 	axX_min = round( populationMin - populationRange*marginRatio )
