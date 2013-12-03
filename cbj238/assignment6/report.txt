@@ -1,0 +1,11 @@
+Report for Assigment 6
+Christopher Jacoby
+gx5003 - Principles of Urban Informatics
+
+a. From plotting the data, with population vs the number of incidents,
+it is clear that the data could be represented linearly. There are two observable features that could
+interfere with this, however:
+    1) as the poplation increases, the standard deviation also seems to increase
+    2) There are a significant amount of near-zero values that do not correspond to the line produced.
+
+
