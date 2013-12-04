@@ -35,11 +35,11 @@ def main():
 	# IMPORT THAT DATA
 	fileName = open('ML1Dataset/labeled_data.csv', 'r')
 	# 	labeledData = zipcode, population, num_incidents 
-	labeledMatrix = np.loadtxt( fileName, delimiter=',', dtype='int32')
+	labeledMatrix = np.loadtxt( fileName, delimiter=',', dtype='longlong')
 	
 	fileName = open('ML1Dataset/unlabeled_data.csv', 'r')
 	# 	unlabeledData = [ zipcode, population ]
-	unlabeledMatrix = np.loadtxt( fileName, delimiter=',', dtype='int32')
+	unlabeledMatrix = np.loadtxt( fileName, delimiter=',', dtype='longlong')
 
 
 	# concat values for full arrays
@@ -55,16 +55,16 @@ def main():
 	# print unlabeledLen
 
 	# create individual matrix
-	labeledZip           = np.array( labeledMatrix[:,0] )
-	unlabeledZip         = np.array( unlabeledMatrix[:,0] )
-	labeledPop           = np.array( labeledMatrix[:,1] )
-	unlabeledPop         = np.array( unlabeledMatrix[:,1] )
-	labeled_numIncidents = np.array( labeledMatrix[:,2] )
+	labeledZip           = np.array( labeledMatrix[:,0], dtype='longlong' )
+	unlabeledZip         = np.array( unlabeledMatrix[:,0], dtype='longlong' )
+	labeledPop           = np.array( labeledMatrix[:,1], dtype='longlong' )
+	unlabeledPop         = np.array( unlabeledMatrix[:,1], dtype='longlong' )
+	labeled_numIncidents = np.array( labeledMatrix[:,2], dtype='longlong' )
 	# print labeledZip
 	# print labeledPop
 	# print labeled_numIncidents
 
-	# create matrix to pass to lastsq function
+	# create matrix to pass to leastsq function
 	numOfOnes = 1
 	X_nonlin_labeled   = np.concatenate( ( np.matrix(labeledZip).T, np.matrix(labeledPop).T, np.ones((matLen, numOfOnes)) ), axis=1 )
 	# X_nonlin_Zip       = np.concatenate( ( labeledZip.T, np.ones((matLen, numOfOnes)) ), axis=1 )
@@ -72,11 +72,47 @@ def main():
 	X_nonlin_Pop       = np.concatenate( ( np.matrix(labeledPop).T,  np.ones((matLen, numOfOnes)) ), axis=1 )
 	X_nonlin_unlabeled = np.concatenate( ( np.matrix(unlabeledZip).T, np.matrix(unlabeledPop).T, np.ones((unlabeledLen, numOfOnes)) ), axis=1 )
 
+	
 	# get 1st order ols
 	w_ols     = np.linalg.lstsq( X_nonlin_labeled, labeled_numIncidents.T )[0]
 	# w_ols_Zip = np.linalg.lstsq( X_nonlin_Zip, labeled_numIncidents.T )[0]
 	w_ols_Pop = np.linalg.lstsq( X_nonlin_Pop, labeled_numIncidents.T )[0]
 	
+
+
+	# X_nonlin1 = np.concatenate(( x1**2, x2**2, x1, x2, np.ones((100,1))),axis=1) #Add ones for the intercept and combine everything into X_nonlin=[ones X \Phi(X)] (dim=100x3)
+	X_nonlin_2   = np.concatenate( ( np.matrix(labeledZip**2).T, np.matrix(labeledPop**2).T, np.matrix(labeledZip).T, np.matrix(labeledPop).T, np.ones((matLen, numOfOnes)) ), axis=1 )
+	# w_ols2 = np.linalg.lstsq(X_nonlin1,t)[0] # obtaining the parameters by fitting a hyper-plane in this expanded space
+	w_ols2 = np.linalg.lstsq(X_nonlin_2, labeled_numIncidents)[0]
+	print w_ols2
+	# t_hat1 = w_ols2[4] + x2.T*w_ols2[3] + x1.T*w_ols2[2] + x2.T**2*w_ols2[1] + x1.T**2*w_ols2[0]
+	t_hat2 = w_ols2[4] + labeledPop.T*w_ols2[3] + labeledZip.T*w_ols2[2] + labeledPop.T**2*w_ols2[1] + labeledZip.T**2*w_ols2[0]
+	
+
+	X_nonlin_3   = np.concatenate( ( np.matrix(labeledZip**3).T, np.matrix(labeledPop**3).T, np.matrix(labeledZip**2).T, np.matrix(labeledPop**2).T, np.matrix(labeledZip).T, np.matrix(labeledPop).T, np.ones((matLen, numOfOnes)) ), axis=1 )
+	
+	w_ols3 = np.linalg.lstsq(X_nonlin_3, labeled_numIncidents)[0]
+	print w_ols3
+	
+	t_hat3 = w_ols3[6] + labeledPop.T*w_ols3[5] + labeledZip.T*w_ols3[4] + labeledPop.T**2*w_ols3[3] + labeledZip.T**2*w_ols3[2] + labeledPop.T**3*w_ols3[1] + labeledZip.T**3*w_ols3[0]
+	print t_hat3
+	print t_hat3.shape
+
+	labeledPop.T**3
+	labeledZip.T**3
+
+
+
+
+
+
+
+
+
+
+
+	
+
 	# print w_ols
 	# print w_ols_Pop
 	# print "OLS for labeled data is " + str(w_ols[0])+", "+str(w_ols[1])+", "+str(w_ols[2])
@@ -102,18 +138,18 @@ def main():
 	# print t_hat_pop2
 
 	# find the RMSE for 1st order
-	print type(labeled_numIncidents)
-	print type(t_hat_pop1)
+	# print type(labeled_numIncidents)
+	# print type(t_hat_pop1)
 	rmse_1 = math.sqrt( np.sum( (labeled_numIncidents - t_hat_pop1)**2 ) / labeled_numIncidents.size )
-	print rmse_1
+	# print rmse_1
 
 	# find the R^2
 	t_mean = np.sum( labeled_numIncidents ) / labeled_numIncidents.size
-	print t_mean
+	# print t_mean
 	top = np.sum( (labeled_numIncidents - t_hat_pop1)**2 )
 	bottom = np.sum( ( labeled_numIncidents - t_mean )**2 )
 	r2_1 = 1 - ( top / bottom )
-	print r2_1
+	# print r2_1
 
 
 	#### PLOTTING ####
@@ -138,6 +174,9 @@ def main():
 	# 1. pop X num_incidents
 	ax.plot(labeledPop, labeled_numIncidents, 'k.')
 	ax.plot(labeledPop.T, t_hat_pop1.T, 'r')
+	
+	ax.plot(labeledPop.T, t_hat3.T, 'g.')
+
 	ax.plot(regInput, t_hat_pop2(regInput), 'b')
 	# format plot
 	marginRatio = 0.05
@@ -211,19 +250,20 @@ def main():
 
 
 	
-	# # create arrays for 3d plottings (matrix wont work???)
-	# labeled_NI_npArr      = np.array(labeled_numIncidents)
-	# t_hat_npArr           = np.array(t_hat_labeled)
+	# create arrays for 3d plottings (matrix wont work???)
+	labeled_NI_npArr      = np.array(labeled_numIncidents)
+	t_hat_npArr           = np.array(t_hat_labeled)
 	# t_hat_unlabeled_npArr = np.array(t_hat_unlabeled)
 
-	# fig = plt.figure()
-	# ax = fig.gca(projection='3d')
-	# ax.scatter(labeledZip, labeledPop, labeled_NI_npArr, c='k', marker='.')
-	# ax.scatter(labeledZip, labeledPop, t_hat_npArr, c='r', marker='+')
+	fig = plt.figure()
+	ax = fig.gca(projection='3d')
+	ax.scatter(labeledZip, labeledPop, labeled_NI_npArr, c='k', marker='.')
+	ax.scatter(labeledZip, labeledPop, t_hat_npArr, c='r', marker='x')
+	ax.scatter(labeledZip, labeledPop, t_hat3, c='g', marker='+') 
 	# ax.scatter(unlabeledZip, unlabeledPop, t_hat_unlabeled_npArr, c='b', marker='+')
-	# ax.set_xlabel('Zipcode')
-	# ax.set_ylabel('Popultion')
-	# ax.set_zlabel('Number of Incidents')
+	ax.set_xlabel('Zipcode')
+	ax.set_ylabel('Popultion')
+	ax.set_zlabel('Number of Incidents')
 	
 	# show both plots
 	plt.show()
