@@ -1,0 +1,6 @@
+
+When you plot the number of incidents by the population, there seems to be a linear relationship between the points closer in areas where population is below 50,000 people. Once the population reaches greater than 50,000 the mostly linear realationship with the number of incidents and population size to become scattered. 
+
+Some aspects of the data that I notice are that there seems to be a lot of zero values that exist in the Incidents data. There are also areas that have zero population and it looks like there is one area that has zero population but some incidents. I assume that this point may be a park.
+
+Clearning the data will depend on splitting the data into (number of incidents == 0) and (number of incidents > 0) and for this analysis. Future analysis can include what makes the areas with population > 0 and number of incidents == 0.

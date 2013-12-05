@@ -1,7 +1,7 @@
 #Aliya Merali
 #Urban Informatics
 #Assignment 6
-#Part A - Plot the data and reason about any phenomena of interest you see
+#Part A
 
 import csv
 import matplotlib.pyplot as plt
@@ -26,7 +26,7 @@ zips = [int(float(val)) for val in zips]
 pop = [int(float(val)) for val in pop]
 num_inc = [int(float(val)) for val in num_inc]
 
-#__Create dictionary for incidents by zip code to add multiple logs for the same zip code and be able to sort
+#__Create dictionary for incidents by zip code to be able to sort
 zips_dict = {}
 i = 0
 while i < len(zips):
@@ -57,16 +57,3 @@ plt.xticks(np.arange(1,len(zips),10),zip_ticks, rotation=40)
 plt.xlabel('NYC Zip Code')
 plt.ylabel('Number of 311 Incidents')
 plt.show()
-
-#_____Observed Phenomena
-"""
-From the graph of population vs. number of incidents, you can clearly see that 
-a general linear trend exists between increasing population and increasing number of 
-311 incidents. So, in a predictive model, the more people in a region, the 
-more complaints are received. 
-
-The bar chart of number of incidents in each zip code demonstrates that certain
-zip codes have higher reports, and so in a predictive model, they are likely to
-again have a relatively higher number of incidents. 
-
-"""
