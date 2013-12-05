@@ -9,3 +9,18 @@ interfere with this, however:
     2) There are a significant amount of near-zero values that do not correspond to the line produced.
 
 
+b. I allow the cross-validations to choose the mode based on the results of the RSME and R^2s.
+    I use the argmin of the RMSE's for each fold chose, and the argmax of the R^2s, and then
+    take the mode of these across all of the fold runs. So far this has returned orders of 1 and 4
+    for the conclusions, with it tending towards 1, but occasionally returning 4. There is a noticable
+    decrease/increase in the RMSE/R^2 at order 4 for these models, and there are frequent occurences
+    of 4s for individual sets of folds, but on most runs, the mode of the results still gives an order 1
+    model for the results.
+
+c. The RMSE for the whole dataset lines up nicely with the average RMSE from the model that was
+    selected. (Over several runs, however, order 4 was selected serveral times; it still corresponded
+    well with that, although in general there were more order 1's.). The standard deviations for the
+    chosen order fit nicely around the RMSE for the whole dataset, and tend not to include it so well
+    for the other orders. Order 5 is always way higher in RMSE than every other one.
+
+

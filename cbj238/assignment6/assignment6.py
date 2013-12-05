@@ -8,6 +8,7 @@ import numpy as np
 from pylab import *
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from scipy.stats import mode
 
 LABELLED_DATA = "labeled_data.csv"
 UNLABELLED_DATA = "unlabeled_data.csv"
@@ -163,51 +164,114 @@ def part_b(crossval_folds):
      1 to 5th order (e.g. for second order t ~ w_0 + w_1*x1 + w2*x^2)
       and select a model complexity (polynomial order) based on these scores.
     """
-    fig, ax = plt.subplots(5, 2, sharex=True, sharey=True)
+    print "Part B."
+    fig, ax = plt.subplots(1, 2)
     draw_colors = ['r','g','b','c','m']
 
     rmse_scores = []
     rsquared_scores = []
+    all_models = []
+    rmse_bests = []
+    rsquared_bests = []
     # for each fold, get data, leaving the other folds out.
     for index in xrange(len(crossval_folds)):
         if DEBUG:
             print "Fold: ", index
 
-        x_ind = index / 2
-        y_ind = index % 2
-        curr_ax = ax[x_ind, y_ind]
-
         training_set, test_set = get_train_test_sets(crossval_folds, index)
-        curr_ax.plot(training_set[:, 1], training_set[:, 2], 'ko', color='black')
-        curr_ax.plot(test_set[:, 1], test_set[:, 2], 'kx', color='black')
 
         # calculate the scores for each order
         order_rmse = []
         order_rsquared = []
+        order_models = []
         for order in xrange(1, 6):
             model = generate_model(training_set, order)
             rmse, rsquared = evaluate_model(training_set[:, 1], model)
-            print "\tOrder: %d | RMSE: %.2e | R^2: %.2f" % (order, rmse, rsquared)
             order_rmse.append(rmse)
             order_rsquared.append(rsquared)
-            curr_ax.plot(training_set[:, 1], model, '--', color=draw_colors[order-1])
-        print "\tMin RMSE: {0}\tMax R^2: {1}".format(argmin(order_rmse) + 1, argmax(order_rsquared) + 1)
+            order_models.append(model)
 
-        curr_ax.grid(True)
-        curr_ax.margins(.02, .02)
-        curr_ax.set_title("")
+            if DEBUG:
+                print "\tOrder: %d | RMSE: %.2e | R^2: %.2f" % (order, rmse, rsquared)
 
-    fig.tight_layout()
+        rmse_scores.append( order_rmse )
+        rsquared_scores.append( order_rsquared )
+        rmse_bests.append( argmin(order_rmse))
+        rsquared_bests.append( argmax(order_rsquared))
+        if DEBUG:
+            print "\tMin RMSE: {0}\tMax R^2: {1}".format(rmse_bests[-1] + 1, rsquared_bests[-1] + 1)
+
+        ax[0].plot(range(1,6), order_rmse, '-')
+        ax[1].plot(range(1,6), order_rsquared, '-')
+
+    rmse_order_mode = mode(rmse_bests)[0] + 1
+    rsquared_order_mode = mode(rsquared_bests)[0] + 1
+    if DEBUG:
+        print "Selected Model: {0} from RMSE, {1} from R^2".format( rmse_order_mode, rsquared_order_mode)
+    selected_order = rmse_order_mode[0]
+    if not (len(rmse_order_mode) == 1 and len(rsquared_order_mode) == 1 and rmse_order_mode == rsquared_order_mode):
+        """Okay, I could probably make this smarter. Placeholder for now. Also,
+        I haven't yet observed a case where any of those conditions were true.
+
+        And so, I chose the 'minimum' order if they were different, under the
+        assumption that lower orders are better."""
+        selected_order = min(rmse_order_mode, rsquared_order_mode)
+    print "Model Order Decided:", selected_order
+
+    ax[0].set_xticks(range(6))
+    ax[1].set_xticks(range(6))
+    ax[0].grid(True)
+    ax[1].grid(True)
+    ax[0].margins(.02, .02)
+    ax[1].margins(.02, .02)
+    ax[0].set_title("RMSE Score per Fold")
+    ax[1].set_title("R^2 Score per Fold")
+    ax[0].set_xlabel('Order')
+    ax[1].set_xlabel('Order')
+
+    # fig.tight_layout()
     fig.patch.set_facecolor('white')
-    # plt.show()
+    plt.show()
+
+    return selected_order, rmse_scores
 
 
-def part_c():
+def part_c(data, order, rmse_scores):
     """ Compute the RMSE on the whole training set (all your data) and plot it
      against the 10-fold CV average (with std error-bars) as a function of model
      complexity (y-axis RMSE, x-axis order of polynomial). What do you observe?.
     """
-    pass
+    print "Part c"
+    model = generate_model(data, order)
+    rmse, rsquared = evaluate_model(data[:, 1], model)
+
+    arr_rmse_scores = np.array(rmse_scores)
+    mean_rmse = np.average(arr_rmse_scores, axis=0)
+    std_rmse = np.std(arr_rmse_scores, axis=0)
+
+    # print order, rmse
+    # print mean_rmse, std_rmse
+    ind = np.arange(arr_rmse_scores.shape[1]) + 1
+    width = .35
+
+    fig, ax = plt.subplots()
+
+    ax.bar(ind, mean_rmse, width, color='r', yerr=std_rmse, ecolor='b')
+    ax.axhline(rmse, color='g')
+    ax.text(0.4, rmse+5000, "RMSE for whole set") #, rotation='vertical', verticalalignment='bottom'
+    ax.arrow(0.4, rmse+5000, 0, -5000)
+
+    ax.grid(True)
+    ax.margins(0.2, 0)
+    ax.set_title("RMSE for order, with RMSE across all data overlaid")
+    ax.set_xlabel('Order')
+    ax.set_ylabel('RMSE')
+    ax.set_ylim(mean_rmse.min() * .8, mean_rmse.max() * 1.1)
+    plt.xticks(ind+width/2, ind)
+
+    fig.patch.set_facecolor('white')
+    plt.show()
+
 
 def part_d():
     """ Build your final OLS model (you can use as many predictor
@@ -226,22 +290,20 @@ def main():
     DEBUG = args.debug
 
     ld, uld = get_data()
-    all_data = np.concatenate([ld[1][:, 0:2], uld[1]])
     ten_fold_data = get_10_fold_cross_validated_sets_from_data(ld[1])
 
     if DEBUG:
         print "Labelled Data - Fields: {0}\nLength: {1}".format(ld[0], len(ld[1]))
         print "\nUnlabelled Data - Fields: {0}\nLength: {1}".format(uld[0], len(uld[1]))
-        print "\nAll Data - Length: {0}".format(len(all_data))
 
     if not args.run or args.run == "a":
         part_a(ld)
 
-    if not args.run or args.run == "b":
-        part_b(ten_fold_data)
+    if not args.run or args.run == "b" or args.run=="c":
+        selected_order, rmse_scores = part_b(ten_fold_data)
 
-    if not args.run or args.run == "c":
-        part_c()
+        if not args.run or args.run == "c":
+            part_c(ld[1], selected_order, rmse_scores)
 
     if not args.run or args.run == "d":
         part_d()
