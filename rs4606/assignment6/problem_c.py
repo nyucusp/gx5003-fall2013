@@ -24,7 +24,7 @@ RMSE_scaled_stdevs = RMSE_list_with_cv_stdev*((RMSE_list_with_cv - temp_list)/RM
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 ind = numpy.arange(5)    # the x locations for the groups
-width = 0.35       # the width of the bars: can also be len(x) sequence
+width = 0.35       
 
 p1 = plt.bar(ind, RMSE_list_with_cv,   width, color='b', yerr=RMSE_scaled_stdevs, ecolor='r')
 p2 = plt.bar(ind, RMSE_list_without_cv, width, color='y')
