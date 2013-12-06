@@ -51,6 +51,7 @@ fitz = polyval(z, dfGenes.sort(['D']))
 AD = axes[0,3]
 AD.plot(dfGenes.sort(['D']), fitz, c='red', label='Best Cubic Fit')
 AD.legend(loc='best', frameon=False, fontsize=3, numpoints=1)
+# plt.subplots_adjust(left=0.16, bottom=0.16, right=None, top=None, wspace=0.14, hspace=0.14)
 yticks(ha='right')
 xticks(ha='left')
 
