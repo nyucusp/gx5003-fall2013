@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# <nbformat>3.0</nbformat>
+# Assignment1, Problem1, Haozhe Wang
 
 # <codecell>
 
