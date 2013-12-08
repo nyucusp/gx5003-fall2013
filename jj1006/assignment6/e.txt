@@ -1,5 +1,7 @@
 Predictions are listed in d.
 
+We can formulate an expected RMSE based on the 10-fold cross validation score predicted in c. In this case, with our 3rd degree polynomial we expect an RMSE of~ 13231.2
+
 It is tempting to make a model including other information, such as zip code. However, in this case we have no way of validating any relationship between zip code and number of incidents because we only have one data point per zip code (and it is not reasonable to expect a linearizable relationship between zip code and number of incidents). If we had more time, it would be interesting to collect data on the number of incidents per zip code over several years--this would allow one to establish whether some zip codes are intrinsically safer or not regardless of population size.
 
 With more time and thought, it is also likely we could come up with a more plausible model than a cubic polynomial. We should either be able to explain using some sort of mechanistic model why a cubic polynomial is best (perhaps there is some sort of feedback loop in which it can be proved that number of incidents should go up as a cubic function of population) or derive a more appropriate equation (which may or may not be a polynomial).
