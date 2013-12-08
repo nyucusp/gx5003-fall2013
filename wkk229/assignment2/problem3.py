@@ -3,8 +3,9 @@
 #from numberOf import numberOf
 from decimal import *
 import csv
-from number import numberOf
-from collections import counter
+#from collections import orderedDict 
+#from numberOf import numberOf
+#from collections import counter
 
 #calculate number of accidents / create dictionaries fo ach file
 #end product is:each line the name of borough and the calculated ratio 
@@ -17,16 +18,16 @@ code=csv.reader(open('zipCodes.csv'),delimiter=',')
 bor= csv.reader(open('boroughs.csv'),delimiter=',')
 zipIncident= csv.reader(open('Incidents.csv'),delimiter=',')
 zipIncident.next () #so as to skip the header because you want to start from second colomn
-cities = [row[1] for row in zipIncident] #calculating how many times zip occurs
+#cities = [row[1] for row in zipIncident] #calculating how many times zip occurs
 freq=[]
 
-for (x,y) in counter (cities).iteritems():
-	freq.append((x,y))
-zip_pop= [] #list of zip codes by population
+for row in zipIncident:
+	freq.append(row[1])
+zip_pop=[] #list of zip codes by population
 code.next()
-
 for row in code:
 	zip_pop.append ((row[1],row[10]))
+
 zip_boroughs=[] #list of boroughs and zipcodes
 bor.next()
 

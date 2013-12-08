@@ -2,6 +2,23 @@
 Author: Christopher B. Jacoby
 date: 2013/11/21
 gx5003 HW5 - Assignment 5 Problem 2
+
+Annotations:
+(a) I chose the bins to be days, starting from the first day in the actions.
+    Days give a small enough resolution to see information, but not so
+    tiny as to be unreadable. A finer resolution was too fine to read, and
+    a larger resolution didn't provide enough information, especially
+    since there are significant changes from one day to the next around
+    the assignment deadlines.
+(b) The 0th, first, and second assignments clearly took signifcantly less work
+    than the others. Assigment 3 and 6 had by far the most, although
+    it is difficult to tell how much of hte work around assignment 6
+    is actually from assignment 6 and how much is from assignment 5.
+    5 seems like it might not have had quite as much work.
+(c) Quite obviously (and not surprisingly), most of the work is done on the
+    day before and after the deadline. It looks like there is a general trend
+    over the semester where more work is done before the due date
+    early in the semester, and gradually less near the end of the semester.
 """
 
 from readdat import ActionFileReader
@@ -83,21 +100,10 @@ def main():
     grid_bb = ax.get_position()
     ax.set_position([grid_bb.x0, grid_bb.y0 + grid_bb.height * .1, grid_bb.width, grid_bb.height * .9])
 
+    # fig.tight_layout()
     fig.patch.set_facecolor('white')
+    fig.savefig('problem2.png')
     plt.show()
-
-    # print "Reading file and computing distances"
-    # Get distances from each deadline to each point.
-    # deadline_distances = get_distances(afr)
-
-    # int(x['0'].seconds/3600)
-    # for key in deadlines.keys():
-    #     print key, deadlines[key],
-    #     dates_form_deadline = np.array([ x[key].days for x in deadline_distances if x[key].days > -3])
-
-    #     hist = np.histogram(dates_form_deadline)
-    #     print hist
-
 
 if __name__ == "__main__":
     main()
