@@ -217,7 +217,6 @@ width = 0.5
 plt.bar(order, scoresRMSE, width, color='gray')
 plt.bar(order, allRMSE, width, color='g')
 plt.xticks(order+width/2., ('1','2','3','4','5'))
-# plt.errorbar(yerr=scoresRMSE_std, xerr=None, fmt='|')
 
 # Format, add labels and guiding lines
 
@@ -231,6 +230,7 @@ plt.show()
 plt.savefig('Plot c1 – RMSE v. Model Complexity.png')
 plt.clf()
 
+# TO DO: add error bars and legend to Plot c1
 
 """
 Part d: build final RSQ model
