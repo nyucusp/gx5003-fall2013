@@ -28,7 +28,7 @@ listLZip = []
 listLPopulation = []
 listLIncidents = []
 
-for i in range(1,len(linesLData)):
+for i in range(0,len(linesLData)):
     listLZip.append(float(linesLData[i].split(',')[0]))
     listLPopulation.append(float(linesLData[i].split(',')[1]))
     listLIncidents.append(float(linesLData[i].split(',')[2]))
@@ -110,73 +110,72 @@ ax.set_title('Distribution of Population')
 plt.savefig('Plot a3 — Distribution of Population.png')
 plt.clf()
 
-"""
-Part b: cross-validation, select model complexity based on RMSE and OLS scores for 1–5th order polynomial models
+# TO DO: visually analyze plots
+# TO DO: additional plots
 
 """
+Part b: cross-validation, select model complexity based on RMSE and RSQ scores for 1–5th order polynomial models
 
-# Initialize target and training sets
+"""
 
-def kfolds(numberFolds, listTrain, listTest):
-    numberFolds = numberFolds
-    sizeCrossValidation = len(listTrain)/numberFolds
+# Import packages
+
+from sklearn import cross_validation, linear_model, datasets
+from random import shuffle
+
+# Read data into train and target variables
+
+variableTrain = []
+variableTarget = []
+
+for i in range(1,len(linesLData)):
+    variableTrain.append(float(linesLData[i].split(',')[1]))
+    variableTarget.append(float(linesLData[i].split(',')[2]))
+
+# Initialize RMSE and RSQ models and lists, and define cross-validation function
+
+cv = cross_validaion.KFold(len(variableTarget), n_folds=10, shuffle=True)
+arrayTrain = np.array(variableTrain)
+arrayTarget = np.array(variableTarget)
+
+scoresRMSE = []
+scoresRSQ = []
+
+# Initialize lists to hold RMSE and RSQ values for 1–5th order polynomail models
+
+for i in range(1,6):
+    listRMSE = []
+    listRSQ = []
     
-    arrayTarget = []
-    arrayTrain = []
+    # Fit polynomail of order i to training set 
+       
+    for train, test in cv:
+        polyTrain = np.polyfit(arrayTrain[train], arrayTarget[train], i)
+        polyTest = np.polyval(polyTrain, arrayTrain[test])
     
-    for x in range(numberFolds):
-        data = zip(listTest, listTrain)
-        boundLower = sizeCrossValidation * x
-        boundUpper = sizeCrossValidation * (x + 1)
+        # Compute RMSE for folds and models, save values to listRSME
         
-        setTarget = data[boundLower:boundUpper]
-        arrayTarget.append(setTarget)
+        RMSE = (((polyTest - arrayTarget[test]) ** 2).mean(axis=None)) ** .5
+        listRMSE.append(RMSE)
         
-        setTrain = data[:boundLower]
-        setTrain.extend(data[boundUpper])
-        arrayTrain.append(setTrain)
+        # Compute RSQ for folds and models, save values to listRSQ
         
-    return numberFolds, sizeCrossValidation, arrayValidate, arrayTrain
-
-# Define functions to calculate RMSE and RSQ scores
-
-def calculateRMSE(x, y, xTarget=None, yTarget=None, degree=0, computeRSQ=True)
-
-    if xTarget==None:
-        xTarget = x
-        yTarget = y
-
-    # Fit to training set
-
-    coefFit = np.polyfit(x, y, degree)    
-    
-    # Compute residuals on validation set
-
-    residualsRSQ = sum((yTarget - np.polyval(coefFit, xTarget))**2)
-
-    # Compute RMSE and RSQ scores from validation set on training regression
-
-    RMSE = residualsRSQ/len(xTarget)
-    RSQ = RMSE**(0.5)
-
-    # Define function to calculate RMSE scores for 1–5th order polynomial models
-
-    if computeRSQ:
-        averageTarget = sum(yTarget/len(yTarget))
-        for yi in yTarget:
-            listSquares = (yi - averageTarget)**2
-        sumSquares = sum(listSquares)
-        RSQ = 1 - (residualsRSQ/sumSquares)
-    else:
-        RSQ = 0
-
-    # Compute RMSE and RSQ scores for models
+        listAverage = []
+        
+        for j in range(0, len(arrayTarget[test])):
+            averageTest = sum(arrayTarget[test])/len(arrayTarget[test])
+            listAverage.append(averageTest)
+        
+        residuals = sum((polyTest - arrayTarget[test]) ** 2)
+        totals = sum((arrayTarget[test] - listAverage) ** 2)
+        
+        listRSQ.append(1 - (residuals/totals))
 
 """
-Part c: plot RMSE of whole training set against 10-fold CV average
+Part c: plot RMSE of whole training set against 10-fold cross-validation average
 
 """
 """
-Part d: build final OLS model
+Part d: build final RSQ model
 
 """
