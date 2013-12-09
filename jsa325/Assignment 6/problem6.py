@@ -226,11 +226,13 @@ ax.set_xlabel('Model Complexity (Order of Polynomial)')
 ax.set_ylabel('RMSE (Number of Incidents)')
 ax.set_title('RMSE and Model Complexity')
 
-plt.show()
+# plt.show()
 plt.savefig('Plot c1 – RMSE v. Model Complexity.png')
-plt.clf()
+plt.close()
 
 # TO DO: add error bars and legend to Plot c1
+# TO DO: plot bars next to each other instead of on top of each other
+# TO DO: fix Plot c1 saving as a blank figure
 
 """
 Part d: build final RSQ model
