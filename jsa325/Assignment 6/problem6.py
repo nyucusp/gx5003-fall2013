@@ -3,7 +3,6 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pylab
 
 # Set formatting parameters for plots
 
@@ -120,8 +119,7 @@ Part b: cross-validation, select model complexity based on RMSE and RSQ scores f
 
 # Import packages
 
-from sklearn import cross_validation, linear_model, datasets
-from random import shuffle
+from sklearn import cross_validation
 
 # Read data into train and target variables
 
@@ -140,6 +138,7 @@ arrayTarget = np.array(variableTarget)
 
 scoresRMSE = []
 scoresRSQ = []
+scoresRMSE_std = [] # Initialize list to hold standard deviations of listRMSE for part c
 
 # Initialize lists to hold RMSE and RSQ values for 1–5th order polynomail models
 
@@ -194,6 +193,42 @@ print "Polynomial of order", (scoresRSQ.index(min(scoresRSQ)) + 1), "is the mode
 Part c: plot RMSE of whole training set against 10-fold cross-validation average
 
 """
+
+# Compute standard deviations, save to scoresRMSE_std
+
+scoresRMSE_std.append(np.std(listRMSE))
+
+# Compute RMSE for each model on all data
+
+allRMSE = []
+
+for i in range(1,6):
+    polyTrain = np.polyfit(arrayTrain[train], arrayTarget[train], i)
+    polyTest = np.polyval(polyTrain, arrayTrain[test])
+    RMSE = (((polyTest - arrayTarget[test]) ** 2).mean(axis=None)) ** .5
+    allRMSE.append(RMSE)
+
+# Plot 10-fold cross-validation average (y-axis) as a function of model complexity (x-axis)
+
+ax = plt.subplot(1,1,1)
+order = np.arange(5)
+
+plt.bar(order, scoresRMSE, color='b', yerr='scoresRMSE_std', ecolor='k')
+plt.bar(order, allRMSE, color='g')
+
+# Format, add labels and guiding lines
+
+ax.set_xlim([0.5,5.5])
+ax.set_ylim([9000,19000])
+ax.set_xlabel('Model Complexity (Order of Polynomial)')
+ax.set_ylabel('RMSE (Number of Incidents)')
+ax.set_title('RMSE and Model Complexity')
+
+plt.show()
+plt.savefig('Plot c1 – RMSE v. Model Complexity')
+plt.clf()
+
+
 """
 Part d: build final RSQ model
 
