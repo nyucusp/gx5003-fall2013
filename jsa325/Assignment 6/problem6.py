@@ -28,7 +28,7 @@ listLZip = []
 listLPopulation = []
 listLIncidents = []
 
-for i in range(0,len(linesLData)):
+for i in range(1,len(linesLData)):
     listLZip.append(float(linesLData[i].split(',')[0]))
     listLPopulation.append(float(linesLData[i].split(',')[1]))
     listLIncidents.append(float(linesLData[i].split(',')[2]))
@@ -111,7 +111,7 @@ plt.savefig('Plot a3 — Distribution of Population.png')
 plt.clf()
 
 # TO DO: visually analyze plots
-# TO DO: additional plots
+# TO DO: additional plots?
 
 """
 Part b: cross-validation, select model complexity based on RMSE and RSQ scores for 1–5th order polynomial models
@@ -134,7 +134,7 @@ for i in range(1,len(linesLData)):
 
 # Initialize RMSE and RSQ models and lists, and define cross-validation function
 
-cv = cross_validaion.KFold(len(variableTarget), n_folds=10, shuffle=True)
+cv = cross_validation.KFold(len(variableTarget), n_folds=10, shuffle=True)
 arrayTrain = np.array(variableTrain)
 arrayTarget = np.array(variableTarget)
 
@@ -147,7 +147,7 @@ for i in range(1,6):
     listRMSE = []
     listRSQ = []
     
-    # Fit polynomail of order i to training set 
+    # Fit polynomail model of order i to training set 
        
     for train, test in cv:
         polyTrain = np.polyfit(arrayTrain[train], arrayTarget[train], i)
@@ -162,7 +162,7 @@ for i in range(1,6):
         
         listAverage = []
         
-        for j in range(0, len(arrayTarget[test])):
+        for j in range(0,len(arrayTarget[test])):
             averageTest = sum(arrayTarget[test])/len(arrayTarget[test])
             listAverage.append(averageTest)
         
@@ -170,6 +170,23 @@ for i in range(1,6):
         totals = sum((arrayTarget[test] - listAverage) ** 2)
         
         listRSQ.append(1 - (residuals/totals))
+    
+    # Average over listRMSE and listRSQ, save to scoresRMSE and scoresRSQ
+    
+    scoresRMSE.append(sum(listRMSE)/len(listRMSE))
+    scoresRSQ.append(sum(listRSQ)/len(listRSQ))
+
+# Print scores
+
+print scoresRMSE
+print scoresRSQ
+
+print "Polynomial of order", (scoresRMSE.index(min(scoresRMSE)) + 1), "is the model with the lowest RMSE score."
+print "Polynomial of order", (scoresRSQ.index(min(scoresRSQ)) + 1), "is the model with the lowest RSQ score."
+
+# TO DO: based on the RMSE scores, 3rd order polynomial model gives the best fit
+# TO DO: based on the RSQ scores, 5th order polynomial model gives the best fit
+# TO DO: plot both 3rd and 5th order polynomial models
 
 """
 Part c: plot RMSE of whole training set against 10-fold cross-validation average
