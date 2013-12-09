@@ -198,7 +198,7 @@ Part c: plot RMSE of whole training set against 10-fold cross-validation average
 
 scoresRMSE_std.append(np.std(listRMSE))
 
-# Compute RMSE for each model on all data
+# Compute RMSE for each model on all data without 10-fold cross-validation
 
 allRMSE = []
 
@@ -207,25 +207,28 @@ for i in range(1,6):
     polyTest = np.polyval(polyTrain, arrayTrain[test])
     RMSE = (((polyTest - arrayTarget[test]) ** 2).mean(axis=None)) ** .5
     allRMSE.append(RMSE)
-
+    
 # Plot 10-fold cross-validation average (y-axis) as a function of model complexity (x-axis)
 
 ax = plt.subplot(1,1,1)
-order = np.arange(5)
+order = np.arange(1,6)
+width = 0.5
 
-plt.bar(order, scoresRMSE, color='b', yerr='scoresRMSE_std', ecolor='k')
-plt.bar(order, allRMSE, color='g')
+plt.bar(order, scoresRMSE, width, color='gray')
+plt.bar(order, allRMSE, width, color='g')
+plt.xticks(order+width/2., ('1','2','3','4','5'))
+# plt.errorbar(yerr=scoresRMSE_std, xerr=None, fmt='|')
 
 # Format, add labels and guiding lines
 
-ax.set_xlim([0.5,5.5])
+ax.set_xlim([0.5,6])
 ax.set_ylim([9000,19000])
 ax.set_xlabel('Model Complexity (Order of Polynomial)')
 ax.set_ylabel('RMSE (Number of Incidents)')
 ax.set_title('RMSE and Model Complexity')
 
 plt.show()
-plt.savefig('Plot c1 – RMSE v. Model Complexity')
+plt.savefig('Plot c1 – RMSE v. Model Complexity.png')
 plt.clf()
 
 
