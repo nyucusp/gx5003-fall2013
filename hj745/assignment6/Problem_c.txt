@@ -1,0 +1,2 @@
+In the 'Problem_c_figure_1.png' which contains from the RMSE on the whole training set, I found that RMSE for cross-validation and training are relatively low and went to plateau after the degree of 2nd order. Thus, it's quite hard to select the optimal degree of fit for the model. 
+On the other hand, I was able to find distinctive point of lowest average RMSE in the 'Problem_c_figure_2.png', which was derived from the 10-fold CV average. The optimal degree of fit for the model was 5th order obviously.
