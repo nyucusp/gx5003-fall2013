@@ -184,9 +184,11 @@ print scoresRSQ
 print "Polynomial of order", (scoresRMSE.index(min(scoresRMSE)) + 1), "is the model with the lowest RMSE score."
 print "Polynomial of order", (scoresRSQ.index(min(scoresRSQ)) + 1), "is the model with the lowest RSQ score."
 
-# TO DO: based on the RMSE scores, 3rd order polynomial model gives the best fit
-# TO DO: based on the RSQ scores, 5th order polynomial model gives the best fit
+# Based on the RMSE scores, 3rd order polynomial model gives the best fit
+# Based on the RSQ scores, 5th order polynomial model gives the best fit
+
 # TO DO: plot both 3rd and 5th order polynomial models
+# TO DO: write-up
 
 """
 Part c: plot RMSE of whole training set against 10-fold cross-validation average
