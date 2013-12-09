@@ -212,26 +212,23 @@ for i in range(1,6):
 
 ax = plt.subplot(1,1,1)
 order = np.arange(1,6)
-width = 0.5
 
-plt.bar(order, scoresRMSE, width, color='gray')
-plt.bar(order, allRMSE, width, color='g')
-plt.xticks(order+width/2., ('1','2','3','4','5'))
+plt.bar(order, scoresRMSE, width=0.6, color='dimgray', zorder=1, align='center')
+plt.bar(order, allRMSE, width=0.3, color='darkgray', zorder=2, align='edge')
 
 # Format, add labels and guiding lines
 
-ax.set_xlim([0.5,6])
+ax.set_xlim([0.5,5.5])
 ax.set_ylim([9000,19000])
 ax.set_xlabel('Model Complexity (Order of Polynomial)')
 ax.set_ylabel('RMSE (Number of Incidents)')
 ax.set_title('RMSE and Model Complexity')
 
-# plt.show()
+plt.show()
 plt.savefig('Plot c1 – RMSE v. Model Complexity.png')
-plt.close()
+plt.clf()
 
 # TO DO: add error bars and legend to Plot c1
-# TO DO: plot bars next to each other instead of on top of each other
 # TO DO: fix Plot c1 saving as a blank figure
 
 """
