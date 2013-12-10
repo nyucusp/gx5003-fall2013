@@ -1,4 +1,4 @@
-{
+var json1 = {
   "executionTime": "2013-11-24 03:00:03 PM",
   "stationBeanList": [
     {

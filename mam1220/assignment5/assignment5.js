@@ -9,7 +9,7 @@
 //*************************************************************************
 
 var numOfStations;
-var stationLocations = new Array();
+var stationLocations = [];
 var numOfSamples;
 var bikeData = new Array();
 var sampledHours = new Array();
@@ -41,7 +41,10 @@ function loadPage() {
 
 	// get the location names
 	for(var i = 0; i< bike1.stationBeanList.length; i++ ) {
-		stationLocations[i] = bike1.stationBeanList[i].stationName;
+		temp = {};
+		temp.num = i;
+		temp.stationName = bike1.stationBeanList[i].stationName + " --  ";
+		stationLocations[i] = temp;
 	}
 	numOfStations = stationLocations.length;
 
@@ -54,10 +57,14 @@ function loadPage() {
 
 function buildInteractiveText() {
 
-	d3.select(".textArea").append("p").text("New paragraph!");
+	d3.select("#div2")
+		.data(stationLocations)
+		.enter()
+		.append("t")
+		.text(function(d) { return d.stationName; })
+		.on('mouseover',  function(d) { buildGraph(d.num); } );
 
 }
-
 
 
 
@@ -71,6 +78,7 @@ function buildGraph( station ) {
 	// var data = numOfBikesAvailable;
 	// $('div#test').text(bData);	
 
+	d3.selectAll("g").remove();
 
 	var margin = {top: 20, right: 30, bottom: 30, left: 40},
 	    width = 960 - margin.left - margin.right,

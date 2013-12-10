@@ -1,0 +1,25 @@
+Aliya Merali
+Principles of Urban Informatics
+Assignment 6
+4 December 2013
+ 
+Assignment Notes (Including Part E Paragraph)
+
+Part A: 
+In plotting the data of population vs. number of 311 call incidents, it is clear to see that there is a correlation between the increased population and increased number of incidents. This would probably be a good training set of data to draw a fit from. 
+
+In plotting the zip code vs. number of 311 calls, however, there is not really a clear relationship. While certain zip codes have a high number of complaints, it is difficult to say if they will always have a higher number of calls or if an isolated incident caused an influx in this data. There is also no clear correlation to zip code number (increasing numerically) and incident number. This is probably not a good training data set to use, but I will confirm this by running a fit for it also to show that it does not work well. 
+
+Part B: 
+After running 1st-5th order polynomial fits and detecting the R^2 and RMSE for these fits with a 10-fold cross validation, I was able to look at the average values of these indicators (see charts labeled part_b_Pop_best_fit.png and part_b_Zip_best_fit.png). Based on this, the best fit for the population data to number of incidents is the third order polynomial, since it has the lowest RMSE and a higher R^2 value. For the zip code case, the 5th order fit would seem to have the best R^2 and RMSE values. 
+
+Part C: 
+After computing the RMSE for the entire data set (without a cross validation), I saw that the higher the polynomial fit, the lower the RMSE would be. This is because it is fitting to all the data, so the higher the polynomial order, the more wiggle the curve has, and the more likely to over-fit the data. 
+
+Part D:
+Using the population data only, I determined that the best fit model was a third order polynomial fit. This was determined after varying the order of the polynomial (up to 12) and the fold of cross validation (between 10 and 20). I found that the lowest RMSE occurred at the 3rd order polynomial fit each time. So, I ran this fit on the whole data set and determined the best fit equation. I used that best fit equation to predict the number of incidents for the test data (printed from the program) and plotted these predictions alone and also against the labeled data. 
+
+I then did this for the zip code data as well. Here the lowest RMSE seemed to occur with a 9th order fit, so I ran the predictions with this equation. This is an over-fit to the initial data, and you can see that the predicted values are unrealistic in some spots (negative) and don't seem to show a correlation. This confirms the assertion in part A that there is no useful relationship between zip code and number of incidents. 
+
+Part E:
+I would expect to have an RMSE of around 12733 with this 3rd order fit, since that was the average RMSE of the cross-validation with the training data set using this fit. This performance could be improved with more data points, since the cross validation fold-order could be increased more. This fit could also be improved if we did the correlation with another data set - if we could find the relationship between the three variables (i.e. number of incidents as a function of population and borough). 

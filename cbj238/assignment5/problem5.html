@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <title>Assignment 5</title>
+  </head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="./json/citibike_0.json"></script>
+  <script src="./json/citibike_1.json"></script>
+  <script src="./json/citibike_2.json"></script>
+  <script src="./json/citibike_3.json"></script>
+  <script src="./json/citibike_4.json"></script>
+  <script src="./json/citibike_5.json"></script>
+  <script src="./json/citibike_6.json"></script>
+  <script src="./json/citibike_7.json"></script>
+  <script src="./json/citibike_8.json"></script>
+  <script src="./json/citibike_9.json"></script>
+  <script src="./json/citibike_10.json"></script>
+  <script src="./json/citibike_11.json"></script>
+  <script src="./json/citibike_12.json"></script>
+  <script src="./json/citibike_13.json"></script>
+  <script src="./json/citibike_14.json"></script>
+  <script src="./json/citibike_15.json"></script>
+  <script src="./json/citibike_16.json"></script>
+  <script src="./json/citibike_17.json"></script>
+  <script src="./json/citibike_18.json"></script>
+  <script src="./json/citibike_19.json"></script>
+  <script src="assignment5.js"></script>
+  <style>
+
+  #chart1 rect {
+    fill: steelblue;
+  }
+
+  #chart1 text {
+    font: 10px sans-serif;
+    text-anchor: middle;
+  }
+
+  #chart1 rect:hover {
+    fill: brown;
+  }
+
+  .axis text {
+    font: 10px sans-serif;
+    color: #fff;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  #stationlist {
+    overflow:scroll;
+    height: 550px;
+    background: #ccc;
+    border: 2px solid;
+    border-radius: 10px;
+  }
+
+  .station {
+    color: purple;
+    font: 16px sans-serif;
+    padding: .25em;
+  }
+
+  .title {
+    font: 16px sans-serif;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  </style>
+  <body>
+      <table id='mytable'>
+        <tr>
+          <td></td>
+          <td><div class="title">Available Bikes over Time</div> <hr />
+            <div class="wrap"><svg id='chart1' ></svg></div>
+          </td>
+          <td><div class="title">Scroll To View More. Click to Select.</div><hr />
+            <div id='stationlist' ></div>
+          </td>
+        </tr>
+      </table>
+      <div id="debug"></div>
+  </body>
+  </html>
