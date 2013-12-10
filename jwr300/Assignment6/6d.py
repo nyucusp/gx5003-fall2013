@@ -15,7 +15,7 @@ import numpy as np
 
 
 def polynomial_fit(degree, trainx, testx, trainy):
-
+        #using 3rd degree polynomial as model complexity
         
         coeffs = np.polyfit(trainx, trainy, degree)
         fit_equation = np.poly1d(coeffs)

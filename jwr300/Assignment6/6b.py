@@ -19,8 +19,7 @@ fit_results = {}
 
 def RMSE(predictions, targets):
     return np.sqrt(((predictions - targets)**2).mean())
-    #return np.sqrt(mean_square_error.mean_square_error(targets,predictions))
-
+    
 def rsquared(x,y,fit):
     yhat = fit(x)
     ybar = np.sum(y)/len(y)
@@ -31,7 +30,7 @@ def rsquared(x,y,fit):
 
 
 def polynomial_fit(degree, fit_results, trainx, testx, trainy, testy):
-    #loop for all polynomial degrees 
+    #loop through all polynomial degrees 
     
     for i in range (1,degree+1):
         
@@ -52,7 +51,7 @@ def polynomial_fit(degree, fit_results, trainx, testx, trainy, testy):
 
 
 def cross_fold_validation(X_train, Y_target,train, target, poly_degree, folds, fit_results):
-
+    #10 fold cross validation 
     
     cv = cross_validation.KFold(len(train), n_folds=folds, indices=False, shuffle=True)
     

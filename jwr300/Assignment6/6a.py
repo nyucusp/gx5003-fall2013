@@ -36,21 +36,21 @@ def PopIncident(df):
 	xlim((min(df['Population'])-3000,max(df['Population']+2000)))
 	ylim(min(df['Incidents'])-3000,max(df['Incidents']+3500))
 	plt.show()
-	#plt.savefig('6a_Pop_vs_Incident.png', dpi=400)
+	plt.savefig('6a_Pop_vs_Incident.png', dpi=400)
 	clf()
 
 #Creating Problem 1c Figure
 def ZipIncident(df, zipcode):
 
 	df = df.sort(columns=['Zipcode'])
-	ax = df['Incidents'].plot(grid=False, legend=False,kind='bar')
+	df['Incidents'].plot(grid=False, legend=False,kind='bar')
 	title('Zipcode vs 311 Call Incidents')
 	ticks = sorted(zipcode)[::20]
 	xticks(np.arange(1,len(zipcode),20),ticks,rotation=35)
 	xlabel('Zipcode')
 	ylabel('Number of 311 Call Incidents')
 	plt.show()
-	#plt.savefig('6a_Zip_vs_Incident.png', dpi=400)
+	plt.savefig('6a_Zip_vs_Incident.png', dpi=400)
 	clf()
 
 def main():
