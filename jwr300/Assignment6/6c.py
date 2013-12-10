@@ -1,21 +1,43 @@
 #!/usr/local/bin/python
 #Warren Reed
 #Principles of Urban Informatics
-#Assignment 6, Exercise b
+#Assignment 6, Exercise c
 
 '''
-Using the labeled dataset produce python codes that report the 
-10-fold-Cross Validated RMSE and R^2 scores for 
-OLS (num_incidents ~ f(population)) with polynomial models 
-from 1 to 5th order (e.g. for second order t ~ w_0 + w_1*x1 + w2*x^2) 
-and select a model complexity (polynomial order) based on these scores.
+Compute the RMSE on the whole training set (all your data)
+and plot it against the 10-fold CV average (with standard 
+error-bars) as a function of model complexity (y-axis RMSE,
+ x-axis order of polynomial). What do you observe?
 '''
 
 
 from sklearn import cross_validation
 import numpy as np
+import pandas as pd
+from scipy import *
+import matplotlib.pyplot as plt
+from matplotlib import *
+import pylab
+from pylab import *
+
+os.environ['PATH'] = os.environ['PATH'] + ':/usr/texbin/latex'
+
+clf()
+params = {'axes.labelsize': 16,
+          'text.fontsize': 14,
+          'legend.fontsize': 16,
+          'xtick.labelsize': 14,
+          'ytick.labelsize': 16,
+          'text.usetex': True}
+
+pylab.rcParams.update(params)
 
 fit_results = {}
+fit_results_all = {}
+rmse_dict = {}
+rmse_all = {}
+rmse_std = {}
+rmse_std_all = {}
 
 def RMSE(predictions, targets):
     return np.sqrt(((predictions - targets)**2).mean())
@@ -37,7 +59,6 @@ def polynomial_fit(degree, fit_results, trainx, testx, trainy, testy):
         
         coeffs = np.polyfit(trainx, trainy, i)
         fit_equation = np.poly1d(coeffs)
-        print fit_equation
         r2 = rsquared(trainx, trainy, fit_equation)
         predictions = fit_equation(testx)
         targets = testy
@@ -61,7 +82,7 @@ def cross_fold_validation(X_train, Y_target,train, target, poly_degree, folds, f
                        np.squeeze(Y_target[traincv]),np.squeeze(Y_target[testcv]))
 
 
-def results(fit_results):
+def results(fit_results, rmse, rmse_std):
     
    for key in fit_results:
         value = fit_results[key]
@@ -71,9 +92,11 @@ def results(fit_results):
             r2_avg.append(float(item[0]))
             rmse_avg.append(item[1])
         print "Polynomial Fit Order %s: R^2: %.2f, RMSE: %d" % (key,sum(r2_avg)/len(r2_avg),sum(rmse_avg)/len(rmse_avg))
-    
+        rmse[key] = sum(rmse_avg)/len(rmse_avg)
+        rmse_std[key] = np.std(rmse_avg)
+        print np.std(rmse_avg)
 
-def main(fit_results):
+def main(fit_results, fit_results_all):
 
 
     labeled_data = []
@@ -94,7 +117,18 @@ def main(fit_results):
     Y_target = np.array(target).reshape(len(target),1)
 
     cross_fold_validation(X_train, Y_target, train, target, poly_degree, folds, fit_results)
-    results(fit_results)
+    results(fit_results, rmse_dict, rmse_std)
+
+    polynomial_fit(poly_degree,fit_results_all,np.squeeze(X_train),np.squeeze(X_train),np.squeeze(Y_target),np.squeeze(Y_target)) 
+    results(fit_results_all, rmse_all, rmse_std_all)
+    
+    df = pd.DataFrame({'RMSE':rmse_all.values(),'RMSE w/ CV':rmse_dict.values()})
+    df.plot(kind='bar', yerr = rmse_std.values())
+    title('RMSE vs Model Complexity')
+    xlabel('Model Complexity')
+    ylabel('RMSE')
+    plt.show()
+    savefig('part_c.png',dpi=400)
 
 if __name__ == "__main__":
-    main(fit_results)
+    main(fit_results, fit_results_all)

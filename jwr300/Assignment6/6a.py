@@ -2,6 +2,8 @@
 #Warren Reed
 #Principles of Urban Informatics
 #Assignment 6, Exercise a
+#Plot the data and reason about any phenomena of interest 
+#you see (you should report it in a short text).
 
 import pandas as pd
 from scipy import *
@@ -30,22 +32,25 @@ def PopIncident(df):
 	scatter(df['Population'],df['Incidents'], marker='o')
 	title('Population vs 311 Call Incidents')
 	xlabel('Population')
-	ylabel('# of 311 Call Incidents')
+	ylabel('Number of 311 Call Incidents')
 	xlim((min(df['Population'])-3000,max(df['Population']+2000)))
 	ylim(min(df['Incidents'])-3000,max(df['Incidents']+3500))
-	plt.savefig('6a_Pop_vs_Incident.png', dpi=400)
+	plt.show()
+	#plt.savefig('6a_Pop_vs_Incident.png', dpi=400)
 	clf()
 
 #Creating Problem 1c Figure
-def ZipIncident(df):
+def ZipIncident(df, zipcode):
 
-	df['Incidents'].plot(grid=False, legend=False,kind='bar', color='blue')
+	df = df.sort(columns=['Zipcode'])
+	ax = df['Incidents'].plot(grid=False, legend=False,kind='bar')
 	title('Zipcode vs 311 Call Incidents')
-	xlabel('Zipcode')
-	ylabel('No. of 311 Call Incidents')
 	ticks = sorted(zipcode)[::20]
-	xticks(np.arange(1,len(zipcode),20),ticks,rotation=35) 
-	plt.savefig('6a_Zip_vs_Incident.png', dpi=400)
+	xticks(np.arange(1,len(zipcode),20),ticks,rotation=35)
+	xlabel('Zipcode')
+	ylabel('Number of 311 Call Incidents')
+	plt.show()
+	#plt.savefig('6a_Zip_vs_Incident.png', dpi=400)
 	clf()
 
 def main():
@@ -60,12 +65,12 @@ def main():
 	        zipcode.append(float(line.strip().split(',')[0]))
 	        pop.append(float(line.strip().split(',')[1]))
 	        incidents.append(float(line.strip().split(',')[2]))
-	        
+	zipcode = [int(i) for i in zipcode]        
 	df = pd.DataFrame({'Zipcode':zipcode, 'Population':pop, 'Incidents':incidents})
 	df = df.sort(columns=['Population','Zipcode'])
 
 	PopIncident(df)
-	ZipIncident(df)
+	ZipIncident(df,zipcode)
 
 
 if __name__ == "__main__":
