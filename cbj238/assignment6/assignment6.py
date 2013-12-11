@@ -187,7 +187,7 @@ def part_b(crossval_folds):
         order_models = []
         for order in xrange(1, 6):
             # generate the model with the population
-            model = generate_model(test_set[:, 1], order)
+            model = generate_model(training_set[:, 1], training_set[:, 2], order)
             # get the ols estimation (t_hat) with the num_incidents
             t_hat = solve_ols(model, test_set[:, 2])
             # evaluate the model.
@@ -247,7 +247,7 @@ def part_c(data, order, rmse_scores):
      complexity (y-axis RMSE, x-axis order of polynomial). What do you observe?.
     """
     print "Part c"
-    model = generate_model(data[:, 1], order)
+    model = generate_model(data[:, 1], data[:, 2], order)
     t_hat = solve_ols(model, data[:, 2])
     rmse, rsquared = evaluate_model(data[:, 1], t_hat)
 
@@ -342,6 +342,16 @@ def plot_agi_correlations(x0, x1, x2, x3, y):
     fig.patch.set_facecolor('white')
     plt.show()
 
+def plot_predicted_data(x0, y0, x1, y1):
+    fig, ax = plt.subplots()
+
+    ax.plot(x0, y0, 'ko')
+    ax.plot(x1, y1, 'ko', color='r')
+
+    fig.patch.set_facecolor('white')
+    plt.show()
+
+
 def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model):
     """ Build your final OLS model (you can use as many predictor
         variables/features as you want or other external data matched by
@@ -375,14 +385,19 @@ def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model):
     plot_agi_correlations(x0, x1, x2, x3, y)
 
     # OKAY. NOW. Get predictions on the test data from just the original model.
-    print c_part_model.shape
-    print unlabelled_zip_data.shape
     t_hat_1 = solve_ols(c_part_model, unlabelled_zip_data[:, 1])
-    print t_hat_1
-
 
     # Now get predictions from the new model, including the new data.
+    x_data = np.zeros([len(x0), 4])
+    x_data[:, 0] = x0
+    x_data[:, 1] = x1
+    x_data[:, 2] = x2
+    x_data[:, 3] = x3
+    model = generate_model(x_data, y, 3)
+    t_hat_2 = solve_ols(model, unlabelled_zip_data[:, 1])
 
+    plot_predicted_data(x0, y, unlabelled_zip_data[:, 1], t_hat_1)
+    plot_predicted_data(x0, y, unlabelled_zip_data[:, 1], t_hat_2)
 
 def main():
     global DEBUG
