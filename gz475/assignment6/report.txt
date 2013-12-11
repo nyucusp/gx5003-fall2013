@@ -1,5 +1,13 @@
 Problem a. from the population vs incident, and zipcode vs incidents plots, we can see that there are a lot of zipcodes 
 have no incident, and these zipcodes are mainly outside New York City. After delete the data with low incidents, we can
 see a more linear like relationship between population and incident number.
-Problem e: to avoid potential overfit, I choose a linear model to do the prediction work, and the data below 0 are set 
-as 0. If there's more time, I could separate the zipcodes in and out New York City, find more fit model for each part.
+
+Problem b: the 3th order 10-fold CV model has the lowest RMSE, although sometimes the R^2 is not the biggest (depens on the
+folds created by the program).
+
+Problem c: the 5th order model without CV has the minimum RMSE, which might be a sign of overfitting.
+
+Problem d: to avoid potential overfit, I choose 3th order model to do the prediction work.
+
+Problem e: the expected RMSE would be around 13000 as shown in the plotting of Problem c. If there's more time, I might be
+able to separate the zipcodes in and out New York City, find more fit model for each part.
