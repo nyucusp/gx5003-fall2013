@@ -12,6 +12,7 @@ from scipy.stats import mode
 
 LABELLED_DATA = "labeled_data.csv"
 UNLABELLED_DATA = "unlabeled_data.csv"
+IRS_NY_DATA = "irs_ny_zips.csv"
 DEBUG = False
 
 def read_csv_to_dict(csvfilename):
@@ -87,13 +88,8 @@ def enforce_shape(input):
     if len(input.shape) == 1:
         input.shape = (input.shape[0], 1)
 
-def generate_model(training_set, order):
-    """ returns the model using ordinary least squares """
-    # The input data (population)
-    x = training_set[:,1]
-    # The result data (num_incidents)
-    t = training_set[:,2]
-
+def generate_model(x, order):
+    """ returns the model based on the order given"""
     # \Phi(x)=x^degree/order ; the basis expansion, etc.
     x2 = x ** order
 
@@ -102,14 +98,19 @@ def generate_model(training_set, order):
     enforce_shape(x2)
     X_nonlin = np.concatenate((np.ones((len(x),1)), x, x2),axis=1)
 
+    return X_nonlin
+
+def solve_ols(model, t):
+    """ returns the ols estimate for the data, given the model and the estimated results"""
+
     # Solve to get OLS estimate
     # obtaining the parameters by fitting a hyper-plane in this expanded space
-    w_ols = np.linalg.lstsq(X_nonlin,t)[0]
+    w_ols = np.linalg.lstsq(model,t)[0]
 
     # Our OLS estimator/predictions (on the training data).
     # You can try creating "unseen"/test data, coding cross-validation
     # to choose model complexity, and predict on it as well
-    t_hat = X_nonlin.dot(w_ols)
+    t_hat = model.dot(w_ols)
 
     return t_hat
 
@@ -185,8 +186,12 @@ def part_b(crossval_folds):
         order_rsquared = []
         order_models = []
         for order in xrange(1, 6):
-            model = generate_model(training_set, order)
-            rmse, rsquared = evaluate_model(training_set[:, 1], model)
+            # generate the model with the population
+            model = generate_model(test_set[:, 1], order)
+            # get the ols estimation (t_hat) with the num_incidents
+            t_hat = solve_ols(model, test_set[:, 2])
+            # evaluate the model.
+            rmse, rsquared = evaluate_model(test_set[:, 1], t_hat)
             order_rmse.append(rmse)
             order_rsquared.append(rsquared)
             order_models.append(model)
@@ -242,8 +247,9 @@ def part_c(data, order, rmse_scores):
      complexity (y-axis RMSE, x-axis order of polynomial). What do you observe?.
     """
     print "Part c"
-    model = generate_model(data, order)
-    rmse, rsquared = evaluate_model(data[:, 1], model)
+    model = generate_model(data[:, 1], order)
+    t_hat = solve_ols(model, data[:, 2])
+    rmse, rsquared = evaluate_model(data[:, 1], t_hat)
 
     arr_rmse_scores = np.array(rmse_scores)
     mean_rmse = np.average(arr_rmse_scores, axis=0)
@@ -252,7 +258,7 @@ def part_c(data, order, rmse_scores):
     # print order, rmse
     # print mean_rmse, std_rmse
     ind = np.arange(arr_rmse_scores.shape[1]) + 1
-    width = .35
+    width = .5
 
     fig, ax = plt.subplots()
 
@@ -272,14 +278,111 @@ def part_c(data, order, rmse_scores):
     fig.patch.set_facecolor('white')
     plt.show()
 
+    return model
 
-def part_d():
+def get_data_as_dict(data):
+    labelled_dict = {}
+    vec_size = (data.shape[1] - 1) + 3
+    for point in data:
+        zip_code, population = int(point[0]), int(point[1])
+        incidents = None
+        if len(point) > 2:
+            incidents = int(point[2])
+        if zip_code not in labelled_dict:
+            # population, agi_class_1's agi, agi class 2's agi, agi class 3's agi, num_incidents
+            #  I put the num_incidents (the variable we're trying to find) last.
+            labelled_dict[zip_code] = np.zeros(vec_size)
+            labelled_dict[zip_code][0] = population
+            if len(point) > 2:
+                labelled_dict[zip_code][-1] = incidents
+        else:
+            print "duplicate: ", point
+
+    return labelled_dict
+
+def add_new_data_to_dict(datadict, irsdata):
+    for point in irsdata:
+        zipcode, agi_class, num_returns, agi = int(point['zip']), int(point['agi_class']), int(point['num_returns']), int(point['agi'])
+        if zipcode in datadict:
+            if agi_class in [1,2,3]:
+                datadict[zipcode][agi_class] = agi
+
+def plot_agi_correlations(x0, x1, x2, x3, y):
+    fig, ax = plt.subplots(2, 2)
+
+    axis = ax[0,0]
+    axis.plot(x0, y, 'ko')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("Population")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[0,1]
+    axis.plot(x1, y, 'ko')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 1")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[1,0]
+    axis.plot(x1, y, 'ko')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 2")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[1,1]
+    axis.plot(x1, y, 'ko')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 3")
+    axis.set_ylabel("Num Incidents")
+
+    fig.tight_layout()
+    fig.patch.set_facecolor('white')
+    plt.show()
+
+def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model):
     """ Build your final OLS model (you can use as many predictor
         variables/features as you want or other external data matched by
         zip code, again be careful not to overfit) and submit your predictions
         for the number of incidents on the test data.
+
+        For this problem, I am using the 2008 Zip Code file from the IRS Individual Income Tax Statistics:
+        http://www.irs.gov/uac/SOI-Tax-Stats-Individual-Income-Tax-Statistics-Free-ZIP-Code-data-(SOI)
+        I have done some pre-processing to get rid of the zips and fields that I don't care about, leaving me with:
+        zip,agi_class,num_returns,agi,unemployment_comp.
+
+        The agi_class is a separator by zip based on income category.
+        For the purposes of measuring incidents, I have chosen only to use the 'agi's for agi_class
+            1 [<$10,000], 2 [$10,000-$25,000], and 3 [$25,000-$5000], and the unemployment compensation quantity.
     """
-    pass
+    # Start by making the input data into a dict so we can search by zip code nicely.
+    labelled_dict = get_data_as_dict(labelled_zip_data)
+    unlabelled_dict = get_data_as_dict(unlabelled_zip_data)
+
+    # Now get the data from the irs_ny_zips
+    irsfields, irsdata = read_csv_to_dict(IRS_NY_DATA)
+    add_new_data_to_dict(labelled_dict, irsdata)
+    add_new_data_to_dict(unlabelled_dict, irsdata)
+
+    x0 = [ labelled_dict[x][0] for x in labelled_dict.keys() ]
+    x1 = [ labelled_dict[x][1] for x in labelled_dict.keys() ]
+    x2 = [ labelled_dict[x][2] for x in labelled_dict.keys() ]
+    x3 = [ labelled_dict[x][3] for x in labelled_dict.keys() ]
+    y = [ labelled_dict[x][4] for x in labelled_dict.keys() ]
+
+    plot_agi_correlations(x0, x1, x2, x3, y)
+
+    # OKAY. NOW. Get predictions on the test data from just the original model.
+    print c_part_model.shape
+    print unlabelled_zip_data.shape
+    t_hat_1 = solve_ols(c_part_model, unlabelled_zip_data[:, 1])
+    print t_hat_1
+
+
+    # Now get predictions from the new model, including the new data.
+
 
 def main():
     global DEBUG
@@ -299,14 +402,14 @@ def main():
     if not args.run or args.run == "a":
         part_a(ld)
 
-    if not args.run or args.run == "b" or args.run=="c":
+    if not args.run or args.run == "b" or args.run=="c" or args.run=="d":
         selected_order, rmse_scores = part_b(ten_fold_data)
 
-        if not args.run or args.run == "c":
-            part_c(ld[1], selected_order, rmse_scores)
+        if not args.run or args.run == "c" or args.run == "d":
+            c_part_model = part_c(ld[1], selected_order, rmse_scores)
 
-    if not args.run or args.run == "d":
-        part_d()
+            if not args.run or args.run == "d":
+                part_d(ld[1], uld[1], c_part_model)
 
 if __name__ == "__main__":
     main()
