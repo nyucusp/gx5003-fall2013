@@ -5,7 +5,8 @@ incidents, we can see a more clear relationship between population and incident 
 Problem b: the 3th order 10-fold CV model has the lowest RMSE, although sometimes the R^2 is not the biggest (depending on
 the folds created by the program).
 
-Problem c: the 5th order model without CV has the minimum RMSE, which might be a sign of overfitting.
+Problem c: the 5th order model without CV has the minimum RMSE, which might be a sign of overfitting (the data of 10-fold 
+CV model in this poltting is based on false shuffle setting).
 
 Problem d: to avoid potential overfitting, I choose the 3th order model and the whole data as my training database to do 
 the prediction work.
