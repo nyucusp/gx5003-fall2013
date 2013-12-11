@@ -111,19 +111,25 @@ def get_rmse(t, t_hat):
     """ Returns the root mean squared error (RMSE), given the original
     observations, and the predicted results from the model.
     RMSE(t, t_hat) = sqrt( avg((t - t_hat)^2) )"""
-    if (len(t) == len(t_hat)):
-        return np.sqrt( np.sum( ( (t - t_hat) ** 2)) / len(t) )
+    if t is not None:
+        if (len(t) == len(t_hat)):
+            return np.sqrt( np.sum( ( (t - t_hat) ** 2)) / len(t) )
+        else:
+            raise Exception("rmse - input vectors are not the same size")
     else:
-        raise Exception("rmse - input vectors are not the same size")
+        return None
 
 def get_r_squared_error(t, t_hat):
     """ Returns the r-squared error, given the original observations (t) and the
     predicted results (t_hat):
     r_squared_error(t, t_hat) = 1 - (sum( (t_n - t_hat_n)^2 ) / ( (t_n - avg(t_hat)^2)"""
-    if len(t) == len(t_hat):
-        return 1 - ( np.sum( (t - t_hat)**2 ) / np.sum( (t - np.average(t))**2 ) )
+    if t is not None:
+        if len(t) == len(t_hat):
+            return 1 - ( np.sum( (t - t_hat)**2 ) / np.sum( (t - np.average(t))**2 ) )
+        else:
+            raise Exception("r_squared_error - input vectors are not the same size")
     else:
-        raise Exception("r_squared_error - input vectors are not the same size")
+        return None
 
 def evaluate_model(data, model):
     """ returns rmse, rsquared """
@@ -354,11 +360,42 @@ def plot_agi_correlations(x0, x1, x2, x3, y):
     fig.patch.set_facecolor('white')
     plt.show()
 
-def plot_predicted_data(x0, y0, x1, y1):
-    fig, ax = plt.subplots()
+def plot_predicted_data(l_data, ul_data, t_hat_1, t_hat_2, t_hat_3, t_hat_4):
+    fig, ax = plt.subplots(2, 2)
 
-    ax.plot(x0, y0, 'ko')
-    ax.plot(x1, y1, 'ko', color='r')
+    axis = ax[0,0]
+    axis.plot(l_data[:, 0], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 0], t_hat_1, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("Population")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[0,1]
+    axis.plot(l_data[:, 1], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 1], t_hat_2, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 1")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[1,0]
+    axis.plot(l_data[:, 2], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 2], t_hat_3, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 2")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[1,1]
+    axis.plot(l_data[:, 3], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 3], t_hat_4, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 3")
+    axis.set_ylabel("Num Incidents")
+
+    fig.tight_layout()
 
     fig.patch.set_facecolor('white')
     plt.show()
@@ -407,14 +444,14 @@ def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model, order):
     # OKAY. NOW. Get predictions on the test data from just the original model.
     x_nonlin_test = generate_nonlinear_x(ul_x_data[:, 0], order)
     t_hat_1 = generate_prediction(x_nonlin_test, c_part_model)
+    for index in xrange(len(unlabelled_dict.keys())):
+        print unlabelled_dict.keys()[index], ul_x_data[index, 0], t_hat_1[index]
 
-    x_nonlin_irs_train = generate_nonlinear_x(l_x_data[:, 1], order)
-    model_weights = generate_model(x_nonlin_irs_train, l_x_data[:, -1])
-    x_nonlin_irs_test = generate_nonlinear_x(ul_x_data[:, 1], order)
-    t_hat_2 = generate_prediction(x_nonlin_irs_test, model_weights)
+    t_hat_2, rmse2, rsqr2 = run_model(l_x_data[:, 1], l_x_data[:, -1], ul_x_data[:, 1], None, order)
+    t_hat_3, rmse3, rsqr3 = run_model(l_x_data[:, 2], l_x_data[:, -1], ul_x_data[:, 2], None, order)
+    t_hat_4, rmse4, rsqr4 = run_model(l_x_data[:, 3], l_x_data[:, -1], ul_x_data[:, 3], None, order)
 
-    plot_predicted_data(l_x_data[:, 0], l_x_data[:, -1], ul_x_data[:, 0], t_hat_1)
-    plot_predicted_data(l_x_data[:, 1], l_x_data[:, -1], ul_x_data[:, 1], t_hat_2)
+    plot_predicted_data(l_x_data, ul_x_data, t_hat_1, t_hat_2, t_hat_3, t_hat_4)
 
 def main():
     global DEBUG
