@@ -7,7 +7,6 @@ from sklearn import cross_validation, linear_model, datasets
 from random import shuffle
 from scipy import stats
 
-
 action = []
 actions = open('labeled_data.csv','r')
 for x in actions:
@@ -83,4 +82,3 @@ plt.ylim((3000, 23000))
 plt.xlim((0, 6))
 plt.title('10-fold CV RMSE VS all data fit by order of polynomial')
 plt.savefig('Problem c.png')
-plt.show()
