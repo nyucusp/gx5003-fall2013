@@ -9,13 +9,12 @@ incidents = pd.read_csv('labeled_data.csv', index_col = 'num_incidents')
 incidents.sort()
     
 fig = plt.figure()
-ax = incidents.plot(y='# zipcode', style = 'o', label='incidents by zip code')
+ax = incidents.plot(y='# zipcode', style = 'o', label='incidents')
 #ax = incidents.plot(y='population', style = 'o', label='incidents by population')
 
 #set labels
-ax.set_title('Incidence by Population')
 ax.set_title('Incidence by Zip Code')
-ax.set_xlabel('Number of Incidents')
+ax.set_xlabel('Incidents')
 ax.set_ylabel('Zip Code')
 
 #set axis limits
