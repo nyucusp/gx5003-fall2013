@@ -3,6 +3,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 # Set formatting parameters for plots
 
@@ -117,6 +118,8 @@ Part b: cross-validation, select model complexity based on RMSE and RSQ scores f
 
 """
 
+print'\nPart B:'
+
 # Import packages
 
 from sklearn import cross_validation
@@ -187,7 +190,6 @@ print "Polynomial of order", (scoresRSQ.index(min(scoresRSQ)) + 1), "is the mode
 # Based on the RSQ scores, 5th order polynomial model gives the best fit
 
 # TO DO: plot both 3rd and 5th order polynomial models
-# TO DO: write-up
 
 """
 Part c: plot RMSE of whole training set against 10-fold cross-validation average
@@ -229,12 +231,13 @@ plt.savefig('Plot c1 – RMSE v. Model Complexity.png')
 plt.clf()
 
 # TO DO: add error bars and legend
-# TO DO: fix Plot c1 saving as a blank figure
 
 """
 Part d: build final RSQ model
 
 """
+
+print'\nPart D:'
 
 # Read New York City zip code data from previous assignment into new zip code list
 
@@ -250,7 +253,7 @@ for elt in linesBData:
     listBZip.append(elt[0:5])
 setBZip = set(listBZip)
 
-# Divide training set into two training variables and initialize two target variables
+# Divide training set into two training incident variables and initialize two target incident variables
 # NOTE: I = inside NYC, O = outside NYC
 
 variableTrainI = []
@@ -376,3 +379,64 @@ print "Polynomial of order", (scoresRSQO.index(min(scoresRSQO)) + 1), "is the mo
 # Based on the RMSEI scores, the 1st order polynomial model gives the best fit
 # Based on the RMSEO scores, the 2nd order polynomial model gives the best fit
 # Based on both the RSQI and RSQO scores, the 5th order polynomial model gives the best fit
+
+# Train 1st and 2nd order polynomial models on the whole training set
+
+polyTrainI = np.polyfit(arrayTrainI, arrayTargetI, 1)
+polyTrainO = np.polyfit(arrayTrainO, arrayTargetO, 2)
+
+# Test models on unlabeled data
+
+# Divide data set into two actual population variables
+
+indexActualI = []
+indexActualO = []
+
+for i in range(1,len(linesUData)):
+    if str(int(float(linesUData[i].split(',')[0]))) in setBZip:
+        indexActualI.append([float(linesUData[i].split(',')[1]),i,0])
+    else:
+        indexActualO.append([float(linesUData[i].split(',')[1]),i,0])
+        
+# Remove index from population variable lists
+
+populationActualI = []
+populationActualO = []
+
+for elt in indexActualI:
+    populationActualI.append(elt[0])
+for elt in indexActualO:
+    populationActualO.append(elt[0])
+    
+# Compute predicted values
+
+polyActualI = np.polyval(polyTrainI, populationActualI)
+polyActualO = np.polyval(polyTrainO, populationActualO)
+
+# Reassemble linesUData with predicted incidents
+
+for i in range(0,len(indexActualI)):
+    indexActualI[i][2] = polyActualI[i]
+for i in range(0,len(indexActualO)):
+    indexActualO[i][2] = polyActualO[i]
+    
+# Initialize final output list
+
+listFinal = []
+
+for i in range(1,len(linesUData)):
+    for elt in indexActualI:
+        if elt[1] == i:
+            listFinal.append(elt)
+    for elt in indexActualO:
+        if elt[1] == i:
+            listFinal.append(elt)
+            
+# Write results to file
+
+outputResults = open('testData.txt', 'w')
+for i in range(1,len(linesUData)):
+    outputResults.write("%s, %s, %s \n" % (linesUData[i].split(',')[0], listFinal[i-1][0], math.ceil(listFinal[i-1][2])))
+outputResults.close()
+
+# TO DO: write-up
