@@ -100,3 +100,8 @@ plt.xticks(ind+width/2., ('1','2','3','4','5'))
 #plt.ylim([10000,16000])
 plt.legend((p1,p2),('RMSE without cv','RMSE with cv'), loc=4)
 plt.show()
+
+#You see that the third order polynomial has the lowest RMSE and thats why
+#I chose to use that in my model.  You also see that the RMSE without cross validation
+#seems to increase with each additional degree of a polynomial.  The standard deviation
+#bars though, are also pretty high, which doesn't make the model look so accurate.
