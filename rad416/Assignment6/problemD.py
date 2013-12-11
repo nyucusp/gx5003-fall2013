@@ -1,3 +1,8 @@
+"""
+A script to use a file of NYC zipcodes to filter and fit the incidents by whether they occurred in 
+NYC or outside NYC.
+"""
+
 import pandas as pd
 from _collections import defaultdict
 import matplotlib.pyplot as plt
@@ -6,7 +11,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 
-def calcRMSE_r2(train, target):
+def calcRMSE_r2(train, target): # to calculate the RMSE and R squared
     RMSEList = []
     R2List = []
 
@@ -51,23 +56,28 @@ for line in labeledDataFile:
         nonNYCDict[lineSplitList[0]] = [ lineSplitList[1],lineSplitList[2] ]
 labeledDataFile.close()
 
+#cast into DataFrames
 labeledDataDF = pd.DataFrame.from_dict(labeledDataDict, orient='index')
 labeledDataDF.columns = ['population','incidents']
 nonNYCzipDF = pd.DataFrame.from_dict(nonNYCDict, orient='index')
 nonNYCzipDF.columns = ['population','incidents']
 
+#generate training data for both types
 NYCtrain = np.array(labeledDataDF['population'])
 NYCtarget = np.array(labeledDataDF['incidents'])
 nonNYCtrain = np.array(nonNYCzipDF['population'])
 nonNYCtarget = np.array(nonNYCzipDF['incidents'])
 
+#return model results
 NYCRMSE, NYCr2 = calcRMSE_r2(NYCtrain, NYCtarget)
 nonNYCRMSE, nonNYCr2 = calcRMSE_r2(nonNYCtrain, nonNYCtarget)
 
+#generate xvalues for graph
 xval = []
 for i in range(1,6):
     xval.append(i)
 
+#plot the result
 plt.xkcd()
 fig = plt.figure(figsize=(10,10))
 ax1 = fig.add_subplot(221)
@@ -86,10 +96,11 @@ ax4 = fig.add_subplot(224)
 ax4.plot(xval,nonNYCr2)
 ax4.set_xticks(xval)
 ax4.set_xlabel('R^2 for non-NYC Zipcodes')
-plt.savefig('QuestionD1.png')
+plt.savefig('QuestionD.png')
 
 print "The prediction is that for zipcodes in NYC, a 3rd order polynomial will have the best fit while for zipcodes outside NYC, a 4th order polynomial will fit"
 
+#read in the unlabeled data and run the prediction
 unlabeledFile = open('unlabeled_data.csv','r')
 next(unlabeledFile)
 ulNYCdict = defaultdict(int)
@@ -106,16 +117,23 @@ for line in unlabeledFile:
         ulnonNYCdict[lineSplitList[0]] = lineSplitList[1]
 unlabeledFile.close()
 
+#cast into Data Frame
 ulnycDF = pd.DataFrame.from_dict(ulNYCdict, orient="index")
 ulnycDF.columns = ['population']
 ulnonNYCDF = pd.DataFrame.from_dict(ulnonNYCdict, orient="index")
 ulnonNYCDF.columns = ['population']
+
+#generate functions based on fit
 nyc3poly = np.polyfit(NYCtrain, NYCtarget,3)
 nyc3fit_func = np.poly1d(nyc3poly)
 nonNYC4poly = np.polyfit(nonNYCtrain,nonNYCtarget,4)
 nonNYC4fit_func = np.poly1d(nonNYC4poly)
+
+#add results to data frame 
 ulnycDF['predicted incidents'] = nyc3fit_func(ulnycDF['population'])
 ulnonNYCDF['predicted incidents'] = nonNYC4fit_func(ulnonNYCDF['population'])
+
+#output the result
 print "Saving prediction output for NYC zipcodes as problemDOutput.csv..."
 combopredDF = pd.concat([ulnycDF,ulnonNYCDF])
 combopredDF = combopredDF.sort()

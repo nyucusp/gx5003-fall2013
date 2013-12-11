@@ -1,3 +1,8 @@
+"""
+A script to compute RMSE on the whole training set and output the result.
+See problemC.txt for response.
+"""
+
 import pandas as pd
 from _collections import defaultdict
 import matplotlib.pyplot as plt

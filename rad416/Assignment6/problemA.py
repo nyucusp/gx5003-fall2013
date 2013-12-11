@@ -1,3 +1,9 @@
+"""
+A script to perform a basic visualization of the labeled data.
+See problemA.txt for response.
+
+"""
+
 import pandas as pd
 from _collections import defaultdict
 import matplotlib.pyplot as plt

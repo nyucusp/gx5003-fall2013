@@ -1,3 +1,7 @@
+"""
+A script to take in the labeled data and test fit for polynomials from 1 to 5, reporting the results.
+"""
+
 import pandas as pd
 from _collections import defaultdict
 import matplotlib.pyplot as plt
@@ -6,10 +10,11 @@ import numpy as np
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 
-
+#open provided file
 labeledDataFile = open('labeled_data.csv','r')
 next(labeledDataFile) #dump header
 
+#iterate through
 labeledDataDict = defaultdict(list)
 for line in labeledDataFile:
     line = line.rstrip()
@@ -20,12 +25,16 @@ for line in labeledDataFile:
     labeledDataDict[lineSplitList[0]] = [ lineSplitList[1],lineSplitList[2] ]
 labeledDataFile.close()
 
+#cast dict to dataframe
 labeledDataDF = pd.DataFrame.from_dict(labeledDataDict, orient='index')
 labeledDataDF.columns = ['population','incidents']
 
+#generate training data for model creation
 train = np.array(labeledDataDF['population'])
 target = np.array(labeledDataDF['incidents'])
 kf = KFold(len(train), n_folds=10, shuffle=True)
+
+#go through iterations of cross-fold validation
 resultRMSEList = [] #hold MSE results from operation
 resultR2List = []
 for el1, el2 in kf: # iterate through training and test sets
@@ -58,6 +67,7 @@ for i in range(0,5):
         R2_list.append(line[i])
     R2_poly_mean.append(np.mean(R2_list))
 
+#output result
 for i in range(5):
     print "The 10-fold CV RMSE for polynomial " + str(i + 1) + " is " + str(RMSE_poly_mean[i]) + " and the R^2 is " + str(R2_poly_mean[i])
 print "The 3rd polynomial has the best fit"

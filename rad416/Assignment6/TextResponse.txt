@@ -1,4 +1,0 @@
-#Problem A:
-Based on the graph, the relationship between population and incidents seems roughly linear.
-Of the 300 zipcodes included in this data set, there are 176 zipcodes with less than 100 incidents.
-
