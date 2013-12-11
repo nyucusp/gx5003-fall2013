@@ -65,6 +65,3 @@ plt.scatter(zipcode2,incidents2, 5, color = 'b')
 plt.ylim((-10000, 140000))
 plt.title('Zipcodes VS Incidents')
 plt.savefig('Problem a4.png')
-plt.clf()
-
-
