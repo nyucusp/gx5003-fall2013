@@ -1,0 +1,6 @@
+With more time/resources/data, I'd work on first trying out different algorithms, as well as gathering other attributes for the zipcodes.  
+I'd also take the analysis below the zipcode level (or actually zip code tabulation area) to the census tract level to get greater resolution on the areas in question.  
+While this would increase the size of the dataset, it would also give me the chance to better characterize the individual areas.  
+Merged with the attributes from the 2010 Census and 2011 5-year American Community Survey, there could be some interesting trends that would emerge from this more nuanced analysis of the available data. 
+More granular data from the ACS or other demographic data sources could provide attributes with greater correlation to the number of incidents.  
+Data with a higher correlation would have greater predictive power with regarded to the unlabeled data set.
