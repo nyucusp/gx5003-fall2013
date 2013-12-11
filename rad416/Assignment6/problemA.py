@@ -17,6 +17,7 @@ labeledDataFile.close()
 
 labeledDataDF = pd.DataFrame.from_dict(labeledDataDict, orient='index')
 labeledDataDF.columns = ['population','incidents']
+plt.xkcd()
 fig = plt.figure(figsize=(10,10))
 ax = fig.add_subplot(111)
 ax.scatter(labeledDataDF['population'],labeledDataDF['incidents'])
