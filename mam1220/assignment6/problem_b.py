@@ -18,10 +18,6 @@
 #
 ######################################################################
 
-
-# IMPORT NECCESSARY LIBRARIES
-import matplotlib as mpl
-from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt 
 import numpy as np
 import math
@@ -71,12 +67,23 @@ def main():
 	rmse_d5 = np.zeros( num_validations, dtype='longlong' )
 	r2_d5   = np.zeros( num_validations, dtype='longfloat' )
 
+
+	verifStart = 0
+	testSize = int( round( (numOfDataPoints / num_validations) * (num_validations-1)  ) )
+	verifRange = numOfDataPoints - testSize
+	randomSampleOrder = random.sample(xrange(0, numOfDataPoints), numOfDataPoints)
+	# print randomSampleOrder
+
 	valNum = 0
 	while valNum < num_validations:		
-		# create a random set of indexes
-		testSize = int( round( numOfDataPoints / num_validations ) )
-		verifIdx = np.sort( np.array( random.sample(xrange(0, numOfDataPoints), testSize )) )			
-		# print verifIdx
+
+		# OPTION 2 for Cross Validation
+		# PULL SETS IN ORDER FROM THE DATA
+		# This ensures that each sample is touched once
+		verifEnd = verifStart + verifRange
+		if verifEnd > numOfDataPoints:
+			verifEnd = numOfDataPoints
+		verifIdx = randomSampleOrder[ verifStart:verifEnd ]
 
 		trainPop = np.delete( populations, verifIdx)
 		verifPop = populations[verifIdx]
@@ -134,6 +141,8 @@ def main():
 				ax[valNum/5][valNum%5].plot(verifPop, t_hat_pop3(verifPop), 'y.')
 				ax[valNum/5][valNum%5].plot(verifPop, t_hat_pop4(verifPop), 'r.')
 				ax[valNum/5][valNum%5].plot(verifPop, t_hat_pop5(verifPop), 'k.')
+
+			verifStart = verifEnd
 			valNum += 1
 
 		# print rmse_1, r2_1
@@ -148,12 +157,12 @@ def main():
 	r2Mean_d4   = np.mean( r2_d4 )
 	rmseMean_d5 = np.mean( rmse_d5 )
 	r2Mean_d5   = np.mean( r2_d5 )
- 	print "Degree RMSE R^2"
- 	print "   1  " + str(rmseMean_d1) +" "+ str(r2Mean_d1)
- 	print "   2  " + str(rmseMean_d2) +" "+ str(r2Mean_d2)
- 	print "   3  " + str(rmseMean_d3) +" "+ str(r2Mean_d3)
- 	print "   4  " + str(rmseMean_d4) +" "+ str(r2Mean_d4)
- 	print "   5  " + str(rmseMean_d5) +" "+ str(r2Mean_d5)
+ 	print "Degree\tRMSE\tR^2"
+ 	print "   1\t" + str(rmseMean_d1) +"\t"+ str(r2Mean_d1)
+ 	print "   2\t" + str(rmseMean_d2) +"\t"+ str(r2Mean_d2)
+ 	print "   3\t" + str(rmseMean_d3) +"\t"+ str(r2Mean_d3)
+ 	print "   4\t" + str(rmseMean_d4) +"\t"+ str(r2Mean_d4)
+ 	print "   5\t" + str(rmseMean_d5) +"\t"+ str(r2Mean_d5)
 
  	if plot_on:
 		fig.patch.set_facecolor('white')

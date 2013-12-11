@@ -28,7 +28,8 @@ inc=[]
 for i in range(1,len(lines)):
 	inc.append(float(lines[i].split(',')[2]))
 
-#problema1.png - all labeled data plotted in a scatter plot
+#problema1.png - all labeled data plotted in a scatter plot, and added
+#the line of best fit
 #plt.scatter(pop,inc)
 plt.xlim([0,120000])
 plt.ylim([-1000,140000])
@@ -43,7 +44,10 @@ plt.plot(pop,p3(pop), color='green', label='First Degree Polynomial')
 plt.legend(loc='best')
 plt.show()
 
-#problema2.png
+#problema2.png - because there are so many zipcodes that have so few inceidents
+# it is pulling the line of best fit down as seem in problema1.png so I plotted
+#only those that have more than 100 incidents here, and the line fits much
+#better
 dictpopinc={}
 for i in range(0,len(pop)):
 	dictpopinc[pop[i]]=inc[i]
