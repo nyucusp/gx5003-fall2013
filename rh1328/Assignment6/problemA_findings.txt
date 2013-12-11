@@ -1,0 +1,11 @@
+Using the scatterplots I generated for problem A,
+one can notice an obvious positive correlation between the 
+population of an area and the number of incidents reported.
+It seems like most of these incidents take place in zipcodes
+10000 to 12000, these also happen to have the highest concentration
+of people as shown by the zip vs population plot.
+
+After a bit of research, I found that NYC zipcodes
+are only in the range of 10000 to 12000 which means this dataset
+has some incorrect reportings or has reportings from outside of the
+5 boroughs.

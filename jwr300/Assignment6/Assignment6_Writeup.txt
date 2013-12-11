@@ -1,0 +1,21 @@
+Warren Reed
+Principles of Urban Informatics
+Assignment 6 Write Up
+
+
+
+a)
+
+For part a, the population is scatter plotted in the plot, 6a_Pop_vs_Incident.png, as a function of incident counts and there is a positive correlation with population. There are also many points of varying population size with very low incident counts. While it is unclear from the data, this posssibly could be from dirty data as I find is unlikely that so many jurisdictions have zero 311 call incididents. Number of incidents per zipcode is plotted as a histogram in a second plot 6a_Zip_vs_Incident.png. 
+
+b) I chose the 3rd degree polynomial to model the data as it minimizes the root mean square error (RMSE) and maximizes the R^2 scores. 
+
+c)
+For this graph, I plotted the 10-fold cross validation RMSE and the corresponding standard deviations along with the RMSE without cross validation. The first thing to notice is that the 5th degree polynomial model minimizes RMSE rather than the 3rd degree polynomial with cross validation. This is as expected as we expect RMSE to decrease as model complexity increases due to overfitting. 
+
+d)
+For the final OLS model, I take the 3rd degree polynomial that was trained and selected in part a and use it to predict the number of incidents on the unlabeled dataset. The model is trained on the labeled data in the polynomial fit method and is then used to predict the number of incidents. The final predictions in the same format as the labeled data set (zipcode, population, predicted incident count) is then written to the file partd_predictions.txt.
+
+e)
+Although this was a great introduction to machine learning, if I had more time I would be able to add more labels and features to be able to build and train a more sophisticated and accurate model. I wish I had more time to look for additional data sets. I'm looking forward to my machine learning course in the Spring semester. 
+

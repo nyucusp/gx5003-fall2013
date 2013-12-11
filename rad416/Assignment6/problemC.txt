@@ -1,0 +1,2 @@
+The graphs diverge after the 3rd polynomial, with the cross-fold validation RMSE graph continuing downwards
+while the RMSE on all the data turns upward.
