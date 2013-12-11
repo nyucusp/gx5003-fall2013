@@ -88,9 +88,7 @@ def enforce_shape(input):
     if len(input.shape) == 1:
         input.shape = (input.shape[0], 1)
 
-def generate_model(x, order):
-    """ returns the model based on the order given"""
-    # \Phi(x)=x^degree/order ; the basis expansion, etc.
+def generate_nonlinear_x(x, order):
     x2 = x ** order
 
     #Add ones for the intercept and combine everything into X_nonlin=[ones X \Phi(X)]
@@ -100,17 +98,25 @@ def generate_model(x, order):
 
     return X_nonlin
 
-def solve_ols(model, t):
-    """ returns the ols estimate for the data, given the model and the estimated results"""
+def generate_model(x, t):
+    """ returns the model based on the order given"""
+    # \Phi(x)=x^degree/order ; the basis expansion, etc.
 
     # Solve to get OLS estimate
     # obtaining the parameters by fitting a hyper-plane in this expanded space
-    w_ols = np.linalg.lstsq(model,t)[0]
+    w_ols = np.linalg.lstsq(x,t)[0]
+
+    return w_ols
+
+def generate_prediction(model, t):
+    """ returns the ols estimate for the data, given the model and the estimated results"""
 
     # Our OLS estimator/predictions (on the training data).
     # You can try creating "unseen"/test data, coding cross-validation
     # to choose model complexity, and predict on it as well
-    t_hat = model.dot(w_ols)
+    print model.shape
+    print t.shape
+    t_hat = model.dot(t)
 
     return t_hat
 
@@ -153,6 +159,7 @@ def part_a(data):
     ax.set_title("")
     ax.set_xlabel(data[0][1])
     ax.set_ylabel(data[0][2])
+    ax.set_title("Population vs. Incidents")
 
     fig.patch.set_facecolor('white')
     plt.show()
@@ -187,9 +194,12 @@ def part_b(crossval_folds):
         order_models = []
         for order in xrange(1, 6):
             # generate the model with the population
-            model = generate_model(training_set[:, 1], training_set[:, 2], order)
+            x_nonlin_train = generate_nonlinear_x(training_set[:, 1], order)
+            model = generate_model(x_nonlin_train, training_set[:, 2])
             # get the ols estimation (t_hat) with the num_incidents
-            t_hat = solve_ols(model, test_set[:, 2])
+            t_hat = generate_prediction(model, ols)
+            print t_hat
+            print t_hat.shape
             # evaluate the model.
             rmse, rsquared = evaluate_model(test_set[:, 1], t_hat)
             order_rmse.append(rmse)
@@ -247,8 +257,8 @@ def part_c(data, order, rmse_scores):
      complexity (y-axis RMSE, x-axis order of polynomial). What do you observe?.
     """
     print "Part c"
-    model = generate_model(data[:, 1], data[:, 2], order)
-    t_hat = solve_ols(model, data[:, 2])
+    model, ols = generate_model(data[:, 1], data[:, 2], order)
+    t_hat = generate_prediction(model, ols)
     rmse, rsquared = evaluate_model(data[:, 1], t_hat)
 
     arr_rmse_scores = np.array(rmse_scores)
@@ -385,7 +395,7 @@ def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model):
     plot_agi_correlations(x0, x1, x2, x3, y)
 
     # OKAY. NOW. Get predictions on the test data from just the original model.
-    t_hat_1 = solve_ols(c_part_model, unlabelled_zip_data[:, 1])
+    t_hat_1 = generate_prediction(c_part_model, unlabelled_zip_data[:, 1])
 
     # Now get predictions from the new model, including the new data.
     x_data = np.zeros([len(x0), 4])
@@ -393,8 +403,8 @@ def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model):
     x_data[:, 1] = x1
     x_data[:, 2] = x2
     x_data[:, 3] = x3
-    model = generate_model(x_data, y, 3)
-    t_hat_2 = solve_ols(model, unlabelled_zip_data[:, 1])
+    model, ols = generate_model(x_data, y, 3)
+    t_hat_2 = generate_prediction(model, unlabelled_zip_data[:, 1])
 
     plot_predicted_data(x0, y, unlabelled_zip_data[:, 1], t_hat_1)
     plot_predicted_data(x0, y, unlabelled_zip_data[:, 1], t_hat_2)
