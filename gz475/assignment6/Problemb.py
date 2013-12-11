@@ -6,8 +6,6 @@ import csv
 from sklearn import cross_validation, linear_model, datasets
 from random import shuffle
 
-
-
 action = []
 actions = open('labeled_data.csv','r')
 for x in actions:
