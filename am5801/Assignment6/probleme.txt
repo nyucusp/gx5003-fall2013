@@ -1,0 +1,17 @@
+Awais Malik
+Assignment 6
+
+Part a:
+The first plot shows a correlation between the number of 311 incidents and the population. The second plot shows that a majority of the 311 calls are clustered around two main zip code regions. This could indicate that the data is affected by isolated incidents which resulted in such a sharp increase in 311 calls.
+
+Part b:
+The RMSE values decrease with increasing degree of polynomial. The decrease is marginal after 3rd degree compared to the first two fits. In order to avoid over-fitting, I chose the 3rd degree polynomial fit.
+
+Part c:
+The RMSE scores for the entire training set follow the same trend as the 10-fold CV average. The errors are higher compared to the 10-fold CV averages. The standard error bars show that increasing polynomial degree results in a minimal increase in the range of errors.
+
+Part d:
+My final OLS model is the 10-fold CV model using 3rd order polynomial fit. The plot shows the predicted and actual values. The low numbers are predicted pretty well however for higher points predictions are generally higher than the observed values.
+
+Part e:
+For unlabeled data, the OLS model I chose can give RMSE values in the 1200-1300 range or worse. A better model for higher values could be achieved by filtering the lower values and estimating a new model based on only high values. I suggest splitting the data into different ranges and make estimations for each range. The performance of the model can be increased by using advanced clustering techniques since there are large gaps between the extreme values. One very simple grouping can be done with using spatial analysis tools and breaking down the data into smaller regions. Grouping can be also done based on the severity of the incidents.
