@@ -50,8 +50,6 @@ zip1 = np.array(zip, np.float)
 
 for x in popu1:
     pred1 = best(x)
-    if pred1 < 0:
-        pred1 = 0
     pred.append(pred1)
 
 act = open('predictdata.csv' ,'w')
