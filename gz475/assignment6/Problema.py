@@ -26,7 +26,7 @@ for x in action2:
     zipcode.append(x[0])
     population.append(x[1])
     incidents.append(x[2])
-    if float(x[2]) >= 100:
+    if float(x[2]) >= 100: # the areas with more than 100 incidents
         incidents2.append(x[2])
         population2.append(x[1])
         zipcode2.append(x[0])
@@ -39,7 +39,7 @@ incidents2 = np.array(incidents2,np.float)
 zipcode2 = np.array(zipcode2, np.float)
 population2 = np.array(population2, np.float)
 
-
+# plot all the data
 plt.scatter(population1, incidents1, 5, color = 'b')
 plt.xlim((-10000, 125000))
 plt.ylim((-10000, 140000))
