@@ -1,0 +1,7 @@
+The third degree polinomial which had the best performance in the previous analysis was chosen to model the incident number. And the popluation of each zone was included as the predictors. The average RMSE I expect to achieve would be around 13000 based on previous estimations. 
+
+The performance of the model can be imporved if more predctors are included so that the unobserved factors can be accounted for. In addtion, since the dependent variable-incident is a count data, we can consider use the GLM (generalized linear model) such as the Poisson and negative binomial model to conduct prediction. Finally, the model can be improved by expanding the sample size. 
+
+
+
+

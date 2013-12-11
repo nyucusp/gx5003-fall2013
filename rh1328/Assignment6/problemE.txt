@@ -1,0 +1,4 @@
+If more data was given for the labeled data set, more accurate R^2 and RMSE values could have been produced. As I mentioned in the other files, it was not particularly clear from the R^2 and RMSE findings which order was the most optimal. With more data, this issue may have been solved.
+
+I do not think the resulting predictions are very accurate because such high RMSE values were
+observed in problem B. Again, this issue could be solved with more data and time. 

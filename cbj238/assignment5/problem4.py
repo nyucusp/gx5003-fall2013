@@ -49,9 +49,9 @@ def main():
 
     fig.tight_layout()
     fig.patch.set_facecolor('white')
-    # fig.savefig('problem3.png')
     fig.suptitle('Gene Correlations', fontsize=20)
     plt.subplots_adjust(top=0.85)
+    fig.savefig('problem4.png')
     plt.show()
 
 if __name__ == "__main__":

@@ -1,0 +1,50 @@
+{
+    "executionTime": "013-11-22 01:22:03 PM",
+    "stationBeanList": [
+        {
+            "stationName": "W 52 St & 11 Ave",
+            "availableBikes": 27,
+            "stationData": {
+                "totalDocks": 39,
+                "statusValue": "In Service",
+                "availableDocks": 12
+            }
+        },
+        {
+            "stationName": "Franklin St & W Broadway",
+            "availableBikes": 11,
+            "stationData": {
+                "totalDocks": 33,
+                "statusValue": "In Service",
+                "availableDocks": 20
+            }
+        },
+        {
+            "stationName": "St James Pl & Pearl St",
+            "availableBikes": 8,
+            "stationData": {
+                "totalDocks": 26,
+                "statusValue": "In Service",
+                "availableDocks": 17
+            }
+        },
+        {
+            "stationName": "Atlantic Ave & Fort Greene Pl",
+            "availableBikes": 15,
+            "stationData": {
+                "totalDocks": 62,
+                "statusValue": "In Service",
+                "availableDocks": 44
+            }
+        },
+        {
+            "stationName": "W 17 St & 8 Ave",
+            "availableBikes": 18,
+            "stationData": {
+                "totalDocks": 39,
+                "statusValue": "In Service",
+                "availableDocks": 18
+            }
+        }
+    ]
+}
