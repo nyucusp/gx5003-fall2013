@@ -28,7 +28,8 @@ for x in action2:
 population1 = np.array(population, np.float)
 incidents1 = np.array(incidents, np.float)
 
-km = cross_validation.KFold(len(incidents), n_folds = 10, shuffle = True)
+# practice 10-fold cross validation
+km = cross_validation.KFold(len(incidents), n_folds = 10, shuffle = True) # every time the outcome would be different
 rmse = []
 r2 = []
 rmsestd = []
