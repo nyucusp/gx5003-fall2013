@@ -23,6 +23,8 @@ def calcRMSE_r2(train, target):
     return [RMSEList, R2List]
 
 # a file of zipcodes that fall within the NYC boroughs
+# I extracted this myself from the ZCTA file from the Census Bureau using PostGIS and 
+# a copy of the NYC boro shapefile from NYC
 boroughsFile = open('nyc_zctas.csv','r')
 next(boroughsFile)
 
@@ -87,4 +89,35 @@ ax4.set_xlabel('R^2 for non-NYC Zipcodes')
 plt.savefig('QuestionD1.png')
 
 print "The prediction is that for zipcodes in NYC, a 3rd order polynomial will have the best fit while for zipcodes outside NYC, a 4th order polynomial will fit"
+
+unlabeledFile = open('unlabeled_data.csv','r')
+next(unlabeledFile)
+ulNYCdict = defaultdict(int)
+ulnonNYCdict = defaultdict(int)
+for line in unlabeledFile:
+    line = line.rstrip()
+    line = line.split(',')
+    lineSplitList = []
+    for el in line:
+        lineSplitList.append( int(float(el)) )
+    if lineSplitList[0] in boroughsList:
+        ulNYCdict[lineSplitList[0]] = lineSplitList[1]
+    else:
+        ulnonNYCdict[lineSplitList[0]] = lineSplitList[1]
+unlabeledFile.close()
+
+ulnycDF = pd.DataFrame.from_dict(ulNYCdict, orient="index")
+ulnycDF.columns = ['population']
+ulnonNYCDF = pd.DataFrame.from_dict(ulnonNYCdict, orient="index")
+ulnonNYCDF.columns = ['population']
+nyc3poly = np.polyfit(NYCtrain, NYCtarget,3)
+nyc3fit_func = np.poly1d(nyc3poly)
+nonNYC4poly = np.polyfit(nonNYCtrain,nonNYCtarget,4)
+nonNYC4fit_func = np.poly1d(nonNYC4poly)
+ulnycDF['predicted incidents'] = nyc3fit_func(ulnycDF['population'])
+ulnonNYCDF['predicted incidents'] = nonNYC4fit_func(ulnonNYCDF['population'])
+print "Saving prediction output for NYC zipcodes as problemDOutput.csv..."
+combopredDF = pd.concat([ulnycDF,ulnonNYCDF])
+combopredDF = combopredDF.sort()
+combopredDF.to_csv('problemDOutput.csv')
 
