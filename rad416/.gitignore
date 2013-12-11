@@ -4,3 +4,6 @@ Assignment1/argv_test.py
 *.pyc
 *.ipynb
 *.sql
+*.dat
+*.zip
+*.arff
