@@ -85,62 +85,66 @@ def get_train_test_sets(crossval_data, leave_out_index):
     return training_set, test_set
 
 def enforce_shape(input):
-    if len(input.shape) == 1:
-        input.shape = (input.shape[0], 1)
+    ret = np.array(input)
+    if len(ret.shape) == 1:
+        ret.shape = (ret.shape[0], 1)
+    return ret
 
 def generate_nonlinear_x(x, order):
+    """ Maps the inputs into the order/hyperplane desired. """
     x2 = x ** order
 
     #Add ones for the intercept and combine everything into X_nonlin=[ones X \Phi(X)]
-    enforce_shape(x)
-    enforce_shape(x2)
-    X_nonlin = np.concatenate((np.ones((len(x),1)), x, x2),axis=1)
-
-    return X_nonlin
+    x_1 = enforce_shape(x)
+    x_2 = enforce_shape(x2)
+    return  np.concatenate((np.ones((len(x),1)), x_1, x_2),axis=1)
 
 def generate_model(x, t):
-    """ returns the model based on the order given"""
-    # \Phi(x)=x^degree/order ; the basis expansion, etc.
+    """ returns the weights of the model based input data, x and t. This is the OLS function"""
+    return np.linalg.lstsq(x,t)[0]
 
-    # Solve to get OLS estimate
-    # obtaining the parameters by fitting a hyper-plane in this expanded space
-    w_ols = np.linalg.lstsq(x,t)[0]
-
-    return w_ols
-
-def generate_prediction(model, t):
-    """ returns the ols estimate for the data, given the model and the estimated results"""
-
-    # Our OLS estimator/predictions (on the training data).
-    # You can try creating "unseen"/test data, coding cross-validation
-    # to choose model complexity, and predict on it as well
-    print model.shape
-    print t.shape
-    t_hat = model.dot(t)
-
-    return t_hat
+def generate_prediction(x_input, weights):
+    """ generates the predicted values of the input data x_input, given the weights of the model. """
+    return  x_input.dot(weights)
 
 def get_rmse(t, t_hat):
     """ Returns the root mean squared error (RMSE), given the original
     observations, and the predicted results from the model.
     RMSE(t, t_hat) = sqrt( avg((t - t_hat)^2) )"""
-    if (len(t) == len(t_hat)):
-        return np.sqrt( np.sum( ( (t - t_hat) ** 2)) / len(t) )
+    if t is not None:
+        if (len(t) == len(t_hat)):
+            return np.sqrt( np.sum( ( (t - t_hat) ** 2)) / len(t) )
+        else:
+            raise Exception("rmse - input vectors are not the same size")
     else:
-        raise Exception("rmse - input vectors are not the same size")
+        return None
 
 def get_r_squared_error(t, t_hat):
     """ Returns the r-squared error, given the original observations (t) and the
     predicted results (t_hat):
     r_squared_error(t, t_hat) = 1 - (sum( (t_n - t_hat_n)^2 ) / ( (t_n - avg(t_hat)^2)"""
-    if len(t) == len(t_hat):
-        return 1 - ( np.sum( (t - t_hat)**2 ) / np.sum( (t - np.average(t))**2 ) )
+    if t is not None:
+        if len(t) == len(t_hat):
+            return 1 - ( np.sum( (t - t_hat)**2 ) / np.sum( (t - np.average(t))**2 ) )
+        else:
+            raise Exception("r_squared_error - input vectors are not the same size")
     else:
-        raise Exception("r_squared_error - input vectors are not the same size")
+        return None
 
 def evaluate_model(data, model):
     """ returns rmse, rsquared """
     return (get_rmse(data, model), get_r_squared_error(data, model) )
+
+def run_model(input_train, output_train, input_test, output_test, order):
+    x_nonlin_train = generate_nonlinear_x(input_train, order)
+    model_weights = generate_model(x_nonlin_train, output_train)
+
+    x_nonlin_test = generate_nonlinear_x(input_test, order)
+    t_hat = generate_prediction(x_nonlin_test, model_weights)
+
+    rmse, rsquared = evaluate_model(output_test, t_hat)
+
+    return t_hat, rmse, rsquared
 
 def part_a(data):
     """ Plot the data and reason about any phenomena of interest you see
@@ -195,16 +199,17 @@ def part_b(crossval_folds):
         for order in xrange(1, 6):
             # generate the model with the population
             x_nonlin_train = generate_nonlinear_x(training_set[:, 1], order)
-            model = generate_model(x_nonlin_train, training_set[:, 2])
+            model_weights = generate_model(x_nonlin_train, training_set[:, 2])
+
             # get the ols estimation (t_hat) with the num_incidents
-            t_hat = generate_prediction(model, ols)
-            print t_hat
-            print t_hat.shape
+            x_nonlin_test = generate_nonlinear_x(test_set[:, 1], order)
+            t_hat = generate_prediction(x_nonlin_test, model_weights)
+
             # evaluate the model.
             rmse, rsquared = evaluate_model(test_set[:, 1], t_hat)
             order_rmse.append(rmse)
             order_rsquared.append(rsquared)
-            order_models.append(model)
+            order_models.append(model_weights)
 
             if DEBUG:
                 print "\tOrder: %d | RMSE: %.2e | R^2: %.2f" % (order, rmse, rsquared)
@@ -257,8 +262,11 @@ def part_c(data, order, rmse_scores):
      complexity (y-axis RMSE, x-axis order of polynomial). What do you observe?.
     """
     print "Part c"
-    model, ols = generate_model(data[:, 1], data[:, 2], order)
-    t_hat = generate_prediction(model, ols)
+    x_nonlin_all = generate_nonlinear_x(data[:, 1], order)
+    model_weights = generate_model(x_nonlin_all, data[:, 2])
+
+    #  Calculate hte ols
+    t_hat = generate_prediction(x_nonlin_all, model_weights)
     rmse, rsquared = evaluate_model(data[:, 1], t_hat)
 
     arr_rmse_scores = np.array(rmse_scores)
@@ -288,7 +296,7 @@ def part_c(data, order, rmse_scores):
     fig.patch.set_facecolor('white')
     plt.show()
 
-    return model
+    return model_weights
 
 def get_data_as_dict(data):
     labelled_dict = {}
@@ -335,14 +343,14 @@ def plot_agi_correlations(x0, x1, x2, x3, y):
     axis.set_ylabel("Num Incidents")
 
     axis = ax[1,0]
-    axis.plot(x1, y, 'ko')
+    axis.plot(x2, y, 'ko')
     axis.grid(True)
     axis.margins(.05, .05)
     axis.set_xlabel("AGI For Class 2")
     axis.set_ylabel("Num Incidents")
 
     axis = ax[1,1]
-    axis.plot(x1, y, 'ko')
+    axis.plot(x3, y, 'ko')
     axis.grid(True)
     axis.margins(.05, .05)
     axis.set_xlabel("AGI For Class 3")
@@ -352,17 +360,48 @@ def plot_agi_correlations(x0, x1, x2, x3, y):
     fig.patch.set_facecolor('white')
     plt.show()
 
-def plot_predicted_data(x0, y0, x1, y1):
-    fig, ax = plt.subplots()
+def plot_predicted_data(l_data, ul_data, t_hat_1, t_hat_2, t_hat_3, t_hat_4):
+    fig, ax = plt.subplots(2, 2)
 
-    ax.plot(x0, y0, 'ko')
-    ax.plot(x1, y1, 'ko', color='r')
+    axis = ax[0,0]
+    axis.plot(l_data[:, 0], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 0], t_hat_1, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("Population")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[0,1]
+    axis.plot(l_data[:, 1], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 1], t_hat_2, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 1")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[1,0]
+    axis.plot(l_data[:, 2], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 2], t_hat_3, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 2")
+    axis.set_ylabel("Num Incidents")
+
+    axis = ax[1,1]
+    axis.plot(l_data[:, 3], l_data[:, -1], 'ko')
+    axis.plot(ul_data[:, 3], t_hat_4, 'ko', color='r')
+    axis.grid(True)
+    axis.margins(.05, .05)
+    axis.set_xlabel("AGI For Class 3")
+    axis.set_ylabel("Num Incidents")
+
+    fig.tight_layout()
 
     fig.patch.set_facecolor('white')
     plt.show()
 
 
-def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model):
+def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model, order):
     """ Build your final OLS model (you can use as many predictor
         variables/features as you want or other external data matched by
         zip code, again be careful not to overfit) and submit your predictions
@@ -386,28 +425,33 @@ def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model):
     add_new_data_to_dict(labelled_dict, irsdata)
     add_new_data_to_dict(unlabelled_dict, irsdata)
 
-    x0 = [ labelled_dict[x][0] for x in labelled_dict.keys() ]
-    x1 = [ labelled_dict[x][1] for x in labelled_dict.keys() ]
-    x2 = [ labelled_dict[x][2] for x in labelled_dict.keys() ]
-    x3 = [ labelled_dict[x][3] for x in labelled_dict.keys() ]
-    y = [ labelled_dict[x][4] for x in labelled_dict.keys() ]
-
-    plot_agi_correlations(x0, x1, x2, x3, y)
-
-    # OKAY. NOW. Get predictions on the test data from just the original model.
-    t_hat_1 = generate_prediction(c_part_model, unlabelled_zip_data[:, 1])
+    l_x_data = np.zeros([len(labelled_dict.keys()), 5])
+    l_x_data[:, 0] = np.asarray([ labelled_dict[x][0] for x in labelled_dict.keys() ])
+    l_x_data[:, 1] = np.asarray([ labelled_dict[x][1] for x in labelled_dict.keys() ])
+    l_x_data[:, 2] = np.asarray([ labelled_dict[x][2] for x in labelled_dict.keys() ])
+    l_x_data[:, 3] = np.asarray([ labelled_dict[x][3] for x in labelled_dict.keys() ])
+    l_x_data[:, 4] = np.asarray([ labelled_dict[x][4] for x in labelled_dict.keys() ])
 
     # Now get predictions from the new model, including the new data.
-    x_data = np.zeros([len(x0), 4])
-    x_data[:, 0] = x0
-    x_data[:, 1] = x1
-    x_data[:, 2] = x2
-    x_data[:, 3] = x3
-    model, ols = generate_model(x_data, y, 3)
-    t_hat_2 = generate_prediction(model, unlabelled_zip_data[:, 1])
+    ul_x_data = np.zeros([len(unlabelled_dict.keys()), 4])
+    ul_x_data[:, 0] = np.asarray([ unlabelled_dict[x][0] for x in unlabelled_dict.keys() ])
+    ul_x_data[:, 1] = np.asarray([ unlabelled_dict[x][1] for x in unlabelled_dict.keys() ])
+    ul_x_data[:, 2] = np.asarray([ unlabelled_dict[x][2] for x in unlabelled_dict.keys() ])
+    ul_x_data[:, 3] = np.asarray([ unlabelled_dict[x][3] for x in unlabelled_dict.keys() ])
 
-    plot_predicted_data(x0, y, unlabelled_zip_data[:, 1], t_hat_1)
-    plot_predicted_data(x0, y, unlabelled_zip_data[:, 1], t_hat_2)
+    plot_agi_correlations(l_x_data[:, 0], l_x_data[:, 1], l_x_data[:, 2], l_x_data[:, 3], l_x_data[:, 4])
+
+    # OKAY. NOW. Get predictions on the test data from just the original model.
+    x_nonlin_test = generate_nonlinear_x(ul_x_data[:, 0], order)
+    t_hat_1 = generate_prediction(x_nonlin_test, c_part_model)
+    for index in xrange(len(unlabelled_dict.keys())):
+        print unlabelled_dict.keys()[index], ul_x_data[index, 0], t_hat_1[index]
+
+    t_hat_2, rmse2, rsqr2 = run_model(l_x_data[:, 1], l_x_data[:, -1], ul_x_data[:, 1], None, order)
+    t_hat_3, rmse3, rsqr3 = run_model(l_x_data[:, 2], l_x_data[:, -1], ul_x_data[:, 2], None, order)
+    t_hat_4, rmse4, rsqr4 = run_model(l_x_data[:, 3], l_x_data[:, -1], ul_x_data[:, 3], None, order)
+
+    plot_predicted_data(l_x_data, ul_x_data, t_hat_1, t_hat_2, t_hat_3, t_hat_4)
 
 def main():
     global DEBUG
@@ -434,7 +478,7 @@ def main():
             c_part_model = part_c(ld[1], selected_order, rmse_scores)
 
             if not args.run or args.run == "d":
-                part_d(ld[1], uld[1], c_part_model)
+                part_d(ld[1], uld[1], c_part_model, selected_order)
 
 if __name__ == "__main__":
     main()
