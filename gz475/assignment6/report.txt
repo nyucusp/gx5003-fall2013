@@ -1,4 +1,5 @@
 Problem a. from the population vs incident, and zipcode vs incidents plots, we can see that there are a lot of zipcodes 
 have no incident, and these zipcodes are mainly outside New York City. After delete the data with low incidents, we can
 see a more linear like relationship between population and incident number.
-
+Problem e: to avoid potential overfit, I choose a linear model to do the predict work, and the data below 0 are set as 0.
+If there's more time, I could separate the zipcodes in and out New York City, find more fit model for each part.
