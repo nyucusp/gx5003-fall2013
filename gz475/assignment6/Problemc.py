@@ -7,7 +7,6 @@ from sklearn import cross_validation, linear_model, datasets
 from random import shuffle
 from scipy import stats
 
-
 action = []
 actions = open('labeled_data.csv','r')
 for x in actions:
@@ -28,7 +27,8 @@ for x in action2:
 population1 = np.array(population, np.float)
 incidents1 = np.array(incidents, np.float)
 
-km = cross_validation.KFold(len(incidents), n_folds = 10, shuffle = False)
+# practice 10-fold cross validation
+km = cross_validation.KFold(len(incidents), n_folds = 10, shuffle = False)# set false to have one fixed outcome
 rmse = []
 r2 = []
 rmsestd = []
@@ -55,6 +55,7 @@ for x in range(1, 6):
     std = np.std(rmseord)
     stdlist.append(std)
 
+# fit all the data
 rmseall = []
 stdall = []
 for x in range(1, 6):
@@ -66,6 +67,7 @@ for x in range(1, 6):
     stdall.append(std)
 count = [i for i in range(1,6)]
 
+# plot the data
 f, ax = plt.subplots()
 a, = plt.plot(count, rmse, marker = 'o', linestyle= '', color = 'r')
 
@@ -80,4 +82,3 @@ plt.ylim((3000, 23000))
 plt.xlim((0, 6))
 plt.title('10-fold CV RMSE VS all data fit by order of polynomial')
 plt.savefig('Problem c.png')
-plt.show()
