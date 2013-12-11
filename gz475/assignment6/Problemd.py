@@ -25,7 +25,7 @@ for x in action2:
     incidents.append(float(x[2]))
 population1 = np.array(population, np.float)
 incidents1 = np.array(incidents, np.float)
-best = np.poly1d(np.polyfit(population1, incidents1, 1))
+best = np.poly1d(np.polyfit(population1, incidents1, 3))
 
 xaction = []
 xactions = open('unlabeled_data.csv','r')
