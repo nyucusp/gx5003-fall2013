@@ -23,7 +23,7 @@ def R2(x, y, fit):
     
 data = pd.read_csv('labeled_data.csv')
 
-
+d=3
 data=data[data['num_incidents']>500]
 p = np.poly1d(np.polyfit(data['population'],data['num_incidents'] , deg=d))
 plt.plot(data['population'],data['num_incidents'],'o',label='original data')
