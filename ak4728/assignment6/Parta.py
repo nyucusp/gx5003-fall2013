@@ -36,4 +36,6 @@ plt.ylim(0,125000)
 plt.title('Filtered Data: Number of Incidents ~ Population')
 ##plt.savefig('Parta.png',dpi = 300)
 plt.show()
+plt.savefig('Parta.png',dpi = 300)
+
 
