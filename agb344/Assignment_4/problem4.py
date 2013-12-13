@@ -5,7 +5,19 @@ db = MySQLdb.connect(host="localhost", user="agb344", passwd="amir", db="assignm
 
 cur = db.cursor()
 
-query = "select address from incidents where zipcode in (select zipcode from zipBoroughs where borough = 'manhattan');"
+query = "select address from incidents where zipcode in (select zipcode from zipBoroughs where borough = 'Manhattan');"
+
+'''
+SELECT address
+FROM incidents
+WHERE zipcode in
+(
+    SELECT zipcode
+    FROM zipBoroughs
+    WHERE borough = 'Manhattan'
+);
+'''
+
 
 cur.execute(query)
 
