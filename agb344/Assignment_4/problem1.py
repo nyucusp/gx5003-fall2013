@@ -12,8 +12,8 @@ cur = db.cursor()
 
 createBoroughs = "create table zipBoroughs (id int not null auto_increment, zipcode int not null, borough varchar(10), primary key(id))"
 createZipcodes = "create table zipcodes (id int not null auto_increment, zipcode varchar(5), area double, population int, primary key(id));"
-createIncidents = "create table incidents (id int not null auto_increment, zipcode int not null, primary key(id));"
-
+#createIncidents = "create table incidents (id int not null auto_increment, address varchar(50), zipcode int not null, primary key(id));"
+createIncidents = "create table incidents (id int not null auto_increment, address varchar(100),zipcode int not null, primary key(id));"
 
 cur.execute(createZipcodes)
 cur.execute(createBoroughs)
@@ -47,10 +47,18 @@ incidentsFile.readline()
 for incident in incidentsFile:
     thisParse = incident.split(',')
     thisZipName = thisParse[1]
+    thisAddress = thisParse[0].replace("'",'')
+    if(thisZipName != '' and thisZipName.isdigit()):
+        insertCommand = "insert into incidents (address, zipcode) values('"+thisAddress+"', "+str(thisZipName)[:5]+");"
+        cur.execute(insertCommand)
+'''
+for incident in incidentsFile:
+    thisParse = incident.split(',')
+    thisZipName = thisParse[1]
     if(thisZipName != '' and thisZipName.isdigit()):
         insertCommand = "insert into incidents (zipcode) values("+str(thisZipName)[:5]+");"
         #print insertCommand
         cur.execute(insertCommand)
-
+'''
 db.commit()
 db.close()
