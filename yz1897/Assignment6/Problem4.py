@@ -275,10 +275,12 @@ for cl in range(2):
     order=mea.index(min(mea))+1
     polypara=np.polyfit(popli[cl],incli[cl],order)
     polyparali.append(polypara)
-    pred = np.poly1d(polypara)
-    result=pred(popli[cl])
-    finalpredict.extend(result)
-    xfinal.extend(popli[cl])
+
+for i in range(len(pop1)):
+    pred = np.poly1d(polyparali[int(ypre[i])])
+    result=pred(pop1[i])
+    finalpredict.append(result)
+    xfinal.append(pop1[i])
 plt.plot(xfinal,finalpredict,'o',label='predict',alpha=0.5)
 
 plt.plot(pop1,inc,"<",label='data',alpha=0.5)    
@@ -287,6 +289,16 @@ plt.xlabel("Population")
 plt.ylabel("Incidents")
 plt.savefig("Figure7.png",dpi=400)
 plt.close()
+
+plt.plot(inc,finalpredict,'o',label='predict vs data',alpha=0.5)
+plt.plot([min(inc),max(inc)],[min(inc),max(inc)],'--',label='y=x',alpha=0.5)
+    
+plt.legend(loc=0)
+plt.xlabel("Data")
+plt.ylabel("Predict")
+plt.savefig("Figure7.1.png",dpi=400)
+plt.close()
+
 
 #model 1
 
