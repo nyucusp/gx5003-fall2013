@@ -299,7 +299,7 @@ Predict Unlabeled Data.
 '''
 
 def Predictor(theta,polyparali):
-    #get geolocation
+    #get geolocation of unlabed zipcode
     zipinfor2=get_zip_infor(zip2)
     x1=[];x2=[]
     for i in range(len(zip2)):
@@ -326,12 +326,19 @@ def Predictor(theta,polyparali):
 
     for i in range(len(pop2)): 
         popli[ypre[i]].append(pop2[i])
-    for cl in range(2):
-        pred = np.poly1d(polyparali[cl])
-        result=pred(popli[cl])
-        finalpredict.extend(result)
-        xfinal.extend(popli[cl])
-        plt.plot(xfinal,finalpredict,'o',label='Class '+str(cl+1),alpha=0.5)
+        pred = np.poly1d(polyparali[int(ypre[i])])
+        result=pred(pop2[i])
+        finalpredict.append(result)
+        xfinal.append(pop2[i])
+    
+ #   for cl in range(2):
+ #       pred = np.poly1d(polyparali[cl])
+ #       result=pred(popli[cl])
+ #       finalpredict.extend(result)
+ #       xfinal.extend(popli[cl])
+    plt.plot(xfinal,finalpredict,'o',label='Class '+str(cl+1),alpha=0.5)
+
+    
     plt.legend(loc=0)
     plt.title("Prediction to Unlabeled Data")
     plt.xlabel("Population")
@@ -339,6 +346,15 @@ def Predictor(theta,polyparali):
     plt.savefig("Figure8.png",dpi=400)
     print "Predicted Result saved in Figure8.png"
     plt.close()
+    
+    
+    
 
 print "Predicting unlabeled data"
 Predictor(final_theta,polyparali)
+f=open("predictions.csv","w")
+for i in finalpredict:
+    line=str(i)+'\n'
+    f.write(line)
+f.close()
+   
