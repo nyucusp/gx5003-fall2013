@@ -142,7 +142,7 @@ plt.title("Scatter Plot of Genes A and Gene D \n with cubic fitted line")
 plt.ylabel("Gene A")
 plt.xlabel("Gene D")
 plt.show()
-
+print p
 
 """And Finally: A fifth degree best fit polynomial curve for Gene A and Gene B, the most uncorrelated Gene.
 
