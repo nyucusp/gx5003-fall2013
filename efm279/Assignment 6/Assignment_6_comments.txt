@@ -1,0 +1,15 @@
+-Part A-
+Plotting the scatter graph for number of incidents vs. population using labeled data shows that there is some kind of a correlation between the two data fields.  One interesting observation is that for some zipcodes there are very few observations at least 1 for each.  The most extreme values, especially the lowest ones, are suspicious to be outliers therefore for the final model filtering should be performed to get unbiased results. The histogram plot for the number of incidents also show that the majority of the values are below 1000. More than half (176 out of 301) of the zipcodes have number of incidents below 100. Whereas some certain zipcodes have 100k incident records which is interesting. It is important to know what type of incidents we are looking at. Grouping incident types could be much useful for analysis. This can be addressed by the clustering techniques that are showed in the second ML class.
+
+-Part B- 
+The RMSE scores are declining with increasing degree of polynomial however marginal decreases after 3rd degree are minimal compared to the first two. Therefore for computational efficiency and to avoid over-fitting, 3rd degree polynomial fit is chosen for the following analysis.
+
+-Part C-
+The trend in RMSE scores are the same in the model that uses full dataset however the errors are higher compared to 10-fold CV results. The standard error bars show that increasing polynomial degree results in a minimal increase in the range of errors.
+
+-Part D-
+Final OLS model is the 10-fold CV model using 3rd order polynomial fit. Predictions based on the model are given in the first graph. The low numbers are predicted pretty well however for extreme points predictions are generally higher than the observed values. A better model for higher values could be filtering the lower values and estimating a new model based on only high values. In this case values lower than 500 incidents are excluded and the model is re-estimated for 3rd degree polynomial. The results in this case are visually more satisfying and most of the points up to 70k can be estimated using this model. Therefore it makes more sense to split data into different ranges and make estimations for each range.
+
+-Part E-
+For unlabeled data, final model can give RMSEs around 1200-1300 range or they can be a little worse. We did not use a very large dataset to come up with the models therefore more data is needed for a general model that can be applicable to any dataset. It is quite obvious that there is a relationship between population and number of incidents. The performance of the model can be increased by using advanced clustering techniques since there are large gaps between the extreme values. One very simple grouping can be done with using spatial analysis tools and breaking down the data into smaller regions. Incident types are also important; therefore a grouping can be done depending on the severity of the incidents.  More advanced ML techniques can be used for a better analysis for example clustering the data points will improve the predictive ability of the model as can be seen in the filtered data case I used in part D.
+

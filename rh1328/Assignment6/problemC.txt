@@ -1,0 +1,4 @@
+Observation:
+
+As stated in problemB.txt, there is a positive correlation between the orders and the RMSE average.
+

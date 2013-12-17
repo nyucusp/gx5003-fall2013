@@ -30,7 +30,7 @@ import warnings
 import math
 import random
 
-plot_3d = False
+plot_3d = True
 
 
 def main():
@@ -52,6 +52,7 @@ def main():
 
 	num_validations = 10
 
+
 	# create arrays for the RMSE values
 	rmse_d1 = np.zeros( num_validations, dtype='longlong' )
 	rmse_d2 = np.zeros( num_validations, dtype='longlong' )
@@ -65,14 +66,30 @@ def main():
 	stdErr_d5 = np.zeros( num_validations, dtype='longlong' )
 
 
+	verifStart = 0
+	testSize = int( round( (numOfDataPoints / num_validations) * (num_validations-1)  ) )
+	verifRange = numOfDataPoints - testSize
+	randomSampleOrder = random.sample(xrange(0, numOfDataPoints), numOfDataPoints)
+	# print randomSampleOrder
+
 
 	valNum = 0
 	while valNum < num_validations:		
 	
-		# create a random set of indexes
-		testSize = int( round( numOfDataPoints * 0.9 ) )
-		verifIdx = np.sort( np.array( random.sample(xrange(0, numOfDataPoints), testSize )) )	
+		# OPTION 1 for Cross Validation
+		# CREATE A RANDOM SET OF INDEXES EACH TIME
+		# testSize = int( round( numOfDataPoints * 0.9 ) )
+		# verifIdx = np.sort( np.array( random.sample(xrange(0, numOfDataPoints), testSize )) )	
 
+		# OPTION 2 for Cross Validation
+		# PULL SETS IN ORDER FROM THE WHOLE RANDOMIZED DATA SET
+		# This ensures that each sample is touched once
+		verifEnd = verifStart + verifRange
+		if verifEnd > numOfDataPoints:
+			verifEnd = numOfDataPoints
+		verifIdx = randomSampleOrder[ verifStart:verifEnd ]
+		# print verifIdx
+		# print verifStart, verifEnd
 
 		# calculate all matrix manipulations once and reassign to x1, x2 	
 		t = np.delete( num_incidents, verifIdx ).T
@@ -167,16 +184,13 @@ def main():
 			rmse_d3[valNum] = rmse_3
 			rmse_d4[valNum] = rmse_4
 			rmse_d5[valNum] = rmse_5
-			stdErr_d1[valNum] = np.std( t_hat_1 )
-			stdErr_d2[valNum] = np.std( t_hat_2 )
-			stdErr_d3[valNum] = np.std( t_hat_3 )
-			stdErr_d4[valNum] = np.std( t_hat_4 )
-			stdErr_d5[valNum] = np.std( t_hat_5 )
 
 
+			verifStart = verifEnd
 			valNum += 1
 		# print valNum
-	# end cross validation loop
+		
+		### END CROSS VALIDATION LOOP ###
 	
 	# print rmse_d1 
 	# print rmse_d2
@@ -194,12 +208,17 @@ def main():
 	# get the mean for the arrays
 	rmseResults = ( [ np.mean(rmse_d1), np.mean(rmse_d2), np.mean(rmse_d3), 
 		np.mean(rmse_d4), np.mean(rmse_d5) ] )
-	stdErrResults = ( [ np.mean(stdErr_d1), np.mean(stdErr_d2), np.mean(stdErr_d3), 
-		np.mean(stdErr_d4), np.mean(stdErr_d5) ] )
+	# stdErrResults = ( [ np.mean(stdErr_d1), np.mean(stdErr_d2), np.mean(stdErr_d3), 
+		# np.mean(stdErr_d4), np.mean(stdErr_d5) ] )
 	# print rmseResults
 	# print stdErrResults
 
-	fig, ax = plt.subplots()
+	# standard error of the cv-rmse set  
+	stdErrResults = ( [ np.std( rmse_d1 ), np.std( rmse_d2 ), np.std( rmse_d3 ),
+		 np.std( rmse_d4 ), np.std( rmse_d5 ) ] )
+
+
+	fig, ax = plt.subplots(figsize=[10,10])
 	width = 0.9
 	complexity = np.array((1,2,3,4,5))
 	barPlot = ax.bar( complexity, rmseResults, width, color='r', yerr=stdErrResults )
@@ -220,28 +239,31 @@ def main():
 	fig.suptitle( 'RMSE Scores for '+str(num_validations)+'-fold CV on \n( num of incidents ~ f(population, zipcodes))', fontsize='18' )
 	fig.patch.set_facecolor('white')
 	plt.subplots_adjust( left=0.15, bottom=None, right=0.95, top=0.85, wspace=0.01, hspace=None )
-
+	fig.savefig('Problem_c_2d.png')
 	
 	if plot_3d:
 		zipcodes = np.array(zipcodes)
 		populations = np.array(populations)
 		num_incidents = np.array(num_incidents)
+		t = np.array(t)
 		t_hat_1plot = np.array(t_hat_1plot)
 		t_hat_2plot = np.array(t_hat_2plot)
 		t_hat_3plot = np.array(t_hat_3plot)
 		t_hat_4plot = np.array(t_hat_4plot)
 		t_hat_5plot = np.array(t_hat_5plot)
-		fig = plt.figure()
+		fig = plt.figure( )
 		ax = fig.gca(projection='3d')
-		# ax.scatter(x1, x2, t, c='k', marker='.')
-		# ax.scatter(x1, x2, t_hat_1plot, c='b', marker='+')
+		ax.scatter(x1, x2, t, c='k', marker='.')
+		ax.scatter(x1, x2, t_hat_1plot, c='b', marker='+', label='1st degree')
 		# ax.scatter(x1, x2, t_hat_2plot, c='g', marker='+')
 		# ax.scatter(x1, x2, t_hat_3plot, c='r', marker='+')
 		# ax.scatter(x1, x2, t_hat_4plot, c='c', marker='+')
-		ax.scatter(x1, x2, t_hat_5plot, c='m', marker='+')
+		ax.scatter(x1, x2, t_hat_5plot, c='m', marker='+', label='5th degree')
 		ax.set_xlabel('Zipcode')
 		ax.set_ylabel('Popultion')
-		ax.set_zlabel('Number of Incidents')	
+		ax.set_zlabel('Number of Incidents')
+		fig.patch.set_facecolor('white')	
+		fig.suptitle( '3d representation of \n( num_incidents ~ f( population, zip code ) )', fontsize='18' )
 		# show both plots
 	
 	plt.show()

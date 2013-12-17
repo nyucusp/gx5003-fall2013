@@ -1,0 +1,7 @@
+There are 2 plots in the 'Problem_d_figure_1.png'. One plot on the left side  is  a fitted line with 1st order and the other plot on the right side is a fitted line with 5th order, which is the final OLS model. 
+To find the R-square and coefficients for the final OLS model, I ran the code and got the result as described in the 'Problem_d_output_capture.png'.
+The estimated expression for the model is as follows.
+
+Y = -4.07*10^(-20)*X1 + 9.28*10^(-15)*X2 - 8.22*10^(-10)*X3 + 4.14*10^(-5)*X4 - 0.46*X5 + 1931.38
+
+R-square = 0.64 

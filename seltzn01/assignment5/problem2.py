@@ -42,6 +42,10 @@ for line in f:
 	datelist.append(datetime.strptime(numChars,'%Y-%m-%d %X'))
 # %X was a helpful shortcut
 
+timebinsDict = defaultdict(int)
+for line in datelist:
+    timebinsDict[line.strftime('%m-%d')] += 1
+
 
 #Assignmnet due dates for later tick marks
 Due0 = "2007-09-18 12:00:00"
