@@ -34,3 +34,12 @@ plt.title('311 Data: Number of Incidents as a function of population: Filtered M
 plt.legend( loc='upper right' )
 plt.show()
 plt.savefig('filtered.png',dpi = 300)
+
+prediction=[]
+prediction.append(['population','actual_no_of_incidents','predicted_no_of_incidents'])
+for uu in data.index.values:
+    prediction.append([data['population'][uu],data['num_incidents'][uu],p(data['population'][uu])])
+    
+with open('filtered_predictions_Final.csv', 'wb') as fp:
+    a = csv.writer(fp, delimiter=',')
+    a.writerows(prediction)
