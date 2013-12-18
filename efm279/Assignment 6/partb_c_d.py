@@ -106,11 +106,11 @@ plt.savefig('unfiltered.png',dpi = 300)
 
 
 prediction=[]
-prediction.append(['population','actual_no_of_incidents','predicted_no_of_incidents'])
+prediction.append(['zip code','population','actual_no_of_incidents','predicted_no_of_incidents'])
 for uu in range(0,len(data['population'])):
-    prediction.append([data['population'][uu],data['num_incidents'][uu],p(data['population'][uu])])
+    prediction.append([data['# zipcode'][uu],data['population'][uu],data['num_incidents'][uu],p(data['population'][uu])])
     
-with open('predictions.csv', 'wb') as fp:
+with open('Partd_predictions.csv', 'wb') as fp:
     a = csv.writer(fp, delimiter=',')
     a.writerows(prediction)
 
