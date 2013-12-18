@@ -1,0 +1,19 @@
+Problem a:
+1. From the plot of using population and incidents data, we can see that there are more incidents happening as the population number increasing.
+2. From the plot of using zipcode and incidents data, we can see that there isn't an obvious correlation between these two attributes.
+
+Problem b:
+According to the result of R^2 and RMSE with polynomial models from 1 to 5th order (see below), the third degree has the smallest RMSE. Although its R^2 result is not the largest, it's not much smaller than the largest one. So the third degree should be the best model.
+R^2 (from 1 to 5th)
+[0.61219641155600302, 0.63363951671547281, 0.64373170251009482, 0.64495713495061746, 0.64619264770629914] 
+RMSE (from 1 to 5th)
+[13309.915462071242, 13087.004395901597, 13002.888933425564, 13181.744767359774, 13542.642679798828] 
+
+Problem c:
+From the RMSE of all data, I can observe that as the order of polynomial increases, the RMSE has a decreasing pattern.
+
+Problem d:
+By using the third degree of polynomial, the incidents number in unlabeled data can be predicted.
+
+Problem e:
+I expect that the average RMSE on the unlabled data is similar to the RMSE of the third model. The performance can be improved if there is more data, since the RMSE will decrease by using more data, which means getting a more accurate prediction.

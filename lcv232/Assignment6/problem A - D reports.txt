@@ -1,0 +1,30 @@
+Problem A
+
+1. We can see the plot in the scatter diagram with the data of Zipcode vs No. of Incidents from the labeled_data file.
+2. We can see the plot in the scatter diagram with the data of Population vs No. of Incidents from the labeled_data file.
+
+The number of incidents increases when the population increases. 
+
+
+
+Problem B
+
+The average values of R^2 Scores of the polynomial from the 1st - 5th order are:
+0.61, 0.63, 0.64, 0.65 & 0.65. 
+The average values of RMSE are:
+13309.92, 13087.01, 13002.89, 13181.75 & 13542.64.
+
+The values of the 3rd degree polynomial provides the best performance as it fits the Population vs No. of Incidents data very well.
+
+
+
+Problem C
+
+As we can see in the plot of prolemC, the overall degree of polynomial increases and the RMSE data of decreases. There looks to be an inverse co-relation between the two.
+
+
+
+Problem D
+
+We can see previous that the third degree of polynomial has the best fit; hence I used it in the Unlabeled data given.
+The co-relation between the Predicted data & the Observed data to matches in the plot.

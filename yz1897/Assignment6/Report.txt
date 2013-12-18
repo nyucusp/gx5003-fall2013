@@ -1,0 +1,37 @@
+Problem 1: The basic phenomen that can be observed from the data. 
+    1. There is no overlapping zipcodes in the two datasets. 
+    2. The population distribution of the two datasets are similar. See Figure 1
+    3. There are two patterns in the relationship between the population and incidents numbers. See Figure 2  
+    4. The spacial distribution of labeled and unlabeled zipcodes are similiarl. See Figure 3
+    5. Based on 1,2,and 4, I assume that the Unlabeled can be modeled by the Labeled data.
+    6. The zipcodes in class 1 are mainly in New York City, while rest of zipcodes are zipcodes outside NYC in NY State. See Figure 4
+
+
+Problem 2:
+    The result of doing 10 fold validation is not fixed, which depends on how the random folds are selected.
+    After using different 10 fold validation 100 times, there are 27 times 2 is the best model complexity, 
+and 73 times 3 is the best order, therefore, I chose to use 3 as the best order.(This result may change, but
+3 is most likely to be the best.)
+
+Problem 3:
+    After compare the rmse from the cross validation rmse and that from all data(Figure 5), the result shows higher complexity will
+increase the precision using a data set to predict itself, it is different in cross validation where a minimum rmse can be obtained
+which represent a moderate complexity that could avoid over-fitting.
+
+
+Problem 4:
+    The OLS model I chose is combined with a logistic regression classifier. In this model, the classifier separate the data into to groups
+according to their geolocation. The data used to train the classifier is from the labeled data, which I manually labeled according to Figure2,
+in detail, log(incident)>6 is class 2 otherwise, is class 1.
+    To avoid overfitting in the classifier, I used a lambda to regularize the parameters.
+    The boundary of classifier is in Figure6
+    After the data is classified, I again, applied polynomial fit to two classes, after training, the best order according to 10-fold cross validation
+is in most case 1 in both of the classes. The prediction in labeled data itself is given in Figure 7.
+    Finally, I used the model to predict the unlabeled data, the prediction in given in Figure 8.
+
+Problem 5:
+    The rmse of Model to predict labeled data is 8473.18007368, I believe if there is no overfitting problem, a similar rmse will be obtained in the 
+unlabeled data.
+    If have enough time, I would try a faster and more precise minimizer, and more types of features and lambda to have a best classification. Also, I
+would combine the geofeature into the OLS models. But I don't think there will be a big improvement in this way,the even better prediction requires more
+data in this case, such as the main industry of that zipcode, whether it is by water or not etc.

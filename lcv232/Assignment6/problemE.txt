@@ -1,0 +1,5 @@
+Problem E
+
+As seen previously, the third degree of polynomial has the best performance in the previous caculations, so we can expect to achieve from this model onto the unlabeled data to be around 13000 taking into these assumptions.
+We can improve the overall performance by expanding the dataset into the existing attributes with upon the varied time scales.
+The performance of the average values of RMSE can also be improved if its attributes have a higher correlation with the observed  no. of incidents.That can make the prediction even accurate & the plots between the Predicted & Observed even tighter.
