@@ -35,11 +35,12 @@ plt.legend( loc='upper right' )
 plt.show()
 plt.savefig('filtered.png',dpi = 300)
 
+data_unlabled = pd.read_csv('unlabeled_data.csv')
 prediction=[]
-prediction.append(['zip code','population','actual_no_of_incidents','predicted_no_of_incidents'])
-for uu in data.index.values:
-    prediction.append([data['# zipcode'][uu],data['population'][uu],data['num_incidents'][uu],p(data['population'][uu])])
+prediction.append(['zip code','population','predicted_no_of_incidents'])
+for uu in data_unlabled.index.values:
+    prediction.append([data_unlabled['# zipcode'][uu],data_unlabled['population'][uu],p(data_unlabled['population'][uu])])
     
-with open('Partd_filtered_predictions_Final.csv', 'wb') as fp:
+with open('unlabeled_predictions_Final.csv', 'wb') as fp:
     a = csv.writer(fp, delimiter=',')
     a.writerows(prediction)
