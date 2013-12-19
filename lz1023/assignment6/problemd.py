@@ -33,7 +33,7 @@ p=np.poly1d(coeffs)
 inc_predict=p(pop1)
 
 #print inc_predict
-outputfile=open('prediction.cvs','w')
+outputfile=open('prediction.csv','w')
 outputfile.write('zipcode'+','+'Population'+','+'Predicted incidents'+'\n')
 for i in range(0,len(pop1)):
     outputfile.write(str(zip1[i])+','+str(pop1[i])+','+str(inc_predict[i])+'\n')
