@@ -439,4 +439,14 @@ for i in range(1,len(linesUData)):
     outputResults.write("%s, %s, %s \n" % (linesUData[i].split(',')[0], listFinal[i-1][0], math.ceil(listFinal[i-1][2])))
 outputResults.close()
 
-# TO DO: write-up
+# Export predictions
+
+filePredictions = open('predictions.csv', 'w')
+filePredictions.write('setBZip,populationActualI,indexActualI\n')
+for line in zip(setBZip, populationActualI, indexActualI):
+    filePredictions.write(str(line[0]) + ',' + str(line[1]) + ',' + str(line[2]) + '\n')
+for line in zip(setBZip, populationActualO, indexActualO):
+    filePredictions.write(str(line[0]) + ',' + str(line[1]) + ',' + str(line[2]) + '\n')
+
+
+print '\n'
