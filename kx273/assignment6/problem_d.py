@@ -1,5 +1,6 @@
 from matplotlib import pyplot
 import numpy
+import csv
 
 # read data form dat file
 inputFile = open('labeled_data.csv','r')
@@ -18,9 +19,11 @@ inputFile.close()
 inputFile = open('unlabeled_data.csv','r')
 header = inputFile.readline()
 popPredic=[]
+zipPredic=[]
 for line in inputFile:
         term = line.split(",")
         popPredic.append(int(float(term[1])))
+        zipPredic.append(term[0])
 inputFile.close()
 
 
@@ -52,10 +55,24 @@ graph2.set_xlabel('Population',fontweight='bold')
 graph2.set_ylabel('Incident',fontweight='bold')
 graph2.set_title("Predict incidents using unlabeled data",fontsize=15)
 
+
 fig.tight_layout()
 fig.patch.set_facecolor('white') 
 pyplot.savefig('problem_d.png', dpi=200)
 pyplot.show()
+
+
+
+outputTerm=[]
+output=[]
+for i in range(len(popPredic)):
+        outputTerm=[zipPredic[i],popPredic[i],inciPredic[i]]
+        output.append(outputTerm)
+
+with open('predictions.csv', 'wb') as fp:
+    a = csv.writer(fp, delimiter=',')
+    a.writerow(['ZIP','Population','Incident'])
+    a.writerows(output)
 
 """
 Note:

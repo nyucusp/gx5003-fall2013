@@ -3,6 +3,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 # Set formatting parameters for plots
 
@@ -117,6 +118,8 @@ Part b: cross-validation, select model complexity based on RMSE and RSQ scores f
 
 """
 
+print'\nPart B:'
+
 # Import packages
 
 from sklearn import cross_validation
@@ -177,8 +180,8 @@ for i in range(1,6):
 
 # Print scores
 
-print scoresRMSE
-print scoresRSQ
+# print scoresRMSE
+# print scoresRSQ
 
 print "Polynomial of order", (scoresRMSE.index(min(scoresRMSE)) + 1), "is the model with the lowest RMSE score."
 print "Polynomial of order", (scoresRSQ.index(min(scoresRSQ)) + 1), "is the model with the lowest RSQ score."
@@ -187,7 +190,6 @@ print "Polynomial of order", (scoresRSQ.index(min(scoresRSQ)) + 1), "is the mode
 # Based on the RSQ scores, 5th order polynomial model gives the best fit
 
 # TO DO: plot both 3rd and 5th order polynomial models
-# TO DO: write-up
 
 """
 Part c: plot RMSE of whole training set against 10-fold cross-validation average
@@ -224,14 +226,227 @@ ax.set_xlabel('Model Complexity (Order of Polynomial)')
 ax.set_ylabel('RMSE (Number of Incidents)')
 ax.set_title('RMSE and Model Complexity')
 
-plt.show()
+# plt.show()
 plt.savefig('Plot c1 – RMSE v. Model Complexity.png')
 plt.clf()
 
-# TO DO: add error bars and legend to Plot c1
-# TO DO: fix Plot c1 saving as a blank figure
+# TO DO: add error bars and legend
 
 """
 Part d: build final RSQ model
 
 """
+
+print'\nPart D:'
+
+# Read New York City zip code data from previous assignment into new zip code list
+
+inputBData = open('/Users/JSAdams/gx5003-fall2013/jsa325/tutorial2/boroughs.csv', 'r')
+
+linesBData = []
+for line in inputBData:
+    linesBData.append(line)
+inputBData.close()
+
+listBZip = []
+for elt in linesBData:
+    listBZip.append(elt[0:5])
+setBZip = set(listBZip)
+
+# Divide training set into two training incident variables and initialize two target incident variables
+# NOTE: I = inside NYC, O = outside NYC
+
+variableTrainI = []
+variableTrainO = []
+variableTargetI = []
+variableTargetO = []
+
+for i in range(1,len(linesLData)):
+    if str(int(float(linesLData[i].split(',')[0]))) in setBZip:
+        variableTrainI.append(float(linesLData[i].split(',')[1]))
+    else:
+        variableTrainO.append(float(linesLData[i].split(',')[1]))
+        
+for i in range(1,len(linesLData)):
+    if str(int(float(linesLData[i].split(',')[0]))) in setBZip:
+        variableTargetI.append(float(linesLData[i].split(',')[2]))
+    else:
+        variableTargetO.append(float(linesLData[i].split(',')[2]))
+
+# Repeat model, cross-validation, RMSE, and RSQ steps from part b for I and O
+
+# I: initialize RMSE and RSQ models and lists, and define cross-validation function
+
+cv = cross_validation.KFold(len(variableTargetI), n_folds=10, shuffle=True)
+arrayTrainI = np.array(variableTrainI)
+arrayTargetI = np.array(variableTargetI)
+
+scoresRMSEI = []
+scoresRSQI = []
+
+# Initialize lists to hold RMSE and RSQ values for 1–5th order polynomail models
+
+for i in range(1,6):
+    listRMSEI = []
+    listRSQI = []
+    
+    # Fit polynomail model of order i to training set 
+       
+    for train, test in cv:
+        polyTrainI = np.polyfit(arrayTrainI[train], arrayTargetI[train], i)
+        polyTestI = np.polyval(polyTrainI, arrayTrainI[test])
+    
+        # Compute RMSE for folds and models, save values to listRSME
+        
+        RMSE = (((polyTestI - arrayTargetI[test]) ** 2).mean(axis=None)) ** .5
+        listRMSEI.append(RMSE)
+        
+        # Compute RSQ for folds and models, save values to listRSQ
+        
+        listAverageI = []
+        
+        for j in range(0,len(arrayTargetI[test])):
+            averageTestI = sum(arrayTargetI[test])/len(arrayTargetI[test])
+            listAverageI.append(averageTestI)
+        
+        residualsI = sum((polyTestI - arrayTargetI[test]) ** 2)
+        totalsI = sum((arrayTargetI[test] - listAverageI) ** 2)
+        
+        listRSQI.append(1 - (residualsI/totalsI))
+        
+    # Average over listRMSEI and listRSQI, save to scoresRMSEI and scoresRSQI
+    
+    scoresRMSEI.append(sum(listRMSEI)/len(listRMSEI))
+    scoresRSQI.append(sum(listRSQI)/len(listRSQI))
+        
+# O: initialize RMSE and RSQ models and lists, and define cross-validation function
+
+cv = cross_validation.KFold(len(variableTargetO), n_folds=10, shuffle=True)
+arrayTrainO = np.array(variableTrainO)
+arrayTargetO = np.array(variableTargetO)
+
+scoresRMSEO = []
+scoresRSQO = []
+
+# Initialize lists to hold RMSE and RSQ values for 1–5th order polynomail models
+
+for i in range(1,6):
+    listRMSEO = []
+    listRSQO = []
+    
+    # Fit polynomail model of order i to training set 
+       
+    for train, test in cv:
+        polyTrainO = np.polyfit(arrayTrainO[train], arrayTargetO[train], i)
+        polyTestO = np.polyval(polyTrainO, arrayTrainO[test])
+    
+        # Compute RMSE for folds and models, save values to listRSME
+        
+        RMSE = (((polyTestO - arrayTargetO[test]) ** 2).mean(axis=None)) ** .5
+        listRMSEO.append(RMSE)
+        
+        # Compute RSQ for folds and models, save values to listRSQ
+        
+        listAverageO = []
+        
+        for j in range(0,len(arrayTargetO[test])):
+            averageTestO = sum(arrayTargetO[test])/len(arrayTargetO[test])
+            listAverageO.append(averageTestO)
+        
+        residualsO = sum((polyTestO - arrayTargetO[test]) ** 2)
+        totalsO = sum((arrayTargetO[test] - listAverageO) ** 2)
+        
+        listRSQO.append(1 - (residualsO/totalsO))
+    
+    # Average over listRMSEO and listRSQ), save to scoresRMSEO and scoresRSQO
+    
+    scoresRMSEO.append(sum(listRMSEO)/len(listRMSEO))
+    scoresRSQO.append(sum(listRSQO)/len(listRSQO))
+
+# Print scores
+
+# print scoresRMSEI
+# print scoresRSQI
+# print scoresRMSEO
+# print scoresRSQO
+
+print "Polynomial of order", (scoresRMSEI.index(min(scoresRMSEI)) + 1), "is the model with the lowest RMSEI score."
+print "Polynomial of order", (scoresRSQI.index(min(scoresRSQI)) + 1), "is the model with the lowest RSQI score."
+print "Polynomial of order", (scoresRMSEO.index(min(scoresRMSEO)) + 1), "is the model with the lowest RMSEO score."
+print "Polynomial of order", (scoresRSQO.index(min(scoresRSQO)) + 1), "is the model with the lowest RSQO score."
+
+
+# Based on the RMSEI scores, the 1st order polynomial model gives the best fit
+# Based on the RMSEO scores, the 2nd order polynomial model gives the best fit
+# Based on both the RSQI and RSQO scores, the 5th order polynomial model gives the best fit
+
+# Train 1st and 2nd order polynomial models on the whole training set
+
+polyTrainI = np.polyfit(arrayTrainI, arrayTargetI, 1)
+polyTrainO = np.polyfit(arrayTrainO, arrayTargetO, 2)
+
+# Test models on unlabeled data
+
+# Divide data set into two actual population variables
+
+indexActualI = []
+indexActualO = []
+
+for i in range(1,len(linesUData)):
+    if str(int(float(linesUData[i].split(',')[0]))) in setBZip:
+        indexActualI.append([float(linesUData[i].split(',')[1]),i,0])
+    else:
+        indexActualO.append([float(linesUData[i].split(',')[1]),i,0])
+        
+# Remove index from population variable lists
+
+populationActualI = []
+populationActualO = []
+
+for elt in indexActualI:
+    populationActualI.append(elt[0])
+for elt in indexActualO:
+    populationActualO.append(elt[0])
+    
+# Compute predicted values
+
+polyActualI = np.polyval(polyTrainI, populationActualI)
+polyActualO = np.polyval(polyTrainO, populationActualO)
+
+# Reassemble linesUData with predicted incidents
+
+for i in range(0,len(indexActualI)):
+    indexActualI[i][2] = polyActualI[i]
+for i in range(0,len(indexActualO)):
+    indexActualO[i][2] = polyActualO[i]
+    
+# Initialize final output list
+
+listFinal = []
+
+for i in range(1,len(linesUData)):
+    for elt in indexActualI:
+        if elt[1] == i:
+            listFinal.append(elt)
+    for elt in indexActualO:
+        if elt[1] == i:
+            listFinal.append(elt)
+            
+# Write results to file
+
+outputResults = open('testData.txt', 'w')
+for i in range(1,len(linesUData)):
+    outputResults.write("%s, %s, %s \n" % (linesUData[i].split(',')[0], listFinal[i-1][0], math.ceil(listFinal[i-1][2])))
+outputResults.close()
+
+# Export predictions
+
+filePredictions = open('predictions.csv', 'w')
+filePredictions.write('setBZip,populationActualI,indexActualI\n')
+for line in zip(setBZip, populationActualI, indexActualI):
+    filePredictions.write(str(line[0]) + ',' + str(line[1]) + ',' + str(line[2]) + '\n')
+for line in zip(setBZip, populationActualO, indexActualO):
+    filePredictions.write(str(line[0]) + ',' + str(line[1]) + ',' + str(line[2]) + '\n')
+
+
+print '\n'

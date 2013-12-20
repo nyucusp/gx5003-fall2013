@@ -531,8 +531,8 @@ plt.clf()
 
 
 # Export predictions:
-prediction_file = open('unlabeled_predictions.csv', 'w')
-prediction_file.write('Zipcode,Population,Predicted Incidents\n')
+prediction_file = open('predictions.csv', 'w')
+prediction_file.write('Zipcode,Population,Predicted_Incidents\n')
 for line in zip(int_zips, int_pop, int_vals):
     prediction_file.write(str(line[0]) + ',' + str(line[1]) + ',' + str(line[2]) + '\n')
 for line in zip(ex_zips, ex_pop, ex_vals):
