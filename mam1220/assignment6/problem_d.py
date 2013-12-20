@@ -27,6 +27,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 import random
+import csv
 
 # plot a 3d representation
 # note: because I am using 3 features as predictors this is not as informative
@@ -158,6 +159,21 @@ def main():
 	# print predicted_values
 	# print np.max(predictedArray)
 	# print np.max(labeled_numIncidents)
+ 
+ 	# updated on 12/19 
+ 	# mirroring changes in output specifications 
+ 	# data is now saved to a .csv file for predictions
+	# write predictions.csv
+	with open('predictions.csv', 'wb') as csvfile:
+		csv_writer = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+		# write column headers
+		csv_writer.writerow(['zipcode', 'number_incidents_prediction'])
+		# write the data 
+		for i in range(unlabeledLen):
+			csv_writer.writerow([unlabeledZip[i], predictedArray[i]])
+
+
 
 
 	if plot_3d:

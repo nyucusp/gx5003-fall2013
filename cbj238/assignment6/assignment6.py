@@ -444,8 +444,11 @@ def part_d(labelled_zip_data, unlabelled_zip_data, c_part_model, order):
     # OKAY. NOW. Get predictions on the test data from just the original model.
     x_nonlin_test = generate_nonlinear_x(ul_x_data[:, 0], order)
     t_hat_1 = generate_prediction(x_nonlin_test, c_part_model)
-    for index in xrange(len(unlabelled_dict.keys())):
-        print unlabelled_dict.keys()[index], ul_x_data[index, 0], t_hat_1[index]
+    with open("predictions.csv", 'w') as fptr:
+        # Write Header
+        fptr.write("zip,predicted_incidents\n")
+        for index in xrange(len(unlabelled_dict.keys())):
+            fptr.write("%d,%f\n" % (unlabelled_dict.keys()[index], t_hat_1[index]) )
 
     t_hat_2, rmse2, rsqr2 = run_model(l_x_data[:, 1], l_x_data[:, -1], ul_x_data[:, 1], None, order)
     t_hat_3, rmse3, rsqr3 = run_model(l_x_data[:, 2], l_x_data[:, -1], ul_x_data[:, 2], None, order)
