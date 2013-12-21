@@ -34,3 +34,13 @@ plt.title('311 Data: Number of Incidents as a function of population: Filtered M
 plt.legend( loc='upper right' )
 plt.show()
 plt.savefig('filtered.png',dpi = 300)
+
+data_unlabled = pd.read_csv('unlabeled_data.csv')
+prediction=[]
+prediction.append(['zip code','population','predicted_no_of_incidents'])
+for uu in data_unlabled.index.values:
+    prediction.append([data_unlabled['# zipcode'][uu],data_unlabled['population'][uu],p(data_unlabled['population'][uu])])
+    
+with open('unlabeled_predictions_Final.csv', 'wb') as fp:
+    a = csv.writer(fp, delimiter=',')
+    a.writerows(prediction)

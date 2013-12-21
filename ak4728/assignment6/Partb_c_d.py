@@ -1,5 +1,5 @@
 #Special thanks to Ender Faruk Morgul.
-
+import csv
 import pandas as pd
 from _collections import defaultdict
 import matplotlib.pyplot as plt
@@ -69,7 +69,31 @@ for i in range(1,6):
     full[i]=[RMSE(p(train),target),R2(train,target,p)]
     fts.append(RMSE(p(train),target))
 
+"myModel = -1.175e-10 x + 2.147e-05 x - 0.3076 x + 2242"
+myDict2 = {}
+with open('unlabeled_data.csv','r') as f:
+    f.next()
+    for row in f:
+        a = row.strip('\n').split(',')
+        myDict2[float(a[0])] = [ float(a[1])]
 
+labeled = pd.DataFrame.from_dict(myDict2, orient='index')
+labeled.columns = ['population']
+
+train2 = np.array(labeled['population'])
+
+p = np.poly1d(np.polyfit(train,target, deg = 3))
+
+f = pd.read_csv('unlabeled_data.csv')
+ps=[]
+ps.append(['zip code','population','predicted'])
+for element in f.index.values:
+    ps.append([f['# zipcode'][element],f['population'][element],p(f['population'][element])])
+
+with open('predictions.csv', 'wb') as fp:
+    a = csv.writer(fp, delimiter=',')
+    a.writerows(ps)
+    
 for i in range(5):
     print "The 10-fold CV " + str(i + 1) + "-degree polynomial RMSE = " + str(RMSEList[i]) + " R^2 = " + str(R2List[i])
 print "The 3rd polynomial has the best fit"
@@ -90,8 +114,6 @@ plt.ylim(12000,16000)
 plt.grid()
 plt.legend( loc='upper right' )
 plt.show()
-plt.savefig('fullmodel.png',dpi = 300)
-
 
 #Part_d
 d=3
@@ -105,7 +127,6 @@ plt.xlim(0,130000)
 plt.title('The number of Incidents as a function of population')
 plt.legend( loc='upper left' )
 plt.show()
-plt.savefig('notfiltered.png',dpi = 300)
 
 
 labeled = pd.DataFrame.from_dict(myDict2, orient='index')
@@ -122,7 +143,5 @@ plt.title('The number of Incidents as a function of population')
 plt.legend( loc='upper left' )
 plt.show()
 plt.savefig('filtered.png',dpi = 300)
-
-
 
 
