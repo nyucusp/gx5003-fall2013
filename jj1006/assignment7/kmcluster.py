@@ -12,7 +12,7 @@ def closest(point, centroids):
                 distances.append(sqdif.sum())
         return distances.index(min(distances))
 
-f = open('test10000.data','r')
+f = open('train.data','r')
 features = []
 letters = []
 numLetters = 26
@@ -48,7 +48,7 @@ centroids = kmeans(whitened,array(tuple(centroids)))[0]
 numPredictions = 0
 numErrors = 0
 
-f = open('train.data','r')
+f = open('validate.data','r')
 for line in f:
 	data = line.split(',')
 	point = array(data[1:],dtype = '|S4')
