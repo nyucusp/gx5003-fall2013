@@ -1,0 +1,7 @@
+
+
+K-nn approach
+
+Interestingly, the accuracy of K-nn seemed to go down as K increased. For example, on a small training set (1000 training points and 100 validation points) the number of errors made by K-nn was 30% when only the closest neighbor was considered, 37% when the closest 5 neighbors were considered, 45% when the closest 10 neighbors were considered, and 53% when the closest 50 neighbors were considered. This result appeared to hold when an even larger training and validation set were applied. Hence I used a relatively small value of K=3 for the more lengthy analyses.
+
+Using the entire training data set of 16,000 data points to predict the letters of the 4,000 remaining points, the algorithm did quite well. Overall, only 183 errors were made of 4000 predictions. The F1 score for letter A was 0.993548387097
