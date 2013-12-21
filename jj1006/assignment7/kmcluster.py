@@ -3,7 +3,16 @@ import numpy as np
 from scipy.cluster.vq import vq, kmeans, whiten
 from string import ascii_uppercase
 
-f = open('test1000.data')
+def closest(point, centroids):
+#returns the index of the closest centroid from centroids to point
+        distances = []
+        for d in centroids:
+                dif = (np.array(d)-np.array(point))
+                sqdif = dif**2
+                distances.append(sqdif.sum())
+        return distances.index(min(distances))
+
+f = open('test10000.data','r')
 features = []
 letters = []
 numLetters = 26
@@ -34,12 +43,17 @@ for l in ascii_uppercase:
 			temp.append(featuredict[l][j][i])
 		c.append(np.array(temp).mean())
 	centroids.append(c)
-print centroids
-
-print kmeans(whitened,array(centroids))	
-
+centroids = kmeans(whitened,array(tuple(centroids)))[0]
 #misclassification error metric
-
 numPredictions = 0
 numErrors = 0
 
+f = open('train.data','r')
+for line in f:
+	data = line.split(',')
+	point = array(data[1:],dtype = '|S4')
+	prediction=ascii_uppercase[closest(point.astype(np.float),centroids)]
+	if prediction != data[0]:
+		numErrors = numErrors + 1
+	numPredictions = numPredictions + 1
+print "Made " + str(numErrors) + " errors of " + str(numPredictions) + " predictions."
