@@ -1,6 +1,6 @@
 # Nathan Seltzer
 # Homework 6
-# assignment6a.py
+# partA.py
 
 import matplotlib.pyplot as plt
 import numpy as np

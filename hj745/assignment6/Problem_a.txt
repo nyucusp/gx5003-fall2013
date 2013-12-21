@@ -1,0 +1,3 @@
+Looking at the graph of labeled data, I can figure out the number of incidents is generally proportional to population, but the incidents are shown in the areas that have zipcodes between 10000 to 12000 roughly.
+In order to see more clear pattern, I decided to plot data in juxtaposition. 
+In the juxtaposition graph, I could reaffirm the fact that the number of incidents is quite proportional to population, but the incidents are only shown in the areas that have zipcodes between 10000 to 12000 roughly.

@@ -392,8 +392,10 @@ print '\nFinal OLS model'
 # Given my findings above, I will do two things to improve
 # prediction. First, I will split the data into two sets: zipcodes
 # inside New York, and those outside. I will conduct this split based
-# on the number of incidents: choosing the halfway point between the
-# external zipcodes and internal zipcodes, this is 400 incidents.
+# on a table from a previous assignment, which told us which zipcodes
+# were in which boroughs -- and by extension, which zipcodes were in
+# New York City. If zipcodes are not in this file, I will consider
+# them external zipcodes.
 
 # Based on the argument that zipcodes inside and outside New York are
 # not identically distributed, I think this is a valid change in the
@@ -407,25 +409,33 @@ print '\nFinal OLS model'
 # datapoint at a time.
 
 
-int_incid = []
-int_pop = []
-ex_incid = []
-ex_pop = []
+nyc_zips_file = open('boroughs.csv', 'rU')
+nyc_zips = [line for line in nyc_zips_file]
 
-# Split lists by incident count:
-for index, incid in enumerate(l.incid):
-    if incid > 400:
-        int_incid.append(l.incid[index])
-        int_pop.append(l.pop[index])
-    elif incid <= 400:
-        ex_incid.append(l.incid[index])
-        ex_pop.append(l.pop[index])
-    else:
-        print "Error with splitting function."
-int_zipct = len(int_incid)
-ex_zipct = len(ex_incid)
+# Split lists by zipcode location:
+def split_zips(z, labeled=True):
+    int_zips = []
+    int_incid = []
+    int_pop = []
+    ex_zips = []
+    ex_incid = []
+    ex_pop = []
+    for index, zipcode in enumerate(z.zips):
+        if any(str(zipcode) in item for item in nyc_zips):
+            int_pop.append(z.pop[index])
+            int_zips.append(z.zips[index])
+            if labeled:
+                int_incid.append(z.incid[index])
+        else:
+            ex_pop.append(z.pop[index])
+            ex_zips.append(z.zips[index])
+            if labeled:
+                ex_incid.append(z.incid[index])
+    int_zipct = len(int_incid)
+    ex_zipct = len(ex_incid)
+    return int_zips, int_incid, int_pop, ex_zips, ex_incid, ex_pop, int_zipct, ex_zipct
 
-
+int_zips, int_incid, int_pop, ex_zips, ex_incid, ex_pop, int_zipct, ex_zipct = split_zips(l)
 
 
 # Choose model for internal zips:
@@ -498,6 +508,35 @@ addgrid_removespines(ax)
 add_labels('Best fit for Part D, Incidents vs. External Zipcode Population', 'Incidents', 'Zipcode Population', ax)
 plt.savefig('Part D External Zips Best Fit.png', dpi=300)
 plt.clf()
+
+
+
+# Plot prediction:
+int_zips, int_incid, int_pop, ex_zips, ex_incid, ex_pop, int_zipct, ex_zipct = split_zips(u, labeled=False)
+
+ax = plt.subplot(111)
+
+ex_vals = np.polyval(ex_coefficients, ex_pop)
+int_vals = np.polyval(int_coefficients, int_pop)
+plt.plot(int_pop, int_vals, '.', color='tomato', zorder=2, label='Internal zipcodes')
+plt.plot(ex_pop, ex_vals, '.', color='steelblue', zorder=2, label='External zipcodes')
+
+ax.set_ylim([-1000,75000])
+addgrid_removespines(ax)
+add_labels('Estimates for Part D Unlabeled Data, Incidents vs. Zipcode Population', 'Incidents', 'Zipcode Population', ax)
+ax.legend(frameon=False, fontsize='small', numpoints=1, loc=0)
+ax.text(65000, 1000, 'Note: external zipcode predicted values are between 1 and 13', fontsize='x-small')
+plt.savefig('Part D Prediction.png', dpi=300)
+plt.clf()
+
+
+# Export predictions:
+prediction_file = open('predictions.csv', 'w')
+prediction_file.write('Zipcode,Population,Predicted_Incidents\n')
+for line in zip(int_zips, int_pop, int_vals):
+    prediction_file.write(str(line[0]) + ',' + str(line[1]) + ',' + str(line[2]) + '\n')
+for line in zip(ex_zips, ex_pop, ex_vals):
+    prediction_file.write(str(line[0]) + ',' + str(line[1]) + ',' + str(line[2]) + '\n')
 
 
 print '\n'

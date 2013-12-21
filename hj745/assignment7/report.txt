@@ -1,0 +1,3 @@
+According to the accuracy, the standard deviation of the K-Nearest Neighbor is the smallest. Therefore, I would say that the K-Nearest Neighbor gives the most accurate result. 
+After re-train on all 16K samples to predict on the remaining 4K test set, i find the accuracy of 11.97 +/- 15.14
+ And, F1 score is '0.8545'

@@ -9,7 +9,7 @@ There are two obvious plots that need to be created given the variables.
 
 (1) I want to get a sense of the spread of the dependent/target
 variable "num_incidents", which is the number of incidents of 311 calls.
-To do this, I plotted a histogram using num_incidents. I used 17 bins,
+To do this, I plotted a histogram using num_incidents (figure1.png). I used 17 bins,
 somewhat arbitrarily. It created cut points at intervals of every 7,010
 number of incidents. This can be seen in "chart1.png". It's clear that 
 the distribution is positively skewed, with by far a large majority of
@@ -20,7 +20,7 @@ represents the data. I could increase the bin size, but I feel like the
 histogram would not be effective, since there would be missing bins as the 
 values of num_incidents increased. What I did do instead was plot a sorted 
 num_incidents on the y-axis by the number of observations, "num_obs" on the 
-x-axis (chart2.png). Here, we can see that about 175 of the zipcodes have 
+x-axis (figure2.png). Here, we can see that about 175 of the zipcodes have 
 num_incidents values of less than 100, a flat line. (The first 160 of those
 have a 311 incident rate of less than 20.) The remaining 125 zipcodes begin 
 to increase in a curvilinear manner. One can see that only 40 zipcodes in 
@@ -28,9 +28,9 @@ the dataset, or roughly 12% of all the zipcodes, have number of incidents
 over 40,000.
 
 (2) The second way to visually interpret the given data is by creating a
-scatterplot with population on the y-axis and num_incidents on the x-axis 
+scatterplot with population on the x-axis and num_incidents on the y-axis 
 to see if there is any correlation between population and number of incidents. 
-Doing so results in "chart3.png". There are two interesting "phenomena of
+Doing so results in "figure3.png". There are two interesting "phenomena of
 interest" within this scatterplot. 
 
 (A) First, there are a large number of observations (i.e. zipcodes) that have 
@@ -46,7 +46,7 @@ of ordinary least squares regression; namely, the assumption that the predictor
 variables have to be linearly related to the dependent variable. Going forward,
 I will do an analysis on both the original dataset ("labeled_data.csv") and an 
 updated dataset ("updated_labeled_data.csv") that removes 176 observations with 
-num_incidents values less than 100. 
+num_incidents values less than 100.
 
 (B) Second, their is evidence of heteroskedascticity. The spread
 of the data is narrow at the lower values, but then  widens as the values 
@@ -65,7 +65,7 @@ PART B
 
 Since we are now able to use any other "language" to solve
 this assignment, I've decided to use Stata for some more
-efficient data analysis. (see the accompanying .do file).
+efficient data analysis. (see the accompanying assignment6.do file).
 
 Essentially, I used a user-created command, "crossfold",
 which I set to have 10-fold cross-validation for each
@@ -84,7 +84,9 @@ respectively). The 3rd order polynomial has the highest R2 value
 of .641. 
 
 Judging by these values, the *3rd order polynomial* seems to be
-the best choice for fitting the model.
+the best choice for fitting the model, since the gain in the R2
+outweighs the 10 point higher RMSE score when compared to the 2nd
+order polynomial.
 
 figure5.png displays the RMSE and R2 for the updated dataset.
 Clearly, the 1st order polynomial, aka the linear model, has
@@ -100,12 +102,69 @@ PART C
 
 figure6.png (original dataset) and figure7.png (updated data
 set) display the regression lines for the 1st through 5th 
-polynomials for the entirety of each respective dataset,
+polynomials for the entirety of each respective dataset.
+
+***From here on out I will only use the original dataset (i.e.
+"labeled_data.csv" and not use the updated dataset anymore,
+as that seems to be what the homework assignment implies.***
 
 
 For the entire set, I used Python and Matplotlib to compute the 
 RMSE and R2 for the 1st order polynomial model, but was unable 
 to figure out how to do it for the higher order ones. Therefore, 
-the 2nd through 5th were computed in Stata.
+the 2nd through 5th were computed in Stata, as is allowed.
 
-figure8.png displays the 
+figure8.png displays the RMSE values of the full dataset models
+and the 10-fold cross-validated training set models. We can clearly
+see that the Full Dataset (in black) has lower RMSE values for each
+order polynommial than the 10-fold set (in blue). However, the 2nd
+order polynomial models for both are very close, nearly converging.
+
+
+
+PART D
+------
+
+As previously mentioned, the third order polynomial model seems to be
+the most accurate and has the highest R2 value and lowest RMSE value.
+My final OLS model is based off of this equation: 
+ 
+	t ~ w_0 + w_1*x1 + w2*x^2 + w3*x^3
+
+Or as the ouput from Stata gives me:
+
+	t ~ 2301.142 -.3857281*x + .0000249*x^2 - 1.45e-10*x^3 
+
+The predicted values on the regressionn line can be seen in figure9.png.
+I used Stata to output predicted values for the 10-fold CV model into
+a csv file. I then used Python to plot them. The blue line is the regression
+line for the full data set. The red dots are those of the 10-fold cv model.
+As one can see, the 10-fold model is very close to predicting the predicted
+values of the full training set.
+
+
+PART E
+------
+
+I would expect a fairly similar average RMSE value to that of my model
+when using the unlabeled data set. I think this because of the accuracy
+of the 3rd order 10-fold model on that of the full training set, as explained
+in Part D and from figure9.png. I believe, in general, that the accuracy
+and performance of all of these models would be drastically improved by
+removing the zipcodes with extremely low num_incident values. Clearly, there
+is some intrinsic diference between those zipcodes and the ones that have
+increasing num_incidents with increasing populations. It is like comparing
+apples and oranges. Moreover, as I mentioned at the beginning of this
+text report, keeping them in violates the assumption of OLS that there be
+a linear relationship between the predictor variables with the dependent
+variable.
+
+
+
+
+
+
+
+
+
+

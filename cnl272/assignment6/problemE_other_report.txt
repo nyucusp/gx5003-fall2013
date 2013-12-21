@@ -1,0 +1,19 @@
+Problem A
+1. Plot the scatter diagram with the data of zip code and number of incidents from labeled_data
+2. Plot the scatter diagram with the data of polulation and number of incidents from labeled_data
+There seems to be no obvious correlation between zip code and number of incidents, however, the number of incidents increases when the population increases. 
+
+Problem B
+The average R^2 Scores of the polynomial model from 1 to 5th order are 0.612196411756, 0.633639516904, 0.643731702694, 0.644957135134, 0.646192647889. 
+The average RMSE are 13309.9154621, 13087.0043959, 13002.8889334, 13181.7447674, 13542.6426798.
+As shown in the plot and the values above, the polynomial with the third degree has the overall best performance, which fits for the population data to number of incidents the best.
+
+Problem C
+As shown in the plot, the degree of polynimoal increase while the RMSE of the whole dataset decrease. The higher the polynomial fit, the lower the RMSE would be. And the third order has the lowest RMSE value. 
+
+Problem D
+I used the third degree polynomial which has the best fit to model the number of incidents by population in the unlabeled_data. The predicted value also shown in the output.csv file as the test data. 
+
+Problem E
+The third degree polynomial has the best performance in previous caculation, the performance I expect to achieve with the model on the unlabeled data is around 13000 based on these estimations. 
+The performance could be improved by expanding the dataset on time scale and existing attributes. With more data points such as historical characteristics, the cross validation folder-order could be increased, which would improve the model. And the performance of average RMSE could also be improved if the attributes have higher correlations with the number of incidents, the prediction of it with unlabeled data would also be more accurate. 

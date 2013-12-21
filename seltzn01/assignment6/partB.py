@@ -1,6 +1,6 @@
 # Nathan Seltzer
 # Homework 6
-# 6bpart2.py
+# partB.py
 
 """
 Since we are now able to use any other "language" to solve

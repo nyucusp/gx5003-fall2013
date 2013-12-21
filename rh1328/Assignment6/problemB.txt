@@ -1,0 +1,13 @@
+
+dictionary of RMSE and orders (order:value) where orders 0-4 correspond to the requested orders 1-5: 
+
+{0: 34639.912416923638, 1: 45537.628442648172, 2: 54247.356485248514, 3: 61725.309617849649, 4: 68383.256059785461}
+
+
+dictionary of R Squared and orders (order:value) where orders 0-4 correspond to the requested orders 1-5:
+
+{0: 0.0, 1: 0.61218333444745954, 2: 0.63334620309086298, 3: 0.64277766488708821, 4: 0.64359456818790672}
+
+
+
+We ideally want to choose a polynomial order which exhibits the lowest average RMSE and the largest R Squared value. There is no clear cut answer given the resulting data shown above because RMSE and R^2 are positively correlated. I would choose either order 3 or 4 since this would cut out the extremes on either end. I will choose 3 (with RMSE of ~5427 and R^2 of 0.6333..) since this model gives the average of the extremes. 

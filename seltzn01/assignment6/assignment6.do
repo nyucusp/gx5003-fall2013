@@ -1,5 +1,5 @@
 clear all
-insheet using "C:\Users\Nathan\Desktop\Informatics HW\labeled_data.csv", comma
+insheet using "C:\Users\Nathan\Desktop\GIT\gx5003-fall2013\seltzn01\assignment6\labeled_data.csv"
 
 *create 2nd to 5th order polynomial
 

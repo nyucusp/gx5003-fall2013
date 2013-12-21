@@ -1,6 +1,6 @@
 # Nathan Seltzer
 # Homework 6
-# assignment6b.py
+# partB2.py
 
 
 import matplotlib.pyplot as plt
@@ -243,15 +243,6 @@ print "y = -681 +"
 
 
 
-print "p1 - R-sqaured = .6991 RMSE = 12077"
-print "p2 - R-sqaured = .7018 RMSE = 12073"
-print "p3 - R-sqaured = .7051 RMSE = 12055"
-print "p4 - R-sqaured = .7053 RMSE = 12102"
-print "p5 - R-sqaured = .7053 RMSE = 12153"
-
-
-
-
 # y_pred = polyval([coefs], xp) 
  
 # # how good is the fit?
@@ -265,9 +256,7 @@ print "p5 - R-sqaured = .7053 RMSE = 12153"
 # print MSE
 # plt.plot(xp, p3(xp), 'r')
 # scatter(Pop,Ni)
-# plt.title("Scatter Plot of Genes A and Gene B \n with fifth-degree polynomial fitted line")
-# plt.ylabel("Gene A")
-# plt.xlabel("Gene B")
+
 show()
 
 
