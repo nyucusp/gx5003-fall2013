@@ -138,4 +138,5 @@ print "Saving prediction output for NYC zipcodes as problemDOutput.csv..."
 combopredDF = pd.concat([ulnycDF,ulnonNYCDF])
 combopredDF = combopredDF.sort()
 combopredDF.to_csv('problemDOutput.csv')
+combopredDF.to_csv('predictions.csv')
 
