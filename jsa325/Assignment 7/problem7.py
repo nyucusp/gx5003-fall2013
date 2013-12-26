@@ -43,7 +43,7 @@ def functionLabel(title, ylabel, xlabel, axes):
 # Read and format data
 
 fileLetter = open('letter-recognition.data', 'rU')
-listTrain = list(islice(fileLetter, 16000))
+listTrain = list(islice(fileLetter, 1000))
 listPredict = list(fileLetter)
 
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -59,7 +59,6 @@ def functionClean(listSample):
 		targetClean.append(numAlphabet[lineClean.pop(0)])
 		lineClean[-1] = lineClean[-1].strip('\n')
 		lineInt = [int(x) for x in lineClean]
-#		print lineInt
 		dataClean.append(lineInt)
 	return dataClean, targetClean
 
@@ -78,8 +77,8 @@ scores = []
 stdev = []
 
 def functionAdd(mean, variance):
-	scores.append(mean)
-	stdev.append(variance)
+    scores.append(mean)
+    stdev.append(variance)
 
 # Support Vector Classifier (SVC)
 
@@ -87,16 +86,16 @@ svc = SVC(kernel='rbf', random_state=None)
 scoreSVC = cross_val_score(svc, trainClean, trainTarget, cv=10)
 functionAdd(np.mean(scoreSVC), np.std(scoreSVC))
 
-print "SVC cross-validation score = ", scores[0]
+print "SVC cross-validation score =", format(scores[0], '.2f')
 
 # K-NN classifier
 
 kn = KNeighborsClassifier(weights='distance', n_neighbors=4, \
-	algorithm='ball_tree')
+    algorithm='ball_tree')
 scoreKN = cross_val_score(kn, trainClean, trainTarget, cv=10)
 functionAdd(np.mean(scoreKN), np.std(scoreKN))
 
-print "K-NN cross-validation score = ", scores[1]
+print "K-NN cross-validation score =", format(scores[1], '0.2f')
 
 # Logistic Regression classifier
 
@@ -104,13 +103,13 @@ lr = LogisticRegression()
 scoreLR = cross_val_score(lr, trainClean, trainTarget, cv=10)
 functionAdd(np.mean(scoreLR), np.std(scoreLR))
 
-print "Logistic Regression cross-validation score = ", scores[2]
+print "Logistic Regression cross-validation score =", format(scores[2], '0.2f')
 
 # On the first 16,000 data entries:
 # SVC cross-validation score = 0.970875
 # K-NN cross-validation score = 0.9560625
 # Logistic Regression cross-validation score = 0.7196875
-"""
+
 # Plot results of cross-validation
 
 labels = ["Support Vector Classification", "K-Nearest Neighbors", \
@@ -122,7 +121,7 @@ for index, item in enumerate(scores):
                  zorder=3, capsize=6, ms=10, elinewidth=1.5, mew=1.5, \
                  c='tomato', ecolor = 'tomato', fmt='|')
     plt.text(index, scores[index]-0.02, str(scores[index]), color='white', \
-             ha='center')
+    	ha='center')
 
 ax = plt.subplot(111)
 ax.set_xlim([-0.49,2.49])
@@ -146,30 +145,30 @@ functionLabel("10-Fold Cross-Validation Accuracy", "", "", ax)
 pylab.xticks([0,1,2], labels)
 
 plt.savefig('CV for Classification Methods.png', dpi=300)
-plt.show()
+# plt.show()
 
 # Logistic Regression performs substantially worse than both SVC and K-NN.
 # Both SVC and K-NN perform decently well. 
 
-# Logistic Regression could be performing poorly because it is a linear model.
+# Logistic Regression could be performing poorly because it's a linear model.
 # If I set kernel='linear' for the SVC classifier, the cross-validation score 
 # drops from 0.970875 to 0.8525. While we're on the topic, the SVC classifier
 # performs best when the kernel parameter is left unspecified (the parameter
 # defaults to kernel='rbf').
-"""
-# Predictions on last 4,000 data entries
+
+# Prediction performance on last 4,000 data entries
 
 print "\nPERFORMANCE:\n------------"
 
 def functionPerformance(model):
 	model.fit(trainClean, trainTarget) # fit model according to training data
-	print "model accuracy is", model.score(predictClean, predictTarget) 
+	print "model accuracy is", model.score(predictClean, predictTarget)
 	# gives mean accuracy on test data, labels
 	predictedTargets = model.predict(predictClean) # perform classification
 	print "Model performance report:\n"
-	print classification_report(predictTarget, predictedTargets, \
+	return classification_report(predictTarget, predictedTargets, \
 		target_names=alphabet)
-	
+
 # SVC performance
 
 print "SVC", functionPerformance(svc), '\n', '-'*80, '\n'
@@ -183,21 +182,20 @@ print "K-NN", functionPerformance(kn), '\n', '-'*80, '\n'
 print "Logistic Regression", functionPerformance(lr), '\n', '-'*80, '\n'
 
 # SVC model accuracy is 97% 
-# Precision: 0.99358974359
-# Recall: 0.99358974359
-# F-score: 0.99358974359 
-
 # K-NN model accuracy is 96%
-# Precision: 0.987179487179
-# Recall: 0.987179487179
-# F-score: 0.987179487179
-
 # LR model accuracy is 71%
-# Precision: 0.88
-# Recall: 0.846153846154
-# F-score: 0.862745098039
 
-# TO DO: set model parameters for each classifier
-# TO DO: justify parameters chosen for each classifier
-# TO DO: explain results of cross-validation, predictions
-# TO DO: classification_report is retuning "None" after text report
+# TO DO:
+
+# Cross-Validation
+# + [ ] explain model parameters, results
+# + [ ] define single cross-validation function that calls each model
+
+# Plotting
+# + [ ] fix decimal places in plot labels
+
+# Performance
+# + [ ] explain model parameters, results
+# + [ ] return accuracy rounded to second decimal place
+# + [x] classification_report retuning "None"
+# + [ ] bring calls into functionPerformance
