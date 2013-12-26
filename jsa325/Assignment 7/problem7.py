@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pylab
 
-from sklearn.decomposition import PCA
 from sklearn.cross_validation import cross_val_score
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
@@ -74,9 +73,6 @@ predictTarget = np.array(predictTarget)
 
 print "\nCROSS-VALIDATION SCORES:\n------------------------"
 
-pca = PCA(n_components='mle')
-dataPCA = pca.fit_transform(trainClean)
-
 scores = []
 stdev = []
 
@@ -112,7 +108,7 @@ print "Logistic Regression cross-validation score = ", scores[2]
 # On the first 16,000 data entries:
 # SVC cross-validation score = 0.970875
 # K-NN cross-validation score = 0.9560625
-# Logistic Regression cross-validation score = 0.719625
+# Logistic Regression cross-validation score = 0.7196875
 
 # Plot results of cross-validation
 
@@ -152,10 +148,11 @@ plt.savefig('CV for Classification Methods.png', dpi=300)
 plt.show()
 
 # Logistic Regression performs substantially worse than both SVC and K-NN.
-# Both SVC and K-NN perform decently well, so I continue with these two
-# models.
+# Both SVC and K-NN perform decently well. 
 
-# TO DO: explain these results
+# Logistic Regression could be per forming poorly because it is a linear model.
+# If I set kernel='linear' for SVC classifier, the cross-validation score drops
+# from 0.970875 to 0.8525.
 
 # Predictions on last 4,000 data entries
 
@@ -163,15 +160,16 @@ print "\nPREDICTIONS:\n------------"
 
 # SVC predictions
 
-svc.fit(trainClean, trainTarget)
+svc.fit(trainClean, trainTarget) # fit model according to training data
 print "SVC model accuracy is ", svc.score(predictClean, predictTarget), '\n'
+# gives mean accuracy on test data, labels
 
 countActual = 0
 countPredicted = 0
 type1 = 0
 type2 = 0
 
-predictedTargets = svc.predict(predictClean)
+predictedTargets = svc.predict(predictClean) # perform classification
 for line in zip(predictTarget, predictedTargets):
     if line[0] == 0:
         countActual += 1
@@ -197,15 +195,16 @@ print 'F-score:', scoreF, '\n'
 
 # K-NN predictions
 
-kn.fit(trainClean, trainTarget)
+kn.fit(trainClean, trainTarget) # fit model according to training data
 print "K-NN model accuracy is ", kn.score(predictClean, predictTarget), '\n'
+# gives mean accuracy on test data, labels
 
 countActual = 0
 countPredicted = 0
 type1 = 0
 type2 = 0
 
-predictedTargets = kn.predict(predictClean)
+predictedTargets = kn.predict(predictClean) # perform classification
 for line in zip(predictTarget, predictedTargets):
     if line[0] == 0:
         countActual += 1
@@ -229,4 +228,57 @@ print 'Recall:', recall
 scoreF = 2*precision*recall/(precision+recall)
 print 'F-score:', scoreF, '\n'
 
-# TO DO: explain these results
+# Logistic Regression predictions
+
+lr.fit(trainClean, trainTarget) # fit model according to training data
+print "Logistic Regression model accuracy is ", lr.score(predictClean, \
+	predictTarget), '\n'
+# gives mean accuracy on test data, labels
+
+countActual = 0
+countPredicted = 0
+type1 = 0
+type2 = 0
+
+predictedTargets = lr.predict(predictClean)
+for line in zip(predictTarget, predictedTargets):
+    if line[0] == 0:
+        countActual += 1
+        if line[0] != line[1]:
+            type2 += 1
+    if line[1] == 0:
+        countPredicted += 1
+        if line[0] != line[1]:
+            type1 += 1
+
+precision = float(countPredicted - type1)/countPredicted
+recall = float(countActual - type2)/countActual
+
+print "Total predicted A's:", countPredicted
+print "Total actual A's:", countActual
+print "Type 1 Errors:", type1
+print "Type 2 Errors:", type2, '\n'
+print 'Precision:', precision
+print 'Recall:', recall
+
+scoreF = 2*precision*recall/(precision+recall)
+print 'F-score:', scoreF, '\n'
+
+# SVC model accuracy is 97% 
+# Precision: 0.99358974359
+# Recall: 0.99358974359
+# F-score: 0.99358974359 
+
+# K-NN model accuracy is 96%
+# Precision: 0.987179487179
+# Recall: 0.987179487179
+# F-score: 0.987179487179
+
+# LR model accuracy is 71%
+# Precision: 0.88
+# Recall: 0.846153846154
+# F-score: 0.862745098039
+
+# TO DO: set or automate model parameter selection for each classifier
+# TO DO: justify parameters for all three classifiers
+# TO DO: explain results of cross-validation, predictions
