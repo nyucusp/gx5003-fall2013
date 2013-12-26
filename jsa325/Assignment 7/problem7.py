@@ -82,7 +82,7 @@ def functionAdd(mean, variance):
 
 # Support Vector Classifier (SVC)
 
-svc = SVC(random_state=None)
+svc = SVC(kernel='sigmoid', random_state=None)
 scoreSVC = cross_val_score(svc, trainClean, trainTarget, cv=10)
 functionAdd(np.mean(scoreSVC), np.std(scoreSVC))
 
@@ -150,9 +150,11 @@ plt.show()
 # Logistic Regression performs substantially worse than both SVC and K-NN.
 # Both SVC and K-NN perform decently well. 
 
-# Logistic Regression could be per forming poorly because it is a linear model.
-# If I set kernel='linear' for SVC classifier, the cross-validation score drops
-# from 0.970875 to 0.8525.
+# Logistic Regression could be performing poorly because it is a linear model.
+# If I set kernel='linear' for the SVC classifier, the cross-validation score 
+# drops from 0.970875 to 0.8525. While we're on the topic, the SVC classifier
+# performs best when the kernel parameter is left unspecified (the parameter
+# defaults to kernel='rbf').
 
 # Predictions on last 4,000 data entries
 
@@ -232,8 +234,7 @@ print 'F-score:', scoreF, '\n'
 
 lr.fit(trainClean, trainTarget) # fit model according to training data
 print "Logistic Regression model accuracy is ", lr.score(predictClean, \
-	predictTarget), '\n'
-# gives mean accuracy on test data, labels
+	predictTarget), '\n' # gives mean accuracy on test data, labels
 
 countActual = 0
 countPredicted = 0
@@ -279,6 +280,7 @@ print 'F-score:', scoreF, '\n'
 # Recall: 0.846153846154
 # F-score: 0.862745098039
 
-# TO DO: set or automate model parameter selection for each classifier
-# TO DO: justify parameters for all three classifiers
+# TO DO: set model parameters for each classifier
+# TO DO: justify parameters chosen for each classifier
+# TO DO: use built-in libraries to compute accuracy, precision, recall, F-score
 # TO DO: explain results of cross-validation, predictions
