@@ -43,7 +43,7 @@ def functionLabel(title, ylabel, xlabel, axes):
 # Read and format data
 
 fileLetter = open('letter-recognition.data', 'rU')
-listTrain = list(islice(fileLetter, 1000))
+listTrain = list(islice(fileLetter, 16000))
 listPredict = list(fileLetter)
 
 alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -145,7 +145,7 @@ functionLabel("10-Fold Cross-Validation Accuracy", "", "", ax)
 pylab.xticks([0,1,2], labels)
 
 plt.savefig('CV for Classification Methods.png', dpi=300)
-# plt.show()
+plt.show()
 
 # Logistic Regression performs substantially worse than both SVC and K-NN.
 # Both SVC and K-NN perform decently well. 
