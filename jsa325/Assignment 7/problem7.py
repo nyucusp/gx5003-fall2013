@@ -7,6 +7,7 @@ from sklearn.cross_validation import cross_val_score
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
 
 # Set formatting parameters
 
@@ -82,7 +83,7 @@ def functionAdd(mean, variance):
 
 # Support Vector Classifier (SVC)
 
-svc = SVC(kernel='sigmoid', random_state=None)
+svc = SVC(kernel='rbf', random_state=None)
 scoreSVC = cross_val_score(svc, trainClean, trainTarget, cv=10)
 functionAdd(np.mean(scoreSVC), np.std(scoreSVC))
 
@@ -109,7 +110,7 @@ print "Logistic Regression cross-validation score = ", scores[2]
 # SVC cross-validation score = 0.970875
 # K-NN cross-validation score = 0.9560625
 # Logistic Regression cross-validation score = 0.7196875
-
+"""
 # Plot results of cross-validation
 
 labels = ["Support Vector Classification", "K-Nearest Neighbors", \
@@ -155,115 +156,31 @@ plt.show()
 # drops from 0.970875 to 0.8525. While we're on the topic, the SVC classifier
 # performs best when the kernel parameter is left unspecified (the parameter
 # defaults to kernel='rbf').
-
+"""
 # Predictions on last 4,000 data entries
 
-print "\nPREDICTIONS:\n------------"
+print "\nPERFORMANCE:\n------------"
 
-# SVC predictions
+def functionPerformance(model):
+	model.fit(trainClean, trainTarget) # fit model according to training data
+	print "model accuracy is", model.score(predictClean, predictTarget) 
+	# gives mean accuracy on test data, labels
+	predictedTargets = model.predict(predictClean) # perform classification
+	print "Model performance report:\n"
+	print classification_report(predictTarget, predictedTargets, \
+		target_names=alphabet)
+	
+# SVC performance
 
-svc.fit(trainClean, trainTarget) # fit model according to training data
-print "SVC model accuracy is ", svc.score(predictClean, predictTarget), '\n'
-# gives mean accuracy on test data, labels
+print "SVC", functionPerformance(svc), '\n', '-'*80, '\n'
 
-countActual = 0
-countPredicted = 0
-type1 = 0
-type2 = 0
+# K-NN performance
 
-predictedTargets = svc.predict(predictClean) # perform classification
-for line in zip(predictTarget, predictedTargets):
-    if line[0] == 0:
-        countActual += 1
-        if line[0] != line[1]:
-            type2 += 1
-    if line[1] == 0:
-        countPredicted += 1
-        if line[0] != line[1]:
-            type1 += 1
+print "K-NN", functionPerformance(kn), '\n', '-'*80, '\n'
 
-precision = float(countPredicted - type1)/countPredicted
-recall = float(countActual - type2)/countActual
+# Logistic Regression performance
 
-print "Total predicted A's:", countPredicted
-print "Total actual A's:", countActual
-print "Type 1 Errors:", type1
-print "Type 2 Errors:", type2, '\n'
-print 'Precision:', precision
-print 'Recall:', recall
-
-scoreF = 2*precision*recall/(precision+recall)
-print 'F-score:', scoreF, '\n'
-
-# K-NN predictions
-
-kn.fit(trainClean, trainTarget) # fit model according to training data
-print "K-NN model accuracy is ", kn.score(predictClean, predictTarget), '\n'
-# gives mean accuracy on test data, labels
-
-countActual = 0
-countPredicted = 0
-type1 = 0
-type2 = 0
-
-predictedTargets = kn.predict(predictClean) # perform classification
-for line in zip(predictTarget, predictedTargets):
-    if line[0] == 0:
-        countActual += 1
-        if line[0] != line[1]:
-            type2 += 1
-    if line[1] == 0:
-        countPredicted += 1
-        if line[0] != line[1]:
-            type1 += 1
-
-precision = float(countPredicted - type1)/countPredicted
-recall = float(countActual - type2)/countActual
-
-print "Total predicted A's:", countPredicted
-print "Total actual A's:", countActual
-print "Type 1 Errors:", type1
-print "Type 2 Errors:", type2, '\n'
-print 'Precision:', precision
-print 'Recall:', recall
-
-scoreF = 2*precision*recall/(precision+recall)
-print 'F-score:', scoreF, '\n'
-
-# Logistic Regression predictions
-
-lr.fit(trainClean, trainTarget) # fit model according to training data
-print "Logistic Regression model accuracy is ", lr.score(predictClean, \
-	predictTarget), '\n' # gives mean accuracy on test data, labels
-
-countActual = 0
-countPredicted = 0
-type1 = 0
-type2 = 0
-
-predictedTargets = lr.predict(predictClean)
-for line in zip(predictTarget, predictedTargets):
-    if line[0] == 0:
-        countActual += 1
-        if line[0] != line[1]:
-            type2 += 1
-    if line[1] == 0:
-        countPredicted += 1
-        if line[0] != line[1]:
-            type1 += 1
-
-precision = float(countPredicted - type1)/countPredicted
-recall = float(countActual - type2)/countActual
-
-print "Total predicted A's:", countPredicted
-print "Total actual A's:", countActual
-print "Type 1 Errors:", type1
-print "Type 2 Errors:", type2, '\n'
-print 'Precision:', precision
-print 'Recall:', recall
-
-scoreF = 2*precision*recall/(precision+recall)
-print 'F-score:', scoreF, '\n'
+print "Logistic Regression", functionPerformance(lr), '\n', '-'*80, '\n'
 
 # SVC model accuracy is 97% 
 # Precision: 0.99358974359
@@ -282,5 +199,5 @@ print 'F-score:', scoreF, '\n'
 
 # TO DO: set model parameters for each classifier
 # TO DO: justify parameters chosen for each classifier
-# TO DO: use built-in libraries to compute accuracy, precision, recall, F-score
 # TO DO: explain results of cross-validation, predictions
+# TO DO: classification_report is retuning "None" after text report
